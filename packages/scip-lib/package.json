@@ -1,0 +1,52 @@
+{
+  "name": "scip-lib",
+  "version": "1.0.0",
+  "description": "Smart Contract Invocation Protocol parser library",
+  "keywords": [
+    "SCIP",
+    "Smart",
+    "Contract",
+    "Protocol",
+    "Blockchain",
+    "Integration"
+  ],
+  "author": "lampajr <lampa9559@gmail.com>",
+  "homepage": "https://github.com/lampajr/toolscip/tree/master/packages/scip-lib#readme",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10.16.3"
+  },
+  "main": "dist/index.js",
+  "type": "dist/index.d.ts",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lampajr/toolscip.git"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run format && npm run lint && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "bugs": {
+    "url": "https://github.com/lampajr/toolscip/issues"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "@lampajr/jsonrpc-lib": "^0.1.1"
+  }
+}

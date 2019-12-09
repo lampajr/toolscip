@@ -1,0 +1,14 @@
+# configuration files
+tsconfig.json
+tslint.json
+jestconfig.json
+.prettierc
+.gitattributes
+
+# source code
+src
+# tests
+__tests__
+
+# documentation folder
+docs

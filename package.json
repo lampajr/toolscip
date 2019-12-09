@@ -1,0 +1,33 @@
+{
+  "name": "toolscip",
+  "private": true,
+  "scripts": {
+    "clean": "lerna run clean",
+    "build": "lerna run build",
+    "publish": "lerna publish"
+  },
+  "devDependencies": {
+    "lerna": "^3.19.0",
+    "typescript": "^3.7.3"
+  },
+  "description": "Smart Contract Invocation Protocol tools repository",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lampajr/toolscip.git"
+  },
+  "keywords": [
+    "SCIP",
+    "SCDL",
+    "Blokchain",
+    "Integration",
+    "Smart",
+    "Contract",
+    "Integration"
+  ],
+  "author": "Andrea Lamparelli",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/lampajr/toolscip/issues"
+  },
+  "homepage": "https://github.com/lampajr/toolscip#readme"
+}

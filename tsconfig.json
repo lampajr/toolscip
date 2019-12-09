@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": ["es2017", "es7", "es6", "dom"],
+        "declaration": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "baseUrl": "./packages",
+        "paths": {
+            "@lampajr/scip-lib": ["scip-lib/src"],
+            "@lampajr/scdl-lib": ["scdl-lib/src"],
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "tests",
+        "docs"
+    ]
+}
