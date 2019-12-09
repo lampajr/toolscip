@@ -35,7 +35,8 @@
     "compile": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "docs": "typedoc --out docs src/*"
   },
   "bugs": {
     "url": "https://github.com/lampajr/toolscip/issues"

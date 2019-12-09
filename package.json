@@ -2,9 +2,11 @@
   "name": "toolscip",
   "private": true,
   "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
     "clean": "lerna run clean",
     "build": "lerna run build",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "docs": "lerna run docs"
   },
   "devDependencies": {
     "lerna": "^3.19.0",
