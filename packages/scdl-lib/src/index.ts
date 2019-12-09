@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { types } from '@lampajr/scip-lib';
 import utils, { Invocable, Subscribable, Queryable } from './utils';
 import { ISCDL, IFunction, IEvent } from './scdl';

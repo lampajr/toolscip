@@ -1,5 +1,5 @@
 {
-  "name": "scip-lib",
+  "name": "@lampajr/scip-lib",
   "version": "1.0.0",
   "description": "Smart Contract Invocation Protocol parser library",
   "keywords": [
@@ -32,7 +32,7 @@
   "scripts": {
     "build": "npm run clean && npm run format && npm run lint && npm run compile",
     "clean": "rm -rf ./dist",
-    "compile": "tsc",
+    "compile": "tsc -b tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "prepublishOnly": "npm run build",
@@ -40,12 +40,6 @@
   },
   "bugs": {
     "url": "https://github.com/lampajr/toolscip/issues"
-  },
-  "devDependencies": {
-    "prettier": "^1.19.1",
-    "tslint": "^5.20.1",
-    "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.7.3"
   },
   "dependencies": {
     "@lampajr/jsonrpc-lib": "^0.1.1"

@@ -2,14 +2,21 @@
   "name": "toolscip",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist",
+    "bootstrap": "lerna bootstrap",
     "clean": "lerna run clean",
     "build": "lerna run build",
     "publish": "lerna publish",
     "docs": "lerna run docs"
   },
+  "dependencies": {
+    "scdl-lib": "file:packages/scdl-lib",
+    "scip-lib": "file:packages/scip-lib"
+  },
   "devDependencies": {
     "lerna": "^3.19.0",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.7.3"
   },
   "description": "Smart Contract Invocation Protocol tools repository",

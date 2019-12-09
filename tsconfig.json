@@ -11,8 +11,8 @@
         "esModuleInterop": true,
         "baseUrl": "./packages",
         "paths": {
-            "@lampajr/scip-lib": ["scip-lib/src"],
-            "@lampajr/scdl-lib": ["scdl-lib/src"],
+            "@lampajr/scip-lib": ["scip-lib/dist"],
+            "@lampajr/scdl-lib": ["scdl-lib/dist"],
         }
     },
     "exclude": [
