@@ -1,0 +1,58 @@
+{
+  "name": "@lampajr/clscip",
+  "version": "1.0.0",
+  "description": "Command line interface for SCIP requests invocation",
+  "keywords": [
+    "SCIP",
+    "SCDL",
+    "CLI",
+    "Blockchain",
+    "Integration",
+    "Smart",
+    "Contracts"
+  ],
+  "author": "lampajr <lampa9559@gmail.com>",
+  "homepage": "https://github.com/lampajr/toolscip/tree/master/packages/clscip#readme",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "type": "dist/index.d.ts",
+  "bin": {
+    "clscip": "dist/index.js"
+  },
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lampajr/toolscip.git"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run format && npm run lint && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc -b tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepublishOnly": "npm run build",
+    "docs": "typedoc --out docs src/*"
+  },
+  "bugs": {
+    "url": "https://github.com/lampajr/toolscip/issues"
+  },
+  "dependencies": {
+    "@lampajr/scdl-lib": "^1.0.0",
+    "@lampajr/scip-lib": "^1.0.0",
+    "chalk": "^3.0.0",
+    "clear": "^0.1.0",
+    "commander": "^4.0.1",
+    "figlet": "^1.2.4",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@types/clear": "^0.1.0",
+    "@types/figlet": "^1.2.0"
+  }
+}
