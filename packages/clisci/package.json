@@ -1,0 +1,81 @@
+{
+  "name": "@lampajr/clisci",
+  "description": "Command Line Interface for Smart Contracts interaction",
+  "version": "1.0.0",
+  "author": "lampajr @lampajr",
+  "bin": {
+    "clisci": "./bin/run"
+  },
+  "bugs": {
+    "url": "https://github.com/lampajr/toolscip/issues"
+  },
+  "dependencies": {
+    "@lampajr/scdl-lib": "^1.0.0",
+    "@lampajr/scip-lib": "^1.0.0",
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.13.3",
+    "@oclif/plugin-help": "^2.2.2",
+    "fs-extra": "^8.1.0",
+    "inquirer": "^7.0.0",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "@types/fs-extra": "^8.0.1",
+    "@types/inquirer": "^6.5.0",
+    "@types/node": "^10.17.9",
+    "eslint": "^5.16.0",
+    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif-typescript": "^0.1.0",
+    "globby": "^10.0.1",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/lampajr/toolscip/tree/master/packages/clisci#readme",
+  "keywords": [
+    "oclif",
+    "SCIP",
+    "SCDL",
+    "Command Line Interface",
+    "Blockchain Integration",
+    "Smart Contracts"
+  ],
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "oclif": {
+    "commands": "./dist/commands",
+    "bin": "clisci",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lampajr/toolscip.git"
+  },
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "posttest": "eslint . --ext .ts --config .eslintrc",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md",
+    "build": "npm run clean && npm run format && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc -b tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "global": "sudo npm i -g",
+    "docs": "typedoc --out docs src/*"
+  },
+  "types": "dist/index.d.ts"
+}
