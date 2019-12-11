@@ -13,7 +13,7 @@
         "paths": {
             "@lampajr/scip-lib": ["scip-lib/dist"],
             "@lampajr/scdl-lib": ["scdl-lib/dist"],
-            "@lampajr/clscip": ["scdl-lib/dist"],
+            "@lampajr/clisci": ["clisci/dist"],
         }
     },
     "exclude": [
