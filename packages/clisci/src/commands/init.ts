@@ -21,6 +21,7 @@ export default class Init extends Command {
 
   /**
    * Prompts the initialization questions
+   * TODO: check that folder is not empty
    */
   private async ask() {
     const formatChoices = ['scdl'];
@@ -69,8 +70,8 @@ export default class Init extends Command {
    */
   private createDirectory(path: string) {
     fs.mkdirp(path)
-      .then(value => {
-        console.log(`Directory at '${value}' successfully created!`);
+      .then(_ => {
+        console.log(`Directory at '${path}' successfully created!`);
       })
       .catch(err => {
         console.error(err);
@@ -93,12 +94,13 @@ export default class Init extends Command {
         const descriptorsDir: string = join(configDir, Init.descriptors);
 
         this.createDirectory(configDir);
-        this.createDirectory(descriptorsDir);
         for (const format of clisciConfig.formats) {
           this.createDirectory(join(descriptorsDir, format));
         }
 
-        fs.writeJSON(join(clisciConfig.dir, `${Init.file}.json`), clisciConfig)
+        fs.writeJSON(join(clisciConfig.dir, `${Init.file}.json`), clisciConfig, {
+          spaces: '\t',
+        })
           .then(value => {
             console.log(`Configuration file '${Init.file}' successfully created!`);
           })
