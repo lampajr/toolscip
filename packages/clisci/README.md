@@ -28,9 +28,24 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`clisci descriptors [FILE]`](#clisci-descriptors-file)
 * [`clisci hello [FILE]`](#clisci-hello-file)
 * [`clisci help [COMMAND]`](#clisci-help-command)
 * [`clisci init [FILE]`](#clisci-init-file)
+
+## `clisci descriptors [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ clisci descriptors [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
 
 ## `clisci hello [FILE]`
 
@@ -49,6 +64,8 @@ EXAMPLE
   $ clisci hello
   hello world from ./src/hello.ts!
 ```
+
+_See code: [dist/commands/hello.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/hello.ts)_
 
 ## `clisci help [COMMAND]`
 
@@ -69,15 +86,16 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2
 
 ## `clisci init [FILE]`
 
-describe the command here
+Initialize the 'clisci' command line tool.
 
 ```
 USAGE
   $ clisci init [FILE]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -g, --global  Initialize the folder in the user's home directory.
+  -h, --help    show CLI help
 ```
+
+_See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
 <!-- commandsstop -->

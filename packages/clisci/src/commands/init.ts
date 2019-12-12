@@ -9,7 +9,8 @@ import { Config } from '../utils';
 export default class Init extends Command {
   static folder = '.clisci';
   static descriptors = 'descriptors';
-  static file = 'sciconfig';
+  static file = 'sciconfig.json';
+  static supportedFormats = ['scdl'];
   static description = `Initialize the 'clisci' command line tool.`;
 
   static flags = {
@@ -24,7 +25,6 @@ export default class Init extends Command {
    * TODO: check that folder is not empty
    */
   private async ask() {
-    const formatChoices = ['scdl'];
     const checked = ['scdl'];
 
     return inquirer.prompt([
@@ -43,7 +43,7 @@ export default class Init extends Command {
         type: 'checkbox',
         name: 'formats',
         message: 'Which formats do you want to use?',
-        choices: formatChoices,
+        choices: Init.supportedFormats,
         default: checked,
       },
       {
@@ -98,7 +98,7 @@ export default class Init extends Command {
           this.createDirectory(join(descriptorsDir, format));
         }
 
-        fs.writeJSON(join(clisciConfig.dir, `${Init.file}.json`), clisciConfig, {
+        fs.writeJSON(join(clisciConfig.dir, Init.file), clisciConfig, {
           spaces: '\t',
         })
           .then(value => {
