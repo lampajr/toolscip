@@ -28,31 +28,10 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`clisci hello [FILE]`](#clisci-hello-file)
 * [`clisci help [COMMAND]`](#clisci-help-command)
 * [`clisci init [FILE]`](#clisci-init-file)
+* [`clisci invoke`](#clisci-invoke)
 * [`clisci scdl [FILE]`](#clisci-scdl-file)
-
-
-## `clisci hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ clisci hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ clisci hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [dist/commands/hello.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/hello.ts)_
 
 ## `clisci help [COMMAND]`
 
@@ -73,18 +52,45 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2
 
 ## `clisci init [FILE]`
 
-Initialize the 'clisci' command line tool.
+Initialize the 'clisci' configuration files in the current directory.
 
 ```
 USAGE
   $ clisci init [FILE]
 
 OPTIONS
-  -g, --global  Initialize the folder in the user's home directory.
   -h, --help    show CLI help
+  -s, --server  Initialize a simple 'express.js' server for receive asynchronous responses
 ```
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
+
+## `clisci invoke`
+
+describe the command here
+
+```
+USAGE
+  $ clisci invoke
+
+OPTIONS
+  -F, --format=format      [default: scdl] descriptor format
+  -a, --auth=auth          authorization token
+  -c, --contract=contract  (required) contract's name
+  -d, --doc=doc            degree of confidence
+  -f, --function=function  (required) name of the function to invoke
+  -h, --help               show CLI help
+  -i, --corrId=corrId      client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
+  -p, --path=path          provide a path where the config files are located, if not set, the current dir is used
+  -t, --timeout=timeout    timeout that the gateway have to wait before block the operation
+  -u, --callback=callback  callback URL to which the gateway will forward all asynchronous responses
+
+  -v, --val=val            value to be passed as parameter to the function, if more than one value is required you can
+                           set this flag multiple times
+```
+
+_See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_
 
 ## `clisci scdl [FILE]`
 
@@ -95,8 +101,15 @@ USAGE
   $ clisci scdl [FILE]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -L, --local            add a new descriptor from a local file path
+  -P, --pattern=pattern  set a pattern matching for descriptors to list
+  -R, --remote           add a new descriptor from a remote online registry
+  -a, --add=add          add a new descriptor
+  -d, --delete=delete    delete a local descriptor
+  -h, --help             show CLI help
+  -l, --list             list all scdl descriptors
+  -p, --path=path        provide a path where the config files are located, if not set, the current dir is used
 ```
+
+_See code: [dist/commands/scdl.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl.ts)_
 <!-- commandsstop -->

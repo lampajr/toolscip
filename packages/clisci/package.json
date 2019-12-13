@@ -35,6 +35,8 @@
     "globby": "^10.0.1",
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.7.3"
   },
   "engines": {
@@ -71,14 +73,14 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint . --ext .ts --config .eslintrc",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prepack": "rm -rf dist && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md",
-    "build": "npm run clean && npm run format && npm run compile",
+    "build": "npm run clean && npm run format && npm run compile && oclif-dev manifest && oclif-dev readme",
     "clean": "rm -rf ./dist",
     "compile": "tsc -b tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "eslint . --ext .ts --config .eslintrc",
     "global": "sudo npm i -g",
     "docs": "typedoc --out docs src/*"
   },

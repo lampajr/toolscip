@@ -46,3 +46,13 @@ export async function loadConfig(path?: string | undefined): Promise<Config> {
     throw new CLIError(`Unable to find the config file at '${p}'`);
   }
 }
+
+/**
+ * Loads the descriptor's file into a generic json object
+ * @param filename name of the contract's file to load
+ * @param path path to the specific format descriptors' config folder
+ * @returns the descriptor object
+ */
+export function getDescriptor(filename: string, path: string): any {
+  // TODO: implement
+}

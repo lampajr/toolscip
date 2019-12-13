@@ -11,7 +11,10 @@ export default class Init extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    server: flags.boolean({ char: 's', description: "Initialize a simple 'express.js' server for receive asynchronous responses" }),
+    server: flags.boolean({
+      char: 's',
+      description: "Initialize a simple 'express.js' server for receive asynchronous responses",
+    }),
   };
 
   static args = [{ name: 'file' }];
