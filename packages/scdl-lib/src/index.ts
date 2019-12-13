@@ -1,7 +1,17 @@
 import { AxiosResponse } from 'axios';
-import { types } from '@lampajr/scip-lib';
-import utils, { Invocable, Subscribable, Queryable } from './utils';
-import { ISCDL, IFunction, IEvent } from './scdl';
+import {
+  types,
+  invoke,
+  subscribeEvent,
+  subscribeFunction,
+  unsubscribeEvent,
+  unsubscribeFunction,
+  queryEvent,
+  queryFunction,
+} from '@lampajr/scip-lib';
+import utils, { Invocable, Subscribable, Queryable, InvalidRequest, createParams, convertParams } from './utils';
+import { ISCDL, IFunction, IEvent, IParameter } from './scdl';
+import { Id } from '@lampajr/jsonrpc-lib';
 
 export class Contract {
   public metadata: any = {}; // is this needed?
@@ -73,29 +83,70 @@ export class Method extends utils.Callable implements Invocable, Subscribable, Q
     super(scl, authorization);
   }
 
-  invoke(params: types.ScipInvocation): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
-    return this.request(params);
+  invoke(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    signature: string,
+    callback?: string,
+    corrId?: string,
+    doc?: number,
+    timeout?: number,
+  ): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
+    // creates the input params objects
+    const inputs: types.Parameter[] = createParams(values, this.data.inputs);
+    // creates output params objects
+    const outputs: types.Parameter[] = convertParams(this.data.outputs);
+
+    // create SCIP [[Invocation]] param object
+    const scipParams = new types.Invocation(id, inputs, outputs, signature, callback, corrId, doc, timeout);
+    return this.request(invoke(jsonrpcId, scipParams));
   }
 
-  subscribe(params: types.ScipSubscription): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
-    if (!(params.params instanceof types.FunctionSubscription)) {
-      throw new utils.InvalidRequest('The params member of the request MUST be of FunctionSubscription');
-    }
-    return this.request(params);
+  subscribe(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    callback: string,
+    corrId?: string | undefined,
+    doc?: number | undefined,
+    filter?: string | undefined,
+  ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    // creates the input params objects
+    const params = createParams(values, this.data.inputs);
+
+    // create SCIP [[FunctionSubscription]] param object
+    const scipParams = new types.FunctionSubscription(id, params, callback, corrId, doc, filter);
+    return this.request(subscribeFunction(jsonrpcId, scipParams));
   }
 
-  unsubscribe(params: types.ScipUnsubscription): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
-    if (!(params.params instanceof types.FunctionUnsubscription)) {
-      throw new utils.InvalidRequest('The params member of the request MUST be of FunctionUnsubscription');
-    }
-    return this.request(params);
+  unsubscribe(
+    jsonrpcId: Id,
+    id: string,
+    corrId?: string | undefined,
+  ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    const params = convertParams(this.data.inputs);
+
+    // create SCIP [[FunctionSubscription]] param object
+    const scipParams = new types.FunctionUnsubscription(id, params, corrId);
+    return this.request(unsubscribeFunction(jsonrpcId, scipParams));
   }
 
-  query(params: types.ScipQuery): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
-    if (!(params.params instanceof types.FunctionQuery)) {
-      throw new utils.InvalidRequest('The params member of the request MUST be of FunctionQuery');
-    }
-    return this.request(params);
+  query(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    timestamp?: string | undefined,
+    filter?: string | undefined,
+    startTime?: string | undefined,
+    endTime?: string | undefined,
+  ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    // creates the input params objects
+    const params = createParams(values, this.data.inputs);
+
+    // create SCIP [[FunctionSubscription]] param object
+    const scipParams = new types.FunctionQuery(id, params, timestamp, filter, startTime, endTime);
+    return this.request(queryFunction(jsonrpcId, scipParams));
   }
 }
 
@@ -109,24 +160,49 @@ export class Event extends utils.Callable implements Subscribable, Queryable {
     super(scl, authorization);
   }
 
-  subscribe(params: types.ScipSubscription): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
-    if (!(params.params instanceof types.EventSubscription)) {
-      throw new utils.InvalidRequest('The params member of the request MUST be of EventSubscription');
-    }
-    return this.request(params);
+  subscribe(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    callback: string,
+    corrId?: string | undefined,
+    doc?: number | undefined,
+    filter?: string | undefined,
+  ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    // creates the input params objects
+    const params = createParams(values, this.data.outputs);
+
+    // create SCIP [[EventSubscription]] param object
+    const scipParams = new types.EventSubscription(id, params, callback, corrId, doc, filter);
+    return this.request(subscribeEvent(jsonrpcId, scipParams));
   }
 
-  unsubscribe(params: types.ScipUnsubscription): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
-    if (!(params.params instanceof types.EventUnsubscription)) {
-      throw new utils.InvalidRequest('The params member of the request MUST be of EventUnsubscription');
-    }
-    return this.request(params);
+  unsubscribe(
+    jsonrpcId: Id,
+    id: string,
+    corrId?: string | undefined,
+  ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    const params = convertParams(this.data.outputs);
+
+    // create SCIP [[EventUnsubscription]] param object
+    const scipParams = new types.EventUnsubscription(id, params, corrId);
+    return this.request(unsubscribeEvent(jsonrpcId, scipParams));
   }
 
-  query(params: types.ScipQuery): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
-    if (!(params.params instanceof types.EventQuery)) {
-      throw new utils.InvalidRequest('The params member of the request MUST be of EventQuery');
-    }
-    return this.request(params);
+  query(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    timestamp?: string | undefined,
+    filter?: string | undefined,
+    startTime?: string | undefined,
+    endTime?: string | undefined,
+  ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    // creates the input params objects
+    const params = createParams(values, this.data.outputs);
+
+    // create SCIP [[FunctionSubscription]] param object
+    const scipParams = new types.EventQuery(id, params, timestamp, filter, startTime, endTime);
+    return this.request(queryEvent(jsonrpcId, scipParams));
   }
 }

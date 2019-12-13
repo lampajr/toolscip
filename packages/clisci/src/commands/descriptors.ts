@@ -49,7 +49,6 @@ export default class Descriptors extends Command {
       if (!flags.local && !flags.remote) {
         throw new CLIError(`You must set exactly one of the following flags 'remote' and 'local'!`);
       }
-
     } else if (flags.delete) {
       // delete one or more local descriptors
     } else {

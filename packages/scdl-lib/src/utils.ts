@@ -1,8 +1,8 @@
 import ajv from 'ajv';
 import axios, { AxiosResponse } from 'axios';
-import { ScdlSchema, ISCDL } from './scdl';
-import { ScipMessage } from '@lampajr/scip-lib';
-import { types } from '@lampajr/scip-lib';
+import { ScdlSchema, ISCDL, IParameter } from './scdl';
+import { ScipMessage, types } from '@lampajr/scip-lib';
+import { Id } from '@lampajr/jsonrpc-lib';
 
 const SCDL: string = 'scdl';
 const AJV = new ajv().addSchema(ScdlSchema, SCDL);
@@ -31,7 +31,15 @@ export class Callable {
  * invocations.
  */
 export interface Queryable {
-  query(params: types.ScipQuery): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
+  query(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    timestamp?: string,
+    filter?: string,
+    startTime?: string,
+    endTime?: string,
+  ): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
 }
 
 /**
@@ -41,8 +49,16 @@ export interface Queryable {
  * subscription or unsubscription respectively.
  */
 export interface Subscribable {
-  subscribe(params: types.ScipSubscription): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
-  unsubscribe(params: types.ScipUnsubscription): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
+  subscribe(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    callback: string,
+    corrId?: string,
+    doc?: number,
+    filter?: string,
+  ): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
+  unsubscribe(jsonrpcId: Id, id: string, corrId?: string): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
 }
 
 /**
@@ -51,7 +67,46 @@ export interface Subscribable {
  * to invoke a specific smart contract's function.
  */
 export interface Invocable {
-  invoke(params: types.ScipInvocation): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
+  invoke(
+    jsonrpcId: Id,
+    id: string,
+    values: any[],
+    signature: string,
+    callback?: string,
+    corrId?: string,
+    doc?: number,
+    timeout?: number,
+  ): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
+}
+
+/**
+ * Creates a new [[Parameter]] array assigning for each of them its corresponding value
+ * @param values array of values
+ * @param prevParams array of [[IParameter]] objects
+ * @returns array of [[Parameter]] objects
+ * @throws [[InvalidRequest]] if the lengths mismatch
+ */
+export function createParams(values: any[], prevParams: IParameter[]): types.Parameter[] {
+  if (values.length !== prevParams.length) {
+    // checks whether there is a length mismatch between input params and input values
+    throw new InvalidRequest('The number of passed values mismatch the number of parameters reuqired!');
+  }
+  // create input params objects with their values
+  const params: types.Parameter[] = [];
+  for (let index = 0; index < values.length; index++) {
+    const element: IParameter = prevParams[index];
+    params.push(new types.Parameter(element.name, element.type, values[index]));
+  }
+  return params;
+}
+
+/**
+ * Converts an array of [[IParameter]] into an array of [[Parameter]] objects
+ * @param prevParams [[IParameter]] array
+ * @returns the converted array
+ */
+export function convertParams(prevParams: IParameter[]): types.Parameter[] {
+  return prevParams.map(elem => new types.Parameter(elem.name, elem.type));
 }
 
 /**
@@ -98,6 +153,8 @@ const utils = {
   ValidationError,
   InvalidRequest,
   Callable,
+  createParams,
+  convertParams,
 };
 
 export default utils;

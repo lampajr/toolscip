@@ -43,5 +43,11 @@
   },
   "dependencies": {
     "@lampajr/jsonrpc-lib": "^0.1.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.7.3"
   }
 }
