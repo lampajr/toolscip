@@ -7,15 +7,11 @@ import { textSync } from 'figlet';
 import { Config } from '../utils';
 
 export default class Init extends Command {
-  static folder = '.clisci';
-  static descriptors = 'descriptors';
-  static file = 'sciconfig.json';
-  static supportedFormats = ['scdl'];
-  static description = `Initialize the 'clisci' command line tool.`;
+  static description = `Initialize the 'clisci' configuration files in the current directory.`;
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    global: flags.boolean({ char: 'g', description: "Initialize the folder in the user's home directory." }),
+    server: flags.boolean({ char: 's', description: "Initialize a simple 'express.js' server for receive asynchronous responses" }),
   };
 
   static args = [{ name: 'file' }];
@@ -34,16 +30,10 @@ export default class Init extends Command {
         message: `Who is the project's owner?`,
       },
       {
-        type: 'input',
-        name: 'dir',
-        message: 'Where do you want to store the configuration files?',
-        default: process.cwd(),
-      },
-      {
         type: 'checkbox',
         name: 'formats',
         message: 'Which formats do you want to use?',
-        choices: Init.supportedFormats,
+        choices: Config.supportedFormats,
         default: checked,
       },
       {
@@ -89,20 +79,20 @@ export default class Init extends Command {
     // ask questions
     this.ask()
       .then(answers => {
-        const clisciConfig = new Config(answers.owner, answers.dir, answers.formats, answers.registry);
-        const configDir: string = join(clisciConfig.dir, Init.folder);
-        const descriptorsDir: string = join(configDir, Init.descriptors);
+        const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
+        const configDir: string = join(clisciConfig.dir, Config.configFolder);
+        const descriptorsDir: string = join(configDir, Config.descriptorsFolder);
 
         this.createDirectory(configDir);
         for (const format of clisciConfig.formats) {
           this.createDirectory(join(descriptorsDir, format));
         }
 
-        fs.writeJSON(join(clisciConfig.dir, Init.file), clisciConfig, {
+        fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
           spaces: '\t',
         })
           .then(value => {
-            console.log(`Configuration file '${Init.file}' successfully created!`);
+            console.log(`Configuration file '${Config.configFile}' successfully created!`);
           })
           .catch(err => {
             console.error(err);
