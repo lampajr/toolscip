@@ -7,6 +7,10 @@ import { CLIError } from '@oclif/errors';
  * Represent the configuration file
  */
 export class Config {
+  static configFolder = '.clisci';
+  static descriptorsFolder = 'descriptors';
+  static configFile = 'sciconfig.json';
+
   /** Owner of the project */
   owner: string;
   /** Main directory, where config files are stored */

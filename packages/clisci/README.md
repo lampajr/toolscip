@@ -28,24 +28,11 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`clisci descriptors [FILE]`](#clisci-descriptors-file)
 * [`clisci hello [FILE]`](#clisci-hello-file)
 * [`clisci help [COMMAND]`](#clisci-help-command)
 * [`clisci init [FILE]`](#clisci-init-file)
+* [`clisci scdl [FILE]`](#clisci-scdl-file)
 
-## `clisci descriptors [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ clisci descriptors [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-```
 
 ## `clisci hello [FILE]`
 
@@ -98,4 +85,18 @@ OPTIONS
 ```
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
+
+## `clisci scdl [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ clisci scdl [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
 <!-- commandsstop -->
