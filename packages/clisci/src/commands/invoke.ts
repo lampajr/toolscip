@@ -5,7 +5,7 @@ import { join } from 'path';
 import { CLIError } from '@oclif/errors';
 
 export default class Invoke extends Command {
-  static description = 'describe the command here';
+  static description = `this command invoke a target smart contract's function`;
 
   static flags = {
     help: flags.help({ char: 'h' }),
@@ -68,7 +68,7 @@ export default class Invoke extends Command {
           console.error(err);
         });
     } catch (err) {
-      throw new CLIError(`Error occurred creating the contract object: ${err.message}`);
+      throw new CLIError(`During contract creation: ${err.message}`);
     }
   }
 }

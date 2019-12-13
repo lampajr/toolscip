@@ -57,7 +57,8 @@ export async function getDescriptor(filename: string, path: string): Promise<any
   const completPath: string = join(path, filename);
   try {
     return await fs.readJSON(completPath);
-  } catch(err) {
-    throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
+  } catch (err) {
+    // throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
+    throw new CLIError(`During descriptor loading - ${err.message}`);
   }
 }

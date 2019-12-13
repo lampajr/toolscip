@@ -67,7 +67,7 @@ _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0
 
 ## `clisci invoke`
 
-describe the command here
+this command invoke a target smart contract's function
 
 ```
 USAGE
