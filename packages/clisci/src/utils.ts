@@ -53,6 +53,11 @@ export async function loadConfig(path?: string | undefined): Promise<Config> {
  * @param path path to the specific format descriptors' config folder
  * @returns the descriptor object
  */
-export function getDescriptor(filename: string, path: string): any {
-  // TODO: implement
+export async function getDescriptor(filename: string, path: string): Promise<any> {
+  const completPath: string = join(path, filename);
+  try {
+    return await fs.readJSON(completPath);
+  } catch(err) {
+    throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
+  }
 }
