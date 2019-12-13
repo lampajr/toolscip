@@ -10,6 +10,7 @@ export class Config {
   static configFolder = '.clisci';
   static descriptorsFolder = 'descriptors';
   static configFile = 'sciconfig.json';
+  static supportedFormats = ['scdl'];
 
   /** Owner of the project */
   owner: string;
@@ -37,7 +38,7 @@ export class Config {
  * @throws CLIError if the file was not found
  */
 export async function loadConfig(path?: string | undefined): Promise<Config> {
-  const p: string = path === undefined ? join(process.cwd(), Init.file) : path;
+  const p: string = path === undefined ? join(process.cwd(), Config.configFile) : path;
   try {
     const value: any = await fs.readJSON(p);
     return new Config(value.owner, value.dir, value.formats, value.registry);
