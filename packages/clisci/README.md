@@ -31,8 +31,8 @@ USAGE
 * [`clisci hello [FILE]`](#clisci-hello-file)
 * [`clisci help [COMMAND]`](#clisci-help-command)
 * [`clisci init [FILE]`](#clisci-init-file)
+* [`clisci invoke [FILE]`](#clisci-invoke-file)
 * [`clisci scdl [FILE]`](#clisci-scdl-file)
-
 
 ## `clisci hello [FILE]`
 
@@ -73,18 +73,32 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2
 
 ## `clisci init [FILE]`
 
-Initialize the 'clisci' command line tool.
+Initialize the 'clisci' configuration files in the current directory.
 
 ```
 USAGE
   $ clisci init [FILE]
 
 OPTIONS
-  -g, --global  Initialize the folder in the user's home directory.
   -h, --help    show CLI help
+  -s, --server  Initialize a simple 'express.js' server for receive asynchronous responses
 ```
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
+
+## `clisci invoke [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ clisci invoke [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
 
 ## `clisci scdl [FILE]`
 
@@ -95,8 +109,13 @@ USAGE
   $ clisci scdl [FILE]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -L, --local            add a new descriptor from a local file path
+  -P, --pattern=pattern  set a pattern matching for descriptors to list
+  -R, --remote           add a new descriptor from a remote online registry
+  -a, --add=add          add a new descriptor
+  -d, --delete=delete    delete a local descriptor
+  -h, --help             show CLI help
+  -l, --list             list all scdl descriptors
+  -p, --path=path        provide a path where the config files are located, if not set, the current dir is used
 ```
 <!-- commandsstop -->

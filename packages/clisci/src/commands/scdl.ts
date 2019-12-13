@@ -50,12 +50,12 @@ export default class Scdl extends Command {
     if (flags.list) {
       // list descriptors, TODO: handle patterns
       fs.readdir(descriptorsFolder)
-        .then( files => {
+        .then(files => {
           console.log(files);
         })
-        .catch( err => {
+        .catch(err => {
           console.error(err);
-        })
+        });
     } else if (flags.add) {
       // add a new descriptor
       if (!flags.local && !flags.remote) {
