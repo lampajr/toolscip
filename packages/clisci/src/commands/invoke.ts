@@ -54,7 +54,7 @@ export default class Invoke extends Command {
         .invoke(
           flags.jsonrpc,
           flags.function,
-          flags.val,
+          flags.val !== undefined ? flags.val : [],
           'abcdefgh',
           flags.callback,
           flags.corrId,
