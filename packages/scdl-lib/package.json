@@ -43,5 +43,8 @@
   "dependencies": {
     "@lampajr/jsonrpc-lib": "^0.1.1",
     "@lampajr/scip-lib": "^1.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
   }
 }
