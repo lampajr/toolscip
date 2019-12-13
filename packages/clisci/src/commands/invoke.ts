@@ -43,7 +43,7 @@ export default class Invoke extends Command {
     const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, flags.format);
 
     const filename: string = flags.contract + '.json';
-    const descriptor: any = getDescriptor(filename, descriptorsFolder);
+    const descriptor = await getDescriptor(filename, descriptorsFolder);
 
     try {
       // creates the contract object starting from the descriptor

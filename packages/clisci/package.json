@@ -59,6 +59,7 @@
   ],
   "license": "Apache-2.0",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "oclif": {
     "commands": "./dist/commands",
     "bin": "clisci",
@@ -83,6 +84,5 @@
     "lint": "eslint . --ext .ts --config .eslintrc",
     "global": "sudo npm i -g",
     "docs": "typedoc --out docs src/*"
-  },
-  "types": "dist/index.d.ts"
+  }
 }
