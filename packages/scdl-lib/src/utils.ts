@@ -89,7 +89,9 @@ export interface Invocable {
 export function createParams(values: any[], prevParams: IParameter[]): types.Parameter[] {
   if (values.length !== prevParams.length) {
     // checks whether there is a length mismatch between input params and input values
-    throw new InvalidRequest('The number of passed values mismatch the number of required parameters!');
+    throw new InvalidRequest(
+      `The number of passed values mismatch the number of required parameters! [#${prevParams.length}]`,
+    );
   }
   // create input params objects with their values
   const params: types.Parameter[] = [];

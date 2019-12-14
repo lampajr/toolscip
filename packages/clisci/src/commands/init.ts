@@ -7,7 +7,7 @@ import { textSync } from 'figlet';
 import { Config } from '../utils';
 
 export default class Init extends Command {
-  static description = `Initialize the 'clisci' configuration files in the current directory.`;
+  static description = `Command used to initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
 
   static flags = {
     help: flags.help({ char: 'h' }),

@@ -5,6 +5,7 @@
     "bootstrap": "lerna bootstrap",
     "clean": "lerna run clean",
     "build": "lerna run build",
+    "format": "lerna run format",
     "publish": "lerna publish",
     "docs": "lerna run docs"
   },
