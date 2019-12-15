@@ -33,7 +33,7 @@ export default class Query extends Command {
     }),
     endTime: flags.string({
       char: 'd',
-      description: 'end time until which stop considering event occurrences or function invocations',
+      description: 'end time from which stop considering event occurrences or function invocations',
     }),
   };
 
@@ -47,7 +47,7 @@ export default class Query extends Command {
     const descriptor = await getDescriptor(filename, descriptorsFolder);
 
     if (!flags.function && !flags.event) {
-      throw new CLIError(`You MUST provide 'function' or 'event' flag!`);
+      throw new CLIError(`You MUST provide 'function' or 'event' name!`);
     } else {
       try {
         // creates the contract object starting from the descriptor
