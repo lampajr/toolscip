@@ -7,7 +7,8 @@ import Init from './init';
 
 export default class Scdl extends Command {
   static folderName = 'scdl';
-  static description = 'Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.';
+  static description =
+    'Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.';
 
   static flags = {
     help: flags.help({ char: 'h', exclusive: ['delete', 'add', 'list'] }),
