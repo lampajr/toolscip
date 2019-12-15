@@ -9,69 +9,9 @@ import {
   queryEvent,
   queryFunction,
 } from '@lampajr/scip-lib';
-import utils, { Invocable, Subscribable, Queryable, InvalidRequest, createParams, convertParams } from './utils';
-import { ISCDL, IFunction, IEvent, IParameter } from './scdl';
+import utils, { Invocable, Subscribable, Queryable, createParams, convertParams } from './utils';
+import { ISCDL, IFunction, IEvent } from './scdl';
 import { Id } from '@lampajr/jsonrpc-lib';
-
-export class Contract {
-  public metadata: any = {}; // is this needed?
-  public methods: any = {};
-  public events: any = {};
-  public descriptor: ISCDL;
-
-  /**
-   * Generates a new Contract instance from an SCDL descriptor
-   * @param descriptor scdl-based descriptor
-   * @param authorization bearer token that may be required by the SCIP gateway
-   * @throws [[ValidationError]] if the descriptor is not valid
-   */
-  constructor(descriptor: any, private authorization?: string) {
-    // validates the scdl-based descriptor
-    this.descriptor = utils.validate(descriptor);
-
-    // Configure functions
-    for (const method of this.descriptor.functions) {
-      this.configMethod(method);
-    }
-
-    // Configure events
-    for (const event of this.descriptor.events) {
-      this.configEvent(event);
-    }
-  }
-
-  /**
-   * Updates the authorization token
-   * @param auth new auth token
-   */
-  public updateAuth(auth: string): void {
-    this.authorization = auth;
-  }
-
-  /**
-   * Configure a single contract's method.
-   * @param method SCDL function object
-   */
-  private configMethod(method: IFunction): void {
-    Object.defineProperty(this.methods, method.name, {
-      value: new Method(method, this.descriptor.scl, this.authorization),
-      writable: false,
-      enumerable: true,
-    });
-  }
-
-  /**
-   * Configure a single contract's event.
-   * @param event SCDL function object
-   */
-  private configEvent(event: IEvent): void {
-    Object.defineProperty(this.events, event.name, {
-      value: new Event(event, this.descriptor.scl, this.authorization),
-      writable: false,
-      enumerable: true,
-    });
-  }
-}
 
 /**
  * This object represents a single smart contract's function
@@ -204,3 +144,72 @@ export class Event extends utils.Callable implements Subscribable, Queryable {
     return this.request(queryEvent(jsonrpcId, scipParams));
   }
 }
+
+export class Contract {
+  public metadata: any = {}; // is this needed?
+  public methods: any = {};
+  public events: any = {};
+  public descriptor: ISCDL;
+
+  /**
+   * Generates a new Contract instance from an SCDL descriptor
+   * @param descriptor scdl-based descriptor
+   * @param authorization bearer token that may be required by the SCIP gateway
+   * @throws [[ValidationError]] if the descriptor is not valid
+   */
+  constructor(descriptor: any, private authorization?: string) {
+    // validates the scdl-based descriptor
+    this.descriptor = utils.validate(descriptor);
+
+    // Configure functions
+    for (const method of this.descriptor.functions) {
+      this.configMethod(method);
+    }
+
+    // Configure events
+    for (const event of this.descriptor.events) {
+      this.configEvent(event);
+    }
+  }
+
+  /**
+   * Updates the authorization token
+   * @param auth new auth token
+   */
+  public updateAuth(auth: string): void {
+    this.authorization = auth;
+  }
+
+  /**
+   * Configure a single contract's method.
+   * @param method SCDL function object
+   */
+  private configMethod(method: IFunction): void {
+    Object.defineProperty(this.methods, method.name, {
+      value: new Method(method, this.descriptor.scl, this.authorization),
+      writable: false,
+      enumerable: true,
+    });
+  }
+
+  /**
+   * Configure a single contract's event.
+   * @param event SCDL function object
+   */
+  private configEvent(event: IEvent): void {
+    Object.defineProperty(this.events, event.name, {
+      value: new Event(event, this.descriptor.scl, this.authorization),
+      writable: false,
+      enumerable: true,
+    });
+  }
+}
+
+const scdl = {
+  Method,
+  Event,
+  Contract,
+};
+
+export default scdl;
+export { scdl };

@@ -4,8 +4,27 @@ import { ScdlSchema, ISCDL, IParameter } from './scdl';
 import { ScipMessage, types } from '@lampajr/scip-lib';
 import { Id } from '@lampajr/jsonrpc-lib';
 
-const SCDL: string = 'scdl';
+const SCDL = 'scdl';
 const AJV = new ajv().addSchema(ScdlSchema, SCDL);
+
+/**
+ * ValidationError class that is thrown whenever
+ * the descriptor valdiation fails, it contains
+ * a list of error messages.
+ */
+export class ValidationError extends Error {
+  constructor(public errors: string[]) {
+    super(errors[0]);
+    Object.setPrototypeOf(this, ValidationError);
+  }
+}
+
+export class InvalidRequest extends Error {
+  constructor(message: string) {
+    super(message);
+    Object.setPrototypeOf(this, InvalidRequest);
+  }
+}
 
 /**
  * Generic class that must be implemented by those objects
@@ -108,25 +127,6 @@ export function createParams(values: any[], prevParams: IParameter[]): types.Par
  */
 export function convertParams(prevParams: IParameter[]): types.Parameter[] {
   return prevParams.map(elem => new types.Parameter(elem.name, elem.type));
-}
-
-/**
- * ValidationError class that is thrown whenever
- * the descriptor valdiation fails, it contains
- * a list of error messages.
- */
-export class ValidationError extends Error {
-  constructor(public errors: string[]) {
-    super(errors[0]);
-    Object.setPrototypeOf(this, ValidationError);
-  }
-}
-
-export class InvalidRequest extends Error {
-  constructor(message: string) {
-    super(message);
-    Object.setPrototypeOf(this, InvalidRequest);
-  }
 }
 
 /**

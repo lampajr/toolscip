@@ -17,6 +17,45 @@ export default class Init extends Command {
     }),
   };
 
+  async run() {
+    const { args, flags } = this.parse(Init);
+
+    // TODO: clear the console
+
+    // print a nice banner
+    console.log(redBright(textSync('clisci', { horizontalLayout: 'full' })));
+
+    // ask questions
+    this.ask()
+      .then(answers => {
+        const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
+        const configDir: string = join(clisciConfig.dir, Config.configFolder);
+        const descriptorsDir: string = join(configDir, Config.descriptorsFolder);
+
+        this.createDirectory(configDir);
+        for (const format of clisciConfig.formats) {
+          this.createDirectory(join(descriptorsDir, format));
+        }
+
+        fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
+          spaces: '\t',
+        })
+          .then(value => {
+            console.log(`Configuration file '${Config.configFile}' successfully created!`);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    if (flags.server) {
+      // initialize the express.js server
+    }
+  }
+
   /**
    * Prompts the initialization questions
    * TODO: check that folder is not empty
@@ -63,41 +102,6 @@ export default class Init extends Command {
     fs.mkdirp(path)
       .then(_ => {
         console.log(`Directory at '${path}' successfully created!`);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
-
-  async run() {
-    const { args, flags } = this.parse(Init);
-
-    // TODO: clear the console
-
-    // print a nice banner
-    console.log(redBright(textSync('clisci', { horizontalLayout: 'full' })));
-
-    // ask questions
-    this.ask()
-      .then(answers => {
-        const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
-        const configDir: string = join(clisciConfig.dir, Config.configFolder);
-        const descriptorsDir: string = join(configDir, Config.descriptorsFolder);
-
-        this.createDirectory(configDir);
-        for (const format of clisciConfig.formats) {
-          this.createDirectory(join(descriptorsDir, format));
-        }
-
-        fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
-          spaces: '\t',
-        })
-          .then(value => {
-            console.log(`Configuration file '${Config.configFile}' successfully created!`);
-          })
-          .catch(err => {
-            console.error(err);
-          });
       })
       .catch(err => {
         console.error(err);

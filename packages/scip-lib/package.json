@@ -34,7 +34,7 @@
     "clean": "rm -rf ./dist",
     "compile": "tsc -b tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "eslint . --ext .ts --fix",
+    "lint": "tslint -p tsconfig.json --fix",
     "prepublishOnly": "npm run build",
     "docs": "typedoc --out docs src/*"
   },
@@ -45,12 +45,10 @@
     "@lampajr/jsonrpc-lib": "^0.1.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.11.0",
-    "@typescript-eslint/parser": "^2.11.0",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.7.0",
-    "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.7.3"
   }
 }

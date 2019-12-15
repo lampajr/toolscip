@@ -31,9 +31,9 @@
   "scripts": {
     "build": "npm run clean && npm run format && npm run lint && npm run compile",
     "clean": "rm -rf ./dist",
-    "compile": "tsc -b tsconfig.json",
+    "compile": "tsc . --ext .ts",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json --fix",
     "prepublishOnly": "npm run build",
     "docs": "typedoc --out docs src/*"
   },
@@ -45,6 +45,10 @@
     "@lampajr/scip-lib": "^1.0.0"
   },
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.7.3"
   }
 }
