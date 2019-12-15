@@ -221,13 +221,7 @@ class Query {
 export class EventQuery extends Query {
   eventId: string;
 
-  constructor(
-    eventId: string,
-    params: Parameter[],
-    filter?: string,
-    startTime?: string,
-    endTime?: string,
-  ) {
+  constructor(eventId: string, params: Parameter[], filter?: string, startTime?: string, endTime?: string) {
     super(params, filter, startTime, endTime);
     this.eventId = eventId;
   }
@@ -239,13 +233,7 @@ export class EventQuery extends Query {
 export class FunctionQuery extends Query {
   functionId: string;
 
-  constructor(
-    functionId: string,
-    params: Parameter[],
-    filter?: string,
-    startTime?: string,
-    endTime?: string,
-  ) {
+  constructor(functionId: string, params: Parameter[], filter?: string, startTime?: string, endTime?: string) {
     super(params, filter, startTime, endTime);
     this.functionId = functionId;
   }

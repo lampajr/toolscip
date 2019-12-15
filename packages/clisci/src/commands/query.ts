@@ -1,14 +1,14 @@
-import { Command, flags } from '@oclif/command'
-import { CLIError } from '@oclif/errors'
+import { Command, flags } from '@oclif/command';
+import { CLIError } from '@oclif/errors';
 import { Config, loadConfig, getDescriptor } from '../utils';
 import { join } from 'path';
 import { Contract, Method, Event } from '@lampajr/scdl-lib';
 
 export default class Query extends Command {
-  static description = 'Command used to query past event occurences or function invocations'
+  static description = 'Command used to query past event occurences or function invocations';
 
   static flags = {
-    help: flags.help({char: 'h'}),
+    help: flags.help({ char: 'h' }),
     path: flags.string({
       char: 'p',
       description: 'provide a path where the config files are located, if not set, the current dir is used',
@@ -24,22 +24,28 @@ export default class Query extends Command {
       description:
         'value to be passed as parameter to the function, if more than one value is required you can set this flag multiple times',
       multiple: true,
-      required: true
+      required: true,
     }),
     filter: flags.string({ char: 'l', description: 'C-style boolean expression over function/event parameters' }),
-    startTime: flags.string({ char: 's', description: 'start time from which start considering event occurrences or function invocations' }),
-    endTime: flags.string({ char: 'd', description: 'end time until which stop considering event occurrences or function invocations' }),
-  }
+    startTime: flags.string({
+      char: 's',
+      description: 'start time from which start considering event occurrences or function invocations',
+    }),
+    endTime: flags.string({
+      char: 'd',
+      description: 'end time until which stop considering event occurrences or function invocations',
+    }),
+  };
 
   async run() {
-    const {args, flags} = this.parse(Query)
+    const { args, flags } = this.parse(Query);
 
     const config: Config = await loadConfig(flags.path);
     const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, flags.format);
 
     const filename: string = flags.contract + '.json';
     const descriptor = await getDescriptor(filename, descriptorsFolder);
-    
+
     if (!flags.function && !flags.event) {
       throw new CLIError(`You MUST provide 'function' or 'event' flag!`);
     } else {
@@ -61,7 +67,14 @@ export default class Query extends Command {
           );
         }
         attribute
-          .query(flags.jsonrpc, flags.function ? flags.function : (flags.event as string), flags.val !== undefined ? flags.val : [], , flags.filter, flags.startTime, flags.endTime)
+          .query(
+            flags.jsonrpc,
+            flags.function ? flags.function : (flags.event as string),
+            flags.val !== undefined ? flags.val : [],
+            flags.filter,
+            flags.startTime,
+            flags.endTime,
+          )
           .then(res => {
             console.log(res.data);
           })

@@ -35,8 +35,6 @@ export default class Subscribe extends Command {
     filter: flags.string({ char: 't', description: 'C-style boolean expression over function/event parameters' }),
   };
 
-  static args = [{ name: 'file' }];
-
   async run() {
     const { flags } = this.parse(Subscribe);
 

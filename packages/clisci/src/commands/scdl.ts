@@ -39,10 +39,8 @@ export default class Scdl extends Command {
     }),
   };
 
-  static args = [{ name: 'file' }];
-
   async run() {
-    const { args, flags } = this.parse(Scdl);
+    const { flags } = this.parse(Scdl);
 
     // loads configuration file
     const config: Config = await loadConfig(flags.path);

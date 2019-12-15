@@ -216,12 +216,11 @@ function parseFunctionUnsubscription(obj: any): types.FunctionUnsubscription {
  */
 function parseEventQuery(obj: any): types.EventQuery {
   validation.validateIdentifier(obj, 'eventId');
-  validation.validateTimestamp(obj);
   validation.validateFilter(obj);
   validation.validateTime(obj, false, 'startTime');
   validation.validateTime(obj, false, 'endTime');
   const params: types.Parameter[] = parseParameters(obj, 'params');
-  return new types.EventQuery(obj.functionId, params, obj.timestamp, obj.filter, obj.startTime, obj.endTime);
+  return new types.EventQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
 }
 
 /**
@@ -232,12 +231,11 @@ function parseEventQuery(obj: any): types.EventQuery {
  */
 function parseFunctionQuery(obj: any): types.FunctionQuery {
   validation.validateIdentifier(obj, 'functionId');
-  validation.validateTimestamp(obj);
   validation.validateFilter(obj);
   validation.validateTime(obj, false, 'startTime');
   validation.validateTime(obj, false, 'endTime');
   const params: types.Parameter[] = parseParameters(obj, 'params');
-  return new types.FunctionQuery(obj.functionId, params, obj.timestamp, obj.filter, obj.startTime, obj.endTime);
+  return new types.FunctionQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
 }
 
 /**

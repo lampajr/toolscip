@@ -22,8 +22,6 @@ export default class Unsubscribe extends Command {
     corrId: flags.string({ char: 'i', description: 'client-provided correlation identifier' }),
   };
 
-  static args = [{ name: 'file' }];
-
   async run() {
     const { flags } = this.parse(Unsubscribe);
 

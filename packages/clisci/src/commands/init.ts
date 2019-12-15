@@ -17,8 +17,6 @@ export default class Init extends Command {
     }),
   };
 
-  static args = [{ name: 'file' }];
-
   /**
    * Prompts the initialization questions
    * TODO: check that folder is not empty

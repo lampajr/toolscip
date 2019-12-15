@@ -29,10 +29,12 @@ USAGE
 # Commands
 <!-- commands -->
 * [`clisci help [COMMAND]`](#clisci-help-command)
-* [`clisci init [FILE]`](#clisci-init-file)
+* [`clisci init`](#clisci-init)
 * [`clisci invoke`](#clisci-invoke)
-* [`clisci scdl [FILE]`](#clisci-scdl-file)
-* [`clisci subscribe [FILE]`](#clisci-subscribe-file)
+* [`clisci query`](#clisci-query)
+* [`clisci scdl`](#clisci-scdl)
+* [`clisci subscribe`](#clisci-subscribe)
+* [`clisci unsubscribe`](#clisci-unsubscribe)
 
 ## `clisci help [COMMAND]`
 
@@ -51,13 +53,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2/src/commands/help.ts)_
 
-## `clisci init [FILE]`
+## `clisci init`
 
 Command used to initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.
 
 ```
 USAGE
-  $ clisci init [FILE]
+  $ clisci init
 
 OPTIONS
   -h, --help    show CLI help
@@ -93,13 +95,40 @@ OPTIONS
 
 _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_
 
-## `clisci scdl [FILE]`
+## `clisci query`
+
+Command used to query past event occurences or function invocations
+
+```
+USAGE
+  $ clisci query
+
+OPTIONS
+  -F, --format=format        [default: scdl] descriptor format
+  -a, --auth=auth            authorization token
+  -c, --contract=contract    (required) contract's name
+  -d, --endTime=endTime      end time until which stop considering event occurrences or function invocations
+  -e, --event=event          name of the event to query
+  -f, --function=function    name of the function to query
+  -h, --help                 show CLI help
+  -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
+  -l, --filter=filter        C-style boolean expression over function/event parameters
+  -p, --path=path            provide a path where the config files are located, if not set, the current dir is used
+  -s, --startTime=startTime  start time from which start considering event occurrences or function invocations
+
+  -v, --val=val              (required) value to be passed as parameter to the function, if more than one value is
+                             required you can set this flag multiple times
+```
+
+_See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts)_
+
+## `clisci scdl`
 
 Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.
 
 ```
 USAGE
-  $ clisci scdl [FILE]
+  $ clisci scdl
 
 OPTIONS
   -L, --local            add a new descriptor from a local file path
@@ -114,13 +143,13 @@ OPTIONS
 
 _See code: [dist/commands/scdl.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl.ts)_
 
-## `clisci subscribe [FILE]`
+## `clisci subscribe`
 
 Command used to monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.
 
 ```
 USAGE
-  $ clisci subscribe [FILE]
+  $ clisci subscribe
 
 OPTIONS
   -F, --format=format      [default: scdl] descriptor format
@@ -141,4 +170,26 @@ OPTIONS
 ```
 
 _See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts)_
+
+## `clisci unsubscribe`
+
+Command used to stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.
+
+```
+USAGE
+  $ clisci unsubscribe
+
+OPTIONS
+  -F, --format=format      [default: scdl] descriptor format
+  -a, --auth=auth          authorization token
+  -c, --contract=contract  (required) contract's name
+  -e, --event=event        name of the event to unsubscribe
+  -f, --function=function  name of the function to unsubscribe
+  -h, --help               show CLI help
+  -i, --corrId=corrId      client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
+  -p, --path=path          provide a path where the config files are located, if not set, the current dir is used
+```
+
+_See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts)_
 <!-- commandsstop -->
