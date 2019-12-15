@@ -57,7 +57,7 @@ export default class Subscribe extends Command {
 
         if (attribute === undefined) {
           throw new CLIError(
-            `'${flags.function ? 'Method name ' + flags.function : 'Event named' + flags.event}' not found in '${
+            `${flags.function ? "Method name '" + flags.function : "Event named'" + flags.event}" not found in '${
               contract.descriptor.name
             }' contract\nThis contract has the following available ${
               flags.function ? 'methods: [' + Object.keys(contract.methods) : 'events: [' + Object.keys(contract.events)
@@ -84,7 +84,7 @@ export default class Subscribe extends Command {
         if (err instanceof CLIError) {
           throw err;
         }
-        throw new CLIError(`During contract creation - ${err.message}`);
+        throw new CLIError(err.message);
       }
     }
   }

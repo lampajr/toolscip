@@ -83,7 +83,7 @@ export default class Invoke extends Command {
       if (err instanceof CLIError) {
         throw err;
       }
-      throw new CLIError(`During contract creation - ${err.message}`);
+      throw new CLIError(err.message);
     }
   }
 }
