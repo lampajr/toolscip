@@ -112,7 +112,7 @@ OPTIONS
   -F, --format=format        [default: scdl] descriptor format
   -a, --auth=auth            authorization token
   -c, --contract=contract    (required) contract's name
-  -d, --endTime=endTime      end time until which stop considering event occurrences or function invocations
+  -d, --endTime=endTime      end time from which stop considering event occurrences or function invocations
   -e, --event=event          name of the event to query
   -f, --function=function    name of the function to query
   -h, --help                 show CLI help
