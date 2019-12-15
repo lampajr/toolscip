@@ -31,78 +31,6 @@ import * as validation from './validation';
  * **Specification**: https://github.com/lampajr/scip/blob/master/README.md
  */
 
-/******************************************** SCIP Functions ********************************************/
-
-/**
- * Generate a new Invoke method scip request message
- * @param id jsorpc request id
- * @param params jsonrpc request params, which can be either an [[Invocation]] object or a generic one
- */
-export function invoke(id: Id, params: any): types.ScipInvocation {
-  const obj = params instanceof types.Invocation ? params : parseInvocation(params);
-  return new types.ScipInvocation(id, obj);
-}
-
-/**
- * Generate a new Subscribe method scip request message, focused on events
- * @param id jsorpc request id
- * @param params jsonrpc request params, which can be either an [[EventSubscription]] object or a generic one
- */
-export function subscribeEvent(id: Id, params: any): types.ScipSubscription {
-  const obj = params instanceof types.EventSubscription ? params : parseEventSubscription(params);
-  return new types.ScipSubscription(id, obj);
-}
-
-/**
- * Generate a new Subscribe method scip request message, focused on functions
- * @param id jsorpc request id
- * @param params jsonrpc request params, which can be either an [[FunctionSubscription]] object or a generic one
- */
-export function subscribeFunction(id: Id, params: any): types.ScipSubscription {
-  const obj = params instanceof types.FunctionSubscription ? params : parseFunctionSubscription(params);
-  return new types.ScipSubscription(id, obj);
-}
-
-/**
- * Generate a new Unsubscribe method scip request message, focused on events
- * @param id jsorpc request id
- * @param params jsonrpc request params, which can be either an [[EventUnsubscription]] object or a generic one
- */
-export function unsubscribeEvent(id: Id, params: any): types.ScipUnsubscription {
-  const obj = params instanceof types.EventUnsubscription ? params : parseEventUnsubscription(params);
-  return new types.ScipUnsubscription(id, obj);
-}
-
-/**
- * Generate a new Unsubscribe method scip request message, focused on functions
- * @param id jsorpc request id
- * @param params jsonrpc request params, which can be either an [[FunctionUnsubscription]] object or a generic one
- */
-export function unsubscribeFunction(id: Id, params: any): types.ScipUnsubscription {
-  const obj = params instanceof types.FunctionUnsubscription ? params : parseFunctionUnsubscription(params);
-  return new types.ScipUnsubscription(id, obj);
-}
-
-/**
- * Generate a new Query method scip request message, focused on events
- * @param id jsorpc request id
- * @param params jsonrpc request params, which can be either an [[EventQuery]] object or a generic one
- */
-export function queryEvent(id: Id, params: any): types.ScipQuery {
-  const obj = params instanceof types.EventQuery ? params : parseEventQuery(params);
-  return new types.ScipQuery(id, obj);
-}
-
-/**
- * Generate a new Query method scip request message, focused on functions
- * @param id jsorpc request id
- * @param params jsonrpc request params, which can be either an [[FunctionQuery]] object or a generic one
- */
-export function queryFunction(id: Id, params: any): types.ScipQuery {
-  const obj = params instanceof types.FunctionQuery ? params : parseFunctionQuery(params);
-  return new types.ScipQuery(id, obj);
-}
-
 /****************************************** SCIP Params parser ******************************************/
 
 /**
@@ -252,14 +180,15 @@ function parseCallback(obj: any): types.Callback {
 }
 
 /**
- * Parse a generic object into an [[QueryResult]] one, if valid, otherwise
+ * Parse a generic object into an [[Occurrence]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-function parseQueryResult(obj: any): types.QueryResult {
-  const occurrences: types.Occurrence[] = parseOccurrences(obj);
-  return new types.QueryResult(occurrences);
+function parseOccurrence(occ: any): types.Occurrence {
+  validation.validateTimestamp(occ);
+  const params: types.Parameter[] = parseParameters(occ, 'params');
+  return new types.Occurrence(params, occ.timestamp);
 }
 
 /**
@@ -278,15 +207,14 @@ function parseOccurrences(obj: any[]): types.Occurrence[] {
 }
 
 /**
- * Parse a generic object into an [[Occurrence]] one, if valid, otherwise
+ * Parse a generic object into an [[QueryResult]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-function parseOccurrence(occ: any): types.Occurrence {
-  validation.validateTimestamp(occ);
-  const params: types.Parameter[] = parseParameters(occ, 'params');
-  return new types.Occurrence(params, occ.timestamp);
+function parseQueryResult(obj: any): types.QueryResult {
+  const occurrences: types.Occurrence[] = parseOccurrences(obj);
+  return new types.QueryResult(occurrences);
 }
 
 /****************************************** SCIP Message parser ******************************************/
@@ -382,6 +310,78 @@ export function parse(data: any): ScipMessage {
   }
 
   return res;
+}
+
+/******************************************** SCIP Functions ********************************************/
+
+/**
+ * Generate a new Invoke method scip request message
+ * @param id jsorpc request id
+ * @param params jsonrpc request params, which can be either an [[Invocation]] object or a generic one
+ */
+export function invoke(id: Id, params: any): types.ScipInvocation {
+  const obj = params instanceof types.Invocation ? params : parseInvocation(params);
+  return new types.ScipInvocation(id, obj);
+}
+
+/**
+ * Generate a new Subscribe method scip request message, focused on events
+ * @param id jsorpc request id
+ * @param params jsonrpc request params, which can be either an [[EventSubscription]] object or a generic one
+ */
+export function subscribeEvent(id: Id, params: any): types.ScipSubscription {
+  const obj = params instanceof types.EventSubscription ? params : parseEventSubscription(params);
+  return new types.ScipSubscription(id, obj);
+}
+
+/**
+ * Generate a new Subscribe method scip request message, focused on functions
+ * @param id jsorpc request id
+ * @param params jsonrpc request params, which can be either an [[FunctionSubscription]] object or a generic one
+ */
+export function subscribeFunction(id: Id, params: any): types.ScipSubscription {
+  const obj = params instanceof types.FunctionSubscription ? params : parseFunctionSubscription(params);
+  return new types.ScipSubscription(id, obj);
+}
+
+/**
+ * Generate a new Unsubscribe method scip request message, focused on events
+ * @param id jsorpc request id
+ * @param params jsonrpc request params, which can be either an [[EventUnsubscription]] object or a generic one
+ */
+export function unsubscribeEvent(id: Id, params: any): types.ScipUnsubscription {
+  const obj = params instanceof types.EventUnsubscription ? params : parseEventUnsubscription(params);
+  return new types.ScipUnsubscription(id, obj);
+}
+
+/**
+ * Generate a new Unsubscribe method scip request message, focused on functions
+ * @param id jsorpc request id
+ * @param params jsonrpc request params, which can be either an [[FunctionUnsubscription]] object or a generic one
+ */
+export function unsubscribeFunction(id: Id, params: any): types.ScipUnsubscription {
+  const obj = params instanceof types.FunctionUnsubscription ? params : parseFunctionUnsubscription(params);
+  return new types.ScipUnsubscription(id, obj);
+}
+
+/**
+ * Generate a new Query method scip request message, focused on events
+ * @param id jsorpc request id
+ * @param params jsonrpc request params, which can be either an [[EventQuery]] object or a generic one
+ */
+export function queryEvent(id: Id, params: any): types.ScipQuery {
+  const obj = params instanceof types.EventQuery ? params : parseEventQuery(params);
+  return new types.ScipQuery(id, obj);
+}
+
+/**
+ * Generate a new Query method scip request message, focused on functions
+ * @param id jsorpc request id
+ * @param params jsonrpc request params, which can be either an [[FunctionQuery]] object or a generic one
+ */
+export function queryFunction(id: Id, params: any): types.ScipQuery {
+  const obj = params instanceof types.FunctionQuery ? params : parseFunctionQuery(params);
+  return new types.ScipQuery(id, obj);
 }
 
 /********************************************* Exports *********************************************/

@@ -312,7 +312,7 @@ export class ScipQuery extends JsonRpcRequest {
 }
 
 export class ScipCallback extends JsonRpcNotification {
-  static validMethod: string = 'ReceiveCallback';
+  static validMethod = 'ReceiveCallback';
 
   constructor(params: Callback) {
     super('ReceiveCallback', params);

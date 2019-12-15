@@ -73,7 +73,7 @@ export function validateAbsType(absType: any): void {
  * @param name params type: 'inputs', 'outputs' or generic 'params'
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateParams(obj: any, name: string = '', required: boolean = true): void {
+export function validateParams(obj: any, name = '', required = true): void {
   if (required && !hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`${name} is missing, but it is required!`);
   }
@@ -88,7 +88,7 @@ export function validateParams(obj: any, name: string = '', required: boolean = 
  * @param required if the name member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateName(obj: any, required: boolean = true): void {
+export function validateName(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'name')) {
     throw types.ScipErrorObject.parseError(`Name is missing, but it is required!`);
   }
@@ -119,7 +119,7 @@ export function validateParam(param: any): void {
  * @param required if the occurrences member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateOccurrences(obj: any, required: boolean = true): void {
+export function validateOccurrences(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'occurrences')) {
     throw types.ScipErrorObject.parseError(`Occurrences member is missing, but it is required!`);
   }
@@ -134,7 +134,7 @@ export function validateOccurrences(obj: any, required: boolean = true): void {
  * @param name name of the field's identifier, default 'functionId'
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateIdentifier(obj: any, name: string = 'functionId'): void {
+export function validateIdentifier(obj: any, name = 'functionId'): void {
   if (!hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`The ${name} is missing, but it is required!`);
   }
@@ -149,7 +149,7 @@ export function validateIdentifier(obj: any, name: string = 'functionId'): void 
  * @param required if the corrId member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateCorrId(obj: any, required: boolean = false): void {
+export function validateCorrId(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'corrId')) {
     throw types.ScipErrorObject.parseError('Correlation identifier is missing, but it is required!');
   }
@@ -164,7 +164,7 @@ export function validateCorrId(obj: any, required: boolean = false): void {
  * @param required if the doc member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateDoc(obj: any, required: boolean = false): void {
+export function validateDoc(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'doc')) {
     throw types.ScipErrorObject.parseError('Degree of confidence is missing, but it is required!');
   }
@@ -179,7 +179,7 @@ export function validateDoc(obj: any, required: boolean = false): void {
  * @param required if the callback member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateCallbackUrl(obj: any, required: boolean = false): void {
+export function validateCallbackUrl(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'callback')) {
     throw types.ScipErrorObject.parseError('Callback URL is missing, but it is required!');
   }
@@ -194,7 +194,7 @@ export function validateCallbackUrl(obj: any, required: boolean = false): void {
  * @param required if the filter member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateFilter(obj: any, required: boolean = false): void {
+export function validateFilter(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'filter')) {
     throw types.ScipErrorObject.parseError('Filter is missing, but it is required!');
   }
@@ -209,7 +209,7 @@ export function validateFilter(obj: any, required: boolean = false): void {
  * @param required if the timeout member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateTimeout(obj: any, required: boolean = false): void {
+export function validateTimeout(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'timeout')) {
     throw types.ScipErrorObject.parseError('Timeout is missing, but it is required!');
   }
@@ -224,7 +224,7 @@ export function validateTimeout(obj: any, required: boolean = false): void {
  * @param required if the signature member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateSignature(obj: any, required: boolean = false): void {
+export function validateSignature(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'signature')) {
     throw types.ScipErrorObject.parseError('Signature is missing, but it is required!');
   }
@@ -240,7 +240,7 @@ export function validateSignature(obj: any, required: boolean = false): void {
  * @param name field's name, either 'startTime' (default) or 'endTime'
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateTime(obj: any, required: boolean = false, name: string = 'startTime'): void {
+export function validateTime(obj: any, required = false, name = 'startTime'): void {
   if (required && !hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`${name} is missing, but it is required!`);
   }
@@ -256,7 +256,7 @@ export function validateTime(obj: any, required: boolean = false, name: string =
  * @param name field's name, either 'startTime' (default) or 'endTime'
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateTimestamp(obj: any, required: boolean = false): void {
+export function validateTimestamp(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'timestamp')) {
     throw types.ScipErrorObject.parseError(`Timestamp is missing, but it is required!`);
   }

@@ -7,7 +7,8 @@
     "build": "lerna run build",
     "format": "lerna run format",
     "publish": "lerna publish",
-    "docs": "lerna run docs"
+    "docs": "lerna run docs",
+    "test": "lerna run test"
   },
   "dependencies": {
     "scdl-lib": "file:packages/scdl-lib",
