@@ -116,7 +116,7 @@ _See code: [dist/commands/scdl.ts](https://github.com/lampajr/toolscip/blob/v1.0
 
 ## `clisci subscribe [FILE]`
 
-describe the command here
+Command used to monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.
 
 ```
 USAGE
