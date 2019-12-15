@@ -35,7 +35,6 @@ export interface Queryable {
     jsonrpcId: Id,
     id: string,
     values: any[],
-    timestamp?: string,
     filter?: string,
     startTime?: string,
     endTime?: string,

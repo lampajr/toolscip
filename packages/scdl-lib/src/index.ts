@@ -136,7 +136,6 @@ export class Method extends utils.Callable implements Invocable, Subscribable, Q
     jsonrpcId: Id,
     id: string,
     values: any[],
-    timestamp?: string | undefined,
     filter?: string | undefined,
     startTime?: string | undefined,
     endTime?: string | undefined,
@@ -145,7 +144,7 @@ export class Method extends utils.Callable implements Invocable, Subscribable, Q
     const params = createParams(values, this.data.inputs);
 
     // create SCIP [[FunctionSubscription]] param object
-    const scipParams = new types.FunctionQuery(id, params, timestamp, filter, startTime, endTime);
+    const scipParams = new types.FunctionQuery(id, params, filter, startTime, endTime);
     return this.request(queryFunction(jsonrpcId, scipParams));
   }
 }
@@ -193,7 +192,6 @@ export class Event extends utils.Callable implements Subscribable, Queryable {
     jsonrpcId: Id,
     id: string,
     values: any[],
-    timestamp?: string | undefined,
     filter?: string | undefined,
     startTime?: string | undefined,
     endTime?: string | undefined,
@@ -202,7 +200,7 @@ export class Event extends utils.Callable implements Subscribable, Queryable {
     const params = createParams(values, this.data.outputs);
 
     // create SCIP [[FunctionSubscription]] param object
-    const scipParams = new types.EventQuery(id, params, timestamp, filter, startTime, endTime);
+    const scipParams = new types.EventQuery(id, params, filter, startTime, endTime);
     return this.request(queryEvent(jsonrpcId, scipParams));
   }
 }

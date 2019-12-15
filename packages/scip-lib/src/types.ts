@@ -203,14 +203,12 @@ export class FunctionUnsubscription extends Unsubscription {
  */
 class Query {
   params: Parameter[];
-  timestamp?: string;
   filter?: string;
   startTime?: string;
   endTime?: string;
 
-  constructor(params: Parameter[], timestamp?: string, filter?: string, startTime?: string, endTime?: string) {
+  constructor(params: Parameter[], filter?: string, startTime?: string, endTime?: string) {
     this.params = params;
-    this.timestamp = timestamp;
     this.filter = filter;
     this.startTime = startTime;
     this.endTime = endTime;
@@ -226,12 +224,11 @@ export class EventQuery extends Query {
   constructor(
     eventId: string,
     params: Parameter[],
-    timestamp?: string,
     filter?: string,
     startTime?: string,
     endTime?: string,
   ) {
-    super(params, timestamp, filter, startTime, endTime);
+    super(params, filter, startTime, endTime);
     this.eventId = eventId;
   }
 }
@@ -245,12 +242,11 @@ export class FunctionQuery extends Query {
   constructor(
     functionId: string,
     params: Parameter[],
-    timestamp?: string,
     filter?: string,
     startTime?: string,
     endTime?: string,
   ) {
-    super(params, timestamp, filter, startTime, endTime);
+    super(params, filter, startTime, endTime);
     this.functionId = functionId;
   }
 }
