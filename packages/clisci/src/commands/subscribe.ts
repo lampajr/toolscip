@@ -82,6 +82,7 @@ export default class Subscribe extends Command {
           .catch(err => {
             console.error(err);
           });
+          
       } catch (err) {
         if (err instanceof CLIError) {
           throw err;
