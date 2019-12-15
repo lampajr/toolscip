@@ -77,20 +77,25 @@ USAGE
   $ clisci invoke
 
 OPTIONS
-  -F, --format=format      [default: scdl] descriptor format
-  -a, --auth=auth          authorization token
-  -c, --contract=contract  (required) contract's name
-  -d, --doc=doc            degree of confidence
-  -h, --help               show CLI help
-  -i, --corrId=corrId      client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
-  -n, --name=name          (required) name of the function to invoke
-  -p, --path=path          provide a path where the config files are located, if not set, the current dir is used
-  -t, --timeout=timeout    timeout that the gateway have to wait before block the operation
-  -u, --callback=callback  callback URL to which the gateway will forward all asynchronous responses
+  -F, --format=format        [default: scdl] descriptor format
+  -a, --auth=auth            authorization token
+  -c, --contract=contract    (required) contract's name
+  -d, --doc=doc              degree of confidence
+  -h, --help                 show CLI help
+  -i, --corrId=corrId        client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
+  -n, --name=name            (required) name of the function to invoke
+  -p, --path=path            provide a path where the config files are located, if not set, the current dir is used
 
-  -v, --val=val            value to be passed as parameter to the function, if more than one value is required you can
-                           set this flag multiple times
+  -s, --signature=signature  [default: sha256] cryptographic hash function's name that has to be used to sign the
+                             request
+
+  -t, --timeout=timeout      timeout that the gateway have to wait before block the operation
+
+  -u, --callback=callback    callback URL to which the gateway will forward all asynchronous responses
+
+  -v, --val=val              value to be passed as parameter to the function, if more than one value is required you can
+                             set this flag multiple times
 ```
 
 _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_

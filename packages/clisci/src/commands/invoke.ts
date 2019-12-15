@@ -24,6 +24,11 @@ export default class Invoke extends Command {
         'value to be passed as parameter to the function, if more than one value is required you can set this flag multiple times',
       multiple: true,
     }),
+    signature: flags.string({
+      char: 's',
+      description: `cryptographic hash function's name that has to be used to sign the request`,
+      default: 'sha256',
+    }),
     callback: flags.string({
       char: 'u',
       description: 'callback URL to which the gateway will forward all asynchronous responses',
@@ -62,7 +67,7 @@ export default class Invoke extends Command {
           flags.jsonrpc,
           flags.name,
           flags.val !== undefined ? flags.val : [],
-          'abcdefgh',
+          flags.signature,
           flags.callback,
           flags.corrId,
           flags.doc,
