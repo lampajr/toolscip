@@ -32,6 +32,7 @@ USAGE
 * [`clisci init [FILE]`](#clisci-init-file)
 * [`clisci invoke`](#clisci-invoke)
 * [`clisci scdl [FILE]`](#clisci-scdl-file)
+* [`clisci subscribe [FILE]`](#clisci-subscribe-file)
 
 ## `clisci help [COMMAND]`
 
@@ -78,10 +79,10 @@ OPTIONS
   -a, --auth=auth          authorization token
   -c, --contract=contract  (required) contract's name
   -d, --doc=doc            degree of confidence
-  -f, --function=function  (required) name of the function to invoke
   -h, --help               show CLI help
   -i, --corrId=corrId      client-provided correlation identifier
   -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
+  -n, --name=name          (required) name of the function to invoke
   -p, --path=path          provide a path where the config files are located, if not set, the current dir is used
   -t, --timeout=timeout    timeout that the gateway have to wait before block the operation
   -u, --callback=callback  callback URL to which the gateway will forward all asynchronous responses
@@ -112,4 +113,32 @@ OPTIONS
 ```
 
 _See code: [dist/commands/scdl.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl.ts)_
+
+## `clisci subscribe [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ clisci subscribe [FILE]
+
+OPTIONS
+  -F, --format=format      [default: scdl] descriptor format
+  -a, --auth=auth          authorization token
+  -c, --contract=contract  (required) contract's name
+  -d, --doc=doc            degree of confidence
+  -e, --event=event        name of the event to subscribe
+  -f, --function=function  name of the function to subscribe
+  -h, --help               show CLI help
+  -i, --corrId=corrId      client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
+  -p, --path=path          provide a path where the config files are located, if not set, the current dir is used
+  -t, --filter=filter      C-style boolean expression on the function/event parameters
+  -u, --callback=callback  (required) callback URL to which the gateway will forward all asynchronous responses
+
+  -v, --val=val            value to be passed as parameter to the function, if more than one value is required you can
+                           set this flag multiple times
+```
+
+_See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts)_
 <!-- commandsstop -->
