@@ -133,7 +133,7 @@ OPTIONS
   -i, --corrId=corrId      client-provided correlation identifier
   -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
   -p, --path=path          provide a path where the config files are located, if not set, the current dir is used
-  -t, --filter=filter      C-style boolean expression on the function/event parameters
+  -t, --filter=filter      C-style boolean expression over function/event parameters
   -u, --callback=callback  (required) callback URL to which the gateway will forward all asynchronous responses
 
   -v, --val=val            value to be passed as parameter to the function, if more than one value is required you can
