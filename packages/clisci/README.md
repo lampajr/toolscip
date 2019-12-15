@@ -52,7 +52,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2
 
 ## `clisci init [FILE]`
 
-Initialize the 'clisci' configuration files in the current directory.
+Command used to initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.
 
 ```
 USAGE
@@ -67,7 +67,7 @@ _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0
 
 ## `clisci invoke`
 
-this command invoke a target smart contract's function
+Command used to invoke a target smart contract's function starting from a smart contract's descriptor.
 
 ```
 USAGE
@@ -94,7 +94,7 @@ _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1
 
 ## `clisci scdl [FILE]`
 
-describe the command here
+Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.
 
 ```
 USAGE

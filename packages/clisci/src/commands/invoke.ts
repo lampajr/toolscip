@@ -17,7 +17,7 @@ export default class Invoke extends Command {
     auth: flags.string({ char: 'a', description: 'authorization token' }),
     jsonrpc: flags.string({ char: 'j', description: 'jsonrpc request identifier', required: true }),
     contract: flags.string({ char: 'c', description: `contract's name`, required: true }),
-    function: flags.string({ char: 'f', description: `name of the function to invoke`, required: true }),
+    name: flags.string({ char: 'n', description: `name of the function to invoke`, required: true }),
     val: flags.string({
       char: 'v',
       description:
@@ -49,10 +49,10 @@ export default class Invoke extends Command {
       // creates the contract object starting from the descriptor
       const contract: Contract = new Contract(descriptor, flags.auth);
       // retrieve the function/method to invoke
-      const method: Method = contract.methods[flags.function];
+      const method: Method = contract.methods[flags.name];
       if (method === undefined) {
         throw new CLIError(
-          `Method named '${flags.function}' not found in '${
+          `Method named '${flags.name}' not found in '${
             contract.descriptor.name
           }' contract\nThis contract has the following available methods: [${Object.keys(contract.methods)}]`,
         );
@@ -60,7 +60,7 @@ export default class Invoke extends Command {
       method
         .invoke(
           flags.jsonrpc,
-          flags.function,
+          flags.name,
           flags.val !== undefined ? flags.val : [],
           'abcdefgh',
           flags.callback,
