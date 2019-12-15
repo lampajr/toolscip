@@ -5,7 +5,7 @@ import { join } from 'path';
 import { Contract, Method, Event } from '@lampajr/scdl-lib';
 
 export default class Subscribe extends Command {
-  static description = 'describe the command here';
+  static description = `Command used to monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.`;
 
   static flags = {
     help: flags.help({ char: 'h' }),
