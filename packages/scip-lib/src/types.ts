@@ -1,12 +1,3 @@
-import {
-  ErrorObject,
-  Id,
-  JsonRpcNotification,
-  JsonRpcRequest,
-  JsonRpcSuccess,
-  JsonRpcError,
-} from '@lampajr/jsonrpc-lib';
-
 /**
  * * * Copyright * 2019 Andrea Lamparelli
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,6 +39,15 @@ import {
  * *type* :                     the abstract blockhain-agnostic type of this parameter
  * *value* :                    the value of this parameter
  */
+
+import {
+  ErrorObject,
+  Id,
+  JsonRpcNotification,
+  JsonRpcRequest,
+  JsonRpcSuccess,
+  JsonRpcError,
+} from '@lampajr/jsonrpc-lib';
 
 /**************************************** SCIP parameters Types ****************************************/
 /**

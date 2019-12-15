@@ -1,16 +1,3 @@
-import {
-  Id,
-  JsonRpcNotification,
-  JsonRpcRequest,
-  JsonRpcSuccess,
-  parse as parseJsonrpc,
-  JsonRpcMessage,
-  JsonRpcError,
-} from '@lampajr/jsonrpc-lib';
-
-import * as types from './types';
-import * as validation from './validation';
-
 /**
  * * Copyright * 2019 Andrea Lamparelli
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +17,19 @@ import * as validation from './validation';
  * Smart Contract Invocation Protocol nodejs implementation
  * **Specification**: https://github.com/lampajr/scip/blob/master/README.md
  */
+
+import {
+  Id,
+  JsonRpcNotification,
+  JsonRpcRequest,
+  JsonRpcSuccess,
+  parse as parseJsonrpc,
+  JsonRpcMessage,
+  JsonRpcError,
+} from '@lampajr/jsonrpc-lib';
+
+import * as types from './types';
+import * as validation from './validation';
 
 /****************************************** SCIP Params parser ******************************************/
 

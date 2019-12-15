@@ -6,6 +6,7 @@
     "clean": "lerna run clean",
     "build": "lerna run build",
     "format": "lerna run format",
+    "lint": "lerna run lint",
     "publish": "lerna publish",
     "docs": "lerna run docs",
     "test": "lerna run test"

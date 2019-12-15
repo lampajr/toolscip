@@ -1,4 +1,3 @@
-import * as types from './types';
 /**
  * * Copyright * 2019 Andrea Lamparelli
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +16,8 @@ import * as types from './types';
  *   * Utility: some helpful functions that can be used to infer the type of a generic object
  *   * Validation: several validity functions that are used to check the structure of generic objects
  */
+
+import * as types from './types';
 
 /********************************************** Utilities Function **********************************************/
 /** Checks whether a value is an integer or not */
