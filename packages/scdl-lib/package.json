@@ -31,7 +31,7 @@
   "scripts": {
     "build": "npm run clean && npm run format && npm run lint && npm run compile",
     "clean": "rm -rf ./dist",
-    "compile": "tsc . --ext .ts",
+    "compile": "tsc -b tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json --fix",
     "prepublishOnly": "npm run build",
