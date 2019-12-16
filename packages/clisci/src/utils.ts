@@ -99,7 +99,7 @@ export function box(list: string[], title: string) {
   const margin: number = 2;
   let tmp = max - title.length + margin;
   log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
-  log(chalk.bold.green('| ' + ' '.repeat(margin) + title.toLocaleUpperCase + ' '.repeat(tmp) + ' |'));
+  log(chalk.bold.green('| ' + ' '.repeat(margin) + title.toLocaleUpperCase() + ' '.repeat(tmp) + ' |'));
   log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
 
   list.forEach(msg => {
