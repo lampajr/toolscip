@@ -14,11 +14,13 @@
  */
 
 import { Command, flags } from '@oclif/command';
+import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import * as inquirer from 'inquirer';
 import { redBright } from 'chalk';
 import { textSync } from 'figlet';
+import { exec } from 'child_process';
 import { Config } from '../utils';
 
 export default class Init extends Command {
@@ -41,41 +43,53 @@ export default class Init extends Command {
     console.log(redBright(textSync('clisci', { horizontalLayout: 'full' })));
 
     // ask questions
-    this.ask()
-      .then(answers => {
-        const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
-        const configDir: string = join(clisciConfig.dir, Config.configFolder);
-        const descriptorsDir: string = join(configDir, Config.descriptorsFolder);
+    try {
+      const answers = await this.ask(flags.server ? true : false);
 
-        this.createDirectory(configDir);
-        for (const format of clisciConfig.formats) {
-          this.createDirectory(join(descriptorsDir, format));
-        }
+      const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
+      const configDir: string = join(clisciConfig.dir, Config.configFolder);
+      const descriptorsDir: string = join(configDir, Config.descriptorsFolder);
 
-        fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
+      this.createDirectory(configDir);
+      for (const format of clisciConfig.formats) {
+        this.createDirectory(join(descriptorsDir, format));
+      }
+
+      try {
+        await fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
           spaces: '\t',
-        })
-          .then(_ => {
-            console.log(`Configuration file '${Config.configFile}' successfully created!`);
-          })
-          .catch(err => {
-            console.error(err);
-          });
-      })
-      .catch(err => {
+        });
+        console.log(`Configuration file '${Config.configFile}' successfully created!`);
+      } catch (err) {
         console.error(err);
-      });
+      }
 
-    if (flags.server) {
-      // initialize the express.js server
+      if (flags.server) {
+        // initialize the express.js server
+        console.log('Initializing simple server..');
+        const res = exec('npm init --yes && npm install --save express', (error, stdout, stderr) => {
+          if (error) {
+            throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
+          } else {
+            // the *entire* stdout and stderr (buffered)
+            console.log(`stdout: ${stdout}`);
+            console.log(`stderr: ${stderr}`);
+          }
+        });
+
+        res.on('exit', code => console.log('Code: ' + code));
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 
   /**
    * Prompts the initialization questions
    * TODO: check that folder is not empty
+   * @param server tells whether retrieve information about server initialization
    */
-  private async ask() {
+  private async ask(server: boolean) {
     const checked = ['scdl'];
 
     return inquirer.prompt([
@@ -105,6 +119,13 @@ export default class Init extends Command {
         when: answers => {
           return answers.useRegistry;
         },
+      },
+      {
+        type: 'input',
+        name: 'entry',
+        message: 'What is the file entry point of your server?',
+        default: 'index.js',
+        when: server,
       },
     ]);
   }
