@@ -16,9 +16,10 @@
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import { CLIError } from '@oclif/errors';
+import * as chalk from 'chalk';
 
 /**
- * Represent the configuration file
+ * Configuration file
  */
 export class Config {
   static configFolder = '.clisci';
@@ -75,4 +76,14 @@ export async function getDescriptor(filename: string, path: string): Promise<any
     // throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
     throw new CLIError(`During descriptor loading - ${err.message}`);
   }
+}
+
+const log = console.log;
+
+/**
+ * Write an information command line message
+ * @param msg message to print
+ */
+export function write(msg: any) {
+  log(chalk.green('> ') + chalk.bold(msg));
 }

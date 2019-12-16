@@ -14,7 +14,7 @@
  */
 
 import { Command, flags } from '@oclif/command';
-import { Config, loadConfig } from '../utils';
+import { Config, loadConfig, write } from '../utils';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
@@ -64,7 +64,7 @@ export default class Scdl extends Command {
       // list descriptors, TODO: handle patterns
       fs.readdir(descriptorsFolder)
         .then(files => {
-          console.log(files);
+          write(files);
         })
         .catch(err => {
           console.error(err);
@@ -80,7 +80,7 @@ export default class Scdl extends Command {
         const filename: string = flags.add.substring(flags.add.lastIndexOf('/') + 1);
         fs.copyFile(join(config.dir, flags.add), join(descriptorsFolder, filename))
           .then(val => {
-            console.log(`Descriptor successfully saved at ${val}`);
+            write(`Descriptor successfully saved at ${val}`);
           })
           .catch(err => {
             console.error(err.message);
@@ -91,7 +91,7 @@ export default class Scdl extends Command {
     } else if (flags.delete) {
       fs.remove(join(descriptorsFolder, flags.delete))
         .then(_ => {
-          console.log(`Descriptor successfully saved at ${descriptorsFolder}`);
+          write(`Descriptor successfully saved at ${descriptorsFolder}`);
         })
         .catch(err => {
           console.error(err.message);

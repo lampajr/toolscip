@@ -15,7 +15,7 @@
 
 import { Command, flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { Config, loadConfig, getDescriptor } from '../utils';
+import { Config, loadConfig, getDescriptor, write } from '../utils';
 import { join } from 'path';
 import { Contract, Method, Event } from '@lampajr/scdl-lib';
 
@@ -91,7 +91,7 @@ export default class Query extends Command {
             flags.endTime,
           )
           .then(res => {
-            console.log(res.data);
+            write(res.data);
           })
           .catch(err => {
             console.error(err);

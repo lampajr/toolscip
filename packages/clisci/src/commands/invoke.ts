@@ -15,7 +15,7 @@
 
 import { Command, flags } from '@oclif/command';
 import { Contract, Method } from '@lampajr/scdl-lib';
-import { Config, loadConfig, getDescriptor } from '../utils';
+import { Config, loadConfig, getDescriptor, write } from '../utils';
 import { join } from 'path';
 import { CLIError } from '@oclif/errors';
 
@@ -89,7 +89,7 @@ export default class Invoke extends Command {
           flags.timeout,
         )
         .then(res => {
-          console.log(res.data);
+          write(res.data);
         })
         .catch(err => {
           console.error(err);

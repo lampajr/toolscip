@@ -21,7 +21,7 @@ import * as inquirer from 'inquirer';
 import { redBright } from 'chalk';
 import { textSync } from 'figlet';
 import { exec } from 'child_process';
-import { Config } from '../utils';
+import { Config, write } from '../utils';
 
 export default class Init extends Command {
   static description = `Command used to initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
@@ -40,7 +40,7 @@ export default class Init extends Command {
     // clear the console
     console.clear();
     // print a nice banner
-    console.log(redBright(textSync('clisci', { horizontalLayout: 'full' })));
+    write(redBright(textSync('clisci', { horizontalLayout: 'full' })));
 
     // ask questions
     try {
@@ -59,25 +59,25 @@ export default class Init extends Command {
         await fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
           spaces: '\t',
         });
-        console.log(`Configuration file '${Config.configFile}' successfully created!`);
+        write(`Configuration file '${Config.configFile}' successfully created!`);
       } catch (err) {
         console.error(err);
       }
 
       if (flags.server) {
         // initialize the express.js server
-        console.log('Initializing simple server..');
+        write('Initializing simple server..');
         const res = exec('npm init --yes && npm install --save express', (error, stdout, stderr) => {
           if (error) {
             throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
           } else {
             // the *entire* stdout and stderr (buffered)
-            console.log(`stdout: ${stdout}`);
-            console.log(`stderr: ${stderr}`);
+            write(`stdout: ${stdout}`);
+            write(`stderr: ${stderr}`);
           }
         });
 
-        res.on('exit', code => console.log('Code: ' + code));
+        res.on('exit', code => write('Code: ' + code));
       }
     } catch (err) {
       console.error(err);
@@ -134,13 +134,12 @@ export default class Init extends Command {
    * Create a directory at given path
    * @param path where the directory should be created
    */
-  private createDirectory(path: string) {
-    fs.mkdirp(path)
-      .then(_ => {
-        console.log(`Directory at '${path}' successfully created!`);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  private async createDirectory(path: string) {
+    try {
+      await fs.mkdirp(path);
+      write(`Directory at '${path}' successfully created!`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
