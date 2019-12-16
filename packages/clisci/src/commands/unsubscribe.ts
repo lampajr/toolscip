@@ -20,7 +20,7 @@ import { join } from 'path';
 import { Contract, Method, Event } from '@lampajr/scdl-lib';
 
 export default class Unsubscribe extends Command {
-  static description = `Command used to stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
+  static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
 
   static flags = {
     help: flags.help({ char: 'h', description: `show unsubscribe command help` }),

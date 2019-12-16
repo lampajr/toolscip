@@ -24,7 +24,7 @@ import { exec } from 'child_process';
 import { Config, write } from '../utils';
 
 export default class Init extends Command {
-  static description = `Command used to initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
+  static description = `initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
 
   static flags = {
     help: flags.help({ char: 'h', description: `show init command help` }),

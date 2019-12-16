@@ -20,7 +20,7 @@ import { join } from 'path';
 import { Contract, Method, Event } from '@lampajr/scdl-lib';
 
 export default class Query extends Command {
-  static description = 'Command used to query past event occurences or function invocations';
+  static description = 'query past event occurences or function invocations';
 
   static flags = {
     help: flags.help({ char: 'h', description: `show query command help` }),

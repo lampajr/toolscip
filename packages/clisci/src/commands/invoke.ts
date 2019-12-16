@@ -20,7 +20,7 @@ import { join } from 'path';
 import { CLIError } from '@oclif/errors';
 
 export default class Invoke extends Command {
-  static description = `Command used to invoke a target smart contract's function starting from a smart contract's descriptor.`;
+  static description = `invoke a target smart contract's function starting from a smart contract's descriptor.`;
 
   static flags = {
     help: flags.help({ char: 'h', description: `show invoke command help` }),

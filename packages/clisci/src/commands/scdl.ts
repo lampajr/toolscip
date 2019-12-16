@@ -22,7 +22,7 @@ import { join } from 'path';
 export default class Scdl extends Command {
   static folderName = 'scdl';
   static description =
-    'Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.';
+    'gain information about local descriptors, to add new descriptors and to delete already stored descriptors.';
 
   static flags = {
     help: flags.help({ char: 'h', description: `show scdl command help`, exclusive: ['delete', 'add', 'list'] }),
