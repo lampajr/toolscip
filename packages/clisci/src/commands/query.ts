@@ -23,7 +23,7 @@ export default class Query extends Command {
   static description = 'Command used to query past event occurences or function invocations';
 
   static flags = {
-    help: flags.help({ char: 'h' }),
+    help: flags.help({ char: 'h', description: `show query command help` }),
     path: flags.string({
       char: 'p',
       description: 'provide a path where the config files are located, if not set, the current dir is used',

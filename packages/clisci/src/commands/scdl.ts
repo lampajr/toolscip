@@ -25,7 +25,7 @@ export default class Scdl extends Command {
     'Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.';
 
   static flags = {
-    help: flags.help({ char: 'h', exclusive: ['delete', 'add', 'list'] }),
+    help: flags.help({ char: 'h', description: `show scdl command help`, exclusive: ['delete', 'add', 'list'] }),
     list: flags.boolean({ char: 'l', description: 'list all scdl descriptors', exclusive: ['delete', 'add', 'help'] }),
     pattern: flags.string({
       char: 'P',
@@ -72,10 +72,30 @@ export default class Scdl extends Command {
     } else if (flags.add) {
       // add a new descriptor
       if (!flags.local && !flags.remote) {
-        throw new CLIError(`You must set one of the following flags 'remote' and 'local'!`);
+        throw new CLIError(`You MUST set one of the following flags 'remote' or 'local'!`);
+      }
+
+      if (flags.local) {
+        // save a new descriptor from a local path
+        const filename: string = flags.add.substring(flags.add.lastIndexOf('/') + 1);
+        fs.copyFile(join(config.dir, flags.add), join(descriptorsFolder, filename))
+          .then(val => {
+            console.log(`Descriptor successfully saved at ${val}`);
+          })
+          .catch(err => {
+            console.error(err.message);
+          });
+      } else {
+        // download the descriptor from a remote registry
       }
     } else if (flags.delete) {
-      // delete a descriptors
+      fs.remove(join(descriptorsFolder, flags.delete))
+        .then(_ => {
+          console.log(`Descriptor successfully saved at ${descriptorsFolder}`);
+        })
+        .catch(err => {
+          console.error(err.message);
+        });
     }
   }
 }

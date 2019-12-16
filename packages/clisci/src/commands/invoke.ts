@@ -23,7 +23,7 @@ export default class Invoke extends Command {
   static description = `Command used to invoke a target smart contract's function starting from a smart contract's descriptor.`;
 
   static flags = {
-    help: flags.help({ char: 'h' }),
+    help: flags.help({ char: 'h', description: `show invoke command help` }),
     path: flags.string({
       char: 'p',
       description: 'provide a path where the config files are located, if not set, the current dir is used',

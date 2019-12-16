@@ -23,7 +23,7 @@ export default class Unsubscribe extends Command {
   static description = `Command used to stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
 
   static flags = {
-    help: flags.help({ char: 'h' }),
+    help: flags.help({ char: 'h', description: `show unsubscribe command help` }),
     path: flags.string({
       char: 'p',
       description: 'provide a path where the config files are located, if not set, the current dir is used',

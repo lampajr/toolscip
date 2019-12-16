@@ -25,10 +25,10 @@ export default class Init extends Command {
   static description = `Command used to initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
 
   static flags = {
-    help: flags.help({ char: 'h' }),
+    help: flags.help({ char: 'h', description: `show init command help` }),
     server: flags.boolean({
       char: 's',
-      description: "Initialize a simple 'express.js' server for receive asynchronous responses",
+      description: "initialize a simple 'express.js' server for receive asynchronous responses",
     }),
   };
 

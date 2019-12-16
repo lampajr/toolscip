@@ -8,6 +8,7 @@
     "format": "lerna run format",
     "lint": "lerna run lint",
     "publish": "lerna publish",
+    "global": "lerna run global",
     "docs": "lerna run docs",
     "test": "lerna run test"
   },
