@@ -81,9 +81,25 @@ export async function getDescriptor(filename: string, path: string): Promise<any
 const log = console.log;
 
 /**
- * Write an information command line message
- * @param msg message to print
+ * Write an information command line message, if message is not provided
+ * the function prints a blank line.
+ * @param msg [optional] message to print
  */
-export function write(msg: any) {
-  log(chalk.green('> ') + chalk.bold(msg));
+export function write(msg?: any, prefix: string = '> ', suffix: string = ' ') {
+  log(msg ? chalk.green(prefix) + chalk.bold(msg) + chalk.green(suffix) : '\n');
+}
+
+/**
+ * Print a list of strings into a box
+ * @param list messages
+ */
+export function box(list: string[]) {
+  const max: number = list.map(x => x.length).reduce((prev, curr) => (curr >= prev ? curr : prev), -1);
+  const margin: number = 2;
+  log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
+  list.forEach(msg => {
+    const tmp = max - msg.length + margin;
+    write(msg, '| ' + ' '.repeat(margin), ' '.repeat(tmp) + ' |');
+  });
+  log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
 }

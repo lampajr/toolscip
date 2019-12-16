@@ -14,7 +14,7 @@
  */
 
 import { Command, flags } from '@oclif/command';
-import { Config, loadConfig, write } from '../utils';
+import { Config, loadConfig, write, box } from '../utils';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
@@ -64,7 +64,7 @@ export default class Scdl extends Command {
       // list descriptors, TODO: handle patterns
       fs.readdir(descriptorsFolder)
         .then(files => {
-          write(files);
+          box(files);
         })
         .catch(err => {
           console.error(err);
