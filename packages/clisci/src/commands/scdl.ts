@@ -64,7 +64,7 @@ export default class Scdl extends Command {
       // list descriptors, TODO: handle patterns
       fs.readdir(descriptorsFolder)
         .then(files => {
-          box(files);
+          box(files, 'descriptors');
         })
         .catch(err => {
           console.error(err);

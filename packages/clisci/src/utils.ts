@@ -93,13 +93,18 @@ export function write(msg?: any, prefix: string = '> ', suffix: string = ' ') {
  * Print a list of strings into a box
  * @param list messages
  */
-export function box(list: string[]) {
-  const max: number = list.map(x => x.length).reduce((prev, curr) => (curr >= prev ? curr : prev), -1);
+export function box(list: string[], title: string) {
+  let max: number = list.map(x => x.length).reduce((prev, curr) => (curr >= prev ? curr : prev), -1);
+  max = max >= title.length ? max : title.length;
   const margin: number = 2;
+  let tmp = max - title.length + margin;
   log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
+  log(chalk.bold.green('| ' + ' '.repeat(margin) + title.toLocaleUpperCase + ' '.repeat(tmp) + ' |'));
+  log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
+
   list.forEach(msg => {
-    const tmp = max - msg.length + margin;
-    write(msg, '| ' + ' '.repeat(margin), ' '.repeat(tmp) + ' |');
+    tmp = max - msg.length + margin;
+    write(msg, '| ' + ' '.repeat(margin - 2) + '* ', ' '.repeat(tmp) + ' |');
   });
   log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
 }
