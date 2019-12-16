@@ -62,8 +62,8 @@ USAGE
   $ clisci init
 
 OPTIONS
-  -h, --help    show CLI help
-  -s, --server  Initialize a simple 'express.js' server for receive asynchronous responses
+  -h, --help    show init command help
+  -s, --server  initialize a simple 'express.js' server for receive asynchronous responses
 ```
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
@@ -81,7 +81,7 @@ OPTIONS
   -a, --auth=auth            authorization token
   -c, --contract=contract    (required) contract's name
   -d, --doc=doc              degree of confidence
-  -h, --help                 show CLI help
+  -h, --help                 show invoke command help
   -i, --corrId=corrId        client-provided correlation identifier
   -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
   -n, --name=name            (required) name of the function to invoke
@@ -115,7 +115,7 @@ OPTIONS
   -d, --endTime=endTime      end time from which stop considering event occurrences or function invocations
   -e, --event=event          name of the event to query
   -f, --function=function    name of the function to query
-  -h, --help                 show CLI help
+  -h, --help                 show query command help
   -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
   -l, --filter=filter        C-style boolean expression over function/event parameters
   -p, --path=path            provide a path where the config files are located, if not set, the current dir is used
@@ -141,7 +141,7 @@ OPTIONS
   -R, --remote           add a new descriptor from a remote online registry
   -a, --add=add          add a new descriptor
   -d, --delete=delete    delete a local descriptor
-  -h, --help             show CLI help
+  -h, --help             show scdl command help
   -l, --list             list all scdl descriptors
   -p, --path=path        provide a path where the config files are located, if not set, the current dir is used
 ```
@@ -163,7 +163,7 @@ OPTIONS
   -d, --doc=doc            degree of confidence
   -e, --event=event        name of the event to subscribe
   -f, --function=function  name of the function to subscribe
-  -h, --help               show CLI help
+  -h, --help               show subscribe command help
   -i, --corrId=corrId      client-provided correlation identifier
   -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
   -p, --path=path          provide a path where the config files are located, if not set, the current dir is used
@@ -190,7 +190,7 @@ OPTIONS
   -c, --contract=contract  (required) contract's name
   -e, --event=event        name of the event to unsubscribe
   -f, --function=function  name of the function to unsubscribe
-  -h, --help               show CLI help
+  -h, --help               show unsubscribe command help
   -i, --corrId=corrId      client-provided correlation identifier
   -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
   -p, --path=path          provide a path where the config files are located, if not set, the current dir is used

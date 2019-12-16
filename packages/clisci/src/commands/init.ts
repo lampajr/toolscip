@@ -35,8 +35,8 @@ export default class Init extends Command {
   async run() {
     const { flags } = this.parse(Init);
 
-    // TODO: clear the console
-
+    // clear the console
+    console.clear();
     // print a nice banner
     console.log(redBright(textSync('clisci', { horizontalLayout: 'full' })));
 
