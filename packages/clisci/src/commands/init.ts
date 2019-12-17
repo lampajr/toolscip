@@ -40,7 +40,7 @@ export default class Init extends Command {
     // clear the console
     console.clear();
     // print a nice banner
-    write(redBright(textSync('clisci', { horizontalLayout: 'full' })));
+    write(redBright(textSync('clisci', { horizontalLayout: 'full' })), '');
 
     // ask questions
     try {

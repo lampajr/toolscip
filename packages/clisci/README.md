@@ -55,7 +55,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2
 
 ## `clisci init`
 
-Command used to initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.
+initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.
 
 ```
 USAGE
@@ -70,7 +70,7 @@ _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0
 
 ## `clisci invoke`
 
-Command used to invoke a target smart contract's function starting from a smart contract's descriptor.
+invoke a target smart contract's function starting from a smart contract's descriptor.
 
 ```
 USAGE
@@ -102,7 +102,7 @@ _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1
 
 ## `clisci query`
 
-Command used to query past event occurences or function invocations
+query past event occurences or function invocations
 
 ```
 USAGE
@@ -129,7 +129,7 @@ _See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.
 
 ## `clisci scdl`
 
-Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.
+gain information about local descriptors, to add new descriptors and to delete already stored descriptors.
 
 ```
 USAGE
@@ -150,7 +150,7 @@ _See code: [dist/commands/scdl.ts](https://github.com/lampajr/toolscip/blob/v1.0
 
 ## `clisci subscribe`
 
-Command used to monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.
+monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.
 
 ```
 USAGE
@@ -178,7 +178,7 @@ _See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob
 
 ## `clisci unsubscribe`
 
-Command used to stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.
+stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.
 
 ```
 USAGE
