@@ -40,8 +40,8 @@ import * as validation from './validation';
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
 function parseParameter(obj: any): types.Parameter {
-  validation.validateAbsType(obj.type);
-  validation.validateName(obj.name);
+  validation.validateType(obj);
+  validation.validateName(obj);
   return new types.Parameter(obj.name, obj.type, obj.value);
 }
 
@@ -75,7 +75,16 @@ function parseInvocation(obj: any): types.Invocation {
   validation.validateSignature(obj);
   const inputs: types.Parameter[] = parseParameters(obj, 'inputs');
   const outputs: types.Parameter[] = parseParameters(obj, 'outputs');
-  return new types.Invocation(obj.id, inputs, outputs, obj.callback, obj.corrId, obj.doc, obj.timeout, obj.signature);
+  return new types.Invocation(
+    obj.functionId,
+    inputs,
+    outputs,
+    obj.signature,
+    obj.callback,
+    obj.corrId,
+    obj.doc,
+    obj.timeout,
+  );
 }
 
 /**
