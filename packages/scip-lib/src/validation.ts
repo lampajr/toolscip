@@ -50,20 +50,28 @@ function isUrl(str: string): boolean {
 
 /**
  * Validates if the type is a valid scip abstract type
- * @param absType type to validate
+ * @param obj parent object
+ * @param required if the params member is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateAbsType(absType: any): void {
-  try {
-    JSON.parse(absType);
-  } catch (err) {
-    throw types.ScipErrorObject.parseError(`Abstract type JSON parsing error: ${err.message}`);
+export function validateType(obj: any, required = true): void {
+  // try {
+  //   JSON.parse(absType);
+  // } catch (err) {
+  //   throw types.ScipErrorObject.parseError(`Abstract type JSON parsing error: ${err.message}`);
+  // }
+  if (required && !hasOwnProperty.call(obj, 'type')) {
+    throw types.ScipErrorObject.parseError("A parameter MUST have a 'type' member!");
   }
-  if (!isObject(absType)) {
-    throw types.ScipErrorObject.parseError('Abstract type MUST be an object!');
-  }
-  if (!hasOwnProperty.call(absType, 'type')) {
-    throw types.ScipErrorObject.parseError('Type field is missing, but it is required!');
+
+  if (hasOwnProperty.call(obj, 'type')) {
+    const type = obj.type;
+    if (!isObject(type)) {
+      throw types.ScipErrorObject.parseError("Parameter's type MUST be an object!");
+    }
+    if (!hasOwnProperty.call(type, 'type')) {
+      throw types.ScipErrorObject.parseError("A parameter's type MUST have an inner 'type' field, but it is missing!");
+    }
   }
 }
 
@@ -74,7 +82,7 @@ export function validateAbsType(absType: any): void {
  * @param name params type: 'inputs', 'outputs' or generic 'params'
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-export function validateParams(obj: any, name = '', required = true): void {
+export function validateParams(obj: any, name: string, required: boolean = true): void {
   if (required && !hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`${name} is missing, but it is required!`);
   }
@@ -107,7 +115,7 @@ export function validateParam(param: any): void {
   if (!hasOwnProperty.call(param, 'type')) {
     throw types.ScipErrorObject.parseError(`Parameter MUST have an abstract type (i.e. field "type")!`);
   } else {
-    validateAbsType(param.type);
+    validateType(param.type);
   }
   if (!hasOwnProperty.call(param, 'name') || !isString(param.name)) {
     throw types.ScipErrorObject.parseError(`Parameter MUST have a string name!`);

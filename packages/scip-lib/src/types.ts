@@ -73,7 +73,7 @@ export class Parameter {
  * parameters.
  */
 export class Invocation {
-  id: string;
+  functionId: string;
   inputs: Parameter[];
   outputs: Parameter[];
   signature: string;
@@ -83,7 +83,7 @@ export class Invocation {
   timeout?: number;
 
   constructor(
-    id: string,
+    functionId: string,
     inputs: Parameter[],
     outputs: Parameter[],
     signature: string,
@@ -92,7 +92,7 @@ export class Invocation {
     doc?: number,
     timeout?: number,
   ) {
-    this.id = id;
+    this.functionId = functionId;
     this.inputs = inputs;
     this.outputs = outputs;
     this.callback = callback;
