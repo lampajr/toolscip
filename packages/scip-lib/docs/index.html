@@ -67,15 +67,161 @@
 				<a href="#codescip-libcode" id="codescip-libcode" style="color: inherit; text-decoration: none;">
 					<h1><code>scip-lib</code></h1>
 				</a>
-				<blockquote>
-					<p>TODO: description</p>
-				</blockquote>
+				<p>This is a simple <a href="">Smart Contract Invocation Protocol</a> compliant parser and generator library written in Typescript for <a href="https://nodejs.org/en/">Node.js</a>. It was built out as an extension of the <a href="https://github.com/lampajr/jsonrpc-lib">jsonrpc-lib</a> since SCIP is made out as an extension of <a href="https://www.jsonrpc.org/specification">JSON-RPC</a>.</p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of Contents</h2>
+				</a>
+				<ul>
+					<li><a href="#scip-specification">SCIP Specification</a><ul>
+							<li><a href="#invoke-method">Invoke</a></li>
+							<li><a href="#subscribe-method">Subscribe</a></li>
+							<li><a href="#unsubscribe-method">Unsubscribe</a></li>
+							<li><a href="#query-method">Query</a></li>
+							<li><a href="#binding">Binding</a></li>
+						</ul>
+					</li>
+					<li><a href="#class-documentation">Class Documentation</a></li>
+					<li><a href="#function-documentation">Function Documentation</a></li>
+					<li><a href="#usage">Usage</a></li>
+					<li><a href="#examples">Examples</a></li>
+					<li><a href="#contributing">Contributing</a></li>
+				</ul>
+				<a href="#scip-specification" id="scip-specification" style="color: inherit; text-decoration: none;">
+					<h2>SCIP Specification</h2>
+				</a>
+				<p>The <em>Smart Contract Invocation Protocol</em> is a protocol intended to provide a protocol specification in the context of blockchains integration that allows external consumer applications to invoke smart contract functions in a uniform manner regardless of the underlying blockchain technology. Moreover it provides the capability to monitor smart contracts at runtime. Its core consists of a set of <em>methods</em> that can be used by blockchain-external consumer application to interact with <em>smart contracts</em>. </p>
+				<p>In particular the protocol defines four different methods which are used to perform the following operations:</p>
+				<ul>
+					<li>The <em>invocation</em> of a smart contract function</li>
+					<li>The <em>subscription</em> to notifications regarding function invocations or event occurrences</li>
+					<li>The <em>unsubscription</em> from live monitoring</li>
+					<li>The <em>querying</em> of past invocations or events</li>
+				</ul>
+				<a href="#invoke-method" id="invoke-method" style="color: inherit; text-decoration: none;">
+					<h4>Invoke Method</h4>
+				</a>
+				<p>This method allows an external application to invoke a specific smart contract&#39;s function. It requires a synchronous response notifying the success or not of the request and then an asynchronous message notifying the result of the function invocation.</p>
+				<a href="#subscribe-method" id="subscribe-method" style="color: inherit; text-decoration: none;">
+					<h4>Subscribe Method</h4>
+				</a>
+				<p>This method allows to monitor smart contract&#39;s functions and/or events, in particular can be used to be notified whenever an event is triggered by the smart contract or a specific function has been invoked. It requires a synchronous response notifying the success or not of the request and then one or more asynchronous responses notifying the occurrences of what the consumer have subscribed.</p>
+				<a href="#unsubscribe-method" id="unsubscribe-method" style="color: inherit; text-decoration: none;">
+					<h4>Unsubscribe Method</h4>
+				</a>
+				<p>This method is simply used to cancel previously established subscription, this can be used to cancel one or more subscription in according to the request parameters.</p>
+				<a href="#query-method" id="query-method" style="color: inherit; text-decoration: none;">
+					<h4>Query Method</h4>
+				</a>
+				<p>This is a fully synchronous request method which is used to retrieve past event occurrences or function invocations. This method does not have asynchronous responses from the gateway.</p>
+				<a href="#binding" id="binding" style="color: inherit; text-decoration: none;">
+					<h4>Binding</h4>
+				</a>
+				<p>SCIP does not force to use a specific protocol for carrying all these messages, hence different bindings could be used. Here, we have decided to propose a JSON-RPC binding for SCIP, which is a stateless transport-agnostic remote procedure call protocol that uses JSON as its data format. A complete binding can be found at <a href="https://github.com/lampajr/scip/blob/master/README.md#json-rpc-binding">scip binding</a>.</p>
+				<p>In according to the binding proposed in the <a href="https://github.com/lampajr/scip/blob/master/README.md">specification</a> we have built this library out of a JSON-RPC parser library since every SCIP message is also a JSON-RPC 2.0 compliant message. Hence the SCIP can be seen as a restriction of the JSON-RPC protocol:</p>
+				<ul>
+					<li><em>jsonrpc</em>: 2.0  as for generic json-rpc message</li>
+					<li><em>id</em>: string or number as for any json-rpc message</li>
+					<li><em>method</em>: this can only be one of [<em>invoke, subscribe, unsubscribe</em> and <em>query</em>]</li>
+					<li><em>params</em>: the parameter object must have specific form in acccording to the method that has to be invoked.</li>
+					<li><em>result</em>: any, as for a generic json-rpc success response</li>
+					<li><em>error</em>: same error object in a generic json-rpc error response, SCIP provides additional codes that are strictly correlated to the blockchain field.</li>
+				</ul>
+				<p><strong>Reference</strong>: A complete protocol specification can be found in the Github <a href="https://github.com/lampajr/scip">scip repository</a>.</p>
+				<a href="#class-documentation" id="class-documentation" style="color: inherit; text-decoration: none;">
+					<h2>Class Documentation</h2>
+				</a>
+				<p>This library was built in an OOP perspective, providing a class definition for each SCIP message.</p>
+				<a href="#scip-requests" id="scip-requests" style="color: inherit; text-decoration: none;">
+					<h4>SCIP Requests</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Request</th>
+							<th>Class</th>
+							<th>Method</th>
+							<th>Params</th>
+							<th align="center">Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>Invocation</td>
+							<td><code>ScipInvocation</code></td>
+							<td><em>Invoke</em></td>
+							<td><code>Invocation</code></td>
+							<td align="center">Function invocation request object</td>
+						</tr>
+						<tr>
+							<td>Subscription</td>
+							<td><code>ScipSubscription</code></td>
+							<td><em>Subscribe</em></td>
+							<td><code>EventSubscription</code> or <code>FunctionSubscription</code></td>
+							<td align="center">Function/event subscription request object</td>
+						</tr>
+						<tr>
+							<td>Unsubscription</td>
+							<td><code>ScipUnsubscription</code></td>
+							<td><em>Unsubscribe</em></td>
+							<td><code>EventUnsubscription</code> or <code>FunctionUnsubscription</code></td>
+							<td align="center">Cancel subscription request object</td>
+						</tr>
+						<tr>
+							<td>Query</td>
+							<td><code>ScipQuery</code></td>
+							<td><em>Query</em></td>
+							<td><code>EventQuery</code> or <code>FunctionQuery</code></td>
+							<td align="center">Function/event query request object</td>
+						</tr>
+				</tbody></table>
+				<p><strong>Note</strong>: the <em>params</em> objects are specific class objects</p>
+				<a href="#scip-responses" id="scip-responses" style="color: inherit; text-decoration: none;">
+					<h4>SCIP Responses</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Response</th>
+							<th>Class</th>
+							<th align="center">Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>Success (sync)</td>
+							<td><code>ScipSuccess</code></td>
+							<td align="center">Generic synchronous success response object</td>
+						</tr>
+						<tr>
+							<td>Error (sync)</td>
+							<td><code>ScipError</code></td>
+							<td align="center">Synchronous error response object</td>
+						</tr>
+						<tr>
+							<td>Query Response (sync)</td>
+							<td><code>ScipQueryResult</code></td>
+							<td align="center">Synchronous response of a <code>Query</code> request, extension of <code>ScipSuccess</code></td>
+						</tr>
+						<tr>
+							<td>Callback (async)</td>
+							<td><code>ScipCallback</code></td>
+							<td align="center">Asynchronous response of a SCIP gateway, in a json-rpc context it acts as a <code>Notification</code></td>
+						</tr>
+				</tbody></table>
+				<p><strong>Reference</strong>: a complete class documentation can be found at <a href="">scip-lib</a>.</p>
+				<a href="#function-documentation" id="function-documentation" style="color: inherit; text-decoration: none;">
+					<h2>Function Documentation</h2>
+				</a>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
 				<pre><code><span class="hljs-keyword">const</span> scipLib = <span class="hljs-built_in">require</span>(<span class="hljs-string">'scip-lib'</span>);
 
-<span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> DEMONSTRATE API</span></code></pre>
+<span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> DEMONSTRATE API`</span></code></pre>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

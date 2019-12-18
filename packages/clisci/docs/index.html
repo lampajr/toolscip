@@ -117,44 +117,44 @@ OPTIONS
 				<a href="#codeclisci-initcode" id="codeclisci-initcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisci init</code></h2>
 				</a>
-				<p>Command used to initialize the &#39;clisci&#39; configuration files, this command MUST be executed in the directory where the user wants to store the project.</p>
+				<p>initialize the &#39;clisci&#39; configuration files, this command MUST be executed in the directory where the user wants to store the project.</p>
 				<pre><code>USAGE
   $ clisci init
 
 OPTIONS
-  -h, --help    show CLI help
-  -s, --server  Initialize a<span class="hljs-built_in"> simple </span><span class="hljs-string">'express.js'</span><span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> receive asynchronous responses</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts">dist/commands/init.ts</a></em></p>
+  -h, --help    show init command help
+  -s, --server  initialize a<span class="hljs-built_in"> simple </span><span class="hljs-string">'express.js'</span><span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> receive asynchronous responses</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts">dist/commands/init.ts</a></em></p>
 				<a href="#codeclisci-invokecode" id="codeclisci-invokecode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisci invoke</code></h2>
 				</a>
-				<p>Command used to invoke a target smart contract&#39;s function starting from a smart contract&#39;s descriptor.</p>
-				<pre><code><span class="hljs-keyword">USAGE</span>
-  $ clisci invoke
+				<p>invoke a target smart contract&#39;s function starting from a smart contract&#39;s descriptor.</p>
+				<pre><code>USAGE
+  $ clisci<span class="hljs-built_in"> invoke
+</span>
+OPTIONS
+  -F, --format=format        [default: scdl] descriptor format
+  -a, --auth=auth            authorization token
+  -c, --contract=contract    (required) contract's name
+  -d, --doc=doc              degree of confidence
+  -h, --help                 show<span class="hljs-built_in"> invoke </span>command help
+  -i, --corrId=corrId        client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
+  -n, --name=name            (required) name of the function to<span class="hljs-built_in"> invoke
+</span>  -p, --path=path            provide a path where the config files are located,<span class="hljs-built_in"> if </span>not set, the current dir is used
 
-<span class="hljs-keyword">OPTIONS</span>
-  -F, <span class="hljs-comment">--format=format        [default: scdl] descriptor format</span>
-  -a, <span class="hljs-comment">--auth=auth            authorization token</span>
-  -c, <span class="hljs-comment">--contract=contract    (required) contract's name</span>
-  -d, <span class="hljs-comment">--doc=doc              degree of confidence</span>
-  -h, <span class="hljs-comment">--help                 show CLI help</span>
-  -i, <span class="hljs-comment">--corrId=corrId        client-provided correlation identifier</span>
-  -j, <span class="hljs-comment">--jsonrpc=jsonrpc      (required) jsonrpc request identifier</span>
-  -n, <span class="hljs-comment">--name=name            (required) name of the function to invoke</span>
-  -p, <span class="hljs-comment">--path=path            provide a path where the config files are located, if not set, the current dir is used</span>
-
-  -s, <span class="hljs-comment">--signature=signature  [default: sha256] cryptographic hash function's name that has to be used to sign the</span>
+  -s, --signature=signature  [default: sha256] cryptographic hash function's name that has to be used to sign the
                              request
 
-  -t, <span class="hljs-comment">--timeout=timeout      timeout that the gateway have to wait before block the operation</span>
+  -t, --timeout=timeout      timeout that the gateway have to wait before block the operation
 
-  -u, <span class="hljs-comment">--callback=callback    callback URL to which the gateway will forward all asynchronous responses</span>
+  -u, --callback=callback    callback URL to which the gateway will forward all asynchronous responses
 
-  -v, <span class="hljs-comment">--val=val              value to be passed as parameter to the function, if more than one value is required you can</span>
-                             <span class="hljs-keyword">set</span> this flag multiple times</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts">dist/commands/invoke.ts</a></em></p>
+  -v, --val=val              value to be passed as parameter to the function,<span class="hljs-built_in"> if </span>more than one value is required you can
+                             set this flag multiple times</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts">dist/commands/invoke.ts</a></em></p>
 				<a href="#codeclisci-querycode" id="codeclisci-querycode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisci query</code></h2>
 				</a>
-				<p>Command used to query past event occurences or function invocations</p>
+				<p>query past event occurences or function invocations</p>
 				<pre><code>USAGE
   $ clisci query
 
@@ -162,10 +162,10 @@ OPTIONS
   -F, --format=format        [<span class="hljs-keyword">default</span>: scdl] descriptor format
   -a, --auth=auth            authorization token
   -c, --contract=contract    (required) contract<span class="hljs-comment">'s name</span>
-  -d, --endTime=endTime      <span class="hljs-keyword">end</span> time <span class="hljs-keyword">until</span> which <span class="hljs-keyword">stop</span> considering <span class="hljs-keyword">event</span> occurrences <span class="hljs-keyword">or</span> <span class="hljs-keyword">function</span> invocations
+  -d, --endTime=endTime      <span class="hljs-keyword">end</span> time <span class="hljs-keyword">from</span> which <span class="hljs-keyword">stop</span> considering <span class="hljs-keyword">event</span> occurrences <span class="hljs-keyword">or</span> <span class="hljs-keyword">function</span> invocations
   -e, --<span class="hljs-keyword">event</span>=<span class="hljs-keyword">event</span>          name <span class="hljs-keyword">of</span> the <span class="hljs-keyword">event</span> <span class="hljs-keyword">to</span> query
   -f, --<span class="hljs-keyword">function</span>=<span class="hljs-keyword">function</span>    name <span class="hljs-keyword">of</span> the <span class="hljs-keyword">function</span> <span class="hljs-keyword">to</span> query
-  -h, --help                 show CLI help
+  -h, --help                 show query command help
   -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
   -l, --filter=filter        C-style <span class="hljs-built_in">boolean</span> expression over <span class="hljs-keyword">function</span>/<span class="hljs-keyword">event</span> parameters
   -p, --path=path            provide a path <span class="hljs-keyword">where</span> the config files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">set</span>, the current dir <span class="hljs-keyword">is</span> used
@@ -176,7 +176,7 @@ OPTIONS
 				<a href="#codeclisci-scdlcode" id="codeclisci-scdlcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisci scdl</code></h2>
 				</a>
-				<p>Command used to gain information about local descriptors, to add new descriptors and to delete already stored descriptors.</p>
+				<p>gain information about local descriptors, to add new descriptors and to delete already stored descriptors.</p>
 				<pre><code>USAGE
   $ clisci scdl
 
@@ -186,13 +186,13 @@ OPTIONS
   -R, --remote           <span class="hljs-builtin-name">add</span> a new descriptor <span class="hljs-keyword">from</span> a remote online registry
   -a, <span class="hljs-attribute">--add</span>=add          <span class="hljs-builtin-name">add</span> a new descriptor
   -d, <span class="hljs-attribute">--delete</span>=delete    delete a local descriptor
-  -h, --help             show CLI help
+  -h, --help             show scdl command help
   -l, --list             list all scdl descriptors
   -p, <span class="hljs-attribute">--path</span>=path        provide a path where the<span class="hljs-built_in"> config </span>files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current dir is used</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl.ts">dist/commands/scdl.ts</a></em></p>
 				<a href="#codeclisci-subscribecode" id="codeclisci-subscribecode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisci subscribe</code></h2>
 				</a>
-				<p>Command used to monitor a target smart contract&#39;s function invocations or event occurrences starting from a smart contract&#39;s descriptor.</p>
+				<p>monitor a target smart contract&#39;s function invocations or event occurrences starting from a smart contract&#39;s descriptor.</p>
 				<pre><code><span class="hljs-keyword">USAGE</span>
   $ clisci subscribe
 
@@ -203,7 +203,7 @@ OPTIONS
   -d, <span class="hljs-comment">--doc=doc            degree of confidence</span>
   -e, <span class="hljs-comment">--event=event        name of the event to subscribe</span>
   -f, <span class="hljs-comment">--function=function  name of the function to subscribe</span>
-  -h, <span class="hljs-comment">--help               show CLI help</span>
+  -h, <span class="hljs-comment">--help               show subscribe command help</span>
   -i, <span class="hljs-comment">--corrId=corrId      client-provided correlation identifier</span>
   -j, <span class="hljs-comment">--jsonrpc=jsonrpc    (required) jsonrpc request identifier</span>
   -p, <span class="hljs-comment">--path=path          provide a path where the config files are located, if not set, the current dir is used</span>
@@ -215,7 +215,7 @@ OPTIONS
 				<a href="#codeclisci-unsubscribecode" id="codeclisci-unsubscribecode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisci unsubscribe</code></h2>
 				</a>
-				<p>Command used to stop live monitoring of a smart contract&#39;s function or event by unsubscribing a previous subscription.</p>
+				<p>stop live monitoring of a smart contract&#39;s function or event by unsubscribing a previous subscription.</p>
 				<pre><code><span class="hljs-keyword">USAGE</span>
   $ clisci unsubscribe
 
@@ -225,7 +225,7 @@ OPTIONS
   -c, <span class="hljs-comment">--contract=contract  (required) contract's name</span>
   -e, <span class="hljs-comment">--event=event        name of the event to unsubscribe</span>
   -f, <span class="hljs-comment">--function=function  name of the function to unsubscribe</span>
-  -h, <span class="hljs-comment">--help               show CLI help</span>
+  -h, <span class="hljs-comment">--help               show unsubscribe command help</span>
   -i, <span class="hljs-comment">--corrId=corrId      client-provided correlation identifier</span>
   -j, <span class="hljs-comment">--jsonrpc=jsonrpc    (required) jsonrpc request identifier</span>
   -p, <span class="hljs-comment">--path=path          provide a path where the config files are located, if not set, the current dir is used</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts">dist/commands/unsubscribe.ts</a></em></p>

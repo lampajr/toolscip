@@ -300,11 +300,11 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-static">
 					<a name="description" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> description</h3>
-					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&#x60;Command used to initialize the &#x27;clisci&#x27; configuration files, this command MUST be executed in the directory where the user wants to store the project.&#x60;</span></div>
+					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&#x60;initialize the &#x27;clisci&#x27; configuration files, this command MUST be executed in the directory where the user wants to store the project.&#x60;</span></div>
 					<aside class="tsd-sources">
 						<p>Overrides Command.description</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/664a19d/packages/clisci/src/commands/init.ts#L10">src/commands/init.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/5dee503/packages/clisci/src/commands/init.ts#L27">src/commands/init.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -544,13 +544,13 @@
 					<a name="ask" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> ask</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">ask<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">ask<span class="tsd-signature-symbol">(</span>server<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/664a19d/packages/clisci/src/commands/init.ts#L63">src/commands/init.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/5dee503/packages/clisci/src/commands/init.ts#L92">src/commands/init.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -559,7 +559,16 @@
 									TODO: check that folder is not empty</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>server: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>tells whether retrieve information about server initialization</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -591,13 +600,13 @@
 					<a name="createdirectory" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> create<wbr>Directory</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Directory<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Directory<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/664a19d/packages/clisci/src/commands/init.ts#L101">src/commands/init.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/5dee503/packages/clisci/src/commands/init.ts#L137">src/commands/init.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -614,7 +623,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -812,7 +821,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Command.run</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/664a19d/packages/clisci/src/commands/init.ts#L20">src/commands/init.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/5dee503/packages/clisci/src/commands/init.ts#L37">src/commands/init.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -853,26 +862,26 @@
 					<aside class="tsd-sources">
 						<p>Overrides Command.flags</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/664a19d/packages/clisci/src/commands/init.ts#L12">src/commands/init.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/5dee503/packages/clisci/src/commands/init.ts#L29">src/commands/init.ts:29</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="flags.help-1" class="tsd-anchor"></a>
 						<h3>help</h3>
-						<div class="tsd-signature tsd-kind-icon">help<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;flags.help({ char: &#x27;h&#x27; })</span></div>
+						<div class="tsd-signature tsd-kind-icon">help<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;flags.help({ char: &#x27;h&#x27;, description: &#x60;show init command help&#x60; })</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/664a19d/packages/clisci/src/commands/init.ts#L13">src/commands/init.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/5dee503/packages/clisci/src/commands/init.ts#L30">src/commands/init.ts:30</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="flags.server" class="tsd-anchor"></a>
 						<h3>server</h3>
-						<div class="tsd-signature tsd-kind-icon">server<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;flags.boolean({char: &#x27;s&#x27;,description: &quot;Initialize a simple &#x27;express.js&#x27; server for receive asynchronous responses&quot;,})</span></div>
+						<div class="tsd-signature tsd-kind-icon">server<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> =&nbsp;flags.boolean({char: &#x27;s&#x27;,description: &quot;initialize a simple &#x27;express.js&#x27; server for receive asynchronous responses&quot;,})</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/664a19d/packages/clisci/src/commands/init.ts#L14">src/commands/init.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/5dee503/packages/clisci/src/commands/init.ts#L31">src/commands/init.ts:31</a></li>
 							</ul>
 						</aside>
 					</section>
