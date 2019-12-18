@@ -1,5 +1,7 @@
 # `scip-lib`
 
+
+
 This is a simple [Smart Contract Invocation Protocol]() compliant parser and generator library written in Typescript for [Node.js](https://nodejs.org/en/). It was built out as an extension of the [jsonrpc-lib](https://github.com/lampajr/jsonrpc-lib) since SCIP is made out as an extension of [JSON-RPC](https://www.jsonrpc.org/specification).
 
 ## Table of Contents
