@@ -90,6 +90,19 @@ This library was built in an OOP perspective, providing a class definition for e
 
 ## Function Documentation
 
+This library provides a set of tools that allows a client to easily handle and generates SCIP messages, in particular it provides the following functions:
+
+| Function              | Return               | Description                                                  |
+| --------------------- | -------------------- | ------------------------------------------------------------ |
+| `parse`               | `ScipMessage`        | Parse a generic object checking its validity, if so it returns the specific SCIP object instance, otherwise it throws an `ErrorObject` |
+| `invoke`              | `ScipInvocation`     | Generates a `ScipInvocation` message if the params is a valid `Invocation` object. |
+| `subscribeEvent`      | `ScipSubscription`   | Generates a `ScipSubscription` message if the params is a valid `EventSubscription` object. |
+| `subscribeFunction`   | `ScipSubscription`   | Generates a `ScipSubscription` message if the params is a valid `FunctionSubscription` object. |
+| `unsubscribeEvent`    | `ScipUnsubscription` | Generates a `ScipUnsubscription` message if the params is a valid  `EventUnsubscription` object. |
+| `unsubscribeFunction` | `ScipUnsubscription` | Generates a `ScipUnsubscription` message if the params is a valid `FunctionUnsubscription` object. |
+| `queryEvent`          | `ScipQuery`          | Generates a `ScipQuery` message if the params is a valid `EventQuery` object. |
+| `queryFunction`       | `ScipQuery`          | Generates a `ScipQuery` message if the params is a valid `FunctionQuery` object. |
+
 
 
 ## Usage
