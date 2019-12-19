@@ -8,7 +8,6 @@ This is a simple [Smart Contract Invocation Protocol]() compliant parser and gen
 
 * [Installation](#installation)
 * [Usage](#usage)
-* [Examples](#examples)
 * [SCIP Specification](#scip-specification)
   * [Invoke](#invoke-method)
   * [Subscribe](#subscribe-method)
@@ -17,6 +16,7 @@ This is a simple [Smart Contract Invocation Protocol]() compliant parser and gen
   * [Binding](#binding)
 * [Classes](#classes)
 * [Functions](#functions)
+* [Examples](#examples)
 * [Contributing](#contributing)
 
 
