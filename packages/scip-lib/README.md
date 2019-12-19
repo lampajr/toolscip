@@ -6,17 +6,115 @@ This is a simple [Smart Contract Invocation Protocol]() compliant parser and gen
 
 ## Table of Contents
 
+* [Installation](#installation)
+* [Usage](#usage)
+* [Examples](#examples)
 * [SCIP Specification](#scip-specification)
   * [Invoke](#invoke-method)
   * [Subscribe](#subscribe-method)
   * [Unsubscribe](#unsubscribe-method)
   * [Query](#query-method)
   * [Binding](#binding)
-* [Class Documentation](#class-documentation)
-* [Function Documentation](#function-documentation)
-* [Usage](#usage)
-* [Examples](#examples)
+* [Classes](#classes)
+* [Functions](#functions)
 * [Contributing](#contributing)
+
+
+
+## Installation
+
+The package can be simply installed via [npm](https://www.npmjs.com/), a suggestion is to import the package locally as follow:
+
+```bash
+npm install --save @lampajr/scip-lib
+```
+
+
+
+## Usage
+
+In order to use this module you just have to import it like any other *npm* package:
+
+*JavaScript* import
+
+```javascript
+const scip = require('@lampajr/scip-lib');
+```
+
+*Typescript* import
+
+```typescript
+import scip from '@lampajr/scip-lib';
+// or
+import { scip } from '@lampajr/scip-lib';
+```
+
+One of the main functionality that this package provides is the *parse* function that allows a client to parse a string message, checks whether it a SCIP-compliant message and then if valid it generates the corresponding SCIP object, otherwise it throws an exception (i.e. `ErrorObject`) containing information about what is invalid in the string message.
+
+Suppose to have received a message request as the following one:
+
+```json
+{
+    jsonrpc: '2.0',
+    id: 'abcdefg',
+    method: 'Invoke',
+    params: {
+      functionId: 'send',
+      inputs: [
+        {
+          type: {
+            type: 'number'
+          },
+          name: 'amount',
+          value: 50
+        }
+      ],
+      outputs: []
+    }
+}
+```
+
+Now you just have to invoke the *parse* function providing the message as input, if the message is valid the function will return the object instance of a SCIP message (i.e. `ScipInvocation`, `ScipSubscription`, `ScipUnsubscription`, `ScipQuery`, `ScipCallback`, `ScipSuccess` and `ScipError`).
+
+```typescript
+try {
+    const obj = scip.parse(msg);
+    // `obj` will be an instance of a ScipInvocation class
+} catch (err) {
+    console.log('Error message: ' + err.message);	// error description
+    console.log('Error code: ' + err.code);			// scip error code
+}
+```
+
+**Note**: the input message must be in string format.
+
+This package provides also other function that are mainly used to create new *SCIP* messages instances, all of them require an `id` (i.e. json-rpc id) and a `params` object that must be a valid SCIP *params* object in according to the specific invoked function (i.e. `Invocation`, `FunctionSubscription`, `EventSubscription`, `FunctionUnsubscription`, `EventUnsubscription`, `FunctionQuery`, `EventQuery`, `QueryResult` and `Callback`).
+
+The *params* object can be directly provided as instance of one of the aforementioned classes or as generic JSON object.
+
+```typescript
+const param = {
+    functionId: 'send',
+    inputs: [
+        {
+            type: {
+                type: 'number'
+            },
+            name: 'amount',
+            value: 50
+        }
+    ],
+    outputs: []
+}
+
+try {
+    const invObj = scip.invoke('abcdefg', param);
+    // 'invObj' will be an instance of a ScipInvocation
+} catch (err) {
+    console.log('Error message: ' + err.message);	// error description
+    console.log('Error code: ' + err.code);			// scip error code
+}
+```
 
 
 
@@ -62,7 +160,7 @@ In according to the binding proposed in the [specification](https://github.com/l
 
 **Reference**: A complete protocol specification can be found in the Github [scip repository](https://github.com/lampajr/scip).
 
-## Class Documentation
+## Classes
 
 This library was built in an OOP perspective, providing a class definition for each SCIP message.
 
@@ -88,7 +186,7 @@ This library was built in an OOP perspective, providing a class definition for e
 
 **Reference**: a complete class documentation can be found at [scip-lib]().
 
-## Function Documentation
+## Functions
 
 This library provides a set of tools that allows a client to easily handle and generates SCIP messages, in particular it provides the following functions:
 
@@ -102,105 +200,6 @@ This library provides a set of tools that allows a client to easily handle and g
 | `unsubscribeFunction` | `ScipUnsubscription` | Generates a `ScipUnsubscription` message if the params is a valid `FunctionUnsubscription` object. |
 | `queryEvent`          | `ScipQuery`          | Generates a `ScipQuery` message if the params is a valid `EventQuery` object. |
 | `queryFunction`       | `ScipQuery`          | Generates a `ScipQuery` message if the params is a valid `FunctionQuery` object. |
-
-
-
-## Installation
-
-The package can be simply installed via [npm](https://www.npmjs.com/), a suggestion is to import the package locally as follow:
-
-```bash
-npm install --save @lampajr/scip-lib
-```
-
-
-
-## Import
-
-*JavaScript* import
-
-```javascript
-const scip = require('@lampajr/scip-lib');
-```
-
-*Typescript* import
-
-```typescript
-import scip from '@lampajr/scip-lib';
-// or
-import { scip } from '@lampajr/scip-lib';
-```
-
-
-
-## Usage
-
-This module, as already introduced, provides a *parse* function that allows a client to parse a string message, checks whether it a SCIP-compliant message and then if valid it generates the corresponding SCIP object, otherwise it throws an exception (i.e. `ErrorObject`) containing information about what is invalid in the string message.
-
-Suppose to have received a message request as the following one:
-
-```json
-{
-    jsonrpc: '2.0',
-    id: 'abcdefg',
-    method: 'Invoke',
-    params: {
-      functionId: 'send',
-      inputs: [
-        {
-          type: {
-            type: 'number'
-          },
-          name: 'amount',
-          value: 50
-        }
-      ],
-      outputs: []
-    }
-}
-```
-
-Now you just have to invoke the *parse* function providing the message as input, if the message is valid the function will return the object instance of a SCIP message (i.e. `ScipInvocation`, `ScipSubscription`, `ScipUnsubscription`, `ScipQuery`, `ScipCallback`, `ScipSuccess` and `ScipError`).
-
-```typescript
-try {
-    const obj = scip.parse(msg);
-    // `obj` will be an instance of a ScipInvocation class
-} catch (err) {
-    console.log('Error message: ' + err.message);	// error description
-    console.log('Error code: ' + err.code);			// scip error code
-}
-```
-
-**Note**: the input message must be in string format.
-
-This package provides also other function that are mainly used to create new SCIP messages instances, all of them require an `id` (i.e. json-rpc id) and a `params` object that must be a valid SCIP *params* object in according to the specific invoked function (i.e. `Invocation`, `FunctionSubscription`, `EventSubscription`, `FunctionUnsubscription`, `EventUnsubscription`, `FunctionQuery`, `EventQuery`, `QueryResult` and `Callback`).
-
-The *params* object can be directly provided as instance of one of the aforementioned classes or as generic JSON object.
-
-```typescript
-const param = {
-    functionId: 'send',
-    inputs: [
-        {
-            type: {
-                type: 'number'
-            },
-            name: 'amount',
-            value: 50
-        }
-    ],
-    outputs: []
-}
-
-try {
-    const invObj = scip.invoke('abcdefg', param);
-    // 'invObj' will be an instance of a ScipInvocation
-} catch (err) {
-    console.log('Error message: ' + err.message);	// error description
-    console.log('Error code: ' + err.code);			// scip error code
-}
-```
 
 
 
