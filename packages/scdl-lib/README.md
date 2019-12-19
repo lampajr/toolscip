@@ -73,7 +73,7 @@ contract.methods.balanceOf
   });
 ```
 
-**Note**: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the [scip-lib] documentation, which fully describe the meaning of all required parameters.
+**Note**: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the [scip-lib](https://github.com/lampajr/toolscip/tree/master/packages/scip-lib) documentation, which fully describe the meaning of all required parameters.
 
 ## SCDL Specification
 
