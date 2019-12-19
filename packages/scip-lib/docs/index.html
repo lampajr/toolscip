@@ -210,18 +210,134 @@
 				<a href="#function-documentation" id="function-documentation" style="color: inherit; text-decoration: none;">
 					<h2>Function Documentation</h2>
 				</a>
+				<p>This library provides a set of tools that allows a client to easily handle and generates SCIP messages, in particular it provides the following functions:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Function</th>
+							<th>Return</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>parse</code></td>
+							<td><code>ScipMessage</code></td>
+							<td>Parse a generic object checking its validity, if so it returns the specific SCIP object instance, otherwise it throws an <code>ErrorObject</code></td>
+						</tr>
+						<tr>
+							<td><code>invoke</code></td>
+							<td><code>ScipInvocation</code></td>
+							<td>Generates a <code>ScipInvocation</code> message if the params is a valid <code>Invocation</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>subscribeEvent</code></td>
+							<td><code>ScipSubscription</code></td>
+							<td>Generates a <code>ScipSubscription</code> message if the params is a valid <code>EventSubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>subscribeFunction</code></td>
+							<td><code>ScipSubscription</code></td>
+							<td>Generates a <code>ScipSubscription</code> message if the params is a valid <code>FunctionSubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>unsubscribeEvent</code></td>
+							<td><code>ScipUnsubscription</code></td>
+							<td>Generates a <code>ScipUnsubscription</code> message if the params is a valid  <code>EventUnsubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>unsubscribeFunction</code></td>
+							<td><code>ScipUnsubscription</code></td>
+							<td>Generates a <code>ScipUnsubscription</code> message if the params is a valid <code>FunctionUnsubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>queryEvent</code></td>
+							<td><code>ScipQuery</code></td>
+							<td>Generates a <code>ScipQuery</code> message if the params is a valid <code>EventQuery</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>queryFunction</code></td>
+							<td><code>ScipQuery</code></td>
+							<td>Generates a <code>ScipQuery</code> message if the params is a valid <code>FunctionQuery</code> object.</td>
+						</tr>
+				</tbody></table>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>The package can be simply installed via <a href="https://www.npmjs.com/">npm</a>, a suggestion is to import the package locally as follow:</p>
+				<pre><code class="language-bash">npm install --save @lampajr/scip-lib</code></pre>
+				<a href="#import" id="import" style="color: inherit; text-decoration: none;">
+					<h2>Import</h2>
+				</a>
+				<p><em>JavaScript</em> import</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> scip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@lampajr/scip-lib'</span>);</code></pre>
+				<p><em>Typescript</em> import</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> scip <span class="hljs-keyword">from</span> <span class="hljs-string">'@lampajr/scip-lib'</span>;
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">import</span> { scip } <span class="hljs-keyword">from</span> <span class="hljs-string">'@lampajr/scip-lib'</span>;</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<pre><code><span class="hljs-keyword">const</span> scipLib = <span class="hljs-built_in">require</span>(<span class="hljs-string">'scip-lib'</span>);
+				<p>This module, as already introduced, provides a <em>parse</em> function that allows a client to parse a string message, checks whether it a SCIP-compliant message and then if valid it generates the corresponding SCIP object, otherwise it throws an exception (i.e. <code>ErrorObject</code>) containing information about what is invalid in the string message.</p>
+				<p>Suppose to have received a message request as the following one:</p>
+				<pre><code class="language-json">{
+    jsonrpc: &#39;2.0&#39;,
+    id: &#39;abcdefg&#39;,
+    method: &#39;Invoke&#39;,
+    params: {
+      functionId: &#39;send&#39;,
+      inputs: [
+        {
+          type: {
+            type: &#39;number&#39;
+          },
+          name: &#39;amount&#39;,
+          value: 50
+        }
+      ],
+      outputs: []
+    }
+}</code></pre>
+				<p>Now you just have to invoke the <em>parse</em> function providing the message as input, if the message is valid the function will return the object instance of a SCIP message (i.e. <code>ScipInvocation</code>, <code>ScipSubscription</code>, <code>ScipUnsubscription</code>, <code>ScipQuery</code>, <code>ScipCallback</code>, <code>ScipSuccess</code> and <code>ScipError</code>).</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> obj = scip.parse(msg);
+    <span class="hljs-comment">// `obj` will be an instance of a ScipInvocation class</span>
+} <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message);    <span class="hljs-comment">// error description</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code);            <span class="hljs-comment">// scip error code</span>
+}</code></pre>
+				<p><strong>Note</strong>: the input message must be in string format.</p>
+				<p>This package provides also other function that are mainly used to create new SCIP messages instances, all of them require an <code>id</code> (i.e. json-rpc id) and a <code>params</code> object that must be a valid SCIP <em>params</em> object in according to the specific invoked function (i.e. <code>Invocation</code>, <code>FunctionSubscription</code>, <code>EventSubscription</code>, <code>FunctionUnsubscription</code>, <code>EventUnsubscription</code>, <code>FunctionQuery</code>, <code>EventQuery</code>, <code>QueryResult</code> and <code>Callback</code>).</p>
+				<p>The <em>params</em> object can be directly provided as instance of one of the aforementioned classes or as generic JSON object.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> param = {
+    functionId: <span class="hljs-string">'send'</span>,
+    inputs: [
+        {
+            <span class="hljs-keyword">type</span>: {
+                <span class="hljs-keyword">type</span>: <span class="hljs-string">'number'</span>
+            },
+            name: <span class="hljs-string">'amount'</span>,
+            value: <span class="hljs-number">50</span>
+        }
+    ],
+    outputs: []
+}
 
-<span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> DEMONSTRATE API`</span></code></pre>
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> invObj = scip.invoke(<span class="hljs-string">'abcdefg'</span>, param);
+    <span class="hljs-comment">// 'invObj' will be an instance of a ScipInvocation</span>
+} <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message);    <span class="hljs-comment">// error description</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code);            <span class="hljs-comment">// scip error code</span>
+}</code></pre>
 				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 					<h2>Examples</h2>
 				</a>
+				<p>TODO</p>
 				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
 					<h2>Contributing</h2>
 				</a>
+				<p>Feel free to post questions and problems on the issue tracker. Pull requests are welcome!</p>
+				<p>Feel free to fork and modify or add new features and functionality to the library</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

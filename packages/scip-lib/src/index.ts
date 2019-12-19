@@ -407,5 +407,4 @@ const scip = {
 };
 
 export default scip;
-export { scip };
-export { types };
+export { scip, types };
