@@ -108,14 +108,14 @@ export default class Init extends Command {
       {
         type: 'confirm',
         name: 'useRegistry',
-        message: 'Do you want to associate to an online registry?',
+        message: 'Do you want to associate a register with the project?',
         default: true,
       },
       {
         type: 'input',
         name: 'registry',
-        message: "What is the registry's URL?",
-        default: 'https://scdlregistry.herokuapp.com',
+        message: "What is the registry's api endpoint?",
+        default: 'https://scdlregistry.herokuapp.com/api/descriptors/content',
         when: answers => {
           return answers.useRegistry;
         },
