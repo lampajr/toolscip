@@ -227,4 +227,4 @@ const scdl = {
 };
 
 export default scdl;
-export { scdl };
+export { scdl, ISCDL };

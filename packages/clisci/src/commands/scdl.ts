@@ -14,10 +14,12 @@
  */
 
 import { Command, flags } from '@oclif/command';
+import { ISCDL } from '@lampajr/scdl-lib';
 import { Config, loadConfig, write, box } from '../utils';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
+import axios from 'axios';
 
 export default class Scdl extends Command {
   static folderName = 'scdl';
@@ -87,6 +89,26 @@ export default class Scdl extends Command {
           });
       } else {
         // download the descriptor from a remote registry
+        if (config.registry) {
+          const endpoint: string = `${config.registry}/${flags.add}`;
+          try {
+            const descriptor: ISCDL = (await axios.get(endpoint)).data;
+            write(`${descriptor.name} contract's descriptor downloaded`);
+            fs.writeJSON(join(descriptorsFolder, descriptor.name + '.json'), descriptor, {
+              spaces: '\t',
+            })
+              .then(_ => {
+                write(`Descriptor successfully saved at ${descriptorsFolder}`);
+              })
+              .catch(err => {
+                throw new CLIError(`Saving operation exited with this error - ${err.message}`);
+              });
+          } catch (err) {
+            throw new CLIError(`The online registry request failed with this error - ${err.message}`);
+          }
+        } else {
+          throw new CLIError("Missing online registry's url");
+        }
       }
     } else if (flags.delete) {
       fs.remove(join(descriptorsFolder, flags.delete))
@@ -94,7 +116,7 @@ export default class Scdl extends Command {
           write(`Descriptor successfully saved at ${descriptorsFolder}`);
         })
         .catch(err => {
-          console.error(err.message);
+          throw new CLIError(`Saving operation exited with this error - ${err.message}`);
         });
     }
   }

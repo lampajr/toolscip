@@ -15,6 +15,7 @@
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.2",
+    "axios": "^0.19.0",
     "chalk": "^3.0.0",
     "clear": "^0.1.0",
     "figlet": "^1.2.4",
