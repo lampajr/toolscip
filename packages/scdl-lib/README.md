@@ -59,7 +59,7 @@ contract.methods; // all contract's functions
 contract.events; // all contract's events
 ```
 
-Suppose that you want to invoke a specific function (e.g. named 'balanceOf'), then you just have to use its name as property of the `contract.methods` object and then call the `invoke` function on it. Note
+Suppose that you want to invoke a specific function (e.g. named 'balanceOf'), then you just have to use its name as property of the `contract.methods` object and then call the `invoke` [^1]function on it. 
 
 ```typescript
 // performs a SCIP invocation request
@@ -73,10 +73,26 @@ contract.methods.balanceOf
   });
 ```
 
-**Note**: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the [scip-lib](https://github.com/lampajr/toolscip/tree/master/packages/scip-lib) documentation, which fully describe the meaning of all required parameters.
+In addition this library provides an interface definition of an *SCDL descriptor* object, which can be imported as follow:
+
+```typescript
+import { ISCDL } from '@lampajr/scdl-lib'
+```
+
+[^1]: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the [scip-lib](https://github.com/lampajr/toolscip/tree/master/packages/scip-lib) documentation, which fully describe the meaning of all required parameters.
+
+
 
 ## SCDL Specification
 
+TODO
+
 ## Examples
 
+TODO
+
 ## Contributing
+
+Feel free to post questions and problems on the issue tracker. Pull requests are welcome!
+
+Feel free to fork and modify or add new features and functionality to the library
