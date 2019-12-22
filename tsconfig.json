@@ -15,7 +15,7 @@
     "paths": {
       "@lampajr/scip-lib": ["scip-lib/dist"],
       "@lampajr/scdl-lib": ["scdl-lib/dist"],
-      "@lampajr/clisci": ["clisci/dist"]
+      "@lampajr/clisc": ["clisc/dist"]
     }
   },
   "exclude": ["node_modules", "dist", "__tests__", "docs"]
