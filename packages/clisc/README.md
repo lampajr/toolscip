@@ -15,34 +15,34 @@ Command Line Interface for Smart Contracts interaction
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @lampajr/clisci
-$ clisci COMMAND
+$ npm install -g @lampajr/clisc
+$ clisc COMMAND
 running command...
-$ clisci (-v|--version|version)
-@lampajr/clisci/1.0.0 linux-x64 node-v10.16.3
-$ clisci --help [COMMAND]
+$ clisc (-v|--version|version)
+@lampajr/clisc/1.0.0 linux-x64 node-v10.16.3
+$ clisc --help [COMMAND]
 USAGE
-  $ clisci COMMAND
+  $ clisc COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`clisci help [COMMAND]`](#clisci-help-command)
-* [`clisci init`](#clisci-init)
-* [`clisci invoke`](#clisci-invoke)
-* [`clisci query`](#clisci-query)
-* [`clisci scdl`](#clisci-scdl)
-* [`clisci subscribe`](#clisci-subscribe)
-* [`clisci unsubscribe`](#clisci-unsubscribe)
+* [`clisc help [COMMAND]`](#clisc-help-command)
+* [`clisc init`](#clisc-init)
+* [`clisc invoke`](#clisc-invoke)
+* [`clisc query`](#clisc-query)
+* [`clisc scdl`](#clisc-scdl)
+* [`clisc subscribe`](#clisc-subscribe)
+* [`clisc unsubscribe`](#clisc-unsubscribe)
 
-## `clisci help [COMMAND]`
+## `clisc help [COMMAND]`
 
-display help for clisci
+display help for clisc
 
 ```
 USAGE
-  $ clisci help [COMMAND]
+  $ clisc help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -53,13 +53,13 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2/src/commands/help.ts)_
 
-## `clisci init`
+## `clisc init`
 
 initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.
 
 ```
 USAGE
-  $ clisci init
+  $ clisc init
 
 OPTIONS
   -h, --help    show init command help
@@ -68,13 +68,13 @@ OPTIONS
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
 
-## `clisci invoke`
+## `clisc invoke`
 
 invoke a target smart contract's function starting from a smart contract's descriptor.
 
 ```
 USAGE
-  $ clisci invoke
+  $ clisc invoke
 
 OPTIONS
   -F, --format=format        [default: scdl] descriptor format
@@ -100,13 +100,13 @@ OPTIONS
 
 _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_
 
-## `clisci query`
+## `clisc query`
 
 query past event occurences or function invocations
 
 ```
 USAGE
-  $ clisci query
+  $ clisc query
 
 OPTIONS
   -F, --format=format        [default: scdl] descriptor format
@@ -127,13 +127,13 @@ OPTIONS
 
 _See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts)_
 
-## `clisci scdl`
+## `clisc scdl`
 
 gain information about local descriptors, to add new descriptors and to delete already stored descriptors.
 
 ```
 USAGE
-  $ clisci scdl
+  $ clisc scdl
 
 OPTIONS
   -L, --local            add a new descriptor from a local file path
@@ -148,13 +148,13 @@ OPTIONS
 
 _See code: [dist/commands/scdl.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl.ts)_
 
-## `clisci subscribe`
+## `clisc subscribe`
 
 monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.
 
 ```
 USAGE
-  $ clisci subscribe
+  $ clisc subscribe
 
 OPTIONS
   -F, --format=format      [default: scdl] descriptor format
@@ -176,13 +176,13 @@ OPTIONS
 
 _See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts)_
 
-## `clisci unsubscribe`
+## `clisc unsubscribe`
 
 stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.
 
 ```
 USAGE
-  $ clisci unsubscribe
+  $ clisc unsubscribe
 
 OPTIONS
   -F, --format=format      [default: scdl] descriptor format
