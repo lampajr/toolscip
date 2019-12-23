@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;index&quot; | @lampajr/scip-lib</title>
+	<title>&quot;index&quot; | @toolscip/scip-lib</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@lampajr/scip-lib</a>
+					<a href="../index.html" class="title">@toolscip/scip-lib</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -74,14 +74,19 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_index_.html#scipmessage" class="tsd-kind-icon">Scip<wbr>Message</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_index_.html#sciprequest" class="tsd-kind-icon">Scip<wbr>Request</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_index_.html#scipresponse" class="tsd-kind-icon">Scip<wbr>Response</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#callback" class="tsd-kind-icon">callback</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#error" class="tsd-kind-icon">error</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#invoke" class="tsd-kind-icon">invoke</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#parse" class="tsd-kind-icon">parse</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parsecallback" class="tsd-kind-icon">parse<wbr>Callback</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parseerrorobject" class="tsd-kind-icon">parse<wbr>Error<wbr>Object</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parseeventquery" class="tsd-kind-icon">parse<wbr>Event<wbr>Query</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parseeventsubscription" class="tsd-kind-icon">parse<wbr>Event<wbr>Subscription</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parseeventunsubscription" class="tsd-kind-icon">parse<wbr>Event<wbr>Unsubscription</a></li>
@@ -94,10 +99,13 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parseparameter" class="tsd-kind-icon">parse<wbr>Parameter</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parseparameters" class="tsd-kind-icon">parse<wbr>Parameters</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_index_.html#parsequeryresult" class="tsd-kind-icon">parse<wbr>Query<wbr>Result</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#parserequest" class="tsd-kind-icon">parse<wbr>Request</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#parseresponse" class="tsd-kind-icon">parse<wbr>Response</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#queryevent" class="tsd-kind-icon">query<wbr>Event</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#queryfunction" class="tsd-kind-icon">query<wbr>Function</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#subscribeevent" class="tsd-kind-icon">subscribe<wbr>Event</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#subscribefunction" class="tsd-kind-icon">subscribe<wbr>Function</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#success" class="tsd-kind-icon">success</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#unsubscribeevent" class="tsd-kind-icon">unsubscribe<wbr>Event</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_index_.html#unsubscribefunction" class="tsd-kind-icon">unsubscribe<wbr>Function</a></li>
 							</ul>
@@ -119,7 +127,7 @@
 					<div class="tsd-signature tsd-kind-icon">Scip<wbr>Message<span class="tsd-signature-symbol">:</span> <a href="../classes/_types_.scipinvocation.html" class="tsd-signature-type">ScipInvocation</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipsubscription.html" class="tsd-signature-type">ScipSubscription</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipunsubscription.html" class="tsd-signature-type">ScipUnsubscription</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipquery.html" class="tsd-signature-type">ScipQuery</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipcallback.html" class="tsd-signature-type">ScipCallback</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipsuccess.html" class="tsd-signature-type">ScipSuccess</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.sciperror.html" class="tsd-signature-type">ScipError</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L232">src/index.ts:232</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L257">src/index.ts:257</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -128,9 +136,107 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="sciprequest" class="tsd-anchor"></a>
+					<h3>Scip<wbr>Request</h3>
+					<div class="tsd-signature tsd-kind-icon">Scip<wbr>Request<span class="tsd-signature-symbol">:</span> <a href="../classes/_types_.scipinvocation.html" class="tsd-signature-type">ScipInvocation</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipsubscription.html" class="tsd-signature-type">ScipSubscription</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipunsubscription.html" class="tsd-signature-type">ScipUnsubscription</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipquery.html" class="tsd-signature-type">ScipQuery</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L267">src/index.ts:267</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>SCIP request messages</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module">
+					<a name="scipresponse" class="tsd-anchor"></a>
+					<h3>Scip<wbr>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">Scip<wbr>Response<span class="tsd-signature-symbol">:</span> <a href="../classes/_types_.scipcallback.html" class="tsd-signature-type">ScipCallback</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.scipsuccess.html" class="tsd-signature-type">ScipSuccess</a><span class="tsd-signature-symbol"> | </span><a href="../classes/_types_.sciperror.html" class="tsd-signature-type">ScipError</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L270">src/index.ts:270</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>SCIP response messages</p>
+						</div>
+					</div>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="callback" class="tsd-anchor"></a>
+					<h3>callback</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">callback<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.scipcallback.html" class="tsd-signature-type">ScipCallback</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L487">src/index.ts:487</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generate a new asynchronous scip Callback response</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>jsonrpc notification params object, which can be either an <a href="../classes/_types_.callback.html">Callback</a> object or a generic one</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/_types_.scipcallback.html" class="tsd-signature-type">ScipCallback</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="error" class="tsd-anchor"></a>
+					<h3>error</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Id</span>, errObj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.sciperror.html" class="tsd-signature-type">ScipError</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L478">src/index.ts:478</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generate a new scip Error response message</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">Id</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>jsorpc request id</p>
+									</div>
+								</li>
+								<li>
+									<h5>errObj: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>jsonrpc response error object, which can be either an <a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> object or a generic one</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/_types_.sciperror.html" class="tsd-signature-type">ScipError</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="invoke" class="tsd-anchor"></a>
 					<h3>invoke</h3>
@@ -141,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L331">src/index.ts:331</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L394">src/index.ts:394</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -178,7 +284,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L247">src/index.ts:247</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L278">src/index.ts:278</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -187,7 +293,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] if data is invalid</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> if data is invalid</p>
 									</dd>
 								</dl>
 							</div>
@@ -215,7 +321,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L184">src/index.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L197">src/index.ts:197</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -225,7 +331,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -243,6 +349,43 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="parseerrorobject" class="tsd-anchor"></a>
+					<h3>parse<wbr>Error<wbr>Object</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">parse<wbr>Error<wbr>Object<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.sciperrorobject.html" class="tsd-signature-type">ScipErrorObject</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L248">src/index.ts:248</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Parse a generic object into a <a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> if valid, otherwise it
+									throws an error</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>obj: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object to parse</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/_types_.sciperrorobject.html" class="tsd-signature-type">ScipErrorObject</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="parseeventquery" class="tsd-anchor"></a>
 					<h3>parse<wbr>Event<wbr>Query</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
@@ -252,7 +395,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L154">src/index.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L167">src/index.ts:167</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -262,7 +405,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -289,7 +432,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L96">src/index.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L109">src/index.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -299,7 +442,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -326,7 +469,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L128">src/index.ts:128</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L141">src/index.ts:141</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -336,7 +479,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -363,7 +506,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L169">src/index.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L182">src/index.ts:182</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -373,7 +516,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -400,7 +543,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L112">src/index.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L125">src/index.ts:125</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -410,7 +553,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -437,7 +580,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L141">src/index.ts:141</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L154">src/index.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -447,7 +590,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -474,7 +617,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L69">src/index.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L82">src/index.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -484,7 +627,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -511,7 +654,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L197">src/index.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L210">src/index.ts:210</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -521,7 +664,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -545,7 +688,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L209">src/index.ts:209</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L222">src/index.ts:222</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -555,7 +698,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -576,13 +719,13 @@
 					<a name="parseparameter" class="tsd-anchor"></a>
 					<h3>parse<wbr>Parameter</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">parse<wbr>Parameter<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.parameter.html" class="tsd-signature-type">Parameter</a></li>
+						<li class="tsd-signature tsd-kind-icon">parse<wbr>Parameter<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, typeReq<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, nameReq<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, valueReq<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.parameter.html" class="tsd-signature-type">Parameter</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L42">src/index.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L45">src/index.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -592,7 +735,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -604,6 +747,24 @@
 										<p>object to parse</p>
 									</div>
 								</li>
+								<li>
+									<h5>typeReq: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>whether the type is required or not</p>
+									</div>
+								</li>
+								<li>
+									<h5>nameReq: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>whether the name is required or not</p>
+									</div>
+								</li>
+								<li>
+									<h5>valueReq: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>whether the value is required or not</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../classes/_types_.parameter.html" class="tsd-signature-type">Parameter</a></h4>
 						</li>
@@ -613,13 +774,13 @@
 					<a name="parseparameters" class="tsd-anchor"></a>
 					<h3>parse<wbr>Parameters</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">parse<wbr>Parameters<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">parse<wbr>Parameters<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, typeReq<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, nameReq<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span>, valReq<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L54">src/index.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L61">src/index.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -628,7 +789,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -646,6 +807,24 @@
 										<p>field&#39;s parameter name</p>
 									</div>
 								</li>
+								<li>
+									<h5>typeReq: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>whether the type is required or not</p>
+									</div>
+								</li>
+								<li>
+									<h5>nameReq: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>whether the name is required or not</p>
+									</div>
+								</li>
+								<li>
+									<h5>valReq: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>whether the value is required or not</p>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../classes/_types_.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
@@ -661,7 +840,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L224">src/index.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L237">src/index.ts:237</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -671,7 +850,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>throws</dt>
-									<dd><p>[[jsonrpc-lib.ErrorObject]] Parse Error</p>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> Parse Error</p>
 									</dd>
 								</dl>
 							</div>
@@ -689,6 +868,80 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="parserequest" class="tsd-anchor"></a>
+					<h3>parse<wbr>Request</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">parse<wbr>Request<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.html#sciprequest" class="tsd-signature-type">ScipRequest</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L361">src/index.ts:361</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Try to parse an object into a Scip request</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> if data is invalid or not a request.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object to parse</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.html#sciprequest" class="tsd-signature-type">ScipRequest</a></h4>
+							<p>specific <a href="_index_.html#sciprequest">ScipRequest</a> instance if the input data is valid</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="parseresponse" class="tsd-anchor"></a>
+					<h3>parse<wbr>Response</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">parse<wbr>Response<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.html#scipresponse" class="tsd-signature-type">ScipResponse</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L377">src/index.ts:377</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Try to parse an object into a Scip response</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p><a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> if data is invalid or not a request.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>object to parse</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_index_.html#scipresponse" class="tsd-signature-type">ScipResponse</a></h4>
+							<p>specific <a href="_index_.html#scipresponse">ScipResponse</a> instance if the input data is valid</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="queryevent" class="tsd-anchor"></a>
 					<h3>query<wbr>Event</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
@@ -698,7 +951,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L381">src/index.ts:381</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L444">src/index.ts:444</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -735,7 +988,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L391">src/index.ts:391</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L454">src/index.ts:454</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -772,7 +1025,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L341">src/index.ts:341</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L404">src/index.ts:404</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -809,7 +1062,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L351">src/index.ts:351</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L414">src/index.ts:414</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -837,6 +1090,49 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="success" class="tsd-anchor"></a>
+					<h3>success</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Id</span>, result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, queryResult<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/_types_.scipsuccess.html" class="tsd-signature-type">ScipSuccess</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L465">src/index.ts:465</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generate a new scip Success response message</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">Id</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>jsorpc request id</p>
+									</div>
+								</li>
+								<li>
+									<h5>result: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>jsonrpc response success result, which can be either an <a href="../classes/_types_.sciperrorobject.html">ScipErrorObject</a> object or a generic one</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> queryResult: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>tells whether the result should be a valid <a href="../classes/_types_.queryresult.html">QueryResult</a> object</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../classes/_types_.scipsuccess.html" class="tsd-signature-type">ScipSuccess</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="unsubscribeevent" class="tsd-anchor"></a>
 					<h3>unsubscribe<wbr>Event</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
@@ -846,7 +1142,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L361">src/index.ts:361</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L424">src/index.ts:424</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -883,7 +1179,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L371">src/index.ts:371</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L434">src/index.ts:434</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -919,7 +1215,7 @@
 					<div class="tsd-signature tsd-kind-icon">scip<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L398">src/index.ts:398</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L494">src/index.ts:494</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -928,12 +1224,32 @@
 						</div>
 					</div>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="scip.callback-1" class="tsd-anchor"></a>
+						<h3>callback</h3>
+						<div class="tsd-signature tsd-kind-icon">callback<span class="tsd-signature-symbol">:</span> <a href="_index_.html#callback" class="tsd-signature-type">callback</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L504">src/index.ts:504</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="scip.error-1" class="tsd-anchor"></a>
+						<h3>error</h3>
+						<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <a href="_index_.html#error" class="tsd-signature-type">error</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L503">src/index.ts:503</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="scip.invoke-1" class="tsd-anchor"></a>
 						<h3>invoke</h3>
 						<div class="tsd-signature tsd-kind-icon">invoke<span class="tsd-signature-symbol">:</span> <a href="_index_.html#invoke" class="tsd-signature-type">invoke</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L399">src/index.ts:399</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L495">src/index.ts:495</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -943,7 +1259,27 @@
 						<div class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">:</span> <a href="_index_.html#parse" class="tsd-signature-type">parse</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L406">src/index.ts:406</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L505">src/index.ts:505</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="scip.parserequest-1" class="tsd-anchor"></a>
+						<h3>parse<wbr>Request</h3>
+						<div class="tsd-signature tsd-kind-icon">parse<wbr>Request<span class="tsd-signature-symbol">:</span> <a href="_index_.html#parserequest" class="tsd-signature-type">parseRequest</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L506">src/index.ts:506</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="scip.parseresponse-1" class="tsd-anchor"></a>
+						<h3>parse<wbr>Response</h3>
+						<div class="tsd-signature tsd-kind-icon">parse<wbr>Response<span class="tsd-signature-symbol">:</span> <a href="_index_.html#parseresponse" class="tsd-signature-type">parseResponse</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L507">src/index.ts:507</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -953,7 +1289,7 @@
 						<div class="tsd-signature tsd-kind-icon">query<wbr>Event<span class="tsd-signature-symbol">:</span> <a href="_index_.html#queryevent" class="tsd-signature-type">queryEvent</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L404">src/index.ts:404</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L500">src/index.ts:500</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -963,7 +1299,7 @@
 						<div class="tsd-signature tsd-kind-icon">query<wbr>Function<span class="tsd-signature-symbol">:</span> <a href="_index_.html#queryfunction" class="tsd-signature-type">queryFunction</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L405">src/index.ts:405</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L501">src/index.ts:501</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -973,7 +1309,7 @@
 						<div class="tsd-signature tsd-kind-icon">subscribe<wbr>Event<span class="tsd-signature-symbol">:</span> <a href="_index_.html#subscribeevent" class="tsd-signature-type">subscribeEvent</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L400">src/index.ts:400</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L496">src/index.ts:496</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -983,7 +1319,17 @@
 						<div class="tsd-signature tsd-kind-icon">subscribe<wbr>Function<span class="tsd-signature-symbol">:</span> <a href="_index_.html#subscribefunction" class="tsd-signature-type">subscribeFunction</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L401">src/index.ts:401</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L497">src/index.ts:497</a></li>
+							</ul>
+						</aside>
+					</section>
+					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
+						<a name="scip.success-1" class="tsd-anchor"></a>
+						<h3>success</h3>
+						<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <a href="_index_.html#success" class="tsd-signature-type">success</a></div>
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L502">src/index.ts:502</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -993,7 +1339,7 @@
 						<div class="tsd-signature tsd-kind-icon">unsubscribe<wbr>Event<span class="tsd-signature-symbol">:</span> <a href="_index_.html#unsubscribeevent" class="tsd-signature-type">unsubscribeEvent</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L402">src/index.ts:402</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L498">src/index.ts:498</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1003,7 +1349,7 @@
 						<div class="tsd-signature tsd-kind-icon">unsubscribe<wbr>Function<span class="tsd-signature-symbol">:</span> <a href="_index_.html#unsubscribefunction" class="tsd-signature-type">unsubscribeFunction</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/f989f14/packages/scip-lib/src/index.ts#L403">src/index.ts:403</a></li>
+								<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/8ec2f82/packages/scip-lib/src/index.ts#L499">src/index.ts:499</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1032,6 +1378,18 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="_index_.html#scipmessage" class="tsd-kind-icon">Scip<wbr>Message</a>
 					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="_index_.html#sciprequest" class="tsd-kind-icon">Scip<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="_index_.html#scipresponse" class="tsd-kind-icon">Scip<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_index_.html#callback" class="tsd-kind-icon">callback</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_index_.html#error" class="tsd-kind-icon">error</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#invoke" class="tsd-kind-icon">invoke</a>
 					</li>
@@ -1040,6 +1398,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_index_.html#parsecallback" class="tsd-kind-icon">parse<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_index_.html#parseerrorobject" class="tsd-kind-icon">parse<wbr>Error<wbr>Object</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_index_.html#parseeventquery" class="tsd-kind-icon">parse<wbr>Event<wbr>Query</a>
@@ -1078,6 +1439,12 @@
 						<a href="_index_.html#parsequeryresult" class="tsd-kind-icon">parse<wbr>Query<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_index_.html#parserequest" class="tsd-kind-icon">parse<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_index_.html#parseresponse" class="tsd-kind-icon">parse<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#queryevent" class="tsd-kind-icon">query<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
@@ -1088,6 +1455,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#subscribefunction" class="tsd-kind-icon">subscribe<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_index_.html#success" class="tsd-kind-icon">success</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_index_.html#unsubscribeevent" class="tsd-kind-icon">unsubscribe<wbr>Event</a>

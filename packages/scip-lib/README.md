@@ -38,15 +38,15 @@ In order to use this module you just have to import it like any other *npm* pack
 *JavaScript* import
 
 ```javascript
-const scip = require('@lampajr/scip-lib');
+const scip = require('@toolscip/scip-lib');
 ```
 
 *Typescript* import
 
 ```typescript
-import scip from '@lampajr/scip-lib';
+import scip from '@toolscip/scip-lib';
 // or
-import { scip } from '@lampajr/scip-lib';
+import { scip } from '@toolscip/scip-lib';
 ```
 
 One of the main functionality that this package provides is the *parse* function that allows a client to parse a string message, checks whether it a SCIP-compliant message and then if valid it generates the corresponding SCIP object, otherwise it throws an exception (i.e. `ErrorObject`) containing information about what is invalid in the string message.
@@ -83,10 +83,13 @@ try {
 } catch (err) {
     console.log('Error message: ' + err.message);	// error description
     console.log('Error code: ' + err.code);			// scip error code
+    console.log('Error data: ' + err.data);			// scip error additional data
 }
 ```
 
 **Note**: the input message must be in string format.
+
+There are two different flavours of the `parse` function, the `parseRequest` and the `parseResponse`, which act exactly as the _parse_ function, providing additional check over the specific SCIP message by throwing an error if the parsed data is not a _request_ or a _response_ respectively.
 
 This package provides also other function that are mainly used to create new *SCIP* messages instances, all of them require an `id` (i.e. json-rpc id) and a `params` object that must be a valid SCIP *params* object in according to the specific invoked function (i.e. `Invocation`, `FunctionSubscription`, `EventSubscription`, `FunctionUnsubscription`, `EventUnsubscription`, `FunctionQuery`, `EventQuery`, `QueryResult` and `Callback`).
 
@@ -113,6 +116,7 @@ try {
 } catch (err) {
     console.log('Error message: ' + err.message);	// error description
     console.log('Error code: ' + err.code);			// scip error code
+    console.log('Error data: ' + err.data);			// scip error additional data
 }
 ```
 
@@ -158,7 +162,7 @@ In according to the binding proposed in the [specification](https://github.com/l
 * *result*: any, as for a generic json-rpc success response
 * *error*: same error object in a generic json-rpc error response, SCIP provides additional codes that are strictly correlated to the blockchain field.
 
-**Reference**: A complete protocol specification can be found in the Github [scip repository](https://github.com/lampajr/scip).
+**Reference**: A complete protocol specification can be found in the [Github repository](https://github.com/lampajr/scip).
 
 ## Classes
 
@@ -193,6 +197,8 @@ This library provides a set of tools that allows a client to easily handle and g
 | Function              | Return               | Description                                                  |
 | --------------------- | -------------------- | ------------------------------------------------------------ |
 | `parse`               | `ScipMessage`        | Parse a generic object checking its validity, if so it returns the specific SCIP object instance, otherwise it throws an `ErrorObject` |
+| `parseRequest`        | `ScipRequest`        | Same as `parse` function, which, in addition, throws an error even if the parsed data is a valid SCIP message but not a valid request (e.g. a response) |
+| `parseResponse`       | `ScipResponse`       | Same as `parse` function, which, in addition, throws an error even if the parsed data is a valid SCIP message but not a valid async or sync response (e.g. a request) |
 | `invoke`              | `ScipInvocation`     | Generates a `ScipInvocation` message if the params is a valid `Invocation` object. |
 | `subscribeEvent`      | `ScipSubscription`   | Generates a `ScipSubscription` message if the params is a valid `EventSubscription` object. |
 | `subscribeFunction`   | `ScipSubscription`   | Generates a `ScipSubscription` message if the params is a valid `FunctionSubscription` object. |
@@ -205,7 +211,65 @@ This library provides a set of tools that allows a client to easily handle and g
 
 ## Examples
 
-TODO
+A simple example of _scip-lib_ usage is inside a _SCIP server_.
+
+__Note__: `express` and `body-parser` are external packages, which are strictly correlated to the following example of usage, but they are not mandatory, you can use whatever you prefer.
+
+```typescript
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import scip, { ScipMessage, types } from '@toolscip/scip-lib';
+
+const PORT = 8000;
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+/* Handle POST request */
+app.post('/', (req, res) => {
+  const body = req.body;
+  try {
+    const request = scip.parseRequest(body);
+    const result = handleRequest(request);
+    const response = scip.success(request.id, result);  // SCIP success response
+    res.json(response);
+  } catch(err) {  // notice that err is already a valid jsonrpc ErrorObject
+    const error = scip.error(req.body.id, err);  // SCIP error response
+    res.json(error);
+  }
+})
+
+/* Start the server */
+app.listen(PORT, () => {
+  console.log(`Server started at port ${PORT}`);
+})
+```
+
+The `handleRequest` can be written as follows:
+
+```typescript
+/**
+ * Executes some task in according to the specific kind of the SCIP request, hence in 'jsonrpc' context, it performs the code directly associated with the called 'method'.
+ * @param msg: message request
+ * @returns the result of the specific message invocation
+ */
+function handleRequest(msg: ScipMessage): any {
+  if (msg instanceof types.ScipInvocation) {
+    // ...
+  } else if(msg instanceof types.ScipInvocation) {
+
+  } else if(msg instanceof types.ScipSubscription) {
+    
+  } else if(msg instanceof types.ScipUnsubscription) {
+    
+  } else if(msg instanceof types.ScipQuery) {
+    
+  } // ...
+}
+```
+
+If you want to see another, completely different, example of usage please take a look at the [clisc](https://github.com/lampajr/toolscip/tree/master/packages/clisc), a Node.js command line interface, which was built for automating the _SCIP_ request invocations.
 
 ## Contributing
 
