@@ -27,7 +27,9 @@
   "type": "dist/index.d.ts",
   "directories": {
     "lib": "src",
-    "test": "__tests__"
+    "test": "__tests__",
+    "doc": "docs",
+    "example": "examples"
   },
   "files": [
     "dist"
