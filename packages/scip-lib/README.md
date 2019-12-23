@@ -38,15 +38,15 @@ In order to use this module you just have to import it like any other *npm* pack
 *JavaScript* import
 
 ```javascript
-const scip = require('@lampajr/scip-lib');
+const scip = require('@toolscip/scip-lib');
 ```
 
 *Typescript* import
 
 ```typescript
-import scip from '@lampajr/scip-lib';
+import scip from '@toolscip/scip-lib';
 // or
-import { scip } from '@lampajr/scip-lib';
+import { scip } from '@toolscip/scip-lib';
 ```
 
 One of the main functionality that this package provides is the *parse* function that allows a client to parse a string message, checks whether it a SCIP-compliant message and then if valid it generates the corresponding SCIP object, otherwise it throws an exception (i.e. `ErrorObject`) containing information about what is invalid in the string message.
@@ -83,6 +83,7 @@ try {
 } catch (err) {
     console.log('Error message: ' + err.message);	// error description
     console.log('Error code: ' + err.code);			// scip error code
+    console.log('Error data: ' + err.data);			// scip error additional data
 }
 ```
 
@@ -113,6 +114,7 @@ try {
 } catch (err) {
     console.log('Error message: ' + err.message);	// error description
     console.log('Error code: ' + err.code);			// scip error code
+    console.log('Error data: ' + err.data);			// scip error additional data
 }
 ```
 
@@ -158,7 +160,7 @@ In according to the binding proposed in the [specification](https://github.com/l
 * *result*: any, as for a generic json-rpc success response
 * *error*: same error object in a generic json-rpc error response, SCIP provides additional codes that are strictly correlated to the blockchain field.
 
-**Reference**: A complete protocol specification can be found in the Github [scip repository](https://github.com/lampajr/scip).
+**Reference**: A complete protocol specification can be found in the [Github repository](https://github.com/lampajr/scip).
 
 ## Classes
 
@@ -205,7 +207,7 @@ This library provides a set of tools that allows a client to easily handle and g
 
 ## Examples
 
-TODO
+TODO: A more complete example but yet simple
 
 ## Contributing
 

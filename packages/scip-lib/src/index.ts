@@ -239,6 +239,18 @@ function parseQueryResult(obj: any): types.QueryResult {
   return new types.QueryResult(occurrences);
 }
 
+/**
+ * Parse a generic object into a [[ScipErrorObject]] if valid, otherwise it
+ * throws an error
+ * @param obj object to parse
+ * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ */
+function parseErrorObject(obj: any): types.ScipErrorObject {
+  validation.validateErrorCode(obj);
+  validation.validateErrorMessage(obj);
+  return new types.ScipErrorObject(obj.code, obj.message, obj.data);
+}
+
 /****************************************** SCIP Message parser ******************************************/
 
 /** All possible SCIP messages */
@@ -404,6 +416,30 @@ export function queryEvent(id: Id, params: any): types.ScipQuery {
 export function queryFunction(id: Id, params: any): types.ScipQuery {
   const obj = params instanceof types.FunctionQuery ? params : parseFunctionQuery(params);
   return new types.ScipQuery(id, obj);
+}
+
+/**
+ * Generate a new scip Success response message
+ * @param id jsorpc request id
+ * @param result jsonrpc response success result, which can be either an [[ScipErrorObject]] object or a generic one
+ * @param queryResult tells whether the result should be a valid [[QueryResult]] object
+ */
+export function success(id: Id, result: any, queryResult: boolean = false): types.ScipSuccess {
+  if (queryResult) {
+    const res = result instanceof types.QueryResult ? result : parseQueryResult(result);
+    return new types.ScipQueryResult(id, res);
+  }
+  return new types.ScipSuccess(id, result);
+}
+
+/**
+ * Generate a new scip Error response message
+ * @param id jsorpc request id
+ * @param errObj jsonrpc response error object, which can be either an [[ScipErrorObject]] object or a generic one
+ */
+export function error(id: Id, errObj: any): types.ScipError {
+  const obj = errObj instanceof types.ScipErrorObject ? errObj : parseErrorObject(errObj);
+  return new types.ScipError(id, obj);
 }
 
 /********************************************* Exports *********************************************/

@@ -274,7 +274,6 @@ export function validateTime(obj: any, required = false, name = 'startTime'): vo
  * Validate the timestamp of an object
  * @param obj parent object
  * @param required if the timestamp member is required or not
- * @param name field's name, either 'startTime' (default) or 'endTime'
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
 export function validateTimestamp(obj: any, required = false): void {
@@ -282,6 +281,36 @@ export function validateTimestamp(obj: any, required = false): void {
     throw types.ScipErrorObject.parseError(`Timestamp is missing, but it is required!`);
   }
   if (hasOwnProperty.call(obj, 'timestamp') && !isString(obj.timestamp)) {
+    throw types.ScipErrorObject.parseError(`The timestamp, if present, MUST be of string type!`);
+  }
+}
+
+/**
+ * Validate the code of an error object
+ * @param obj parent object
+ * @param required if the code member is required or not
+ * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ */
+export function validateErrorCode(obj: any, required = true): void {
+  if (required && !hasOwnProperty.call(obj, 'code')) {
+    throw types.ScipErrorObject.parseError(`Error code is missing, but it is required!`);
+  }
+  if (hasOwnProperty.call(obj, 'code') && !isInteger(obj.code)) {
+    throw types.ScipErrorObject.parseError(`The timestamp, if present, MUST be of string type!`);
+  }
+}
+
+/**
+ * Validate the message of an error object
+ * @param obj parent object
+ * @param required if the message member is required or not
+ * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ */
+export function validateErrorMessage(obj: any, required = true): void {
+  if (required && !hasOwnProperty.call(obj, 'message')) {
+    throw types.ScipErrorObject.parseError(`Error message is missing, but it is required!`);
+  }
+  if (hasOwnProperty.call(obj, 'message') && !isInteger(obj.code)) {
     throw types.ScipErrorObject.parseError(`The timestamp, if present, MUST be of string type!`);
   }
 }
