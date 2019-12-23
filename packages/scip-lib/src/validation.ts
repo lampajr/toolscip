@@ -107,6 +107,18 @@ export function validateName(obj: any, required = true): void {
 }
 
 /**
+ * Validate the value member of an parameter
+ * @param obj parent object
+ * @param required if the value member is required or not
+ * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ */
+export function validateValue(obj: any, required = true): void {
+  if (required && !hasOwnProperty.call(obj, 'value')) {
+    throw types.ScipErrorObject.parseError(`A parameter value is missing, but it is required!`);
+  }
+}
+
+/**
  * Validate the single param object
  * @param param parameter object
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error

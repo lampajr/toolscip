@@ -37,11 +37,15 @@ import * as validation from './validation';
  * Parse a generic object into an [[types.Parameter]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
+ * @param typeReq whether the type is required or not
+ * @param nameReq whether the name is required or not
+ * @param valueReq whether the value is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-function parseParameter(obj: any): types.Parameter {
-  validation.validateType(obj);
-  validation.validateName(obj);
+function parseParameter(obj: any, typeReq: boolean, nameReq: boolean, valueReq: boolean): types.Parameter {
+  validation.validateType(obj, typeReq);
+  validation.validateName(obj, nameReq);
+  validation.validateValue(obj, valueReq);
   return new types.Parameter(obj.name, obj.type, obj.value);
 }
 
@@ -49,13 +53,22 @@ function parseParameter(obj: any): types.Parameter {
  * Parse a list pf [[types.Parameter]] objects, checking its validity
  * @param obj parent object to parse
  * @param name field's parameter name
+ * @param typeReq whether the type is required or not
+ * @param nameReq whether the name is required or not
+ * @param valReq whether the value is required or not
  * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
  */
-function parseParameters(obj: any, name: string): types.Parameter[] {
+function parseParameters(
+  obj: any,
+  name: string,
+  typeReq: boolean,
+  nameReq: boolean,
+  valReq: boolean,
+): types.Parameter[] {
   validation.validateParams(obj, name);
   const params: types.Parameter[] = [];
   for (const elem of obj[name]) {
-    params.push(parseParameter(elem));
+    params.push(parseParameter(elem, typeReq, nameReq, valReq));
   }
   return params;
 }
@@ -73,8 +86,8 @@ function parseInvocation(obj: any): types.Invocation {
   validation.validateDoc(obj);
   validation.validateTimeout(obj);
   validation.validateSignature(obj);
-  const inputs: types.Parameter[] = parseParameters(obj, 'inputs');
-  const outputs: types.Parameter[] = parseParameters(obj, 'outputs');
+  const inputs: types.Parameter[] = parseParameters(obj, 'inputs', true, true, true);
+  const outputs: types.Parameter[] = parseParameters(obj, 'outputs', true, true, true);
   return new types.Invocation(
     obj.functionId,
     inputs,
@@ -99,7 +112,7 @@ function parseEventSubscription(obj: any): types.EventSubscription {
   validation.validateCorrId(obj);
   validation.validateDoc(obj);
   validation.validateFilter(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params');
+  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
   return new types.EventSubscription(obj.eventId, params, obj.callback, obj.corrId, obj.doc, obj.filter);
 }
 
@@ -115,7 +128,7 @@ function parseFunctionSubscription(obj: any): types.FunctionSubscription {
   validation.validateCorrId(obj);
   validation.validateDoc(obj);
   validation.validateFilter(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params');
+  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
   return new types.FunctionSubscription(obj.functionId, params, obj.callback, obj.corrId, obj.doc, obj.filter);
 }
 
@@ -128,7 +141,7 @@ function parseFunctionSubscription(obj: any): types.FunctionSubscription {
 function parseEventUnsubscription(obj: any): types.EventUnsubscription {
   validation.validateIdentifier(obj, 'eventId');
   validation.validateCorrId(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params');
+  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
   return new types.EventUnsubscription(obj.eventId, params, obj.corrId);
 }
 
@@ -141,7 +154,7 @@ function parseEventUnsubscription(obj: any): types.EventUnsubscription {
 function parseFunctionUnsubscription(obj: any): types.FunctionUnsubscription {
   validation.validateIdentifier(obj, 'functionId');
   validation.validateCorrId(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params');
+  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
   return new types.FunctionUnsubscription(obj.functionId, params, obj.corrId);
 }
 
@@ -156,7 +169,7 @@ function parseEventQuery(obj: any): types.EventQuery {
   validation.validateFilter(obj);
   validation.validateTime(obj, false, 'startTime');
   validation.validateTime(obj, false, 'endTime');
-  const params: types.Parameter[] = parseParameters(obj, 'params');
+  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
   return new types.EventQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
 }
 
@@ -171,7 +184,7 @@ function parseFunctionQuery(obj: any): types.FunctionQuery {
   validation.validateFilter(obj);
   validation.validateTime(obj, false, 'startTime');
   validation.validateTime(obj, false, 'endTime');
-  const params: types.Parameter[] = parseParameters(obj, 'params');
+  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
   return new types.FunctionQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
 }
 
@@ -184,7 +197,7 @@ function parseFunctionQuery(obj: any): types.FunctionQuery {
 function parseCallback(obj: any): types.Callback {
   validation.validateCorrId(obj);
   validation.validateTimestamp(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params');
+  const params: types.Parameter[] = parseParameters(obj, 'params', false, true, true);
   return new types.Callback(params, obj.corrId, obj.timestamp);
 }
 
@@ -196,7 +209,7 @@ function parseCallback(obj: any): types.Callback {
  */
 function parseOccurrence(occ: any): types.Occurrence {
   validation.validateTimestamp(occ);
-  const params: types.Parameter[] = parseParameters(occ, 'params');
+  const params: types.Parameter[] = parseParameters(occ, 'params', false, true, true);
   return new types.Occurrence(params, occ.timestamp);
 }
 
