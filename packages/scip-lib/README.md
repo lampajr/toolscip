@@ -89,6 +89,8 @@ try {
 
 **Note**: the input message must be in string format.
 
+There are two different flavours of the `parse` function, the `parseRequest` and the `parseResponse`, which act exactly as the _parse_ function, providing additional check over the specific SCIP message by throwing an error if the parsed data is not a _request_ or a _response_ respectively.
+
 This package provides also other function that are mainly used to create new *SCIP* messages instances, all of them require an `id` (i.e. json-rpc id) and a `params` object that must be a valid SCIP *params* object in according to the specific invoked function (i.e. `Invocation`, `FunctionSubscription`, `EventSubscription`, `FunctionUnsubscription`, `EventUnsubscription`, `FunctionQuery`, `EventQuery`, `QueryResult` and `Callback`).
 
 The *params* object can be directly provided as instance of one of the aforementioned classes or as generic JSON object.
@@ -195,6 +197,8 @@ This library provides a set of tools that allows a client to easily handle and g
 | Function              | Return               | Description                                                  |
 | --------------------- | -------------------- | ------------------------------------------------------------ |
 | `parse`               | `ScipMessage`        | Parse a generic object checking its validity, if so it returns the specific SCIP object instance, otherwise it throws an `ErrorObject` |
+| `parseRequest`        | `ScipRequest`        | Same as `parse` function, which, in addition, throws an error even if the parsed data is a valid SCIP message but not a valid request (e.g. a response) |
+| `parseResponse`       | `ScipResponse`       | Same as `parse` function, which, in addition, throws an error even if the parsed data is a valid SCIP message but not a valid async or sync response (e.g. a request) |
 | `invoke`              | `ScipInvocation`     | Generates a `ScipInvocation` message if the params is a valid `Invocation` object. |
 | `subscribeEvent`      | `ScipSubscription`   | Generates a `ScipSubscription` message if the params is a valid `EventSubscription` object. |
 | `subscribeFunction`   | `ScipSubscription`   | Generates a `ScipSubscription` message if the params is a valid `FunctionSubscription` object. |
@@ -226,7 +230,7 @@ app.use(bodyParser.json());
 app.post('/', (req, res) => {
   const body = req.body;
   try {
-    const request = scip.parse(body);
+    const request = scip.parseRequest(body);
     const result = handleRequest(request);
     const response = scip.success(request.id, result);  // SCIP success response
     res.json(response);
