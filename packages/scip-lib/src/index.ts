@@ -442,6 +442,15 @@ export function error(id: Id, errObj: any): types.ScipError {
   return new types.ScipError(id, obj);
 }
 
+/**
+ * Generate a new asynchronous scip Callback response
+ * @param params jsonrpc notification params object, which can be either an [[Callback]] object or a generic one
+ */
+export function callback(params: any): types.ScipCallback {
+  const obj = params instanceof types.Callback ? params : parseCallback(params);
+  return new types.ScipCallback(obj);
+}
+
 /********************************************* Exports *********************************************/
 
 const scip = {
