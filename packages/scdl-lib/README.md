@@ -59,11 +59,11 @@ contract.methods; // all contract's functions
 contract.events; // all contract's events
 ```
 
-Suppose that you want to invoke a specific function (e.g. named 'balanceOf'), then you just have to use its name as property of the `contract.methods` object and then call the `invoke` [^1]function on it. 
+Suppose that you want to invoke a specific function (e.g. named 'send'), then you just have to use its name as property of the `contract.methods` object and then call the `invoke` [^1]function on it. 
 
 ```typescript
 // performs a SCIP invocation request
-contract.methods.balanceOf
+contract.methods.send
   .invoke(/*...*/)
   .then(res => {
     // ...
@@ -76,7 +76,7 @@ contract.methods.balanceOf
 In addition this library provides an interface definition of an *SCDL descriptor* object, which can be imported as follow:
 
 ```typescript
-import { ISCDL } from '@lampajr/scdl-lib'
+import { ISCDL } from '@toolscip/scdl-lib'
 ```
 
 [^1]: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the [scip-lib](https://github.com/lampajr/toolscip/tree/master/packages/scip-lib) documentation, which fully describe the meaning of all required parameters.
@@ -85,11 +85,124 @@ import { ISCDL } from '@lampajr/scdl-lib'
 
 ## SCDL Specification
 
-TODO
+The following table defines each individual language construct in detail and equips it with a respective domain of possible values.
+
+<img src="table.png" width="700px"/>
+
+__Note__: a complete _SCDL_ specification can be found in the [scdl repository](https://github.com/floriandanielit/scdl).
 
 ## Examples
 
-TODO
+Given an _SCDL_ descriptor
+
+```typescript
+const model = {
+	"scdl_version" : "1.0",
+	"name" : "Token",
+	"version" : "^0.4.18",
+	"latest_url" : "",
+	"author" : "0xBfE4aA5c37D223EEBe0A1F7111556Ae49bE0dcD2",
+	"description" : "Contract token implementation following the ERC20 standars, the new created token is called ZIL",
+	"created_on" : "Jan-12-2018 09:44:42 AM +UTC",
+	"updated_on" : "Jan-12-2018 09:44:42 AM +UTC",
+	"scl" : "http://localhost:3000?blockchain=ethereum&blockchain-id=eth-mainnet&address=0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27",
+	"internal_address" : "0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27",
+	"blockchain_type" : "ethereum",
+	"blockchain_version" : "v0.4.18+commit.9cf6e910",
+	"metadata" : "https://etherscan.io/address/0x05f4a42e251f2d52b8ed15e9fedaacfcef1fad27#code",
+	"hash" : "b311edaec5a164050cede3219bf28cc6ce4c0ca43b8bf34d6fd309fb60c4d1d8  -",
+	"is_stateful" : true,
+	"lifecycle" : "ready",
+	"functions" : [
+		{
+			"name" : "balanceOf",
+			"description" : "* @dev Gets the balance of the specified address. @param _owner The address to query the the balance of. @return An uint256 representing the amount owned by the passed address.",
+			"scope" : "public",
+			"has_side_effects" : false,
+			"inputs" : [
+				{
+					"name": "_owner",
+					"type" : {
+						"type": "string",
+						"pattern": "^0x[a-fA-F0-9]{40}$"
+					}
+				}
+			],
+			"outputs" : [
+				{
+					"name": "",
+					"type": {
+						"type": "integer",
+					 	"minimum": 0,
+					 	"maximum": "2^256 - 1"
+					}
+				}
+			],
+			"events" : [],
+			"dispatcher" : ""
+		}
+	],
+	"events" : [
+		{
+			"name" : "Transfer",
+			"description" : "Triggered when tokens are transferred",
+			"outputs" : [
+				{
+					"name" : "from",
+					"type" : {
+						"type": "string",
+						"pattern": "^0x[a-fA-F0-9]{40}$"
+					},
+					"is_indexed" : true
+				},
+				{
+					"name" : "to",
+					"type" : {
+						"type": "string",
+						"pattern": "^0x[a-fA-F0-9]{40}$"
+					},
+					"is_indexed" : true
+				},
+				{
+					"name" : "value",
+					"type": {
+						"type": "integer",
+					 	"minimum": 0,
+					 	"maximum": "2^256 - 1"
+					},
+					"is_indexed" : false
+				}
+			]
+		}
+	]
+}
+```
+
+You can just create the contract object by simply using the _new_ keyword on the `Contract` class providing the descriptor as parameter.
+
+```typescript
+import { Contract } from '@toolscip/scdl-lib';
+
+const contract = new Contract(model); 
+
+/* Retrieve the function object */
+contract.methods.balanceOf;
+
+/* Retrieve the event object */
+contract.events.Transfer;
+```
+
+On these last objects (i.e.  `Method` and `Event`) you can call perform all allowed _SCIP_ operations, such as invocation (only for methods), subscription, unsubscription and query.
+
+```typescript
+/* Invoke a method/function */
+contract.methods.balanceOf.invoke(/*...*/);
+
+/* Subscribe an event */
+contract.events.Transfer.subscribe(/*...*/);
+```
+
+If you want to see a more complete example of usage please take a look at the [clisc](https://github.com/lampajr/toolscip/tree/master/packages/clisc), a Node.js command line interface, which was built for automating the _SCIP_ request invocations starting from an _SCDL_ descriptor.
 
 ## Contributing
 

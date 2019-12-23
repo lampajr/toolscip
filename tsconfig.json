@@ -18,5 +18,5 @@
       "@toolscip/clisc": ["clisc/dist"]
     }
   },
-  "exclude": ["node_modules", "dist", "__tests__", "docs"]
+  "exclude": ["node_modules", "dist", "__tests__", "docs", "examples"]
 }
