@@ -76,7 +76,7 @@ contract.methods.balanceOf
 In addition this library provides an interface definition of an *SCDL descriptor* object, which can be imported as follow:
 
 ```typescript
-import { ISCDL } from '@lampajr/scdl-lib'
+import { ISCDL } from '@toolscip/scdl-lib'
 ```
 
 [^1]: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the [scip-lib](https://github.com/lampajr/toolscip/tree/master/packages/scip-lib) documentation, which fully describe the meaning of all required parameters.
@@ -85,7 +85,11 @@ import { ISCDL } from '@lampajr/scdl-lib'
 
 ## SCDL Specification
 
-TODO
+The following table defines each individual language construct in detail and equips it with a respective domain of possible values.
+
+<img src="table.png" width="700px"/>
+
+__Note__: a complete _SCDL_ specification can be found in the [scdl repository](https://github.com/floriandanielit/scdl).
 
 ## Examples
 
