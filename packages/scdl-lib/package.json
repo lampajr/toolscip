@@ -4,16 +4,24 @@
   "description": "Smart Contract Description Language api library",
   "keywords": [
     "SCDL",
-    "Smart",
-    "Contract",
-    "Descriptor",
-    "Blockchain"
+    "Smart Contract Description Language",
+    "smart contract",
+    "descriptor",
+    "blockchain",
+    "sdk"
   ],
-  "author": "lampajr <lampa9559@gmail.com>",
+  "author": "Andrea Lamparelli <lampa9559@gmail.com>",
   "homepage": "https://github.com/lampajr/toolscip/tree/master/packages/scdl-lib#readme",
   "license": "Apache-2.0",
+  "contributors": [
+    "Andrea Lamparelli <lampa9559@gmail.com>"
+  ],
+  "maintainers": [
+    "Andrea Lamparelli <lampa9559@gmail.com>"
+  ],
   "engines": {
-    "node": ">= 10.16.3"
+    "node": "^10.16.3",
+    "npm": "^6.13.4"
   },
   "main": "dist/index.js",
   "type": "dist/index.d.ts",
