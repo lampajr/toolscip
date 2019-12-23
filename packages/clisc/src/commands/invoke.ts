@@ -14,7 +14,7 @@
  */
 
 import { Command, flags } from '@oclif/command';
-import { Contract, Method } from '@lampajr/scdl-lib';
+import { Contract, Method } from '@toolscip/scdl-lib';
 import { Config, loadConfig, getDescriptor, write } from '../utils';
 import { join } from 'path';
 import { CLIError } from '@oclif/errors';

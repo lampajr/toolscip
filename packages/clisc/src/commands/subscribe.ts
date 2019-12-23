@@ -17,7 +17,7 @@ import { Command, flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Config, loadConfig, getDescriptor, write } from '../utils';
 import { join } from 'path';
-import { Contract, Method, Event } from '@lampajr/scdl-lib';
+import { Contract, Method, Event } from '@toolscip/scdl-lib';
 
 export default class Subscribe extends Command {
   static description = `monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.`;

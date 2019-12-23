@@ -17,7 +17,7 @@ import { Command, flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Config, loadConfig, getDescriptor, write } from '../utils';
 import { join } from 'path';
-import { Contract, Method, Event } from '@lampajr/scdl-lib';
+import { Contract, Method, Event } from '@toolscip/scdl-lib';
 
 export default class Unsubscribe extends Command {
   static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;

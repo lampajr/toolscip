@@ -13,9 +13,9 @@
     "esModuleInterop": true,
     "baseUrl": "./packages",
     "paths": {
-      "@lampajr/scip-lib": ["scip-lib/dist"],
-      "@lampajr/scdl-lib": ["scdl-lib/dist"],
-      "@lampajr/clisc": ["clisc/dist"]
+      "@toolscip/scip-lib": ["scip-lib/dist"],
+      "@toolscip/scdl-lib": ["scdl-lib/dist"],
+      "@toolscip/clisc": ["clisc/dist"]
     }
   },
   "exclude": ["node_modules", "dist", "__tests__", "docs"]

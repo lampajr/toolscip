@@ -16,7 +16,7 @@
 import ajv from 'ajv';
 import axios, { AxiosResponse } from 'axios';
 import { ScdlSchema, ISCDL, IParameter } from './scdl';
-import { ScipMessage, types } from '@lampajr/scip-lib';
+import { ScipMessage, types } from '@toolscip/scip-lib';
 import { Id } from '@lampajr/jsonrpc-lib';
 
 const SCDL = 'scdl';

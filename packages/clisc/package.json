@@ -1,8 +1,8 @@
 {
-  "name": "@lampajr/clisc",
+  "name": "@toolscip/clisc",
   "description": "Command Line Interface for Smart Contracts interaction",
   "version": "1.0.0",
-  "author": "lampajr @lampajr",
+  "author": "lampajr <lampa9559@gmail.com>",
   "bin": {
     "clisc": "./bin/run"
   },
@@ -10,11 +10,11 @@
     "url": "https://github.com/lampajr/toolscip/issues"
   },
   "dependencies": {
-    "@lampajr/scdl-lib": "^1.0.0",
-    "@lampajr/scip-lib": "^1.0.0",
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.2",
+    "@toolscip/scdl-lib": "^1.0.0",
+    "@toolscip/scip-lib": "^1.0.0",
     "axios": "^0.19.0",
     "chalk": "^3.0.0",
     "clear": "^0.1.0",

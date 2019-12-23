@@ -17,7 +17,7 @@ import { Command, flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Config, loadConfig, getDescriptor, write } from '../utils';
 import { join } from 'path';
-import { Contract, Method, Event } from '@lampajr/scdl-lib';
+import { Contract, Method, Event } from '@toolscip/scdl-lib';
 
 export default class Query extends Command {
   static description = 'query past event occurences or function invocations';

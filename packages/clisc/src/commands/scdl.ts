@@ -14,7 +14,7 @@
  */
 
 import { Command, flags } from '@oclif/command';
-import { ISCDL } from '@lampajr/scdl-lib';
+import { ISCDL } from '@toolscip/scdl-lib';
 import { Config, loadConfig, write, box } from '../utils';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';

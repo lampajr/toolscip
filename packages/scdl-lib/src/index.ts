@@ -23,7 +23,7 @@ import {
   unsubscribeFunction,
   queryEvent,
   queryFunction,
-} from '@lampajr/scip-lib';
+} from '@toolscip/scip-lib';
 import utils, { Invocable, Subscribable, Queryable, createParams, convertParams } from './utils';
 import { ISCDL, IFunction, IEvent } from './scdl';
 import { Id } from '@lampajr/jsonrpc-lib';
