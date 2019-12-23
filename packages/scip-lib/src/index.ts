@@ -461,6 +461,9 @@ const scip = {
   unsubscribeFunction,
   queryEvent,
   queryFunction,
+  success,
+  error,
+  callback,
   parse,
 };
 
