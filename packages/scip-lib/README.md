@@ -207,7 +207,65 @@ This library provides a set of tools that allows a client to easily handle and g
 
 ## Examples
 
-TODO: A more complete example but yet simple
+A simple example of _scip-lib_ usage is inside a _SCIP server_.
+
+__Note__: `express` and `body-parser` are external packages, which are strictly correlated to the following example of usage, but they are not mandatory, you can use whatever you prefer.
+
+```typescript
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import scip, { ScipMessage, types } from '@toolscip/scip-lib';
+
+const PORT = 8000;
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+/* Handle POST request */
+app.post('/', (req, res) => {
+  const body = req.body;
+  try {
+    const request = scip.parse(body);
+    const result = handleRequest(request);
+    const response = scip.success(request.id, result);  // SCIP success response
+    res.json(response);
+  } catch(err) {  // notice that err is already a valid jsonrpc ErrorObject
+    const error = scip.error(req.body.id, err);  // SCIP error response
+    res.json(error);
+  }
+})
+
+/* Start the server */
+app.listen(PORT, () => {
+  console.log(`Server started at port ${PORT}`);
+})
+```
+
+The `handleRequest` can be written as follows:
+
+```typescript
+/**
+ * Executes some task in according to the specific kind of the SCIP request, hence in 'jsonrpc' context, it performs the code directly associated with the called 'method'.
+ * @param msg: message request
+ * @returns the result of the specific message invocation
+ */
+function handleRequest(msg: ScipMessage): any {
+  if (msg instanceof types.ScipInvocation) {
+    // ...
+  } else if(msg instanceof types.ScipInvocation) {
+
+  } else if(msg instanceof types.ScipSubscription) {
+    
+  } else if(msg instanceof types.ScipUnsubscription) {
+    
+  } else if(msg instanceof types.ScipQuery) {
+    
+  } // ...
+}
+```
+
+If you want to see another, completely different, example of usage please take a look at the [clisc](https://github.com/lampajr/toolscip/tree/master/packages/clisc), a Node.js command line interface, which was built for automating the _SCIP_ request invocations.
 
 ## Contributing
 

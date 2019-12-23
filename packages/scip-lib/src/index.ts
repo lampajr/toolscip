@@ -40,7 +40,7 @@ import * as validation from './validation';
  * @param typeReq whether the type is required or not
  * @param nameReq whether the name is required or not
  * @param valueReq whether the value is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseParameter(obj: any, typeReq: boolean, nameReq: boolean, valueReq: boolean): types.Parameter {
   validation.validateType(obj, typeReq);
@@ -56,7 +56,7 @@ function parseParameter(obj: any, typeReq: boolean, nameReq: boolean, valueReq: 
  * @param typeReq whether the type is required or not
  * @param nameReq whether the name is required or not
  * @param valReq whether the value is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseParameters(
   obj: any,
@@ -77,7 +77,7 @@ function parseParameters(
  * Parse a generic object into an [[Invocation]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseInvocation(obj: any): types.Invocation {
   validation.validateIdentifier(obj, 'functionId');
@@ -104,7 +104,7 @@ function parseInvocation(obj: any): types.Invocation {
  * Parse a generic object into an [[EventSubscription]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseEventSubscription(obj: any): types.EventSubscription {
   validation.validateIdentifier(obj, 'eventId');
@@ -120,7 +120,7 @@ function parseEventSubscription(obj: any): types.EventSubscription {
  * Parse a generic object into an [[FunctionSubscription]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseFunctionSubscription(obj: any): types.FunctionSubscription {
   validation.validateIdentifier(obj, 'functionId');
@@ -136,7 +136,7 @@ function parseFunctionSubscription(obj: any): types.FunctionSubscription {
  * Parse a generic object into an [[types.EventUnsubscription]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseEventUnsubscription(obj: any): types.EventUnsubscription {
   validation.validateIdentifier(obj, 'eventId');
@@ -149,7 +149,7 @@ function parseEventUnsubscription(obj: any): types.EventUnsubscription {
  * Parse a generic object into an [[types.FunctionUnsubscription]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseFunctionUnsubscription(obj: any): types.FunctionUnsubscription {
   validation.validateIdentifier(obj, 'functionId');
@@ -162,7 +162,7 @@ function parseFunctionUnsubscription(obj: any): types.FunctionUnsubscription {
  * Parse a generic object into an [[types.EventQuery]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseEventQuery(obj: any): types.EventQuery {
   validation.validateIdentifier(obj, 'eventId');
@@ -177,7 +177,7 @@ function parseEventQuery(obj: any): types.EventQuery {
  * Parse a generic object into an [[types.FunctionQuery]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseFunctionQuery(obj: any): types.FunctionQuery {
   validation.validateIdentifier(obj, 'functionId');
@@ -192,7 +192,7 @@ function parseFunctionQuery(obj: any): types.FunctionQuery {
  * Parse a generic object into an [[Callback]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseCallback(obj: any): types.Callback {
   validation.validateCorrId(obj);
@@ -205,7 +205,7 @@ function parseCallback(obj: any): types.Callback {
  * Parse a generic object into an [[Occurrence]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseOccurrence(occ: any): types.Occurrence {
   validation.validateTimestamp(occ);
@@ -217,7 +217,7 @@ function parseOccurrence(occ: any): types.Occurrence {
  * Parse an array of generic objects into an array of [[Occurrence]] objects, if valid,
  * otherwise it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseOccurrences(obj: any[]): types.Occurrence[] {
   validation.validateOccurrences(obj);
@@ -232,7 +232,7 @@ function parseOccurrences(obj: any[]): types.Occurrence[] {
  * Parse a generic object into an [[QueryResult]] one, if valid, otherwise
  * it throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseQueryResult(obj: any): types.QueryResult {
   const occurrences: types.Occurrence[] = parseOccurrences(obj);
@@ -243,7 +243,7 @@ function parseQueryResult(obj: any): types.QueryResult {
  * Parse a generic object into a [[ScipErrorObject]] if valid, otherwise it
  * throws an error
  * @param obj object to parse
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ScipErrorObject]] Parse Error
  */
 function parseErrorObject(obj: any): types.ScipErrorObject {
   validation.validateErrorCode(obj);
@@ -263,11 +263,17 @@ export type ScipMessage =
   | types.ScipSuccess
   | types.ScipError;
 
+/** SCIP request messages */
+export type ScipRequest = types.ScipInvocation | types.ScipSubscription | types.ScipUnsubscription | types.ScipQuery;
+
+/** SCIP response messages */
+export type ScipResponse = types.ScipCallback | types.ScipSuccess | types.ScipError;
+
 /**
  * Try to parse an object into a Scip object
  * @param data object to parse
  * @returns specific [[ScipMessage]] instance if the input data is valid
- * @throws [[jsonrpc-lib.ErrorObject]] if data is invalid
+ * @throws [[ScipErrorObject]] if data is invalid
  */
 export function parse(data: any): ScipMessage {
   // start parsing the object into a general JsonRpc message
@@ -344,6 +350,38 @@ export function parse(data: any): ScipMessage {
   }
 
   return res;
+}
+
+/**
+ * Try to parse an object into a Scip request
+ * @param data object to parse
+ * @returns specific [[ScipRequest]] instance if the input data is valid
+ * @throws [[ScipErrorObject]] if data is invalid or not a request.
+ */
+export function parseRequest(data: any): ScipRequest {
+  const parsed: ScipMessage = parse(data);
+  if (!(parsed instanceof JsonRpcRequest)) {
+    throw types.ScipErrorObject.parseError(
+      `The parsed data is not a valid scip request, obtained ${parsed.constructor.name} instead! `,
+    );
+  }
+  return parsed;
+}
+
+/**
+ * Try to parse an object into a Scip response
+ * @param data object to parse
+ * @returns specific [[ScipResponse]] instance if the input data is valid
+ * @throws [[ScipErrorObject]] if data is invalid or not a request.
+ */
+export function parseResponse(data: any): ScipResponse {
+  const parsed: ScipMessage = parse(data);
+  if (parsed instanceof JsonRpcRequest) {
+    throw types.ScipErrorObject.parseError(
+      `The parsed data is not a valid scip response, obtained ${parsed.constructor.name} instead!`,
+    );
+  }
+  return parsed;
 }
 
 /******************************************** SCIP Functions ********************************************/
@@ -465,6 +503,8 @@ const scip = {
   error,
   callback,
   parse,
+  parseRequest,
+  parseResponse,
 };
 
 export default scip;
