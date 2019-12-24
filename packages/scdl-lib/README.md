@@ -1,5 +1,7 @@
 # `scdl-lib`
 
+
+
 This library provides an programmatic way to interact with different smart contracts simply using their descriptors (i.e. [Smart Contract Description Language]()). The interaction is implemented with a [SCIP]() compliant communication, which is performed through the [scip-lib]() module.
 
 ## Table of Contents
@@ -25,15 +27,15 @@ In order to use this module you just have to import it like any other package:
 _JavaScript_ import
 
 ```javascript
-const scdl = require('@lampajr/scdl-lib');
+const scdl = require('@toolscip/scdl-lib');
 ```
 
 _Typescript_ import
 
 ```typescript
-import scdl from '@lampajr/scdl-lib';
+import scdl from '@toolscip/scdl-lib';
 // or
-import { scdl } from '@lampajr/scdl-lib';
+import { scdl } from '@toolscip/scdl-lib';
 ```
 
 This package was mainly written to provide an automatic way to interact with smart contracts simply using their _SCDL-based_ descriptors. In order to do so the package simply provide a single class object `Contract` that must be instantiated providing a descriptor as parameter and then once instantiated the resulting object is a new one that exposes new properties, which are exactly named as its functions and events. These properties are instances of specific classes (i.e. `Method` and `Event` respectively) which allow a client to perform all allowed _SCIP_ requests (i.e. _invocation, subscription, unsubscription_ and _query_) by simply invoking the corresponding function on the property object (i.e. `invoke`, `subscribe`, `unsubscribe`, and `query`). All these function, since perform http requests, returns `AxiosResponse` promises.
@@ -196,10 +198,22 @@ On these last objects (i.e.  `Method` and `Event`) you can call perform all allo
 
 ```typescript
 /* Invoke a method/function */
-contract.methods.balanceOf.invoke(/*...*/);
+contract.methods.balanceOf.invoke(/*...*/)
+	.then(res) {
+    	// handle response
+	}
+	.catch(err) {
+        // handle error
+    };
 
 /* Subscribe an event */
-contract.events.Transfer.subscribe(/*...*/);
+contract.events.Transfer.subscribe(/*...*/)
+	.then(res) {
+    	// handle response
+	}
+	.catch(err) {
+        // handle error
+    };
 ```
 
 If you want to see a more complete example of usage please take a look at the [clisc](https://github.com/lampajr/toolscip/tree/master/packages/clisc), a Node.js command line interface, which was built for automating the _SCIP_ request invocations starting from an _SCDL_ descriptor.
