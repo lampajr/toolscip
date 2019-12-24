@@ -51,7 +51,7 @@
     "url": "https://github.com/lampajr/toolscip/issues"
   },
   "dependencies": {
-    "@lampajr/jsonrpc-lib": "^0.1.1",
+    "@lampajr/jsonrpc-lib": "^1.0.0",
     "@toolscip/scip-lib": "^1.0.0"
   },
   "devDependencies": {
