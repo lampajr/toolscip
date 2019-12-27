@@ -17,7 +17,7 @@ import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
 import BaseCommand from '../base';
-import { getDescriptor } from '../utils';
+import Config from '../config';
 import shared from '../shared';
 
 export default class Query extends BaseCommand {
@@ -44,7 +44,7 @@ export default class Query extends BaseCommand {
     }
 
     const filename: string = this.flags.contract + '.json';
-    const descriptor = await getDescriptor(filename, this.descriptorsFolder);
+    const descriptor = await Config.getDescriptor(filename, this.descriptorsFolder);
 
     if (!this.flags.method && !this.flags.event) {
       throw new CLIError(`You MUST provide 'function' or 'event' name!`);

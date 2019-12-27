@@ -20,7 +20,7 @@ import { join } from 'path';
 import * as inquirer from 'inquirer';
 import { exec } from 'child_process';
 import BaseCommand from '../base';
-import { Config } from '../utils';
+import Config from '../config';
 import chalk = require('chalk');
 
 export default class Init extends BaseCommand {
@@ -46,17 +46,13 @@ export default class Init extends BaseCommand {
     try {
       const answers = await this.ask(this.flags.server);
 
-      const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
-      const configDir: string = join(clisciConfig.dir, Config.configFolder);
-      const descriptorsDir: string = join(configDir, Config.descriptorsFolder);
+      const cliscConfig = new Config(answers.owner, process.cwd(), answers.registry);
 
-      this.createDirectory(configDir);
-      for (const format of clisciConfig.formats) {
-        this.createDirectory(join(descriptorsDir, format));
-      }
+      this.createDirectory(cliscConfig.configFolder());
+      this.createDirectory(cliscConfig.descriptorFolder());
 
       try {
-        await fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
+        await fs.writeJSON(join(cliscConfig.dir, Config.configFile), cliscConfig, {
           spaces: '\t',
         });
         this.log(`Configuration file '${Config.configFile}' successfully created!`, 'info');
@@ -90,20 +86,11 @@ export default class Init extends BaseCommand {
    * @param server tells whether retrieve information about server initialization
    */
   private async ask(server: boolean) {
-    const checked = ['scdl'];
-
     return inquirer.prompt([
       {
         type: 'input',
         name: 'owner',
         message: `Who is the project's owner?`,
-      },
-      {
-        type: 'checkbox',
-        name: 'formats',
-        message: 'Which formats do you want to use?',
-        choices: Config.supportedFormats,
-        default: checked,
       },
       {
         type: 'confirm',

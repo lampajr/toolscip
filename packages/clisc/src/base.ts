@@ -3,7 +3,7 @@ import { Input } from '@oclif/parser';
 import { join } from 'path';
 import * as chalk from 'chalk';
 import { textSync } from 'figlet';
-import { Config, loadConfig } from './utils';
+import Config from './config';
 import shared from './shared';
 
 export default abstract class extends Command {
@@ -57,7 +57,7 @@ export default abstract class extends Command {
     this.flags = flags;
     this.args = args;
     if (this.constructor.name !== 'Init') {
-      this.cliscConfig = await loadConfig(flags.path);
+      this.cliscConfig = await Config.loadConfig(flags.path);
       this.descriptorsFolder = join(this.cliscConfig.dir, Config.configFolder, Config.descriptorsFolder, 'scdl');
     }
   }
