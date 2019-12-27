@@ -1,10 +1,11 @@
 import Command, { flags } from '@oclif/command';
+import { Input } from '@oclif/parser';
 import { Config, loadConfig } from './utils';
 import shared from './shared';
 import { join } from 'path';
 
 export default abstract class extends Command {
-  // base flags
+  // base static flags
   static flags = {
     loglevel: flags.string({ options: ['error', 'warn', 'info', 'debug'] }),
     path: shared.path,
@@ -12,6 +13,7 @@ export default abstract class extends Command {
 
   // base attributes
   flags: any;
+  args: any;
   cliscConfig: Config | undefined;
   descriptorsFolder: string | undefined;
 
@@ -29,8 +31,9 @@ export default abstract class extends Command {
 
   async init() {
     // do some initialization
-    const { flags } = this.parse(this.constructor.prototype);
+    const { args, flags } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
+    this.args = args;
     this.cliscConfig = await loadConfig(flags.path);
     this.descriptorsFolder = join(this.cliscConfig.dir, Config.configFolder, Config.descriptorsFolder, 'scdl');
   }

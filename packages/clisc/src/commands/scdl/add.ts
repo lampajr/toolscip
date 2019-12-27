@@ -37,20 +37,18 @@ export default class ScdlAdd extends Command {
   ];
 
   async run() {
-    const { args, flags } = this.parse(ScdlAdd);
-
     if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    if (!flags.local && !flags.remote) {
+    if (!this.flags.local && !this.flags.remote) {
       throw new CLIError(`You MUST set one of the following flags 'remote' or 'local'!`);
     }
 
-    if (flags.local) {
+    if (this.flags.local) {
       // save a new descriptor from a local path
-      const filename: string = args.id.substring(args.id.lastIndexOf('/') + 1);
-      fs.copyFile(join(this.cliscConfig.dir, args.id), join(this.descriptorsFolder as string, filename))
+      const filename: string = this.args.id.substring(this.args.id.lastIndexOf('/') + 1);
+      fs.copyFile(join(this.cliscConfig.dir, this.args.id), join(this.descriptorsFolder as string, filename))
         .then(val => {
           write(`Descriptor successfully saved at ${val}`);
         })
@@ -60,7 +58,7 @@ export default class ScdlAdd extends Command {
     } else {
       // download the descriptor from a remote registry
       if (this.cliscConfig.registry) {
-        const endpoint: string = `${this.cliscConfig.registry}/${args.id}`;
+        const endpoint: string = `${this.cliscConfig.registry}/${this.args.id}`;
         try {
           const descriptor: ISCDL = (await axios.get(endpoint)).data;
           write(`${descriptor.name} contract's descriptor downloaded`);

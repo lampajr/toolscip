@@ -136,7 +136,7 @@ OPTIONS
 
   -s, --startTime=startTime         start time from which start considering event occurrences or function invocations
 
-  -v, --val=val                     target function or event parameter's value, if more than one value is required you
+  -v, --value=value                 target function or event parameter's value, if more than one value is required you
                                     can set this flag multiple times (the order is important!)
 
   --loglevel=error|warn|info|debug
@@ -244,7 +244,7 @@ OPTIONS
 
   -u, --callback=callback           callback URL to which the gateway will send all asynchronous responses
 
-  -v, --val=val                     target function or event parameter's value, if more than one value is required you
+  -v, --value=value                 target function or event parameter's value, if more than one value is required you
                                     can set this flag multiple times (the order is important!)
 
   --loglevel=error|warn|info|debug

@@ -24,8 +24,6 @@ export default class ScdlList extends Command {
   static args = [{ name: 'keyword', description: 'keyword search' }];
 
   async run() {
-    // const { args } = this.parse(ScdlList);
-
     if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }

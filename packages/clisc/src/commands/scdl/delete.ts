@@ -17,13 +17,11 @@ export default class ScdlDelete extends Command {
   static args = [{ name: 'name', required: true, description: `name of the contract's descriptor to delete` }];
 
   async run() {
-    const { args } = this.parse(ScdlDelete);
-
     if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    fs.remove(join(this.descriptorsFolder as string, args.name))
+    fs.remove(join(this.descriptorsFolder as string, this.args.name))
       .then(_ => {
         write(`Descriptor successfully saved at ${this.descriptorsFolder as string}`);
       })
