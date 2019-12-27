@@ -16,13 +16,12 @@
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import { CLIError } from '@oclif/errors';
-import * as chalk from 'chalk';
 
 /**
  * Configuration file
  */
 export class Config {
-  static configFolder = '.clisci';
+  static configFolder = '.clisc';
   static descriptorsFolder = 'descriptors';
   static configFile = 'sciconfig.json';
   static supportedFormats = ['scdl'];
@@ -78,33 +77,22 @@ export async function getDescriptor(filename: string, path: string): Promise<any
   }
 }
 
-const log = console.log;
-
-/**
- * Write an information command line message, if message is not provided
- * the function prints a blank line.
- * @param msg [optional] message to print
- */
-export function write(msg?: any, prefix: string = '> ', suffix: string = ' ') {
-  log(msg ? chalk.green(prefix) + chalk.bold(msg) + chalk.green(suffix) : '\n');
-}
-
 /**
  * Print a list of strings into a box
  * @param list messages
  */
-export function box(list: string[], title: string) {
-  let max: number = list.map(x => x.length).reduce((prev, curr) => (curr >= prev ? curr : prev), -1);
-  max = max >= title.length ? max : title.length;
-  const margin: number = 2;
-  let tmp = max - title.length + margin;
-  log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
-  log(chalk.bold.green('| ' + ' '.repeat(margin) + title.toLocaleUpperCase() + ' '.repeat(tmp) + ' |'));
-  log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
+// export function box(list: string[], title: string) {
+//   let max: number = list.map(x => x.length).reduce((prev, curr) => (curr >= prev ? curr : prev), -1);
+//   max = max >= title.length ? max : title.length;
+//   const margin: number = 2;
+//   let tmp = max - title.length + margin;
+//   log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
+//   log(chalk.bold.green('| ' + ' '.repeat(margin) + title.toLocaleUpperCase() + ' '.repeat(tmp) + ' |'));
+//   log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
 
-  list.forEach(msg => {
-    tmp = max - msg.length + margin;
-    write(msg, '| ' + ' '.repeat(margin - 2) + '* ', ' '.repeat(tmp) + ' |');
-  });
-  log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
-}
+//   list.forEach(msg => {
+//     tmp = max - msg.length + margin;
+//     write(msg, '| ' + ' '.repeat(margin - 2) + '* ', ' '.repeat(tmp) + ' |');
+//   });
+//   log(chalk.bold.green('+' + '-'.repeat(max + margin * 2 + 2) + '+'));
+// }

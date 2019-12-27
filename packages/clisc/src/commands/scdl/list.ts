@@ -1,10 +1,9 @@
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
-import Command from '../../base';
-import { box } from '../../utils';
+import BaseCommand from '../../base';
 
-export default class ScdlList extends Command {
+export default class ScdlList extends BaseCommand {
   static folderName = 'scdl';
   static limit = 5; // if 'extended' is not set returns only 5 descriptors
 
@@ -12,7 +11,7 @@ export default class ScdlList extends Command {
   static aliases = ['scdl:list', 'scdl:index', 'scdl:get'];
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show scdl:list command help` }),
     extended: flags.boolean({
       char: 'e',
@@ -24,18 +23,16 @@ export default class ScdlList extends Command {
   static args = [{ name: 'keyword', description: 'keyword search' }];
 
   async run() {
-    // const { args } = this.parse(ScdlList);
-
     if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
     fs.readdir(this.descriptorsFolder as string)
-      .then(files => {
-        box(files, 'descriptors');
+      .then(_files => {
+        // TODO: box(files, 'descriptors');
       })
       .catch(err => {
-        console.error(err);
+        throw new CLIError('Unable to read the descriptors directory - ' + err.message);
       });
   }
 }

@@ -16,15 +16,19 @@
 import { flags } from '@oclif/command';
 import { Contract, Method } from '@toolscip/scdl-lib';
 import { CLIError } from '@oclif/errors';
-import Command from '../base';
-import { getDescriptor, write } from '../utils';
+import BaseCommand from '../base';
+import { getDescriptor } from '../utils';
 import shared from '../shared';
 
-export default class Invoke extends Command {
+export default class Invoke extends BaseCommand {
   static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;
+  static examples = [
+    `# Suppose you want to invoke a method named 'balanceOf' of a contract named 'Token'`,
+    `$ clisc invoke -j abcdef -c Token -m balaceOf -v 0x23ab34bd..`,
+  ];
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show invoke command help` }),
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
@@ -40,47 +44,42 @@ export default class Invoke extends Command {
   };
 
   async run() {
-    const { flags } = this.parse(Invoke);
-
     if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    const filename: string = flags.contract + '.json';
+    const filename: string = this.flags.contract + '.json';
     const descriptor = await getDescriptor(filename, this.descriptorsFolder);
 
-    if (flags.method === undefined) {
+    if (this.flags.method === undefined) {
       throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);
     }
 
     try {
       // creates the contract object starting from the descriptor
-      const contract: Contract = new Contract(descriptor, flags.auth);
+      const contract: Contract = new Contract(descriptor, this.flags.auth);
       // retrieve the function/method to invoke
-      const method: Method = contract.methods[flags.method];
+      const method: Method = contract.methods[this.flags.method];
       if (method === undefined) {
         throw new CLIError(
-          `Method named '${flags.method}' not found in '${
+          `Method named '${this.flags.method}' not found in '${
             contract.descriptor.name
           }' contract\nThis contract has the following available methods: [${Object.keys(contract.methods)}]`,
         );
       }
       method
         .invoke(
-          flags.jsonrpc,
-          flags.method,
-          flags.value !== undefined ? flags.value : [],
-          flags.signature,
-          flags.callback,
-          flags.corrId,
-          flags.doc,
-          flags.timeout,
+          this.flags.jsonrpc,
+          this.flags.method,
+          this.flags.value !== undefined ? this.flags.value : [],
+          this.flags.signature,
+          this.flags.callback,
+          this.flags.corrId,
+          this.flags.doc,
+          this.flags.timeout,
         )
         .then(res => {
-          write(res.data);
-        })
-        .catch(err => {
-          console.error(err);
+          this.log(res.data);
         });
     } catch (err) {
       if (err instanceof CLIError) {

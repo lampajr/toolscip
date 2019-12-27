@@ -4,15 +4,14 @@ import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import axios from 'axios';
-import Command from '../../base';
-import { write } from '../../utils';
+import BaseCommand from '../../base';
 
-export default class ScdlAdd extends Command {
+export default class ScdlAdd extends BaseCommand {
   static folderName = 'scdl';
   static description = 'add a new SCDL descriptor in the local directory.';
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show scdl:add command help` }),
     local: flags.boolean({
       char: 'l',
@@ -37,38 +36,36 @@ export default class ScdlAdd extends Command {
   ];
 
   async run() {
-    const { args, flags } = this.parse(ScdlAdd);
-
     if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    if (!flags.local && !flags.remote) {
+    if (!this.flags.local && !this.flags.remote) {
       throw new CLIError(`You MUST set one of the following flags 'remote' or 'local'!`);
     }
 
-    if (flags.local) {
+    if (this.flags.local) {
       // save a new descriptor from a local path
-      const filename: string = args.id.substring(args.id.lastIndexOf('/') + 1);
-      fs.copyFile(join(this.cliscConfig.dir, args.id), join(this.descriptorsFolder as string, filename))
-        .then(val => {
-          write(`Descriptor successfully saved at ${val}`);
+      const filename: string = this.args.id.substring(this.args.id.lastIndexOf('/') + 1);
+      fs.copyFile(join(this.cliscConfig.dir, this.args.id), join(this.descriptorsFolder, filename))
+        .then(_val => {
+          this.log(`Descriptor successfully saved at ${this.descriptorsFolder}`);
         })
         .catch(err => {
-          console.error(err.message);
+          throw new CLIError('Unable to copy the descriptor - ' + err.message);
         });
     } else {
       // download the descriptor from a remote registry
       if (this.cliscConfig.registry) {
-        const endpoint: string = `${this.cliscConfig.registry}/${args.id}`;
+        const endpoint: string = `${this.cliscConfig.registry}/${this.args.id}`;
         try {
           const descriptor: ISCDL = (await axios.get(endpoint)).data;
-          write(`${descriptor.name} contract's descriptor downloaded`);
+          this.log(`${descriptor.name} contract's descriptor downloaded`);
           fs.writeJSON(join(this.descriptorsFolder, descriptor.name + '.json'), descriptor, {
             spaces: '\t',
           })
             .then(_ => {
-              write(`Descriptor successfully saved at ${this.descriptorsFolder}`);
+              this.log(`Descriptor successfully saved at ${this.descriptorsFolder}`);
             })
             .catch(err => {
               throw new CLIError(`Saving operation exited with this error - ${err.message}`);

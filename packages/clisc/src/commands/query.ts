@@ -16,22 +16,22 @@
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
-import Command from '../base';
-import { getDescriptor, write } from '../utils';
+import BaseCommand from '../base';
+import { getDescriptor } from '../utils';
 import shared from '../shared';
 
-export default class Query extends Command {
+export default class Query extends BaseCommand {
   static description = 'query past event occurences or function invocations';
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show query command help` }),
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
     contract: shared.contract,
     method: shared.method,
     event: shared.event,
-    val: shared.value,
+    value: shared.value,
     filter: shared.filter,
     startTime: shared.startTime,
     endTime: shared.endTime,
@@ -39,49 +39,46 @@ export default class Query extends Command {
   };
 
   async run() {
-    const { flags } = this.parse(Query);
-
     if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    const filename: string = flags.contract + '.json';
+    const filename: string = this.flags.contract + '.json';
     const descriptor = await getDescriptor(filename, this.descriptorsFolder);
 
-    if (!flags.method && !flags.event) {
+    if (!this.flags.method && !this.flags.event) {
       throw new CLIError(`You MUST provide 'function' or 'event' name!`);
     } else {
       try {
         // creates the contract object starting from the descriptor
-        const contract: Contract = new Contract(descriptor, flags.auth);
+        const contract: Contract = new Contract(descriptor, this.flags.auth);
         // retrieve the function/event to subscribe
-        const attribute: Method | Event = flags.method
-          ? contract.methods[flags.method]
-          : contract.events[flags.event as string];
+        const generic: Method | Event = this.flags.method
+          ? contract.methods[this.flags.method]
+          : contract.events[this.flags.event as string];
 
-        if (attribute === undefined) {
+        if (generic === undefined) {
           throw new CLIError(
-            `${flags.method ? "Method name '" + flags.method : "Event named'" + flags.event}" not found in '${
-              contract.descriptor.name
-            }' contract\nThis contract has the following available ${
-              flags.method ? 'methods: [' + Object.keys(contract.methods) : 'events: [' + Object.keys(contract.events)
+            `${
+              this.flags.method ? "Method name '" + this.flags.method : "Event named'" + this.flags.event
+            }" not found in '${contract.descriptor.name}' contract\nThis contract has the following available ${
+              this.flags.method
+                ? 'methods: [' + Object.keys(contract.methods)
+                : 'events: [' + Object.keys(contract.events)
             }]`,
           );
         }
-        attribute
+        generic
           .query(
-            flags.jsonrpc,
-            flags.method ? flags.method : (flags.event as string),
-            flags.val !== undefined ? flags.val : [],
-            flags.filter,
-            flags.startTime,
-            flags.endTime,
+            this.flags.jsonrpc,
+            this.flags.method ? this.flags.method : (this.flags.event as string),
+            this.flags.value !== undefined ? this.flags.value : [],
+            this.flags.filter,
+            this.flags.startTime,
+            this.flags.endTime,
           )
           .then(res => {
-            write(res.data);
-          })
-          .catch(err => {
-            console.error(err);
+            this.log(JSON.stringify(res.data));
           });
       } catch (err) {
         if (err instanceof CLIError) {
