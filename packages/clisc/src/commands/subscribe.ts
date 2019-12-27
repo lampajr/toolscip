@@ -28,7 +28,6 @@ export default class Subscribe extends BaseCommand {
     help: flags.help({ char: 'h', description: `show subscribe command help` }),
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
-    contract: shared.contract,
     method: shared.method,
     event: shared.event,
     value: shared.value,
@@ -44,7 +43,7 @@ export default class Subscribe extends BaseCommand {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    const filename: string = this.flags.contract + '.json';
+    const filename: string = this.args.contract + '.json';
     const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
 
     if (this.flags.callback === undefined) {

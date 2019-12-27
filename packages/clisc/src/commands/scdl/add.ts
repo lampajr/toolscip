@@ -50,7 +50,7 @@ export default class ScdlAdd extends BaseCommand {
 
   static args = [
     {
-      name: 'id',
+      name: 'contract',
       required: true,
       description: 'path to a local SCDL file or a unique identifier inside the online registry',
     },
@@ -67,8 +67,8 @@ export default class ScdlAdd extends BaseCommand {
 
     if (this.flags.local) {
       // save a new descriptor from a local path
-      const filename: string = this.args.id.substring(this.args.id.lastIndexOf('/') + 1);
-      fs.copyFile(join(process.cwd(), this.args.id), join(this.cliscConfig.descriptorsFolder(), filename))
+      const filename: string = this.args.contract.substring(this.args.contract.lastIndexOf('/') + 1);
+      fs.copyFile(join(process.cwd(), this.args.contract), join(this.cliscConfig.descriptorsFolder(), filename))
         .then(_val => {
           this.log(`Descriptor successfully saved at ${this.cliscConfig?.descriptorsFolder()}`);
         })
@@ -78,7 +78,7 @@ export default class ScdlAdd extends BaseCommand {
     } else {
       // download the descriptor from a remote registry
       if (this.cliscConfig.registry) {
-        const endpoint: string = `${this.cliscConfig.registry}/${this.args.id}`;
+        const endpoint: string = `${this.cliscConfig.registry}/${this.args.contract}`;
         try {
           const descriptor: ISCDL = (await axios.get(endpoint)).data;
           this.log(`${descriptor.name} contract's descriptor downloaded`);

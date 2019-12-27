@@ -32,7 +32,6 @@ export default class Invoke extends BaseCommand {
     help: flags.help({ char: 'h', description: `show invoke command help` }),
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
-    contract: shared.contract,
     method: shared.method,
     value: shared.value,
     callback: shared.callback,
@@ -43,12 +42,14 @@ export default class Invoke extends BaseCommand {
     file: shared.file,
   };
 
+  static args = [{ name: 'contract', description: `name of the contract to interact with`, required: true }];
+
   async run() {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    const filename: string = this.flags.contract + '.json';
+    const filename: string = this.args.contract + '.json';
     const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
 
     if (this.flags.method === undefined) {
