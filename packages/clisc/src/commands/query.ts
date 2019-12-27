@@ -15,10 +15,9 @@
 
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { join } from 'path';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
 import Command from '../base';
-import { Config, loadConfig, getDescriptor, write } from '../utils';
+import { getDescriptor, write } from '../utils';
 import shared from '../shared';
 
 export default class Query extends Command {
@@ -42,11 +41,12 @@ export default class Query extends Command {
   async run() {
     const { flags } = this.parse(Query);
 
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, 'scdl');
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
 
     const filename: string = flags.contract + '.json';
-    const descriptor = await getDescriptor(filename, descriptorsFolder);
+    const descriptor = await getDescriptor(filename, this.descriptorsFolder);
 
     if (!flags.method && !flags.event) {
       throw new CLIError(`You MUST provide 'function' or 'event' name!`);

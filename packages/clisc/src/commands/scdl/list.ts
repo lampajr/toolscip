@@ -1,8 +1,8 @@
 import { flags } from '@oclif/command';
+import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
-import { join } from 'path';
 import Command from '../../base';
-import { Config, loadConfig, box } from '../../utils';
+import { box } from '../../utils';
 
 export default class ScdlList extends Command {
   static folderName = 'scdl';
@@ -24,13 +24,13 @@ export default class ScdlList extends Command {
   static args = [{ name: 'keyword', description: 'keyword search' }];
 
   async run() {
-    const { flags } = this.parse(ScdlList);
+    // const { args } = this.parse(ScdlList);
 
-    // loads configuration file
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, ScdlList.folderName);
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
 
-    fs.readdir(descriptorsFolder)
+    fs.readdir(this.descriptorsFolder as string)
       .then(files => {
         box(files, 'descriptors');
       })

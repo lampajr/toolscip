@@ -3,7 +3,7 @@ import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import Command from '../../base';
-import { Config, loadConfig, write } from '../../utils';
+import { write } from '../../utils';
 
 export default class ScdlDelete extends Command {
   static folderName = 'scdl';
@@ -17,14 +17,15 @@ export default class ScdlDelete extends Command {
   static args = [{ name: 'name', required: true, description: `name of the contract's descriptor to delete` }];
 
   async run() {
-    const { args, flags } = this.parse(ScdlDelete);
+    const { args } = this.parse(ScdlDelete);
 
-    // loads configuration file
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, ScdlDelete.folderName);
-    fs.remove(join(descriptorsFolder, args.name))
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
+
+    fs.remove(join(this.descriptorsFolder as string, args.name))
       .then(_ => {
-        write(`Descriptor successfully saved at ${descriptorsFolder}`);
+        write(`Descriptor successfully saved at ${this.descriptorsFolder as string}`);
       })
       .catch(err => {
         throw new CLIError(`Saving operation exited with this error - ${err.message}`);

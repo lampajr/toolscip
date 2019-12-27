@@ -64,8 +64,14 @@ USAGE
   $ clisc init
 
 OPTIONS
-  -h, --help    show init command help
-  -s, --server  initialize a simple 'express.js' server for receive asynchronous responses
+  -h, --help                        show init command help
+
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
+
+  -s, --server                      initialize a simple 'express.js' server for receive asynchronous responses
+
+  --loglevel=error|warn|info|debug
 ```
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
@@ -79,27 +85,29 @@ USAGE
   $ clisc invoke
 
 OPTIONS
-  -F, --file=file            path to a JSON file that contains all required parameter for the specific request
-  -a, --auth=auth            authorization token
-  -c, --contract=contract    (required) name of the contract to interact with
-  -d, --doc=doc              degree of confidence's value
-  -h, --help                 show invoke command help
-  -i, --corrId=corrId        client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
-  -m, --method=method        (required) name of the request's target function/method
+  -F, --file=file                   path to a JSON file that contains all required parameter for the specific request
+  -a, --auth=auth                   authorization token
+  -c, --contract=contract           (required) name of the contract to interact with
+  -d, --doc=doc                     degree of confidence's value
+  -h, --help                        show invoke command help
+  -i, --corrId=corrId               client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc             (required) jsonrpc request identifier
+  -m, --method=method               (required) name of the request's target function/method
 
-  -p, --path=path            provide a path where the config files are located, if not set, the current directory is
-                             used
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
 
-  -s, --signature=signature  [default: sha256] cryptographic hash function's name that has to be used to sign the
-                             request
+  -s, --signature=signature         [default: sha256] cryptographic hash function's name that has to be used to sign the
+                                    request
 
-  -t, --timeout=timeout      timeout that the gateway have to wait before block the operation
+  -t, --timeout=timeout             timeout that the gateway have to wait before block the operation
 
-  -u, --callback=callback    callback URL to which the gateway will send all asynchronous responses
+  -u, --callback=callback           callback URL to which the gateway will send all asynchronous responses
 
-  -v, --value=value          target function or event parameter's value, if more than one value is required you can set
-                             this flag multiple times (the order is important!)
+  -v, --value=value                 target function or event parameter's value, if more than one value is required you
+                                    can set this flag multiple times (the order is important!)
+
+  --loglevel=error|warn|info|debug
 ```
 
 _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_
@@ -113,23 +121,25 @@ USAGE
   $ clisc query
 
 OPTIONS
-  -F, --file=file            path to a JSON file that contains all required parameter for the specific request
-  -a, --auth=auth            authorization token
-  -c, --contract=contract    (required) name of the contract to interact with
-  -d, --endTime=endTime      end time from which stop considering event occurrences or function invocations
-  -e, --event=event          (required) name of the request's target event
-  -f, --filter=filter        C-style boolean expression over function/event parameters
-  -h, --help                 show query command help
-  -j, --jsonrpc=jsonrpc      (required) jsonrpc request identifier
-  -m, --method=method        (required) name of the request's target function/method
+  -F, --file=file                   path to a JSON file that contains all required parameter for the specific request
+  -a, --auth=auth                   authorization token
+  -c, --contract=contract           (required) name of the contract to interact with
+  -d, --endTime=endTime             end time from which stop considering event occurrences or function invocations
+  -e, --event=event                 (required) name of the request's target event
+  -f, --filter=filter               C-style boolean expression over function/event parameters
+  -h, --help                        show query command help
+  -j, --jsonrpc=jsonrpc             (required) jsonrpc request identifier
+  -m, --method=method               (required) name of the request's target function/method
 
-  -p, --path=path            provide a path where the config files are located, if not set, the current directory is
-                             used
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
 
-  -s, --startTime=startTime  start time from which start considering event occurrences or function invocations
+  -s, --startTime=startTime         start time from which start considering event occurrences or function invocations
 
-  -v, --val=val              target function or event parameter's value, if more than one value is required you can set
-                             this flag multiple times (the order is important!)
+  -v, --val=val                     target function or event parameter's value, if more than one value is required you
+                                    can set this flag multiple times (the order is important!)
+
+  --loglevel=error|warn|info|debug
 ```
 
 _See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts)_
@@ -146,10 +156,15 @@ ARGUMENTS
   ID  path to a local SCDL file or a unique identifier inside the online registry
 
 OPTIONS
-  -h, --help       show scdl:add command help
-  -l, --local      add a new descriptor from a local file path
-  -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
-  -r, --remote     add a new descriptor from a remote online registry
+  -h, --help                        show scdl:add command help
+  -l, --local                       add a new descriptor from a local file path
+
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
+
+  -r, --remote                      add a new descriptor from a remote online registry
+
+  --loglevel=error|warn|info|debug
 ```
 
 _See code: [dist/commands/scdl/add.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/add.ts)_
@@ -166,8 +181,12 @@ ARGUMENTS
   NAME  name of the contract's descriptor to delete
 
 OPTIONS
-  -h, --help       show scdl:list command help
-  -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
+  -h, --help                        show scdl:list command help
+
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
+
+  --loglevel=error|warn|info|debug
 ```
 
 _See code: [dist/commands/scdl/delete.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/delete.ts)_
@@ -184,9 +203,13 @@ ARGUMENTS
   KEYWORD  keyword search
 
 OPTIONS
-  -e, --extended   retrieve ALL saved SCDL descriptors
-  -h, --help       show scdl:list command help
-  -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
+  -e, --extended                    retrieve ALL saved SCDL descriptors
+  -h, --help                        show scdl:list command help
+
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
+
+  --loglevel=error|warn|info|debug
 
 ALIASES
   $ clisc scdl:list
@@ -205,21 +228,26 @@ USAGE
   $ clisc subscribe
 
 OPTIONS
-  -F, --file=file          path to a JSON file that contains all required parameter for the specific request
-  -a, --auth=auth          authorization token
-  -c, --contract=contract  (required) name of the contract to interact with
-  -d, --doc=doc            degree of confidence's value
-  -e, --event=event        (required) name of the request's target event
-  -f, --filter=filter      C-style boolean expression over function/event parameters
-  -h, --help               show subscribe command help
-  -i, --corrId=corrId      client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
-  -m, --method=method      (required) name of the request's target function/method
-  -p, --path=path          provide a path where the config files are located, if not set, the current directory is used
-  -u, --callback=callback  callback URL to which the gateway will send all asynchronous responses
+  -F, --file=file                   path to a JSON file that contains all required parameter for the specific request
+  -a, --auth=auth                   authorization token
+  -c, --contract=contract           (required) name of the contract to interact with
+  -d, --doc=doc                     degree of confidence's value
+  -e, --event=event                 (required) name of the request's target event
+  -f, --filter=filter               C-style boolean expression over function/event parameters
+  -h, --help                        show subscribe command help
+  -i, --corrId=corrId               client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc             (required) jsonrpc request identifier
+  -m, --method=method               (required) name of the request's target function/method
 
-  -v, --val=val            target function or event parameter's value, if more than one value is required you can set
-                           this flag multiple times (the order is important!)
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
+
+  -u, --callback=callback           callback URL to which the gateway will send all asynchronous responses
+
+  -v, --val=val                     target function or event parameter's value, if more than one value is required you
+                                    can set this flag multiple times (the order is important!)
+
+  --loglevel=error|warn|info|debug
 ```
 
 _See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts)_
@@ -233,18 +261,22 @@ USAGE
   $ clisc unsubscribe
 
 OPTIONS
-  -F, --file=file          path to a JSON file that contains all required parameter for the specific request
-  -a, --auth=auth          authorization token
-  -c, --contract=contract  (required) name of the contract to interact with
-  -e, --event=event        (required) name of the request's target event
-  -h, --help               show unsubscribe command help
-  -i, --corrId=corrId      client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
-  -m, --method=method      (required) name of the request's target function/method
-  -p, --path=path          provide a path where the config files are located, if not set, the current directory is used
+  -F, --file=file                   path to a JSON file that contains all required parameter for the specific request
+  -a, --auth=auth                   authorization token
+  -c, --contract=contract           (required) name of the contract to interact with
+  -e, --event=event                 (required) name of the request's target event
+  -h, --help                        show unsubscribe command help
+  -i, --corrId=corrId               client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc             (required) jsonrpc request identifier
+  -m, --method=method               (required) name of the request's target function/method
 
-  -v, --val=val            target function or event parameter's value, if more than one value is required you can set
-                           this flag multiple times (the order is important!)
+  -p, --path=path                   provide a path where the config files are located, if not set, the current directory
+                                    is used
+
+  -v, --val=val                     target function or event parameter's value, if more than one value is required you
+                                    can set this flag multiple times (the order is important!)
+
+  --loglevel=error|warn|info|debug
 ```
 
 _See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts)_

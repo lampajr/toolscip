@@ -15,10 +15,9 @@
 
 import { flags } from '@oclif/command';
 import { Contract, Method } from '@toolscip/scdl-lib';
-import { join } from 'path';
 import { CLIError } from '@oclif/errors';
 import Command from '../base';
-import { Config, loadConfig, getDescriptor, write } from '../utils';
+import { getDescriptor, write } from '../utils';
 import shared from '../shared';
 
 export default class Invoke extends Command {
@@ -43,11 +42,12 @@ export default class Invoke extends Command {
   async run() {
     const { flags } = this.parse(Invoke);
 
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, 'scdl');
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
 
     const filename: string = flags.contract + '.json';
-    const descriptor = await getDescriptor(filename, descriptorsFolder);
+    const descriptor = await getDescriptor(filename, this.descriptorsFolder);
 
     if (flags.method === undefined) {
       throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);

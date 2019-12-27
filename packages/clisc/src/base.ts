@@ -4,15 +4,18 @@ import shared from './shared';
 import { join } from 'path';
 
 export default abstract class extends Command {
+  // base flags
   static flags = {
     loglevel: flags.string({ options: ['error', 'warn', 'info', 'debug'] }),
     path: shared.path,
   };
 
-  public flags: any;
-  public cliscConfig: Config | undefined;
-  public descriptorsFolder: string | undefined;
+  // base attributes
+  flags: any;
+  cliscConfig: Config | undefined;
+  descriptorsFolder: string | undefined;
 
+  // base methods
   log(msg: string, level: string) {
     switch (this.flags.loglevel) {
       case 'error':
@@ -38,6 +41,5 @@ export default abstract class extends Command {
   }
   async finally(_err: any) {
     // called after run and catch regardless of whether or not the command errored
-    console.log('===== END =====');
   }
 }

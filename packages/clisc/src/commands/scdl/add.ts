@@ -5,7 +5,7 @@ import * as fs from 'fs-extra';
 import { join } from 'path';
 import axios from 'axios';
 import Command from '../../base';
-import { Config, loadConfig, write } from '../../utils';
+import { write } from '../../utils';
 
 export default class ScdlAdd extends Command {
   static folderName = 'scdl';
@@ -39,9 +39,9 @@ export default class ScdlAdd extends Command {
   async run() {
     const { args, flags } = this.parse(ScdlAdd);
 
-    // loads configuration file
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, ScdlAdd.folderName);
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
 
     if (!flags.local && !flags.remote) {
       throw new CLIError(`You MUST set one of the following flags 'remote' or 'local'!`);
@@ -50,7 +50,7 @@ export default class ScdlAdd extends Command {
     if (flags.local) {
       // save a new descriptor from a local path
       const filename: string = args.id.substring(args.id.lastIndexOf('/') + 1);
-      fs.copyFile(join(config.dir, args.id), join(descriptorsFolder, filename))
+      fs.copyFile(join(this.cliscConfig.dir, args.id), join(this.descriptorsFolder as string, filename))
         .then(val => {
           write(`Descriptor successfully saved at ${val}`);
         })
@@ -59,16 +59,16 @@ export default class ScdlAdd extends Command {
         });
     } else {
       // download the descriptor from a remote registry
-      if (config.registry) {
-        const endpoint: string = `${config.registry}/${args.id}`;
+      if (this.cliscConfig.registry) {
+        const endpoint: string = `${this.cliscConfig.registry}/${args.id}`;
         try {
           const descriptor: ISCDL = (await axios.get(endpoint)).data;
           write(`${descriptor.name} contract's descriptor downloaded`);
-          fs.writeJSON(join(descriptorsFolder, descriptor.name + '.json'), descriptor, {
+          fs.writeJSON(join(this.descriptorsFolder, descriptor.name + '.json'), descriptor, {
             spaces: '\t',
           })
             .then(_ => {
-              write(`Descriptor successfully saved at ${descriptorsFolder}`);
+              write(`Descriptor successfully saved at ${this.descriptorsFolder}`);
             })
             .catch(err => {
               throw new CLIError(`Saving operation exited with this error - ${err.message}`);
