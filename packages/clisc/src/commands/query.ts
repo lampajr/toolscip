@@ -16,15 +16,15 @@
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
-import Command from '../base';
-import { getDescriptor, write } from '../utils';
+import BaseCommand from '../base';
+import { getDescriptor } from '../utils';
 import shared from '../shared';
 
-export default class Query extends Command {
+export default class Query extends BaseCommand {
   static description = 'query past event occurences or function invocations';
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show query command help` }),
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
@@ -78,10 +78,7 @@ export default class Query extends Command {
             this.flags.endTime,
           )
           .then(res => {
-            write(JSON.stringify(res.data));
-          })
-          .catch(err => {
-            console.error(err);
+            this.log(JSON.stringify(res.data));
           });
       } catch (err) {
         if (err instanceof CLIError) {

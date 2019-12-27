@@ -16,15 +16,15 @@
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
-import Command from '../base';
-import { getDescriptor, write } from '../utils';
+import BaseCommand from '../base';
+import { getDescriptor } from '../utils';
 import shared from '../shared';
 
-export default class Unsubscribe extends Command {
+export default class Unsubscribe extends BaseCommand {
   static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show unsubscribe command help` }),
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
@@ -73,10 +73,7 @@ export default class Unsubscribe extends Command {
             this.flags.corrId,
           )
           .then(res => {
-            write(res.data);
-          })
-          .catch(err => {
-            console.error(err);
+            this.log(res.data);
           });
       } catch (err) {
         if (err instanceof CLIError) {

@@ -18,35 +18,33 @@ import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import * as inquirer from 'inquirer';
-import { redBright } from 'chalk';
-import { textSync } from 'figlet';
 import { exec } from 'child_process';
-import Command from '../base';
-import { Config, write } from '../utils';
+import BaseCommand from '../base';
+import { Config } from '../utils';
+import chalk = require('chalk');
 
-export default class Init extends Command {
+export default class Init extends BaseCommand {
   static description = `initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show init command help` }),
     server: flags.boolean({
       char: 's',
       description: "initialize a simple 'express.js' server for receive asynchronous responses",
+      default: false,
     }),
   };
 
   async run() {
-    const { flags } = this.parse(Init);
-
     // clear the console
     console.clear();
     // print a nice banner
-    write(redBright(textSync('clisci', { horizontalLayout: 'full' })), '');
+    this.banner('CLISC', chalk.redBright);
 
     // ask questions
     try {
-      const answers = await this.ask(flags.server ? true : false);
+      const answers = await this.ask(this.flags.server);
 
       const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
       const configDir: string = join(clisciConfig.dir, Config.configFolder);
@@ -61,28 +59,28 @@ export default class Init extends Command {
         await fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
           spaces: '\t',
         });
-        write(`Configuration file '${Config.configFile}' successfully created!`);
+        this.log(`Configuration file '${Config.configFile}' successfully created!`, 'info');
       } catch (err) {
         console.error(err);
       }
 
-      if (flags.server) {
+      if (this.flags.server) {
         // initialize the express.js server
-        write('Initializing simple server..');
+        this.log('Initializing simple server..', 'info');
         const res = exec('npm init --yes && npm install --save express', (error, stdout, stderr) => {
           if (error) {
             throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
           } else {
             // the *entire* stdout and stderr (buffered)
-            write(`stdout: ${stdout}`);
-            write(`stderr: ${stderr}`);
+            this.log(`stdout: ${stdout}`, 'info');
+            this.log(`stderr: ${stderr}`, 'info');
           }
         });
 
-        res.on('exit', code => write('Code: ' + code));
+        res.on('exit', code => this.log('Code: ' + code, 'info'));
       }
     } catch (err) {
-      console.error(err);
+      throw new CLIError(err.message);
     }
   }
 
@@ -139,7 +137,7 @@ export default class Init extends Command {
   private async createDirectory(path: string) {
     try {
       await fs.mkdirp(path);
-      write(`Directory at '${path}' successfully created!`);
+      this.log(`Directory at '${path}' successfully created!`, 'info');
     } catch (err) {
       console.error(err);
     }

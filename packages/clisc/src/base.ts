@@ -1,13 +1,14 @@
-import Command, { flags } from '@oclif/command';
+import Command from '@oclif/command';
 import { Input } from '@oclif/parser';
+import { join } from 'path';
+import * as chalk from 'chalk';
+import { textSync } from 'figlet';
 import { Config, loadConfig } from './utils';
 import shared from './shared';
-import { join } from 'path';
 
 export default abstract class extends Command {
   // base static flags
   static flags = {
-    loglevel: flags.string({ options: ['error', 'warn', 'info', 'debug'] }),
     path: shared.path,
   };
 
@@ -18,15 +19,36 @@ export default abstract class extends Command {
   descriptorsFolder: string | undefined;
 
   // base methods
-  log(msg: string, level: string) {
-    switch (this.flags.loglevel) {
-      case 'error':
-        if (level === 'error') {
-          console.error(msg);
-        }
+
+  /**
+   * Logs a specific message in the console, its appearence depends on the level of the message
+   * @param msg message to print
+   * @param level severity of the message
+   */
+  log(msg: any, level: string = 'log') {
+    switch (level) {
+      case 'log':
+        console.log(chalk.green('> ') + chalk.bold(msg) + '\n');
         break;
-      // a complete example would need to have all the levels
+      case 'info':
+        console.info(msg);
+        break;
+      case 'warn':
+        console.warn(msg);
+        break;
+      case 'err':
+        console.error(chalk.red('> ' + chalk.bold(msg) + '\n'));
+        break;
     }
+  }
+
+  /**
+   * Print a string message as title, with a specified format
+   * @param msg message to print
+   * @param format chalk.Chalk format
+   */
+  banner(msg: string, format: chalk.Chalk) {
+    console.log(format(textSync(msg, { horizontalLayout: 'full' })));
   }
 
   async init() {
@@ -34,14 +56,17 @@ export default abstract class extends Command {
     const { args, flags } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
     this.args = args;
-    this.cliscConfig = await loadConfig(flags.path);
-    this.descriptorsFolder = join(this.cliscConfig.dir, Config.configFolder, Config.descriptorsFolder, 'scdl');
+    if (this.constructor.name !== 'Init') {
+      this.cliscConfig = await loadConfig(flags.path);
+      this.descriptorsFolder = join(this.cliscConfig.dir, Config.configFolder, Config.descriptorsFolder, 'scdl');
+    }
   }
 
   async catch(err: any) {
     // handle any error from the command
-    console.log(err);
+    this.log(err.message, 'err');
   }
+
   async finally(_err: any) {
     // called after run and catch regardless of whether or not the command errored
   }

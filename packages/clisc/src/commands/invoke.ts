@@ -16,15 +16,19 @@
 import { flags } from '@oclif/command';
 import { Contract, Method } from '@toolscip/scdl-lib';
 import { CLIError } from '@oclif/errors';
-import Command from '../base';
-import { getDescriptor, write } from '../utils';
+import BaseCommand from '../base';
+import { getDescriptor } from '../utils';
 import shared from '../shared';
 
-export default class Invoke extends Command {
+export default class Invoke extends BaseCommand {
   static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;
+  static examples = [
+    `# Suppose you want to invoke a method named 'balanceOf' of a contract named 'Token'`,
+    `$ clisc invoke -j abcdef -c Token -m balaceOf -v 0x23ab34bd..`,
+  ];
 
   static flags = {
-    ...Command.flags,
+    ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show invoke command help` }),
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
@@ -75,10 +79,7 @@ export default class Invoke extends Command {
           this.flags.timeout,
         )
         .then(res => {
-          write(res.data);
-        })
-        .catch(err => {
-          console.error(err);
+          this.log(res.data);
         });
     } catch (err) {
       if (err instanceof CLIError) {
