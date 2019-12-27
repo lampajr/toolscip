@@ -35,6 +35,8 @@ export default class Unsubscribe extends BaseCommand {
     file: shared.file,
   };
 
+  static args = [{ name: 'contract', description: `name of the contract to interact with`, required: true }];
+
   async run() {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
