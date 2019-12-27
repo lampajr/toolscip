@@ -31,12 +31,12 @@ USAGE
 * [`clisc help [COMMAND]`](#clisc-help-command)
 * [`clisc init`](#clisc-init)
 * [`clisc invoke CONTRACT`](#clisc-invoke-contract)
-* [`clisc query`](#clisc-query)
+* [`clisc query CONTRACT`](#clisc-query-contract)
 * [`clisc scdl:add CONTRACT`](#clisc-scdladd-contract)
 * [`clisc scdl:delete NAME`](#clisc-scdldelete-name)
 * [`clisc scdl:list [KEYWORD]`](#clisc-scdllist-keyword)
-* [`clisc subscribe`](#clisc-subscribe)
-* [`clisc unsubscribe`](#clisc-unsubscribe)
+* [`clisc subscribe CONTRACT`](#clisc-subscribe-contract)
+* [`clisc unsubscribe CONTRACT`](#clisc-unsubscribe-contract)
 
 ## `clisc help [COMMAND]`
 
@@ -111,13 +111,16 @@ EXAMPLES
 
 _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_
 
-## `clisc query`
+## `clisc query CONTRACT`
 
 query past event occurences or function invocations
 
 ```
 USAGE
-  $ clisc query
+  $ clisc query CONTRACT
+
+ARGUMENTS
+  CONTRACT  name of the contract to interact with
 
 OPTIONS
   -F, --file=file            path to a JSON file that contains all required parameter for the specific request
@@ -231,13 +234,16 @@ EXAMPLES
 
 _See code: [dist/commands/scdl/list.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/list.ts)_
 
-## `clisc subscribe`
+## `clisc subscribe CONTRACT`
 
 monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.
 
 ```
 USAGE
-  $ clisc subscribe
+  $ clisc subscribe CONTRACT
+
+ARGUMENTS
+  CONTRACT  name of the contract to interact with
 
 OPTIONS
   -F, --file=file          path to a JSON file that contains all required parameter for the specific request
@@ -258,13 +264,16 @@ OPTIONS
 
 _See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts)_
 
-## `clisc unsubscribe`
+## `clisc unsubscribe CONTRACT`
 
 stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.
 
 ```
 USAGE
-  $ clisc unsubscribe
+  $ clisc unsubscribe CONTRACT
+
+ARGUMENTS
+  CONTRACT  name of the contract to interact with
 
 OPTIONS
   -F, --file=file        path to a JSON file that contains all required parameter for the specific request
