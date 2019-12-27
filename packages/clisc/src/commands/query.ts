@@ -13,78 +13,65 @@
  * limitations under the License.
  */
 
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { Config, loadConfig, getDescriptor, write } from '../utils';
-import { join } from 'path';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
+import Command from '../base';
+import { getDescriptor, write } from '../utils';
+import shared from '../shared';
 
 export default class Query extends Command {
   static description = 'query past event occurences or function invocations';
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show query command help` }),
-    path: flags.string({
-      char: 'p',
-      description: 'provide a path where the config files are located, if not set, the current dir is used',
-    }),
-    format: flags.string({ char: 'F', description: 'descriptor format', default: 'scdl' }),
-    auth: flags.string({ char: 'a', description: 'authorization token' }),
-    jsonrpc: flags.string({ char: 'j', description: 'jsonrpc request identifier', required: true }),
-    contract: flags.string({ char: 'c', description: `contract's name`, required: true }),
-    function: flags.string({ char: 'f', description: `name of the function to query`, exclusive: ['event'] }),
-    event: flags.string({ char: 'e', description: `name of the event to query`, exclusive: ['function'] }),
-    val: flags.string({
-      char: 'v',
-      description:
-        'value to be passed as parameter to the function, if more than one value is required you can set this flag multiple times',
-      multiple: true,
-      required: true,
-    }),
-    filter: flags.string({ char: 'l', description: 'C-style boolean expression over function/event parameters' }),
-    startTime: flags.string({
-      char: 's',
-      description: 'start time from which start considering event occurrences or function invocations',
-    }),
-    endTime: flags.string({
-      char: 'd',
-      description: 'end time from which stop considering event occurrences or function invocations',
-    }),
+    auth: shared.auth,
+    jsonrpc: shared.jsonrpc,
+    contract: shared.contract,
+    method: shared.method,
+    event: shared.event,
+    val: shared.value,
+    filter: shared.filter,
+    startTime: shared.startTime,
+    endTime: shared.endTime,
+    file: shared.file,
   };
 
   async run() {
     const { flags } = this.parse(Query);
 
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, flags.format);
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
 
     const filename: string = flags.contract + '.json';
-    const descriptor = await getDescriptor(filename, descriptorsFolder);
+    const descriptor = await getDescriptor(filename, this.descriptorsFolder);
 
-    if (!flags.function && !flags.event) {
+    if (!flags.method && !flags.event) {
       throw new CLIError(`You MUST provide 'function' or 'event' name!`);
     } else {
       try {
         // creates the contract object starting from the descriptor
         const contract: Contract = new Contract(descriptor, flags.auth);
         // retrieve the function/event to subscribe
-        const attribute: Method | Event = flags.function
-          ? contract.methods[flags.function]
+        const attribute: Method | Event = flags.method
+          ? contract.methods[flags.method]
           : contract.events[flags.event as string];
 
         if (attribute === undefined) {
           throw new CLIError(
-            `${flags.function ? "Method name '" + flags.function : "Event named'" + flags.event}" not found in '${
+            `${flags.method ? "Method name '" + flags.method : "Event named'" + flags.event}" not found in '${
               contract.descriptor.name
             }' contract\nThis contract has the following available ${
-              flags.function ? 'methods: [' + Object.keys(contract.methods) : 'events: [' + Object.keys(contract.events)
+              flags.method ? 'methods: [' + Object.keys(contract.methods) : 'events: [' + Object.keys(contract.events)
             }]`,
           );
         }
         attribute
           .query(
             flags.jsonrpc,
-            flags.function ? flags.function : (flags.event as string),
+            flags.method ? flags.method : (flags.event as string),
             flags.val !== undefined ? flags.val : [],
             flags.filter,
             flags.startTime,

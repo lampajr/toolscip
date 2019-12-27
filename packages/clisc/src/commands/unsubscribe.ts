@@ -13,61 +13,61 @@
  * limitations under the License.
  */
 
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { Config, loadConfig, getDescriptor, write } from '../utils';
-import { join } from 'path';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
+import Command from '../base';
+import { getDescriptor, write } from '../utils';
+import shared from '../shared';
 
 export default class Unsubscribe extends Command {
   static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show unsubscribe command help` }),
-    path: flags.string({
-      char: 'p',
-      description: 'provide a path where the config files are located, if not set, the current dir is used',
-    }),
-    format: flags.string({ char: 'F', description: 'descriptor format', default: 'scdl' }),
-    auth: flags.string({ char: 'a', description: 'authorization token' }),
-    jsonrpc: flags.string({ char: 'j', description: 'jsonrpc request identifier', required: true }),
-    contract: flags.string({ char: 'c', description: `contract's name`, required: true }),
-    function: flags.string({ char: 'f', description: `name of the function to unsubscribe`, exclusive: ['event'] }),
-    event: flags.string({ char: 'e', description: `name of the event to unsubscribe`, exclusive: ['function'] }),
-    corrId: flags.string({ char: 'i', description: 'client-provided correlation identifier' }),
+    auth: shared.auth,
+    jsonrpc: shared.jsonrpc,
+    contract: shared.contract,
+    method: shared.method,
+    event: shared.event,
+    val: shared.value,
+    corrId: shared.corrId,
+    file: shared.file,
   };
 
   async run() {
     const { flags } = this.parse(Unsubscribe);
 
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, flags.format);
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
 
     const filename: string = flags.contract + '.json';
-    const descriptor = await getDescriptor(filename, descriptorsFolder);
+    const descriptor = await getDescriptor(filename, this.descriptorsFolder);
 
-    if (!flags.function && !flags.event) {
-      throw new CLIError(`You MUST provide 'function' or 'event' flag!`);
+    if (!flags.method && !flags.event) {
+      throw new CLIError(`You MUST provide 'method' or 'event' flag!`);
     } else {
       try {
         // creates the contract object starting from the descriptor
         const contract: Contract = new Contract(descriptor, flags.auth);
         // retrieve the function/event to subscribe
-        const attribute: Method | Event = flags.function
-          ? contract.methods[flags.function]
+        const attribute: Method | Event = flags.method
+          ? contract.methods[flags.method]
           : contract.events[flags.event as string];
 
         if (attribute === undefined) {
           throw new CLIError(
-            `${flags.function ? "Method name '" + flags.function : "Event named'" + flags.event}" not found in '${
+            `${flags.method ? "Method name '" + flags.method : "Event named'" + flags.event}" not found in '${
               contract.descriptor.name
             }' contract\nThis contract has the following available ${
-              flags.function ? 'methods: [' + Object.keys(contract.methods) : 'events: [' + Object.keys(contract.events)
+              flags.method ? 'methods: [' + Object.keys(contract.methods) : 'events: [' + Object.keys(contract.events)
             }]`,
           );
         }
         attribute
-          .unsubscribe(flags.jsonrpc, flags.function ? flags.function : (flags.event as string), flags.corrId)
+          .unsubscribe(flags.jsonrpc, flags.method ? flags.method : (flags.event as string), flags.corrId)
           .then(res => {
             write(res.data);
           })

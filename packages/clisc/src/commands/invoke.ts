@@ -13,66 +13,54 @@
  * limitations under the License.
  */
 
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { Contract, Method } from '@toolscip/scdl-lib';
-import { Config, loadConfig, getDescriptor, write } from '../utils';
-import { join } from 'path';
 import { CLIError } from '@oclif/errors';
+import Command from '../base';
+import { getDescriptor, write } from '../utils';
+import shared from '../shared';
 
 export default class Invoke extends Command {
-  static description = `invoke a target smart contract's function starting from a smart contract's descriptor.`;
+  static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show invoke command help` }),
-    path: flags.string({
-      char: 'p',
-      description: 'provide a path where the config files are located, if not set, the current dir is used',
-    }),
-    format: flags.string({ char: 'F', description: 'descriptor format', default: 'scdl' }),
-    auth: flags.string({ char: 'a', description: 'authorization token' }),
-    jsonrpc: flags.string({ char: 'j', description: 'jsonrpc request identifier', required: true }),
-    contract: flags.string({ char: 'c', description: `contract's name`, required: true }),
-    name: flags.string({ char: 'n', description: `name of the function to invoke`, required: true }),
-    val: flags.string({
-      char: 'v',
-      description:
-        'value to be passed as parameter to the function, if more than one value is required you can set this flag multiple times',
-      multiple: true,
-    }),
-    signature: flags.string({
-      char: 's',
-      description: `cryptographic hash function's name that has to be used to sign the request`,
-      default: 'sha256',
-    }),
-    callback: flags.string({
-      char: 'u',
-      description: 'callback URL to which the gateway will forward all asynchronous responses',
-    }),
-    corrId: flags.string({ char: 'i', description: 'client-provided correlation identifier' }),
-    doc: flags.integer({ char: 'd', description: 'degree of confidence' }),
-    timeout: flags.integer({
-      char: 't',
-      description: 'timeout that the gateway have to wait before block the operation',
-    }),
+    auth: shared.auth,
+    jsonrpc: shared.jsonrpc,
+    contract: shared.contract,
+    method: shared.method,
+    value: shared.value,
+    callback: shared.callback,
+    corrId: shared.corrId,
+    doc: shared.doc,
+    timeout: shared.timeout,
+    signature: shared.signature,
+    file: shared.file,
   };
 
   async run() {
     const { flags } = this.parse(Invoke);
 
-    const config: Config = await loadConfig(flags.path);
-    const descriptorsFolder = join(config.dir, Config.configFolder, Config.descriptorsFolder, flags.format);
+    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+      throw new CLIError('Unable to load the clisc configuration file!');
+    }
 
     const filename: string = flags.contract + '.json';
-    const descriptor = await getDescriptor(filename, descriptorsFolder);
+    const descriptor = await getDescriptor(filename, this.descriptorsFolder);
+
+    if (flags.method === undefined) {
+      throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);
+    }
 
     try {
       // creates the contract object starting from the descriptor
       const contract: Contract = new Contract(descriptor, flags.auth);
       // retrieve the function/method to invoke
-      const method: Method = contract.methods[flags.name];
+      const method: Method = contract.methods[flags.method];
       if (method === undefined) {
         throw new CLIError(
-          `Method named '${flags.name}' not found in '${
+          `Method named '${flags.method}' not found in '${
             contract.descriptor.name
           }' contract\nThis contract has the following available methods: [${Object.keys(contract.methods)}]`,
         );
@@ -80,8 +68,8 @@ export default class Invoke extends Command {
       method
         .invoke(
           flags.jsonrpc,
-          flags.name,
-          flags.val !== undefined ? flags.val : [],
+          flags.method,
+          flags.value !== undefined ? flags.value : [],
           flags.signature,
           flags.callback,
           flags.corrId,

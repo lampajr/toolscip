@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
@@ -21,12 +21,14 @@ import * as inquirer from 'inquirer';
 import { redBright } from 'chalk';
 import { textSync } from 'figlet';
 import { exec } from 'child_process';
+import Command from '../base';
 import { Config, write } from '../utils';
 
 export default class Init extends Command {
   static description = `initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show init command help` }),
     server: flags.boolean({
       char: 's',
