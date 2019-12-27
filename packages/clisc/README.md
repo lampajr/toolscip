@@ -30,9 +30,9 @@ USAGE
 <!-- commands -->
 * [`clisc help [COMMAND]`](#clisc-help-command)
 * [`clisc init`](#clisc-init)
-* [`clisc invoke`](#clisc-invoke)
+* [`clisc invoke CONTRACT`](#clisc-invoke-contract)
 * [`clisc query`](#clisc-query)
-* [`clisc scdl:add ID`](#clisc-scdladd-id)
+* [`clisc scdl:add CONTRACT`](#clisc-scdladd-contract)
 * [`clisc scdl:delete NAME`](#clisc-scdldelete-name)
 * [`clisc scdl:list [KEYWORD]`](#clisc-scdllist-keyword)
 * [`clisc subscribe`](#clisc-subscribe)
@@ -71,18 +71,20 @@ OPTIONS
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
 
-## `clisc invoke`
+## `clisc invoke CONTRACT`
 
 invoke a target smart contract's function/method starting from a smart contract's descriptor.
 
 ```
 USAGE
-  $ clisc invoke
+  $ clisc invoke CONTRACT
+
+ARGUMENTS
+  CONTRACT  name of the contract to interact with
 
 OPTIONS
   -F, --file=file            path to a JSON file that contains all required parameter for the specific request
   -a, --auth=auth            authorization token
-  -c, --contract=contract    (required) name of the contract to interact with
   -d, --doc=doc              degree of confidence's value
   -h, --help                 show invoke command help
   -i, --corrId=corrId        client-provided correlation identifier
@@ -120,7 +122,6 @@ USAGE
 OPTIONS
   -F, --file=file            path to a JSON file that contains all required parameter for the specific request
   -a, --auth=auth            authorization token
-  -c, --contract=contract    (required) name of the contract to interact with
   -d, --endTime=endTime      end time from which stop considering event occurrences or function invocations
   -e, --event=event          (required) name of the request's target event
   -f, --filter=filter        C-style boolean expression over function/event parameters
@@ -139,16 +140,16 @@ OPTIONS
 
 _See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts)_
 
-## `clisc scdl:add ID`
+## `clisc scdl:add CONTRACT`
 
 add a new SCDL descriptor in the local directory.
 
 ```
 USAGE
-  $ clisc scdl:add ID
+  $ clisc scdl:add CONTRACT
 
 ARGUMENTS
-  ID  path to a local SCDL file or a unique identifier inside the online registry
+  CONTRACT  path to a local SCDL file or a unique identifier inside the online registry
 
 OPTIONS
   -h, --help       show scdl:add command help
@@ -241,7 +242,6 @@ USAGE
 OPTIONS
   -F, --file=file          path to a JSON file that contains all required parameter for the specific request
   -a, --auth=auth          authorization token
-  -c, --contract=contract  (required) name of the contract to interact with
   -d, --doc=doc            degree of confidence's value
   -e, --event=event        (required) name of the request's target event
   -f, --filter=filter      C-style boolean expression over function/event parameters
@@ -267,18 +267,17 @@ USAGE
   $ clisc unsubscribe
 
 OPTIONS
-  -F, --file=file          path to a JSON file that contains all required parameter for the specific request
-  -a, --auth=auth          authorization token
-  -c, --contract=contract  (required) name of the contract to interact with
-  -e, --event=event        (required) name of the request's target event
-  -h, --help               show unsubscribe command help
-  -i, --corrId=corrId      client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc    (required) jsonrpc request identifier
-  -m, --method=method      (required) name of the request's target function/method
-  -p, --path=path          provide a path where the config files are located, if not set, the current directory is used
+  -F, --file=file        path to a JSON file that contains all required parameter for the specific request
+  -a, --auth=auth        authorization token
+  -e, --event=event      (required) name of the request's target event
+  -h, --help             show unsubscribe command help
+  -i, --corrId=corrId    client-provided correlation identifier
+  -j, --jsonrpc=jsonrpc  (required) jsonrpc request identifier
+  -m, --method=method    (required) name of the request's target function/method
+  -p, --path=path        provide a path where the config files are located, if not set, the current directory is used
 
-  -v, --val=val            target function or event parameter's value, if more than one value is required you can set
-                           this flag multiple times (the order is important!)
+  -v, --val=val          target function or event parameter's value, if more than one value is required you can set this
+                         flag multiple times (the order is important!)
 ```
 
 _See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts)_
