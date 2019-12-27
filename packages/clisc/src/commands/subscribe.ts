@@ -17,7 +17,7 @@ import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
 import BaseCommand from '../base';
-import { getDescriptor } from '../utils';
+import Config from '../config';
 import shared from '../shared';
 
 export default class Subscribe extends BaseCommand {
@@ -40,12 +40,12 @@ export default class Subscribe extends BaseCommand {
   };
 
   async run() {
-    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+    if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
     const filename: string = this.flags.contract + '.json';
-    const descriptor = await getDescriptor(filename, this.descriptorsFolder);
+    const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
 
     if (this.flags.callback === undefined) {
       throw new CLIError(

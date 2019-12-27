@@ -20,7 +20,7 @@ import { join } from 'path';
 import * as inquirer from 'inquirer';
 import { exec } from 'child_process';
 import BaseCommand from '../base';
-import { Config } from '../utils';
+import Config from '../config';
 import chalk = require('chalk');
 
 export default class Init extends BaseCommand {
@@ -46,38 +46,34 @@ export default class Init extends BaseCommand {
     try {
       const answers = await this.ask(this.flags.server);
 
-      const clisciConfig = new Config(answers.owner, process.cwd(), answers.formats, answers.registry);
-      const configDir: string = join(clisciConfig.dir, Config.configFolder);
-      const descriptorsDir: string = join(configDir, Config.descriptorsFolder);
+      const cliscConfig = new Config(answers.owner, process.cwd(), answers.registry);
 
-      this.createDirectory(configDir);
-      for (const format of clisciConfig.formats) {
-        this.createDirectory(join(descriptorsDir, format));
-      }
+      this.createDirectory(cliscConfig.configFolder());
+      this.createDirectory(cliscConfig.descriptorsFolder());
 
       try {
-        await fs.writeJSON(join(clisciConfig.dir, Config.configFile), clisciConfig, {
+        await fs.writeJSON(join(cliscConfig.dir, Config.configFile), cliscConfig, {
           spaces: '\t',
         });
-        this.log(`Configuration file '${Config.configFile}' successfully created!`, 'info');
+        this.log(`Configuration file '${Config.configFile}' successfully created!`);
       } catch (err) {
         console.error(err);
       }
 
       if (this.flags.server) {
         // initialize the express.js server
-        this.log('Initializing simple server..', 'info');
+        this.log('Initializing simple server..');
         const res = exec('npm init --yes && npm install --save express', (error, stdout, stderr) => {
           if (error) {
             throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
           } else {
             // the *entire* stdout and stderr (buffered)
-            this.log(`stdout: ${stdout}`, 'info');
-            this.log(`stderr: ${stderr}`, 'info');
+            this.log(`stdout: ${stdout}`);
+            this.log(`stderr: ${stderr}`);
           }
         });
 
-        res.on('exit', code => this.log('Code: ' + code, 'info'));
+        res.on('exit', code => this.log('Code: ' + code));
       }
     } catch (err) {
       throw new CLIError(err.message);
@@ -90,20 +86,11 @@ export default class Init extends BaseCommand {
    * @param server tells whether retrieve information about server initialization
    */
   private async ask(server: boolean) {
-    const checked = ['scdl'];
-
     return inquirer.prompt([
       {
         type: 'input',
         name: 'owner',
         message: `Who is the project's owner?`,
-      },
-      {
-        type: 'checkbox',
-        name: 'formats',
-        message: 'Which formats do you want to use?',
-        choices: Config.supportedFormats,
-        default: checked,
       },
       {
         type: 'confirm',
@@ -137,7 +124,7 @@ export default class Init extends BaseCommand {
   private async createDirectory(path: string) {
     try {
       await fs.mkdirp(path);
-      this.log(`Directory at '${path}' successfully created!`, 'info');
+      this.log(`Directory at '${path}' successfully created!`);
     } catch (err) {
       console.error(err);
     }

@@ -20,60 +20,71 @@ import { CLIError } from '@oclif/errors';
 /**
  * Configuration file
  */
-export class Config {
+export default class Config {
   static configFolder = '.clisc';
   static descriptorsFolder = 'descriptors';
-  static configFile = 'sciconfig.json';
-  static supportedFormats = ['scdl'];
+  static configFile = 'clisc.json';
+
+  /**
+   * Loads the configuration file from the current directory
+   * @param path string path where try to find the config file
+   * @returns a promise containing the Config object
+   * @throws CLIError if the file was not found
+   */
+  static async loadConfig(path?: string | undefined): Promise<Config> {
+    const p: string = path === undefined ? join(process.cwd(), Config.configFile) : path;
+    try {
+      const value: any = await fs.readJSON(p);
+      return new Config(value.owner, value.dir, value.registry);
+    } catch (err) {
+      throw new CLIError(`Unable to find the config file at '${p}'`);
+    }
+  }
+
+  /**
+   * Loads the descriptor's file into a generic json object
+   * @param filename name of the contract's file to load
+   * @param path path to the specific format descriptors' config folder
+   * @returns the descriptor object
+   */
+  static async getDescriptor(filename: string, path: string): Promise<any> {
+    const completPath: string = join(path, filename);
+    try {
+      return await fs.readJSON(completPath);
+    } catch (err) {
+      // throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
+      throw new CLIError(`During descriptor loading - ${err.message}`);
+    }
+  }
 
   /** Owner of the project */
   owner: string;
   /** Main directory, where config files are stored */
   dir: string;
-  /** Supported smart Contracts descriptor's formats */
-  formats: string[];
   /** Online registry URL [optional] */
   registry?: string;
 
-  constructor(owner: string, dir: string, formats: string[], registry?: string) {
+  constructor(owner: string, dir: string, registry?: string) {
     this.owner = owner;
     this.dir = dir;
-    this.formats = formats;
     if (registry) {
       this.registry = registry;
     }
   }
-}
 
-/**
- * Loads the configuration file from the current directory
- * @param path string path where try to find the config file
- * @returns a promise containing the Config object
- * @throws CLIError if the file was not found
- */
-export async function loadConfig(path?: string | undefined): Promise<Config> {
-  const p: string = path === undefined ? join(process.cwd(), Config.configFile) : path;
-  try {
-    const value: any = await fs.readJSON(p);
-    return new Config(value.owner, value.dir, value.formats, value.registry);
-  } catch (err) {
-    throw new CLIError(`Unable to find the config file at '${p}'`);
+  /**
+   * Returns the path to the folder where all SCDL descriptors
+   * are located.
+   */
+  descriptorsFolder(): string {
+    return join(this.configFolder(), Config.descriptorsFolder);
   }
-}
 
-/**
- * Loads the descriptor's file into a generic json object
- * @param filename name of the contract's file to load
- * @param path path to the specific format descriptors' config folder
- * @returns the descriptor object
- */
-export async function getDescriptor(filename: string, path: string): Promise<any> {
-  const completPath: string = join(path, filename);
-  try {
-    return await fs.readJSON(completPath);
-  } catch (err) {
-    // throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
-    throw new CLIError(`During descriptor loading - ${err.message}`);
+  /**
+   * Returns the path to the configuration folder
+   */
+  configFolder(): string {
+    return join(this.dir, Config.configFolder);
   }
 }
 

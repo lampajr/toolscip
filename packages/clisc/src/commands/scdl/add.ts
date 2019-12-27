@@ -1,3 +1,18 @@
+/**
+ * Copyright 2019-2020 Andrea Lamparelli
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { flags } from '@oclif/command';
 import { ISCDL } from '@toolscip/scdl-lib';
 import { CLIError } from '@oclif/errors';
@@ -7,8 +22,14 @@ import axios from 'axios';
 import BaseCommand from '../../base';
 
 export default class ScdlAdd extends BaseCommand {
-  static folderName = 'scdl';
   static description = 'add a new SCDL descriptor in the local directory.';
+  static aliases = ['scdl:add', 'scdl:load'];
+  static examples = [
+    '# add a new descriptor from a local file',
+    '$ clisc scdl:add MyToken.json --local',
+    '# download a descriptor from an online registry',
+    '$ clisc scdl:add 5dfcdad2fd321d00179ede01 --remote',
+  ];
 
   static flags = {
     ...BaseCommand.flags,
@@ -36,7 +57,7 @@ export default class ScdlAdd extends BaseCommand {
   ];
 
   async run() {
-    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+    if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
@@ -47,9 +68,9 @@ export default class ScdlAdd extends BaseCommand {
     if (this.flags.local) {
       // save a new descriptor from a local path
       const filename: string = this.args.id.substring(this.args.id.lastIndexOf('/') + 1);
-      fs.copyFile(join(this.cliscConfig.dir, this.args.id), join(this.descriptorsFolder, filename))
+      fs.copyFile(join(process.cwd(), this.args.id), join(this.cliscConfig.descriptorsFolder(), filename))
         .then(_val => {
-          this.log(`Descriptor successfully saved at ${this.descriptorsFolder}`);
+          this.log(`Descriptor successfully saved at ${this.cliscConfig?.descriptorsFolder()}`);
         })
         .catch(err => {
           throw new CLIError('Unable to copy the descriptor - ' + err.message);
@@ -61,17 +82,17 @@ export default class ScdlAdd extends BaseCommand {
         try {
           const descriptor: ISCDL = (await axios.get(endpoint)).data;
           this.log(`${descriptor.name} contract's descriptor downloaded`);
-          fs.writeJSON(join(this.descriptorsFolder, descriptor.name + '.json'), descriptor, {
+          fs.writeJSON(join(this.cliscConfig.descriptorsFolder(), descriptor.name + '.json'), descriptor, {
             spaces: '\t',
           })
             .then(_ => {
-              this.log(`Descriptor successfully saved at ${this.descriptorsFolder}`);
+              this.log(`Descriptor successfully saved at ${this.cliscConfig?.descriptorsFolder()}`);
             })
             .catch(err => {
-              throw new CLIError(`Saving operation exited with this error - ${err.message}`);
+              throw new CLIError(`Saving operation exited with the following error - ${err.message}`);
             });
         } catch (err) {
-          throw new CLIError(`The online registry request failed with this error - ${err.message}`);
+          throw new CLIError(`The online registry request failed with the following error - ${err.message}`);
         }
       } else {
         throw new CLIError("Missing online registry's url");

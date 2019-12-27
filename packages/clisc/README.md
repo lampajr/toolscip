@@ -155,6 +155,16 @@ OPTIONS
   -l, --local      add a new descriptor from a local file path
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
   -r, --remote     add a new descriptor from a remote online registry
+
+ALIASES
+  $ clisc scdl:add
+  $ clisc scdl:load
+
+EXAMPLES
+  # add a new descriptor from a local file
+  $ clisc scdl:add MyToken.json --local
+  # download a descriptor from an online registry
+  $ clisc scdl:add 5dfcdad2fd321d00179ede01 --remote
 ```
 
 _See code: [dist/commands/scdl/add.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/add.ts)_
@@ -173,6 +183,16 @@ ARGUMENTS
 OPTIONS
   -h, --help       show scdl:list command help
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
+
+ALIASES
+  $ clisc scdl:delete
+  $ clisc scdl:remove
+  $ clisc scdl:del
+  $ clisc scdl:rm
+
+EXAMPLES
+  # delete a descriptor file named 'ZilliqaToken.json'
+  $ clisc scdl:delete ZilliqaToken.json
 ```
 
 _See code: [dist/commands/scdl/delete.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/delete.ts)_
@@ -189,14 +209,23 @@ ARGUMENTS
   KEYWORD  keyword search
 
 OPTIONS
-  -e, --extended   retrieve ALL saved SCDL descriptors
+  -e, --extended   retrieve ALL saved descriptors
   -h, --help       show scdl:list command help
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
 
 ALIASES
   $ clisc scdl:list
+  $ clisc scdl:ls
   $ clisc scdl:index
   $ clisc scdl:get
+
+EXAMPLES
+  # list a summary of 5 descriptors
+  $ clisc scdl:list
+  # list all saved descriptors
+  $ clisc scdl:list --extended
+  # list all descriptors that match the provided keyword
+  $ clisc scdl:list Token
 ```
 
 _See code: [dist/commands/scdl/list.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/list.ts)_
