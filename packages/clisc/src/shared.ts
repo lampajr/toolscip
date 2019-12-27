@@ -31,12 +31,6 @@ const jsonrpc = flags.string({
   required: true,
 });
 
-const contract = flags.string({
-  char: 'c',
-  description: `name of the contract to interact with`,
-  required: true,
-});
-
 const method = flags.string({
   char: 'm',
   description: `(required) name of the request's target function/method`,
@@ -116,7 +110,6 @@ const shared = {
   path,
   auth,
   jsonrpc,
-  contract,
   method,
   event,
   value,
