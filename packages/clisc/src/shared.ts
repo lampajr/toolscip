@@ -82,7 +82,19 @@ const endTime = flags.string({
 const file = flags.string({
   char: 'F',
   description: 'path to a JSON file that contains all required parameter for the specific request',
-  exclusive: ['filter', 'signature', 'timeout', 'doc', 'corrId', 'callback', 'value', 'event', 'method'],
+  exclusive: [
+    'endTime',
+    'startTime',
+    'filter',
+    'signature',
+    'timeout',
+    'doc',
+    'corrId',
+    'callback',
+    'value',
+    'event',
+    'method',
+  ],
 });
 
 const shared = {

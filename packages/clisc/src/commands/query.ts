@@ -24,7 +24,7 @@ export default class Query extends Command {
   static description = 'query past event occurences or function invocations';
 
   static flags = {
-    help: flags.help({ char: 'h', description: `show subscribe command help` }),
+    help: flags.help({ char: 'h', description: `show query command help` }),
     path: shared.path,
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,

@@ -24,7 +24,7 @@ export default class Unsubscribe extends Command {
   static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
 
   static flags = {
-    help: flags.help({ char: 'h', description: `show subscribe command help` }),
+    help: flags.help({ char: 'h', description: `show unsubscribe command help` }),
     path: shared.path,
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
@@ -46,7 +46,7 @@ export default class Unsubscribe extends Command {
     const descriptor = await getDescriptor(filename, descriptorsFolder);
 
     if (!flags.method && !flags.event) {
-      throw new CLIError(`You MUST provide 'function' or 'event' flag!`);
+      throw new CLIError(`You MUST provide 'method' or 'event' flag!`);
     } else {
       try {
         // creates the contract object starting from the descriptor
