@@ -1,17 +1,19 @@
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import * as fs from 'fs-extra';
 import { join } from 'path';
+import Command from '../../base';
 import { Config, loadConfig, box } from '../../utils';
-import shared from '../../shared';
 
 export default class ScdlList extends Command {
   static folderName = 'scdl';
-  static description = `list saved SCDL smart contract's descriptors`;
   static limit = 5; // if 'extended' is not set returns only 5 descriptors
 
+  static description = `list saved SCDL smart contract's descriptors`;
+  static aliases = ['scdl:list', 'scdl:index', 'scdl:get'];
+
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show scdl:list command help` }),
-    path: shared.path,
     extended: flags.boolean({
       char: 'e',
       description: 'retrieve ALL saved SCDL descriptors',

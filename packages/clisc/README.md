@@ -32,7 +32,8 @@ USAGE
 * [`clisc init`](#clisc-init)
 * [`clisc invoke`](#clisc-invoke)
 * [`clisc query`](#clisc-query)
-* [`clisc scdl`](#clisc-scdl)
+* [`clisc scdl:add ID`](#clisc-scdladd-id)
+* [`clisc scdl:delete NAME`](#clisc-scdldelete-name)
 * [`clisc scdl:list [KEYWORD]`](#clisc-scdllist-keyword)
 * [`clisc subscribe`](#clisc-subscribe)
 * [`clisc unsubscribe`](#clisc-unsubscribe)
@@ -133,26 +134,43 @@ OPTIONS
 
 _See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts)_
 
-## `clisc scdl`
+## `clisc scdl:add ID`
 
-gain information about local descriptors, to add new descriptors and to delete already stored descriptors.
+add a new SCDL descriptor in the local directory.
 
 ```
 USAGE
-  $ clisc scdl
+  $ clisc scdl:add ID
+
+ARGUMENTS
+  ID  path to a local SCDL file or a unique identifier inside the online registry
 
 OPTIONS
-  -L, --local            add a new descriptor from a local file path
-  -P, --pattern=pattern  set a pattern matching for descriptors to list
-  -R, --remote           add a new descriptor from a remote online registry
-  -a, --add=add          add a new descriptor
-  -d, --delete=delete    delete a local descriptor
-  -h, --help             show scdl command help
-  -l, --list             list all scdl descriptors
-  -p, --path=path        provide a path where the config files are located, if not set, the current dir is used
+  -h, --help       show scdl:add command help
+  -l, --local      add a new descriptor from a local file path
+  -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
+  -r, --remote     add a new descriptor from a remote online registry
 ```
 
-_See code: [dist/commands/scdl.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl.ts)_
+_See code: [dist/commands/scdl/add.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/add.ts)_
+
+## `clisc scdl:delete NAME`
+
+delete a specific descriptor from the local directory
+
+```
+USAGE
+  $ clisc scdl:delete NAME
+
+ARGUMENTS
+  NAME  name of the contract's descriptor to delete
+
+OPTIONS
+  -h, --help       show scdl:list command help
+  -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
+```
+
+_See code: [dist/commands/scdl/delete.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/delete.ts)_
 
 ## `clisc scdl:list [KEYWORD]`
 
@@ -167,7 +185,13 @@ ARGUMENTS
 
 OPTIONS
   -e, --extended   retrieve ALL saved SCDL descriptors
+  -h, --help       show scdl:list command help
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
+
+ALIASES
+  $ clisc scdl:list
+  $ clisc scdl:index
+  $ clisc scdl:get
 ```
 
 _See code: [dist/commands/scdl/list.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/list.ts)_

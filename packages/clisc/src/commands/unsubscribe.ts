@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { join } from 'path';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
+import Command from '../base';
 import { Config, loadConfig, getDescriptor, write } from '../utils';
 import shared from '../shared';
 
@@ -24,8 +25,8 @@ export default class Unsubscribe extends Command {
   static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show unsubscribe command help` }),
-    path: shared.path,
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
     contract: shared.contract,

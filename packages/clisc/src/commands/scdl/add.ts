@@ -1,19 +1,19 @@
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { ISCDL } from '@toolscip/scdl-lib';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import axios from 'axios';
+import Command from '../../base';
 import { Config, loadConfig, write } from '../../utils';
-import shared from '../../shared';
 
 export default class ScdlAdd extends Command {
   static folderName = 'scdl';
   static description = 'add a new SCDL descriptor in the local directory.';
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show scdl:add command help` }),
-    path: shared.path,
     local: flags.boolean({
       char: 'l',
       description: 'add a new descriptor from a local file path',

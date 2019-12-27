@@ -65,7 +65,12 @@
     "bin": "clisc",
     "plugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "topics": {
+      "scdl": {
+        "description": "manage local SCDL descriptors"
+      }
+    }
   },
   "repository": {
     "type": "git",

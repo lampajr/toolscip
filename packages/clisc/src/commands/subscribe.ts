@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { join } from 'path';
 import { Contract, Method, Event } from '@toolscip/scdl-lib';
+import Command from '../base';
 import { Config, loadConfig, getDescriptor, write } from '../utils';
 import shared from '../shared';
 
@@ -24,8 +25,8 @@ export default class Subscribe extends Command {
   static description = `monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.`;
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show subscribe command help` }),
-    path: shared.path,
     auth: shared.auth,
     jsonrpc: shared.jsonrpc,
     contract: shared.contract,

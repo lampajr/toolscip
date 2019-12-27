@@ -1,18 +1,17 @@
-import { Command, flags } from '@oclif/command';
+import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
+import Command from '../../base';
 import { Config, loadConfig, write } from '../../utils';
-import shared from '../../shared';
 
 export default class ScdlDelete extends Command {
   static folderName = 'scdl';
-  static description = `list saved SCDL smart contract's descriptors`;
-  static limit = 5; // if 'extended' is not set returns only 5 descriptors
+  static description = `delete a specific descriptor from the local directory`;
 
   static flags = {
+    ...Command.flags,
     help: flags.help({ char: 'h', description: `show scdl:list command help` }),
-    path: shared.path,
   };
 
   static args = [{ name: 'name', required: true, description: `name of the contract's descriptor to delete` }];
