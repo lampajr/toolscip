@@ -33,7 +33,7 @@ USAGE
 * [`clisc invoke CONTRACT`](#clisc-invoke-contract)
 * [`clisc query CONTRACT`](#clisc-query-contract)
 * [`clisc scdl:add CONTRACT`](#clisc-scdladd-contract)
-* [`clisc scdl:delete NAME`](#clisc-scdldelete-name)
+* [`clisc scdl:delete CONTRACT`](#clisc-scdldelete-contract)
 * [`clisc scdl:list [KEYWORD]`](#clisc-scdllist-keyword)
 * [`clisc subscribe CONTRACT`](#clisc-subscribe-contract)
 * [`clisc unsubscribe CONTRACT`](#clisc-unsubscribe-contract)
@@ -173,16 +173,16 @@ EXAMPLES
 
 _See code: [dist/commands/scdl/add.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/add.ts)_
 
-## `clisc scdl:delete NAME`
+## `clisc scdl:delete CONTRACT`
 
 delete a specific descriptor from the local directory
 
 ```
 USAGE
-  $ clisc scdl:delete NAME
+  $ clisc scdl:delete CONTRACT
 
 ARGUMENTS
-  NAME  name of the contract's descriptor to delete
+  CONTRACT  name of the contract's descriptor to delete
 
 OPTIONS
   -h, --help       show scdl:list command help

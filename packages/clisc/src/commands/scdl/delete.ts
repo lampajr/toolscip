@@ -29,14 +29,14 @@ export default class ScdlDelete extends BaseCommand {
     help: flags.help({ char: 'h', description: `show scdl:list command help` }),
   };
 
-  static args = [{ name: 'name', required: true, description: `name of the contract's descriptor to delete` }];
+  static args = [{ name: 'contract', required: true, description: `name of the contract's descriptor to delete` }];
 
   async run() {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    fs.remove(join(this.cliscConfig.descriptorsFolder() as string, this.args.name))
+    fs.remove(join(this.cliscConfig.descriptorsFolder(), this.args.contract))
       .then(_ => {
         this.log(`Descriptor successfully removed at ${this.cliscConfig?.descriptorsFolder()}`);
       })
