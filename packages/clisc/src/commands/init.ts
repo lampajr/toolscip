@@ -55,25 +55,25 @@ export default class Init extends BaseCommand {
         await fs.writeJSON(join(cliscConfig.dir, Config.configFile), cliscConfig, {
           spaces: '\t',
         });
-        this.log(`Configuration file '${Config.configFile}' successfully created!`, 'info');
+        this.log(`Configuration file '${Config.configFile}' successfully created!`);
       } catch (err) {
         console.error(err);
       }
 
       if (this.flags.server) {
         // initialize the express.js server
-        this.log('Initializing simple server..', 'info');
+        this.log('Initializing simple server..');
         const res = exec('npm init --yes && npm install --save express', (error, stdout, stderr) => {
           if (error) {
             throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
           } else {
             // the *entire* stdout and stderr (buffered)
-            this.log(`stdout: ${stdout}`, 'info');
-            this.log(`stderr: ${stderr}`, 'info');
+            this.log(`stdout: ${stdout}`);
+            this.log(`stderr: ${stderr}`);
           }
         });
 
-        res.on('exit', code => this.log('Code: ' + code, 'info'));
+        res.on('exit', code => this.log('Code: ' + code));
       }
     } catch (err) {
       throw new CLIError(err.message);
@@ -124,7 +124,7 @@ export default class Init extends BaseCommand {
   private async createDirectory(path: string) {
     try {
       await fs.mkdirp(path);
-      this.log(`Directory at '${path}' successfully created!`, 'info');
+      this.log(`Directory at '${path}' successfully created!`);
     } catch (err) {
       console.error(err);
     }
