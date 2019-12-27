@@ -1,7 +1,6 @@
 import Command from '@oclif/command';
 import { Input } from '@oclif/parser';
-import { join } from 'path';
-import * as chalk from 'chalk';
+import chalk = require('chalk');
 import { textSync } from 'figlet';
 import Config from './config';
 import shared from './shared';
@@ -16,7 +15,6 @@ export default abstract class extends Command {
   flags: any;
   args: any;
   cliscConfig: Config | undefined;
-  descriptorsFolder: string | undefined;
 
   // base methods
 
@@ -37,7 +35,7 @@ export default abstract class extends Command {
         console.warn(msg);
         break;
       case 'err':
-        console.error(chalk.red('> ' + chalk.bold(msg) + '\n'));
+        console.error(chalk.red('> ') + chalk.bold(msg) + '\n');
         break;
     }
   }
@@ -58,7 +56,6 @@ export default abstract class extends Command {
     this.args = args;
     if (this.constructor.name !== 'Init') {
       this.cliscConfig = await Config.loadConfig(flags.path);
-      this.descriptorsFolder = join(this.cliscConfig.dir, Config.configFolder, Config.descriptorsFolder, 'scdl');
     }
   }
 

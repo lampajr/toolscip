@@ -49,7 +49,7 @@ export default class Init extends BaseCommand {
       const cliscConfig = new Config(answers.owner, process.cwd(), answers.registry);
 
       this.createDirectory(cliscConfig.configFolder());
-      this.createDirectory(cliscConfig.descriptorFolder());
+      this.createDirectory(cliscConfig.descriptorsFolder());
 
       try {
         await fs.writeJSON(join(cliscConfig.dir, Config.configFile), cliscConfig, {

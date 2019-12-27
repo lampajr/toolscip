@@ -44,12 +44,12 @@ export default class Invoke extends BaseCommand {
   };
 
   async run() {
-    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+    if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
     const filename: string = this.flags.contract + '.json';
-    const descriptor = await Config.getDescriptor(filename, this.descriptorsFolder);
+    const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
 
     if (this.flags.method === undefined) {
       throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);

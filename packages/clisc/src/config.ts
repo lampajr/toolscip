@@ -76,7 +76,7 @@ export default class Config {
    * Returns the path to the folder where all SCDL descriptors
    * are located.
    */
-  descriptorFolder(): string {
+  descriptorsFolder(): string {
     return join(this.configFolder(), Config.descriptorsFolder);
   }
 

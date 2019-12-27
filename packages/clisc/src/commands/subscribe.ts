@@ -40,12 +40,12 @@ export default class Subscribe extends BaseCommand {
   };
 
   async run() {
-    if (this.cliscConfig === undefined || this.descriptorsFolder === undefined) {
+    if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
     const filename: string = this.flags.contract + '.json';
-    const descriptor = await Config.getDescriptor(filename, this.descriptorsFolder);
+    const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
 
     if (this.flags.callback === undefined) {
       throw new CLIError(
