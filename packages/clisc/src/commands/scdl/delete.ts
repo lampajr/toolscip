@@ -20,8 +20,9 @@ import { join } from 'path';
 import BaseCommand from '../../base';
 
 export default class ScdlDelete extends BaseCommand {
-  static folderName = 'scdl';
   static description = `delete a specific descriptor from the local directory`;
+  static aliases = ['scdl:delete', 'scdl:remove', 'scdl:del', 'scdl:rm'];
+  static examples = [`# delete a descriptor file named 'ZilliqaToken.json'`, '$ clisc scdl:delete ZilliqaToken.json'];
 
   static flags = {
     ...BaseCommand.flags,

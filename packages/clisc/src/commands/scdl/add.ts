@@ -23,6 +23,13 @@ import BaseCommand from '../../base';
 
 export default class ScdlAdd extends BaseCommand {
   static description = 'add a new SCDL descriptor in the local directory.';
+  static aliases = ['scdl:add', 'scdl:load'];
+  static examples = [
+    '# add a new descriptor from a local file',
+    '$ clisc scdl:add MyToken.json --local',
+    '# download a descriptor from an online registry',
+    '$ clisc scdl:add 5dfcdad2fd321d00179ede01 --remote',
+  ];
 
   static flags = {
     ...BaseCommand.flags,

@@ -19,18 +19,25 @@ import * as fs from 'fs-extra';
 import BaseCommand from '../../base';
 
 export default class ScdlList extends BaseCommand {
-  static folderName = 'scdl';
   static limit = 5; // if 'extended' is not set returns only 5 descriptors
 
   static description = `list saved SCDL smart contract's descriptors`;
-  static aliases = ['scdl:list', 'scdl:index', 'scdl:get'];
+  static aliases = ['scdl:list', 'scdl:ls', 'scdl:index', 'scdl:get'];
+  static examples = [
+    `# list a summary of ${ScdlList.limit} descriptors`,
+    '$ clisc scdl:list',
+    `# list all saved descriptors`,
+    '$ clisc scdl:list --extended',
+    '# list all descriptors that match the provided keyword',
+    '$ clisc scdl:list Token',
+  ];
 
   static flags = {
     ...BaseCommand.flags,
     help: flags.help({ char: 'h', description: `show scdl:list command help` }),
     extended: flags.boolean({
       char: 'e',
-      description: 'retrieve ALL saved SCDL descriptors',
+      description: 'retrieve ALL saved descriptors',
       default: false,
     }),
   };
@@ -43,8 +50,8 @@ export default class ScdlList extends BaseCommand {
     }
 
     fs.readdir(this.cliscConfig.descriptorsFolder() as string)
-      .then(_files => {
-        // TODO: box(files, 'descriptors');
+      .then(files => {
+        this.log(files);
       })
       .catch(err => {
         throw new CLIError('Unable to read the descriptors directory - ' + err.message);
