@@ -31,6 +31,8 @@ export default class Unsubscribe extends ScipCommand {
     corrId: shared.corrId,
   };
 
+  static args = [...ScipCommand.args];
+
   async run() {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');

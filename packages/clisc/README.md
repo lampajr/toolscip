@@ -106,7 +106,7 @@ OPTIONS
 
 EXAMPLES
   # Suppose you want to invoke a method named 'balanceOf' of a contract named 'Token'
-  $ clisc invoke -j abcdef -c Token -m balaceOf -v 0x23ab34bd..
+  $ clisc invoke Token -j abcdef -m balaceOf -v 0x23ab34bd..
 ```
 
 _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_
