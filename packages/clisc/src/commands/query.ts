@@ -15,78 +15,63 @@
 
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { Contract, Method, Event } from '@toolscip/scdl-lib';
-import BaseCommand from '../base';
-import Config from '../config';
+import { Method, Event } from '@toolscip/scdl-lib';
+import ScipCommand from '../scip';
 import shared from '../shared';
 
-export default class Query extends BaseCommand {
+export default class Query extends ScipCommand {
   static description = 'query past event occurences or function invocations';
 
   static flags = {
-    ...BaseCommand.flags,
+    ...ScipCommand.flags,
     help: flags.help({ char: 'h', description: `show query command help` }),
-    auth: shared.auth,
-    jsonrpc: shared.jsonrpc,
     method: shared.method,
     event: shared.event,
     value: shared.value,
     filter: shared.filter,
     startTime: shared.startTime,
     endTime: shared.endTime,
-    file: shared.file,
   };
-
-  static args = [{ name: 'contract', description: `name of the contract to interact with`, required: true }];
 
   async run() {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     }
 
-    const filename: string = this.args.contract + '.json';
-    const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
+    if (this.contract === undefined) {
+      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+    }
 
     if (!this.flags.method && !this.flags.event) {
       throw new CLIError(`You MUST provide 'function' or 'event' name!`);
-    } else {
-      try {
-        // creates the contract object starting from the descriptor
-        const contract: Contract = new Contract(descriptor, this.flags.auth);
-        // retrieve the function/event to subscribe
-        const generic: Method | Event = this.flags.method
-          ? contract.methods[this.flags.method]
-          : contract.events[this.flags.event as string];
-
-        if (generic === undefined) {
-          throw new CLIError(
-            `${
-              this.flags.method ? "Method name '" + this.flags.method : "Event named'" + this.flags.event
-            }" not found in '${contract.descriptor.name}' contract\nThis contract has the following available ${
-              this.flags.method
-                ? 'methods: [' + Object.keys(contract.methods)
-                : 'events: [' + Object.keys(contract.events)
-            }]`,
-          );
-        }
-        generic
-          .query(
-            this.flags.jsonrpc,
-            this.flags.method ? this.flags.method : (this.flags.event as string),
-            this.flags.value !== undefined ? this.flags.value : [],
-            this.flags.filter,
-            this.flags.startTime,
-            this.flags.endTime,
-          )
-          .then(res => {
-            this.log(JSON.stringify(res.data));
-          });
-      } catch (err) {
-        if (err instanceof CLIError) {
-          throw err;
-        }
-        throw new CLIError(err.message);
-      }
     }
+    // retrieve the function/event to subscribe
+    const generic: Method | Event = this.flags.method
+      ? this.contract.methods[this.flags.method]
+      : this.contract.events[this.flags.event as string];
+
+    if (generic === undefined) {
+      throw new CLIError(
+        `${
+          this.flags.method ? "Method name '" + this.flags.method : "Event named'" + this.flags.event
+        }" not found in '${this.contract.descriptor.name}' contract\nThis contract has the following available ${
+          this.flags.method
+            ? 'methods: [' + Object.keys(this.contract.methods)
+            : 'events: [' + Object.keys(this.contract.events)
+        }]`,
+      );
+    }
+    generic
+      .query(
+        this.flags.jsonrpc,
+        this.flags.method ? this.flags.method : (this.flags.event as string),
+        this.flags.value !== undefined ? this.flags.value : [],
+        this.flags.filter,
+        this.flags.startTime,
+        this.flags.endTime,
+      )
+      .then(res => {
+        this.log(JSON.stringify(res.data));
+      });
   }
 }
