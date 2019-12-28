@@ -34,6 +34,8 @@ export default class Subscribe extends ScipCommand {
     filter: shared.filter,
   };
 
+  static args = [...ScipCommand.args];
+
   async run() {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');

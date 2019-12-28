@@ -23,7 +23,7 @@ export default class Invoke extends ScipCommand {
   static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;
   static examples = [
     `# Suppose you want to invoke a method named 'balanceOf' of a contract named 'Token'`,
-    `$ clisc invoke -j abcdef -c Token -m balaceOf -v 0x23ab34bd..`,
+    `$ clisc invoke Token -j abcdef -m balaceOf -v 0x23ab34bd..`,
   ];
 
   static flags = {
@@ -37,6 +37,8 @@ export default class Invoke extends ScipCommand {
     timeout: shared.timeout,
     signature: shared.signature,
   };
+
+  static args = [...ScipCommand.args];
 
   async run() {
     if (this.flags.method === undefined) {

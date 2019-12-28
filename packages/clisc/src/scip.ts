@@ -1,4 +1,4 @@
-import { CLIError } from '@oclif/errors';
+import { Input } from '@oclif/parser';
 import { Contract } from '@toolscip/scdl-lib';
 import BaseCommand from './base';
 import shared from './shared';
@@ -17,11 +17,10 @@ export default abstract class extends BaseCommand {
   contract: Contract | undefined;
 
   async init() {
-    super.init();
-
-    if (this.cliscConfig === undefined) {
-      throw new CLIError('Unable to load the clisc configuration file!');
-    }
+    const { args, flags } = this.parse(this.constructor as Input<any>);
+    this.flags = flags;
+    this.args = args;
+    this.cliscConfig = await Config.loadConfig(flags.path);
 
     // retrieve the contract's information
     const filename: string = this.args.contract + '.json';

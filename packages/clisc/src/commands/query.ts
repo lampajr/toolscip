@@ -33,6 +33,8 @@ export default class Query extends ScipCommand {
     endTime: shared.endTime,
   };
 
+  static args = [...ScipCommand.args];
+
   async run() {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
