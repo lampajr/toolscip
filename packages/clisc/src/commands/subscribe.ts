@@ -19,7 +19,7 @@ import { Method, Event } from '@toolscip/scdl-lib';
 import ScipCommand from '../scip';
 import shared from '../shared';
 import { AxiosResponse } from 'axios';
-import { types } from '@toolscip/scip-lib';
+import { types, ScipRequest } from '@toolscip/scip-lib';
 
 export default class Subscribe extends ScipCommand {
   static description = `monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.`;
@@ -79,7 +79,23 @@ export default class Subscribe extends ScipCommand {
     );
   }
 
-  fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
-    throw new Error('Method not yet implemented');
+  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    if (this.contract === undefined) {
+      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+    }
+
+    const request: ScipRequest = await this.parseRequest();
+
+    if (!(request instanceof types.ScipSubscription)) {
+      throw new CLIError('Invalid SCIP Subscription request');
+    } else {
+      // retrieve the function/event to query
+      const generic: Method | Event =
+        request.params instanceof types.FunctionSubscription
+          ? this.contract.methods[request.params.functionId]
+          : this.contract.events[(request.params as types.EventSubscription).eventId];
+
+      return generic.request(request);
+    }
   }
 }

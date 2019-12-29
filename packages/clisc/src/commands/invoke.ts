@@ -15,7 +15,7 @@
 
 import { flags } from '@oclif/command';
 import { Method } from '@toolscip/scdl-lib';
-import { types } from '@toolscip/scip-lib';
+import { types, ScipRequest } from '@toolscip/scip-lib';
 import { CLIError } from '@oclif/errors';
 import ScipCommand from '../scip';
 import shared from '../shared';
@@ -72,7 +72,20 @@ export default class Invoke extends ScipCommand {
     );
   }
 
-  fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
-    throw new Error('Method not yet implemented');
+  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    if (this.contract === undefined) {
+      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+    }
+
+    const request: ScipRequest = await this.parseRequest();
+
+    if (!(request instanceof types.ScipSubscription)) {
+      throw new CLIError('Invalid SCIP Invocation request');
+    } else {
+      // retrieve the function/event to query
+      const method: Method = this.contract.methods[(request.params as types.Invocation).functionId];
+
+      return method.request(request);
+    }
   }
 }
