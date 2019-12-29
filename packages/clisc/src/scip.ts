@@ -4,6 +4,7 @@ import BaseCommand from './base';
 import shared from './shared';
 import Config from './config';
 import scip, { types } from '@toolscip/scip-lib';
+import { AxiosResponse } from 'axios';
 
 export default abstract class extends BaseCommand {
   static flags = {
@@ -17,11 +18,20 @@ export default abstract class extends BaseCommand {
 
   contract: Contract | undefined;
 
+  /**
+   * Checks whether the params object is a valid one
+   * @param params JSON object to check
+   */
+  // tslint:disable-next-line:no-empty
+  checkParams(_params: any) {}
+
+  /**
+   * Handle synchronous SCIP response
+   * @param data response body
+   */
   handleResponse(data: any) {
-    console.log(data);
     try {
       const response = scip.parseResponse(data);
-      console.log(response);
       if (response instanceof types.ScipQueryResult) {
         const queryResult = response.result as types.QueryResult;
         queryResult.occurrences.forEach(occurrence => {
@@ -46,16 +56,47 @@ export default abstract class extends BaseCommand {
     }
   }
 
+  /**
+   * Generates a SCIP request from command line parameters
+   * and send it to the target gateway
+   */
+  abstract fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
+
+  /**
+   * Generates a SCIP request from a JSON file
+   * and send it to the target gateway
+   */
+  abstract fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
+
   async init() {
     const { args, flags } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
     this.args = args;
     this.cliscConfig = await Config.loadConfig(flags.path);
-
     // retrieve the contract's information
     const filename: string = this.args.contract + '.json';
     const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
     // initialize the [[Contract]] object starting from its descriptor
     this.contract = new Contract(descriptor, this.flags.auth);
+  }
+
+  async run() {
+    if (this.flags.file) {
+      this.fromFile()
+        .then(res => {
+          this.handleResponse(res.data);
+        })
+        .catch(err => {
+          throw err;
+        });
+    } else {
+      this.fromFlags()
+        .then(res => {
+          this.handleResponse(res.data);
+        })
+        .catch(err => {
+          throw err;
+        });
+    }
   }
 }

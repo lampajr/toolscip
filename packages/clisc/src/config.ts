@@ -53,7 +53,7 @@ export default class Config {
       return await fs.readJSON(completPath);
     } catch (err) {
       // throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
-      throw new CLIError(`During descriptor loading - ${err.message}`);
+      throw new CLIError(`Unable to load the descriptor - ${err.message}`);
     }
   }
 

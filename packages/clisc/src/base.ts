@@ -35,7 +35,7 @@ export default abstract class extends Command {
         console.warn(msg);
         break;
       case 'err':
-        console.error(chalk.red('> ') + msg);
+        console.error(chalk.red('> Error: ') + msg);
         break;
     }
   }
