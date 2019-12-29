@@ -1,10 +1,12 @@
 import { Input } from '@oclif/parser';
+import { CLIError } from '@oclif/errors';
 import { Contract } from '@toolscip/scdl-lib';
 import BaseCommand from './base';
 import shared from './shared';
 import Config from './config';
-import scip, { types } from '@toolscip/scip-lib';
+import scip, { types, ScipRequest } from '@toolscip/scip-lib';
 import { AxiosResponse } from 'axios';
+import * as fs from 'fs-extra';
 
 export default abstract class extends BaseCommand {
   static flags = {
@@ -19,11 +21,48 @@ export default abstract class extends BaseCommand {
   contract: Contract | undefined;
 
   /**
-   * Checks whether the params object is a valid one
-   * @param params JSON object to check
+   * Generates a SCIP request from command line parameters
+   * and send it to the target gateway
    */
-  // tslint:disable-next-line:no-empty
-  checkParams(_params: any) {}
+  abstract fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
+
+  /**
+   * Generates a SCIP request from a JSON file
+   * and send it to the target gateway
+   */
+  abstract fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
+
+  /**
+   * Parses a generic data into a ScipRequest object, if valid.
+   * @param data JSON data to parse
+   * @returns a Proomis of a ScipRequest
+   */
+  async parseRequest(): Promise<ScipRequest> {
+    let data: any = null;
+    let request: ScipRequest;
+
+    if (this.contract === undefined) {
+      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+    }
+
+    try {
+      data = await fs.readJSON(this.flags.file);
+    } catch (err) {
+      throw new CLIError(`Unable to find a file at '${this.flags.file}'`);
+    }
+
+    try {
+      request = scip.parseRequest(data);
+    } catch (err) {
+      throw new CLIError(`Malformed request - ${err.data}`);
+    }
+
+    if (request === undefined) {
+      throw new CLIError(`Unexpected error!`);
+    }
+
+    return request;
+  }
 
   /**
    * Handle synchronous SCIP response
@@ -56,18 +95,6 @@ export default abstract class extends BaseCommand {
     }
   }
 
-  /**
-   * Generates a SCIP request from command line parameters
-   * and send it to the target gateway
-   */
-  abstract fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
-
-  /**
-   * Generates a SCIP request from a JSON file
-   * and send it to the target gateway
-   */
-  abstract fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
-
   async init() {
     const { args, flags } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
@@ -82,14 +109,21 @@ export default abstract class extends BaseCommand {
 
   async run() {
     if (this.flags.file) {
-      this.fromFile()
-        .then(res => {
-          this.handleResponse(res.data);
-        })
-        .catch(err => {
-          throw err;
-        });
+      try {
+        await this.fromFile()
+          .then(res => {
+            this.handleResponse(res.data);
+          })
+          .catch(err => {
+            throw err;
+          });
+      } catch (err) {
+        throw err;
+      }
     } else {
+      if (!this.flags.jsonrpc) {
+        throw new CLIError(`Missing required flag: -j --jsonrpc`);
+      }
       this.fromFlags()
         .then(res => {
           this.handleResponse(res.data);

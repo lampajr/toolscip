@@ -19,7 +19,7 @@ import { Method, Event } from '@toolscip/scdl-lib';
 import ScipCommand from '../scip';
 import shared from '../shared';
 import { AxiosResponse } from 'axios';
-import { types } from '@toolscip/scip-lib';
+import { types, ScipRequest } from '@toolscip/scip-lib';
 
 export default class Unsubscribe extends ScipCommand {
   static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
@@ -66,7 +66,29 @@ export default class Unsubscribe extends ScipCommand {
     );
   }
 
-  fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
-    throw new Error('Method not yet implemented');
+  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    if (this.contract === undefined) {
+      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+    }
+
+    let request: ScipRequest;
+
+    try {
+      request = await this.parseRequest();
+    } catch (err) {
+      throw err;
+    }
+
+    if (!(request instanceof types.ScipUnsubscription)) {
+      throw new CLIError('Invalid SCIP Unsubscription request');
+    } else {
+      // retrieve the function/event to query
+      const generic: Method | Event =
+        request.params instanceof types.FunctionUnsubscription
+          ? this.contract.methods[request.params.functionId]
+          : this.contract.events[(request.params as types.EventUnsubscription).eventId];
+
+      return generic.request(request);
+    }
   }
 }
