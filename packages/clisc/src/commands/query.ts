@@ -18,6 +18,8 @@ import { CLIError } from '@oclif/errors';
 import { Method, Event } from '@toolscip/scdl-lib';
 import ScipCommand from '../scip';
 import shared from '../shared';
+import { AxiosResponse } from 'axios';
+import { types } from '@toolscip/scip-lib';
 
 export default class Query extends ScipCommand {
   static description = 'query past event occurences or function invocations';
@@ -35,11 +37,7 @@ export default class Query extends ScipCommand {
 
   static args = [...ScipCommand.args];
 
-  async run() {
-    if (this.cliscConfig === undefined) {
-      throw new CLIError('Unable to load the clisc configuration file!');
-    }
-
+  fromFlags() {
     if (this.contract === undefined) {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
@@ -63,20 +61,17 @@ export default class Query extends ScipCommand {
         }]`,
       );
     }
-    generic
-      .query(
-        this.flags.jsonrpc,
-        this.flags.method ? this.flags.method : (this.flags.event as string),
-        this.flags.value !== undefined ? this.flags.value : [],
-        this.flags.filter,
-        this.flags.startTime,
-        this.flags.endTime,
-      )
-      .then(res => {
-        this.handleResponse(res.data);
-      })
-      .catch(err => {
-        throw err;
-      });
+    return generic.query(
+      this.flags.jsonrpc,
+      this.flags.method ? this.flags.method : (this.flags.event as string),
+      this.flags.value !== undefined ? this.flags.value : [],
+      this.flags.filter,
+      this.flags.startTime,
+      this.flags.endTime,
+    );
+  }
+
+  fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    throw new Error('Method not yet implemented');
   }
 }

@@ -15,9 +15,11 @@
 
 import { flags } from '@oclif/command';
 import { Method } from '@toolscip/scdl-lib';
+import { types } from '@toolscip/scip-lib';
 import { CLIError } from '@oclif/errors';
 import ScipCommand from '../scip';
 import shared from '../shared';
+import { AxiosResponse } from 'axios';
 
 export default class Invoke extends ScipCommand {
   static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;
@@ -40,7 +42,7 @@ export default class Invoke extends ScipCommand {
 
   static args = [...ScipCommand.args];
 
-  async run() {
+  fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
     if (this.flags.method === undefined) {
       throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);
     }
@@ -58,22 +60,19 @@ export default class Invoke extends ScipCommand {
         }' contract\nThis contract has the following available methods: [${Object.keys(this.contract.methods)}]`,
       );
     }
-    method
-      .invoke(
-        this.flags.jsonrpc,
-        this.flags.method,
-        this.flags.value !== undefined ? this.flags.value : [],
-        this.flags.signature,
-        this.flags.callback,
-        this.flags.corrId,
-        this.flags.doc,
-        this.flags.timeout,
-      )
-      .then(res => {
-        this.handleResponse(res.data);
-      })
-      .catch(err => {
-        throw err;
-      });
+    return method.invoke(
+      this.flags.jsonrpc,
+      this.flags.method,
+      this.flags.value !== undefined ? this.flags.value : [],
+      this.flags.signature,
+      this.flags.callback,
+      this.flags.corrId,
+      this.flags.doc,
+      this.flags.timeout,
+    );
+  }
+
+  fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    throw new Error('Method not yet implemented');
   }
 }

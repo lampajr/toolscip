@@ -18,6 +18,8 @@ import { CLIError } from '@oclif/errors';
 import { Method, Event } from '@toolscip/scdl-lib';
 import ScipCommand from '../scip';
 import shared from '../shared';
+import { AxiosResponse } from 'axios';
+import { types } from '@toolscip/scip-lib';
 
 export default class Subscribe extends ScipCommand {
   static description = `monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.`;
@@ -36,11 +38,7 @@ export default class Subscribe extends ScipCommand {
 
   static args = [...ScipCommand.args];
 
-  async run() {
-    if (this.cliscConfig === undefined) {
-      throw new CLIError('Unable to load the clisc configuration file!');
-    }
-
+  async fromFlags() {
     if (this.contract === undefined) {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
@@ -70,21 +68,18 @@ export default class Subscribe extends ScipCommand {
         }]`,
       );
     }
-    attribute
-      .subscribe(
-        this.flags.jsonrpc,
-        this.flags.method ? this.flags.method : (this.flags.event as string),
-        this.flags.value !== undefined ? this.flags.value : [],
-        this.flags.callback,
-        this.flags.corrId,
-        this.flags.doc,
-        this.flags.filter,
-      )
-      .then(res => {
-        this.handleResponse(res.data);
-      })
-      .catch(err => {
-        throw err;
-      });
+    return attribute.subscribe(
+      this.flags.jsonrpc,
+      this.flags.method ? this.flags.method : (this.flags.event as string),
+      this.flags.value !== undefined ? this.flags.value : [],
+      this.flags.callback,
+      this.flags.corrId,
+      this.flags.doc,
+      this.flags.filter,
+    );
+  }
+
+  fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    throw new Error('Method not yet implemented');
   }
 }
