@@ -19,29 +19,33 @@ export default abstract class extends BaseCommand {
 
   handleResponse(data: any) {
     console.log(data);
-    const response = scip.parseResponse(data);
-    console.log(response);
-    if (response instanceof types.ScipQueryResult) {
-      console.log('query result');
-      const queryResult = response.result as types.QueryResult;
-      queryResult.occurrences.forEach(occurrence => {
-        this.log('===========================');
-        this.log(`Occurrence at ${occurrence.timestamp} produces the following values:`);
-        let count = 0;
-        occurrence.params.forEach(param => {
-          this.log(`${param.name !== '' ? param.name : 'param' + count} => ${param.value}`);
-          count += 1;
+    try {
+      const response = scip.parseResponse(data);
+      console.log(response);
+      if (response instanceof types.ScipQueryResult) {
+        console.log('query result');
+        const queryResult = response.result as types.QueryResult;
+        queryResult.occurrences.forEach(occurrence => {
+          this.log('=========================================================================');
+          this.log(`Occurrence at ${occurrence.timestamp} produces the following values:`);
+          let count = 0;
+          occurrence.params.forEach(param => {
+            this.log(`${param.name !== '' ? param.name : 'param' + count} => ${param.value}`);
+            count += 1;
+          });
         });
-      });
-    } else if (response instanceof types.ScipSuccess) {
-      console.log('success result');
-      this.log(`Invoke request succeed with result : ${response.result}`);
-    } else if (response instanceof types.ScipError) {
-      console.log('error result');
-      this.log(`Invoke request failed with error :`, 'err');
-      this.log('Code: ' + response.error.code, 'err');
-      this.log('Message: ' + response.error.message, 'err');
-      this.log('Info: ' + response.error.data, 'err');
+      } else if (response instanceof types.ScipSuccess) {
+        console.log('success result');
+        this.log(`Invoke request succeed with result : ${response.result}`);
+      } else if (response instanceof types.ScipError) {
+        console.log('error result');
+        this.log(`Invoke request failed with error :`, 'err');
+        this.log('Code: ' + response.error.code, 'err');
+        this.log('Message: ' + response.error.message, 'err');
+        this.log('Info: ' + response.error.data, 'err');
+      }
+    } catch (err) {
+      this.log(JSON.stringify(err), 'err');
     }
   }
 
