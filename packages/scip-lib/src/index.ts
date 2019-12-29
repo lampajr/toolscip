@@ -220,7 +220,6 @@ function parseOccurrence(occ: any): types.Occurrence {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseOccurrences(obj: any[]): types.Occurrence[] {
-  validation.validateOccurrences(obj);
   const res: types.Occurrence[] = [];
   for (const occ of obj) {
     res.push(parseOccurrence(occ));
@@ -235,7 +234,8 @@ function parseOccurrences(obj: any[]): types.Occurrence[] {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseQueryResult(obj: any): types.QueryResult {
-  const occurrences: types.Occurrence[] = parseOccurrences(obj);
+  validation.validateOccurrences(obj);
+  const occurrences: types.Occurrence[] = parseOccurrences(obj.occurrences);
   return new types.QueryResult(occurrences);
 }
 
@@ -335,10 +335,10 @@ export function parse(data: any): ScipMessage {
     res = new types.ScipCallback(parseCallback(msg.params));
   } else if (msg instanceof JsonRpcSuccess) {
     // check whether it is a valid scip query result or a generic response
-    try {
+    if (validation.hasOwnProperty.call(msg.result, 'occurrences')) {
       const queryResult: types.QueryResult = parseQueryResult(msg.result);
       res = new types.ScipQueryResult(msg.id, queryResult);
-    } catch (err) {
+    } else {
       res = new types.ScipSuccess(msg.id, msg.result);
     }
   } else if (msg instanceof JsonRpcError) {
