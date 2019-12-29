@@ -28,7 +28,6 @@ const auth = flags.string({
 const jsonrpc = flags.string({
   char: 'j',
   description: 'jsonrpc request identifier',
-  required: true,
 });
 
 const method = flags.string({

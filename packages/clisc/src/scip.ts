@@ -21,11 +21,16 @@ export default abstract class extends BaseCommand {
   contract: Contract | undefined;
 
   /**
-   * Checks whether the params object is a valid one
-   * @param params JSON object to check
+   * Generates a SCIP request from command line parameters
+   * and send it to the target gateway
    */
-  // tslint:disable-next-line:no-empty
-  checkParams(_params: any) {}
+  abstract fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
+
+  /**
+   * Generates a SCIP request from a JSON file
+   * and send it to the target gateway
+   */
+  abstract fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
 
   /**
    * Parses a generic data into a ScipRequest object, if valid.
@@ -90,18 +95,6 @@ export default abstract class extends BaseCommand {
     }
   }
 
-  /**
-   * Generates a SCIP request from command line parameters
-   * and send it to the target gateway
-   */
-  abstract fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
-
-  /**
-   * Generates a SCIP request from a JSON file
-   * and send it to the target gateway
-   */
-  abstract fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>>;
-
   async init() {
     const { args, flags } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
@@ -116,14 +109,21 @@ export default abstract class extends BaseCommand {
 
   async run() {
     if (this.flags.file) {
-      this.fromFile()
-        .then(res => {
-          this.handleResponse(res.data);
-        })
-        .catch(err => {
-          throw err;
-        });
+      try {
+        await this.fromFile()
+          .then(res => {
+            this.handleResponse(res.data);
+          })
+          .catch(err => {
+            throw err;
+          });
+      } catch (err) {
+        throw err;
+      }
     } else {
+      if (!this.flags.jsonrpc) {
+        throw new CLIError(`Missing required flag: -j --jsonrpc`);
+      }
       this.fromFlags()
         .then(res => {
           this.handleResponse(res.data);

@@ -71,7 +71,13 @@ export default class Unsubscribe extends ScipCommand {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
 
-    const request: ScipRequest = await this.parseRequest();
+    let request: ScipRequest;
+
+    try {
+      request = await this.parseRequest();
+    } catch (err) {
+      throw err;
+    }
 
     if (!(request instanceof types.ScipUnsubscription)) {
       throw new CLIError('Invalid SCIP Unsubscription request');
