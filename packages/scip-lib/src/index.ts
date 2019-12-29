@@ -220,7 +220,6 @@ function parseOccurrence(occ: any): types.Occurrence {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseOccurrences(obj: any[]): types.Occurrence[] {
-  validation.validateOccurrences(obj);
   const res: types.Occurrence[] = [];
   for (const occ of obj) {
     res.push(parseOccurrence(occ));
@@ -235,7 +234,8 @@ function parseOccurrences(obj: any[]): types.Occurrence[] {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseQueryResult(obj: any): types.QueryResult {
-  const occurrences: types.Occurrence[] = parseOccurrences(obj);
+  validation.validateOccurrences(obj);
+  const occurrences: types.Occurrence[] = parseOccurrences(obj.occurrences);
   return new types.QueryResult(occurrences);
 }
 
