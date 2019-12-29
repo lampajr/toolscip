@@ -26,7 +26,7 @@ export default abstract class extends Command {
   log(msg: any, level: string = 'log') {
     switch (level) {
       case 'log':
-        console.log(chalk.green('> ') + chalk.bold(msg));
+        console.log(chalk.green('> ') + msg);
         break;
       case 'info':
         console.info(msg);
@@ -35,7 +35,7 @@ export default abstract class extends Command {
         console.warn(msg);
         break;
       case 'err':
-        console.error(chalk.red('> ') + chalk.bold(msg));
+        console.error(chalk.red('> ') + msg);
         break;
     }
   }
