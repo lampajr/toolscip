@@ -81,7 +81,7 @@ export default class Subscribe extends ScipCommand {
         this.flags.filter,
       )
       .then(res => {
-        this.log(JSON.stringify(res.data));
+        this.handleResponse(res.data);
       });
   }
 }
