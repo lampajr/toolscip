@@ -23,7 +23,6 @@ export default abstract class extends BaseCommand {
       const response = scip.parseResponse(data);
       console.log(response);
       if (response instanceof types.ScipQueryResult) {
-        console.log('query result');
         const queryResult = response.result as types.QueryResult;
         queryResult.occurrences.forEach(occurrence => {
           this.log('=========================================================================');
@@ -35,10 +34,8 @@ export default abstract class extends BaseCommand {
           });
         });
       } else if (response instanceof types.ScipSuccess) {
-        console.log('success result');
         this.log(`Invoke request succeed with result : ${response.result}`);
       } else if (response instanceof types.ScipError) {
-        console.log('error result');
         this.log(`Invoke request failed with error :`, 'err');
         this.log('Code: ' + response.error.code, 'err');
         this.log('Message: ' + response.error.message, 'err');
