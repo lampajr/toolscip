@@ -73,7 +73,7 @@ export default class Query extends ScipCommand {
         this.flags.endTime,
       )
       .then(res => {
-        this.log(JSON.stringify(res.data));
+        this.handleResponse(res.data);
       });
   }
 }

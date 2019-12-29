@@ -68,7 +68,7 @@ export default class Unsubscribe extends ScipCommand {
         this.flags.corrId,
       )
       .then(res => {
-        this.log(JSON.stringify(res.data));
+        this.handleResponse(res.data);
       });
   }
 }
