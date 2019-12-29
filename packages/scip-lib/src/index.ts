@@ -335,10 +335,10 @@ export function parse(data: any): ScipMessage {
     res = new types.ScipCallback(parseCallback(msg.params));
   } else if (msg instanceof JsonRpcSuccess) {
     // check whether it is a valid scip query result or a generic response
-    try {
+    if (validation.hasOwnProperty.call(msg.result, 'occurrences')) {
       const queryResult: types.QueryResult = parseQueryResult(msg.result);
       res = new types.ScipQueryResult(msg.id, queryResult);
-    } catch (err) {
+    } else {
       res = new types.ScipSuccess(msg.id, msg.result);
     }
   } else if (msg instanceof JsonRpcError) {
