@@ -16,10 +16,12 @@
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { Method, Event } from '@toolscip/scdl-lib';
+import scip, { types, ScipRequest } from '@toolscip/scip-lib';
 import ScipCommand from '../scip';
 import shared from '../shared';
 import { AxiosResponse } from 'axios';
-import { types } from '@toolscip/scip-lib';
+import * as fs from 'fs-extra';
+import { ScipQuery } from 'scip-lib/dist/types';
 
 export default class Query extends ScipCommand {
   static description = 'query past event occurences or function invocations';
@@ -71,7 +73,31 @@ export default class Query extends ScipCommand {
     );
   }
 
-  fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
-    throw new Error('Method not yet implemented');
+  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+    let data: any = null;
+    let request: ScipQuery;
+
+    if (this.contract === undefined) {
+      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+    }
+
+    try {
+      data = await fs.readJSON(this.flags.file);
+    } catch (err) {
+      throw new CLIError(`Unable to find a file at '${this.flags.file}'`);
+    }
+
+    try {
+      request = scip.parseRequest(data);
+    } catch (err) {
+      throw new CLIError(`Malformed request - ${err.data}`);
+    }
+
+    if (!(request instanceof types.ScipQuery)) {
+      throw new CLIError('Invalid SCIP Query request');
+    } else {
+      // retrieve the function/event to subscribe
+      const params = request.params;
+    }
   }
 }
