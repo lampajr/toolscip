@@ -69,6 +69,9 @@ export default class Unsubscribe extends ScipCommand {
       )
       .then(res => {
         this.handleResponse(res.data);
+      })
+      .catch(err => {
+        throw err;
       });
   }
 }
