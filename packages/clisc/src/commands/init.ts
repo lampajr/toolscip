@@ -63,7 +63,8 @@ export default class Init extends BaseCommand {
       if (this.flags.server) {
         // initialize the express.js server
         this.log('Initializing simple server..');
-        const res = exec('npm init --yes && npm install --save express', (error, stdout, stderr) => {
+
+        const initRes = exec('npm init --yes', (error, stdout, stderr) => {
           if (error) {
             throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
           } else {
@@ -72,8 +73,22 @@ export default class Init extends BaseCommand {
             this.log(`stderr: ${stderr}`);
           }
         });
+        initRes.on('exit', code => this.log('Code: ' + code));
 
-        res.on('exit', code => this.log('Code: ' + code));
+        // TODO: add 'npm install @toolscip/scip-lib'
+        const depRes = exec('npm install --save express body-parser', (error, stdout, stderr) => {
+          if (error) {
+            throw new CLIError(
+              `Ops something went wrong while installing dependencies (express, body-parser and @toolscip/scip-lib) - ${error.message}`,
+            );
+          } else {
+            // the *entire* stdout and stderr (buffered)
+            this.log(`stdout: ${stdout}`);
+            this.log(`stderr: ${stderr}`);
+          }
+        });
+
+        depRes.on('exit', code => this.log('Code: ' + code));
       }
     } catch (err) {
       throw new CLIError(err.message);
