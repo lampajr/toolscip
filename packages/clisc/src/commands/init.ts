@@ -114,12 +114,9 @@ export default class Init extends BaseCommand {
                   });
               }
             });
-
             // depRes.on('exit', code => this.log('Code: ' + code));
           }
         });
-
-        // initRes.on('exit', code => this.log('Code: ' + code));
       }
     } catch (err) {
       throw new CLIError(err.message);
