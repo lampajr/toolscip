@@ -98,8 +98,9 @@ export default abstract class extends BaseCommand {
   }
 
   logSucceedResponse(res: types.ScipSuccess) {
-    this.log(chalk.green(`========== REQUEST ${res.id} SUCCEED`));
-    this.log('Result  := ' + res.result);
+    this.log(chalk.green(`========== REQUEST SUCCEED`));
+    this.log('Request id  => ' + res.id, 'err');
+    this.log('Result      => ' + res.result);
     this.log(`========== END RESPONSE`);
   }
 
@@ -143,7 +144,7 @@ export default abstract class extends BaseCommand {
       if (!this.flags.id) {
         throw new CLIError(`Missing required flag: -I --id`);
       }
-      this.fromFlags()
+      await this.fromFlags()
         .then(res => {
           this.handleResponse(res.data);
         })
