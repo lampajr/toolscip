@@ -25,8 +25,8 @@ const auth = flags.string({
   description: 'authorization token',
 });
 
-const jsonrpc = flags.string({
-  char: 'j',
+const id = flags.string({
+  char: 'I',
   description: 'jsonrpc request identifier',
 });
 
@@ -108,7 +108,7 @@ const file = flags.string({
 const shared = {
   path,
   auth,
-  jsonrpc,
+  id,
   method,
   event,
   value,

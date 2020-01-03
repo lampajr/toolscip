@@ -50,7 +50,7 @@ export default class Subscribe extends ScipCommand {
     }
 
     if (!this.flags.method && !this.flags.event) {
-      throw new CLIError(`You MUST provide 'function' or 'event' flag!`);
+      throw new CLIError(`You MUST provide 'method' (-m --method) or 'event' (-e --event) name!`);
     }
     // retrieve the function/event to subscribe
     const attribute: Method | Event = this.flags.method
@@ -69,7 +69,7 @@ export default class Subscribe extends ScipCommand {
       );
     }
     return attribute.subscribe(
-      this.flags.jsonrpc,
+      this.flags.id,
       this.flags.method ? this.flags.method : (this.flags.event as string),
       this.flags.value !== undefined ? this.flags.value : [],
       this.flags.callback,

@@ -84,11 +84,11 @@ ARGUMENTS
 
 OPTIONS
   -F, --file=file            path to a JSON file that contains all required parameter for the specific request
+  -I, --id=id                jsonrpc request identifier
   -a, --auth=auth            authorization token
   -d, --doc=doc              degree of confidence's value
   -h, --help                 show invoke command help
   -i, --corrId=corrId        client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc      jsonrpc request identifier
   -m, --method=method        (required) name of the request's target function/method
 
   -p, --path=path            provide a path where the config files are located, if not set, the current directory is
@@ -124,12 +124,12 @@ ARGUMENTS
 
 OPTIONS
   -F, --file=file            path to a JSON file that contains all required parameter for the specific request
+  -I, --id=id                jsonrpc request identifier
   -a, --auth=auth            authorization token
   -d, --endTime=endTime      end time from which stop considering event occurrences or function invocations
   -e, --event=event          (required) name of the request's target event
   -f, --filter=filter        C-style boolean expression over function/event parameters
   -h, --help                 show query command help
-  -j, --jsonrpc=jsonrpc      jsonrpc request identifier
   -m, --method=method        (required) name of the request's target function/method
 
   -p, --path=path            provide a path where the config files are located, if not set, the current directory is
@@ -247,13 +247,13 @@ ARGUMENTS
 
 OPTIONS
   -F, --file=file          path to a JSON file that contains all required parameter for the specific request
+  -I, --id=id              jsonrpc request identifier
   -a, --auth=auth          authorization token
   -d, --doc=doc            degree of confidence's value
   -e, --event=event        (required) name of the request's target event
   -f, --filter=filter      C-style boolean expression over function/event parameters
   -h, --help               show subscribe command help
   -i, --corrId=corrId      client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc    jsonrpc request identifier
   -m, --method=method      (required) name of the request's target function/method
   -p, --path=path          provide a path where the config files are located, if not set, the current directory is used
   -u, --callback=callback  callback URL to which the gateway will send all asynchronous responses
@@ -276,17 +276,17 @@ ARGUMENTS
   CONTRACT  name of the contract to interact with
 
 OPTIONS
-  -F, --file=file        path to a JSON file that contains all required parameter for the specific request
-  -a, --auth=auth        authorization token
-  -e, --event=event      (required) name of the request's target event
-  -h, --help             show unsubscribe command help
-  -i, --corrId=corrId    client-provided correlation identifier
-  -j, --jsonrpc=jsonrpc  jsonrpc request identifier
-  -m, --method=method    (required) name of the request's target function/method
-  -p, --path=path        provide a path where the config files are located, if not set, the current directory is used
+  -F, --file=file      path to a JSON file that contains all required parameter for the specific request
+  -I, --id=id          jsonrpc request identifier
+  -a, --auth=auth      authorization token
+  -e, --event=event    (required) name of the request's target event
+  -h, --help           show unsubscribe command help
+  -i, --corrId=corrId  client-provided correlation identifier
+  -m, --method=method  (required) name of the request's target function/method
+  -p, --path=path      provide a path where the config files are located, if not set, the current directory is used
 
-  -v, --val=val          target function or event parameter's value, if more than one value is required you can set this
-                         flag multiple times (the order is important!)
+  -v, --val=val        target function or event parameter's value, if more than one value is required you can set this
+                       flag multiple times (the order is important!)
 ```
 
 _See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts)_

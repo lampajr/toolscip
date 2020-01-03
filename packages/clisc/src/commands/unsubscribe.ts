@@ -41,7 +41,7 @@ export default class Unsubscribe extends ScipCommand {
     }
 
     if (!this.flags.method && !this.flags.event) {
-      throw new CLIError(`You MUST provide 'method' or 'event' flag!`);
+      throw new CLIError(`You MUST provide 'method' (-m --method) or 'event' (-e --event) name!`);
     }
     // retrieve the function/event to subscribe
     const attribute: Method | Event = this.flags.method
@@ -60,7 +60,7 @@ export default class Unsubscribe extends ScipCommand {
       );
     }
     return attribute.unsubscribe(
-      this.flags.jsonrpc,
+      this.flags.id,
       this.flags.method ? this.flags.method : (this.flags.event as string),
       this.flags.corrId,
     );
