@@ -22,6 +22,7 @@ import { exec } from 'child_process';
 import BaseCommand from '../base';
 import Config from '../config';
 import chalk = require('chalk');
+import ora = require('ora');
 
 export default class Init extends BaseCommand {
   static description = `initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
@@ -48,6 +49,7 @@ export default class Init extends BaseCommand {
 
       const cliscConfig = new Config(answers.owner, process.cwd(), answers.registry);
 
+      this.log('');
       this.createDirectory(cliscConfig.configFolder());
       this.createDirectory(cliscConfig.descriptorsFolder());
 
@@ -62,42 +64,62 @@ export default class Init extends BaseCommand {
 
       if (this.flags.server) {
         // initialize the express.js server
-        this.log('Initializing simple server..');
+        this.log('\nInitializing simple server..');
+        let spinner = ora({
+          text: 'Initializing npm',
+        }).start();
 
-        const initRes = exec('npm init --yes', (error, stdout, stderr) => {
+        exec('npm init --yes', (error, _stdout, _stderr) => {
           if (error) {
+            spinner.fail();
             throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
           } else {
             // the *entire* stdout and stderr (buffered)
-            this.log(`stdout: ${stdout}`);
-            this.log(`stderr: ${stderr}`);
+            // this.log(stdout);
+            // if (stderr) {
+            //   this.log(stderr);
+            // }
+            spinner.succeed('npm initialized');
+
+            spinner = ora({
+              text: 'Installing dependencies',
+            }).start();
 
             // TODO: add 'npm install @toolscip/scip-lib'
-            const depRes = exec('npm install --save express body-parser', (error, stdout, stderr) => {
+            exec('npm install --save express body-parser', (error, _stdout, _stderr) => {
               if (error) {
+                spinner.fail();
                 throw new CLIError(
                   `Ops something went wrong while installing dependencies (express, body-parser and @toolscip/scip-lib) - ${error.message}`,
                 );
               } else {
                 // the *entire* stdout and stderr (buffered)
-                this.log(`stdout: ${stdout}`);
-                this.log(`stderr: ${stderr}`);
+                // this.log(stdout);
+                // if (stderr) {
+                //   this.log(stderr);
+                // }
+                spinner.succeed('express, body-parser and @toolscip/scip-lib successfully installed');
+
+                spinner = ora({
+                  text: 'Generating simple entry point',
+                }).start();
+
+                fs.writeFile(answers.entry, mainFile)
+                  .then(_ => {
+                    spinner.succeed(`${answers.entry} file sussessfully generated`);
+                  })
+                  .catch(err => {
+                    spinner.fail(`${answers.entry} initialization failed - ${err.message}`);
+                    throw new CLIError(`${answers.entry} initialization failed - ${err.message}`);
+                  });
               }
             });
 
-            depRes.on('exit', code => this.log('Code: ' + code));
+            // depRes.on('exit', code => this.log('Code: ' + code));
           }
         });
 
-        initRes.on('exit', code => this.log('Code: ' + code));
-
-        fs.writeFile(answers.entry, mainFile)
-          .then(val => {
-            console.log(val);
-          })
-          .catch(err => {
-            console.error(err);
-          });
+        // initRes.on('exit', code => this.log('Code: ' + code));
       }
     } catch (err) {
       throw new CLIError(err.message);
@@ -156,4 +178,8 @@ export default class Init extends BaseCommand {
 }
 
 const mainFile =
-  'const express = require("express");\nconst bodyParser = require("body-parser");\nconst scip = require("@toolscip/scip-lib");\n\nconst PORT = 8080;\nconst app = express();\n\napp.use(bodyParser.urlencoded({ extended: true }));\napp.use(bodyParser.json());\n\napp.post("/", (req, res) => {\n\ttry {\n\t\tconst response = scip.parseResponse(req.body);\n\t\tif (response.method === "ReceiveCallback") {\n\t\t\t// TODO: implement your logic here\n\t\t}\n\t} catch (err) {\n\t\tres.json(scip.error(req.body.id, err));\n\t}\n});\n\n// make the server listen to requests\napp.listen(PORT, () => {\n\tconsole.log(`Server running at port ${PORT}`);\n});';
+  'const express = require("express");\nconst bodyParser = require("body-parser");\nconst scip = require("@toolscip/scip-lib");\n\nconst PORT = 8080;\nconst \
+  app = express();\n\napp.use(bodyParser.urlencoded({ extended: true }));\napp.use(bodyParser.json());\n\napp.post("/", (req, res) => {\n\ttry {\n\t\tconst \
+  response = scip.parseResponse(req.body);\n\t\tif (response.method === "ReceiveCallback") {\n\t\t\t// TODO: implement your logic here\n\t\t}\n\t} catch (err) \
+  {\n\t\tres.json(scip.error(req.body.id, err));\n\t}\n});\n\n// make the server listen to requests\napp.listen(PORT, () => {\n\tconsole.log(`Server running at \
+  port ${PORT}`);\n});';
