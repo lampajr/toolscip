@@ -1,0 +1,495 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@toolscip/scip-lib</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@toolscip/scip-lib</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @toolscip/scip-lib</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#codescip-libcode" id="codescip-libcode" style="color: inherit; text-decoration: none;">
+					<h1><code>scip-lib</code></h1>
+				</a>
+				<p>This is a simple <a href="">Smart Contract Invocation Protocol</a> compliant parser and generator library written in Typescript for <a href="https://nodejs.org/en/">Node.js</a>. It was built out as an extension of the <a href="https://github.com/lampajr/jsonrpc-lib">jsonrpc-lib</a> since SCIP is made out as an extension of <a href="https://www.jsonrpc.org/specification">JSON-RPC</a>.</p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of Contents</h2>
+				</a>
+				<ul>
+					<li><a href="#installation">Installation</a></li>
+					<li><a href="#usage">Usage</a></li>
+					<li><a href="#scip-specification">SCIP Specification</a><ul>
+							<li><a href="#invoke-method">Invoke</a></li>
+							<li><a href="#subscribe-method">Subscribe</a></li>
+							<li><a href="#unsubscribe-method">Unsubscribe</a></li>
+							<li><a href="#query-method">Query</a></li>
+							<li><a href="#binding">Binding</a></li>
+						</ul>
+					</li>
+					<li><a href="#classes">Classes</a></li>
+					<li><a href="#functions">Functions</a></li>
+					<li><a href="#examples">Examples</a></li>
+					<li><a href="#contributing">Contributing</a></li>
+				</ul>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>The package can be simply installed via <a href="https://www.npmjs.com/">npm</a>, a suggestion is to import the package locally as follow:</p>
+				<pre><code class="language-bash">npm install --save @lampajr/scip-lib</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>In order to use this module you just have to import it like any other <em>npm</em> package:</p>
+				<p><em>JavaScript</em> import</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> scip = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@toolscip/scip-lib'</span>);</code></pre>
+				<p><em>Typescript</em> import</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> scip <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scip-lib'</span>;
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">import</span> { scip } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scip-lib'</span>;</code></pre>
+				<p>One of the main functionality that this package provides is the <em>parse</em> function that allows a client to parse a string message, checks whether it a SCIP-compliant message and then if valid it generates the corresponding SCIP object, otherwise it throws an exception (i.e. <code>ErrorObject</code>) containing information about what is invalid in the string message.</p>
+				<p>Suppose to have received a message request as the following one:</p>
+				<pre><code class="language-json">{
+    jsonrpc: &#39;2.0&#39;,
+    id: &#39;abcdefg&#39;,
+    method: &#39;Invoke&#39;,
+    params: {
+      functionId: &#39;send&#39;,
+      inputs: [
+        {
+          type: {
+            type: &#39;number&#39;
+          },
+          name: &#39;amount&#39;,
+          value: 50
+        }
+      ],
+      outputs: []
+    }
+}</code></pre>
+				<p>Now you just have to invoke the <em>parse</em> function providing the message as input, if the message is valid the function will return the object instance of a SCIP message (i.e. <code>ScipInvocation</code>, <code>ScipSubscription</code>, <code>ScipUnsubscription</code>, <code>ScipQuery</code>, <code>ScipCallback</code>, <code>ScipSuccess</code> and <code>ScipError</code>).</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> obj = scip.parse(msg);
+    <span class="hljs-comment">// `obj` will be an instance of a ScipInvocation class</span>
+} <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message);    <span class="hljs-comment">// error description</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code);            <span class="hljs-comment">// scip error code</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error data: '</span> + err.data);            <span class="hljs-comment">// scip error additional data</span>
+}</code></pre>
+				<p><strong>Note</strong>: the input message must be in string format.</p>
+				<p>There are two different flavours of the <code>parse</code> function, the <code>parseRequest</code> and the <code>parseResponse</code>, which act exactly as the <em>parse</em> function, providing additional check over the specific SCIP message by throwing an error if the parsed data is not a <em>request</em> or a <em>response</em> respectively.</p>
+				<p>This package provides also other function that are mainly used to create new <em>SCIP</em> messages instances, all of them require an <code>id</code> (i.e. json-rpc id) and a <code>params</code> object that must be a valid SCIP <em>params</em> object in according to the specific invoked function (i.e. <code>Invocation</code>, <code>FunctionSubscription</code>, <code>EventSubscription</code>, <code>FunctionUnsubscription</code>, <code>EventUnsubscription</code>, <code>FunctionQuery</code>, <code>EventQuery</code>, <code>QueryResult</code> and <code>Callback</code>).</p>
+				<p>The <em>params</em> object can be directly provided as instance of one of the aforementioned classes or as generic JSON object.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> param = {
+    functionId: <span class="hljs-string">'send'</span>,
+    inputs: [
+        {
+            <span class="hljs-keyword">type</span>: {
+                <span class="hljs-keyword">type</span>: <span class="hljs-string">'number'</span>
+            },
+            name: <span class="hljs-string">'amount'</span>,
+            value: <span class="hljs-number">50</span>
+        }
+    ],
+    outputs: []
+}
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> invObj = scip.invoke(<span class="hljs-string">'abcdefg'</span>, param);
+    <span class="hljs-comment">// 'invObj' will be an instance of a ScipInvocation</span>
+} <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message);    <span class="hljs-comment">// error description</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code);            <span class="hljs-comment">// scip error code</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error data: '</span> + err.data);            <span class="hljs-comment">// scip error additional data</span>
+}</code></pre>
+				<a href="#scip-specification" id="scip-specification" style="color: inherit; text-decoration: none;">
+					<h2>SCIP Specification</h2>
+				</a>
+				<p>The <em>Smart Contract Invocation Protocol</em> is a protocol intended to provide a protocol specification in the context of blockchains integration that allows external consumer applications to invoke smart contract functions in a uniform manner regardless of the underlying blockchain technology. Moreover it provides the capability to monitor smart contracts at runtime. Its core consists of a set of <em>methods</em> that can be used by blockchain-external consumer application to interact with <em>smart contracts</em>. </p>
+				<p>In particular the protocol defines four different methods which are used to perform the following operations:</p>
+				<ul>
+					<li>The <em>invocation</em> of a smart contract function</li>
+					<li>The <em>subscription</em> to notifications regarding function invocations or event occurrences</li>
+					<li>The <em>unsubscription</em> from live monitoring</li>
+					<li>The <em>querying</em> of past invocations or events</li>
+				</ul>
+				<a href="#invoke-method" id="invoke-method" style="color: inherit; text-decoration: none;">
+					<h4>Invoke Method</h4>
+				</a>
+				<p>This method allows an external application to invoke a specific smart contract&#39;s function. It requires a synchronous response notifying the success or not of the request and then an asynchronous message notifying the result of the function invocation.</p>
+				<a href="#subscribe-method" id="subscribe-method" style="color: inherit; text-decoration: none;">
+					<h4>Subscribe Method</h4>
+				</a>
+				<p>This method allows to monitor smart contract&#39;s functions and/or events, in particular can be used to be notified whenever an event is triggered by the smart contract or a specific function has been invoked. It requires a synchronous response notifying the success or not of the request and then one or more asynchronous responses notifying the occurrences of what the consumer have subscribed.</p>
+				<a href="#unsubscribe-method" id="unsubscribe-method" style="color: inherit; text-decoration: none;">
+					<h4>Unsubscribe Method</h4>
+				</a>
+				<p>This method is simply used to cancel previously established subscription, this can be used to cancel one or more subscription in according to the request parameters.</p>
+				<a href="#query-method" id="query-method" style="color: inherit; text-decoration: none;">
+					<h4>Query Method</h4>
+				</a>
+				<p>This is a fully synchronous request method which is used to retrieve past event occurrences or function invocations. This method does not have asynchronous responses from the gateway.</p>
+				<a href="#binding" id="binding" style="color: inherit; text-decoration: none;">
+					<h4>Binding</h4>
+				</a>
+				<p>SCIP does not force to use a specific protocol for carrying all these messages, hence different bindings could be used. Here, we have decided to propose a JSON-RPC binding for SCIP, which is a stateless transport-agnostic remote procedure call protocol that uses JSON as its data format. A complete binding can be found at <a href="https://github.com/lampajr/scip/blob/master/README.md#json-rpc-binding">scip binding</a>.</p>
+				<p>In according to the binding proposed in the <a href="https://github.com/lampajr/scip/blob/master/README.md">specification</a> we have built this library out of a JSON-RPC parser library since every SCIP message is also a JSON-RPC 2.0 compliant message. Hence the SCIP can be seen as a restriction of the JSON-RPC protocol:</p>
+				<ul>
+					<li><em>jsonrpc</em>: 2.0  as for generic json-rpc message</li>
+					<li><em>id</em>: string or number as for any json-rpc message</li>
+					<li><em>method</em>: this can only be one of [<em>invoke, subscribe, unsubscribe</em> and <em>query</em>]</li>
+					<li><em>params</em>: the parameter object must have specific form in acccording to the method that has to be invoked.</li>
+					<li><em>result</em>: any, as for a generic json-rpc success response</li>
+					<li><em>error</em>: same error object in a generic json-rpc error response, SCIP provides additional codes that are strictly correlated to the blockchain field.</li>
+				</ul>
+				<p><strong>Reference</strong>: A complete protocol specification can be found in the <a href="https://github.com/lampajr/scip">Github repository</a>.</p>
+				<a href="#classes" id="classes" style="color: inherit; text-decoration: none;">
+					<h2>Classes</h2>
+				</a>
+				<p>This library was built in an OOP perspective, providing a class definition for each SCIP message.</p>
+				<a href="#scip-requests" id="scip-requests" style="color: inherit; text-decoration: none;">
+					<h4>SCIP Requests</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Request</th>
+							<th>Class</th>
+							<th>Method</th>
+							<th>Params</th>
+							<th align="center">Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>Invocation</td>
+							<td><code>ScipInvocation</code></td>
+							<td><em>Invoke</em></td>
+							<td><code>Invocation</code></td>
+							<td align="center">Function invocation request object</td>
+						</tr>
+						<tr>
+							<td>Subscription</td>
+							<td><code>ScipSubscription</code></td>
+							<td><em>Subscribe</em></td>
+							<td><code>EventSubscription</code> or <code>FunctionSubscription</code></td>
+							<td align="center">Function/event subscription request object</td>
+						</tr>
+						<tr>
+							<td>Unsubscription</td>
+							<td><code>ScipUnsubscription</code></td>
+							<td><em>Unsubscribe</em></td>
+							<td><code>EventUnsubscription</code> or <code>FunctionUnsubscription</code></td>
+							<td align="center">Cancel subscription request object</td>
+						</tr>
+						<tr>
+							<td>Query</td>
+							<td><code>ScipQuery</code></td>
+							<td><em>Query</em></td>
+							<td><code>EventQuery</code> or <code>FunctionQuery</code></td>
+							<td align="center">Function/event query request object</td>
+						</tr>
+				</tbody></table>
+				<p><strong>Note</strong>: the <em>params</em> objects are specific class objects</p>
+				<a href="#scip-responses" id="scip-responses" style="color: inherit; text-decoration: none;">
+					<h4>SCIP Responses</h4>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Response</th>
+							<th>Class</th>
+							<th align="center">Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td>Success (sync)</td>
+							<td><code>ScipSuccess</code></td>
+							<td align="center">Generic synchronous success response object</td>
+						</tr>
+						<tr>
+							<td>Error (sync)</td>
+							<td><code>ScipError</code></td>
+							<td align="center">Synchronous error response object</td>
+						</tr>
+						<tr>
+							<td>Query Response (sync)</td>
+							<td><code>ScipQueryResult</code></td>
+							<td align="center">Synchronous response of a <code>Query</code> request, extension of <code>ScipSuccess</code></td>
+						</tr>
+						<tr>
+							<td>Callback (async)</td>
+							<td><code>ScipCallback</code></td>
+							<td align="center">Asynchronous response of a SCIP gateway, in a json-rpc context it acts as a <code>Notification</code></td>
+						</tr>
+				</tbody></table>
+				<p><strong>Reference</strong>: a complete class documentation can be found at <a href="">scip-lib</a>.</p>
+				<a href="#functions" id="functions" style="color: inherit; text-decoration: none;">
+					<h2>Functions</h2>
+				</a>
+				<p>This library provides a set of tools that allows a client to easily handle and generates SCIP messages, in particular it provides the following functions:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Function</th>
+							<th>Return</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><code>parse</code></td>
+							<td><code>ScipMessage</code></td>
+							<td>Parse a generic object checking its validity, if so it returns the specific SCIP object instance, otherwise it throws an <code>ErrorObject</code></td>
+						</tr>
+						<tr>
+							<td><code>parseRequest</code></td>
+							<td><code>ScipRequest</code></td>
+							<td>Same as <code>parse</code> function, which, in addition, throws an error even if the parsed data is a valid SCIP message but not a valid request (e.g. a response)</td>
+						</tr>
+						<tr>
+							<td><code>parseResponse</code></td>
+							<td><code>ScipResponse</code></td>
+							<td>Same as <code>parse</code> function, which, in addition, throws an error even if the parsed data is a valid SCIP message but not a valid async or sync response (e.g. a request)</td>
+						</tr>
+						<tr>
+							<td><code>invoke</code></td>
+							<td><code>ScipInvocation</code></td>
+							<td>Generates a <code>ScipInvocation</code> message if the params is a valid <code>Invocation</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>subscribeEvent</code></td>
+							<td><code>ScipSubscription</code></td>
+							<td>Generates a <code>ScipSubscription</code> message if the params is a valid <code>EventSubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>subscribeFunction</code></td>
+							<td><code>ScipSubscription</code></td>
+							<td>Generates a <code>ScipSubscription</code> message if the params is a valid <code>FunctionSubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>unsubscribeEvent</code></td>
+							<td><code>ScipUnsubscription</code></td>
+							<td>Generates a <code>ScipUnsubscription</code> message if the params is a valid  <code>EventUnsubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>unsubscribeFunction</code></td>
+							<td><code>ScipUnsubscription</code></td>
+							<td>Generates a <code>ScipUnsubscription</code> message if the params is a valid <code>FunctionUnsubscription</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>queryEvent</code></td>
+							<td><code>ScipQuery</code></td>
+							<td>Generates a <code>ScipQuery</code> message if the params is a valid <code>EventQuery</code> object.</td>
+						</tr>
+						<tr>
+							<td><code>queryFunction</code></td>
+							<td><code>ScipQuery</code></td>
+							<td>Generates a <code>ScipQuery</code> message if the params is a valid <code>FunctionQuery</code> object.</td>
+						</tr>
+				</tbody></table>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
+				<p>A simple example of <em>scip-lib</em> usage is inside a <em>SCIP server</em>.</p>
+				<p><strong>Note</strong>: <code>express</code> and <code>body-parser</code> are external packages, which are strictly correlated to the following example of usage, but they are not mandatory, you can use whatever you prefer.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">'express'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> bodyParser <span class="hljs-keyword">from</span> <span class="hljs-string">'body-parser'</span>;
+<span class="hljs-keyword">import</span> scip, { ScipMessage, types } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scip-lib'</span>;
+
+<span class="hljs-keyword">const</span> PORT = <span class="hljs-number">8000</span>;
+<span class="hljs-keyword">const</span> app = express();
+
+app.use(bodyParser.urlencoded({ extended: <span class="hljs-literal">true</span> }));
+app.use(bodyParser.json());
+
+<span class="hljs-comment">/* Handle POST request */</span>
+app.post(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> body = req.body;
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> request = scip.parseRequest(body);
+    <span class="hljs-keyword">const</span> result = handleRequest(request);
+    <span class="hljs-keyword">const</span> response = scip.success(request.id, result);  <span class="hljs-comment">// SCIP success response</span>
+    res.json(response);
+  } <span class="hljs-keyword">catch</span>(err) {  <span class="hljs-comment">// notice that err is already a valid jsonrpc ErrorObject</span>
+    <span class="hljs-keyword">const</span> error = scip.error(req.body.id, err);  <span class="hljs-comment">// SCIP error response</span>
+    res.json(error);
+  }
+})
+
+<span class="hljs-comment">/* Start the server */</span>
+app.listen(PORT, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server started at port <span class="hljs-subst">${PORT}</span>`</span>);
+})</code></pre>
+				<p>The <code>handleRequest</code> can be written as follows:</p>
+				<pre><code class="language-typescript"><span class="hljs-comment">/**
+ * Executes some task in according to the specific kind of the SCIP request, hence in 'jsonrpc' context, it performs the code directly associated with the called 'method'.
+ * @param msg: message request
+ * @returns the result of the specific message invocation
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleRequest</span>(<span class="hljs-params">msg: ScipMessage</span>): <span class="hljs-title">any</span> </span>{
+  <span class="hljs-keyword">if</span> (msg <span class="hljs-keyword">instanceof</span> types.ScipInvocation) {
+    <span class="hljs-comment">// ...</span>
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipInvocation) {
+
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipSubscription) {
+
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipUnsubscription) {
+
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipQuery) {
+
+  } <span class="hljs-comment">// ...</span>
+}</code></pre>
+				<p>If you want to see another, completely different, example of usage please take a look at the <a href="https://github.com/lampajr/toolscip/tree/master/packages/clisc">clisc</a>, a Node.js command line interface, which was built for automating the <em>SCIP</em> request invocations.</p>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
+				<p>Feel free to post questions and problems on the issue tracker. Pull requests are welcome!</p>
+				<p>Feel free to fork and modify or add new features and functionality to the library</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_types_.html">&quot;types&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_validation_.html">&quot;validation&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

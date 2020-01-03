@@ -88,6 +88,6 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json --fix",
     "global": "sudo npm i -g",
-    "docs": "typedoc --out docs src/*"
+    "docs": "typedoc --out ../../docs/clisc src/*"
   }
 }

@@ -45,7 +45,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json --fix",
     "prepublishOnly": "npm run build",
-    "docs": "typedoc --out docs src/*"
+    "docs": "typedoc --out ../../docs/scdl-lib src/*"
   },
   "bugs": {
     "url": "https://github.com/lampajr/toolscip/issues"

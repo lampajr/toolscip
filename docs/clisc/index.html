@@ -1,0 +1,439 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@toolscip/clisc</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@toolscip/clisc</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @toolscip/clisc</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#clisci" id="clisci" style="color: inherit; text-decoration: none;">
+					<h1>clisci</h1>
+				</a>
+				<p>Command Line Interface for Smart Contracts interaction</p>
+				<p><a href="https://oclif.io"><img src="https://img.shields.io/badge/cli-oclif-brightgreen.svg" alt="oclif"></a>
+					<a href="https://npmjs.org/package/clisci"><img src="https://img.shields.io/npm/v/clisci.svg" alt="Version"></a>
+					<a href="https://npmjs.org/package/clisci"><img src="https://img.shields.io/npm/dw/clisci.svg" alt="Downloads/week"></a>
+				<a href="https://github.com/lampajr/toolscip/blob/master/package.json"><img src="https://img.shields.io/npm/l/clisci.svg" alt="License"></a></p>
+				<!-- toc -->
+				<ul>
+					<li><a href="#usage">Usage</a></li>
+					<li><a href="#commands">Commands</a><!-- tocstop -->
+						<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+							<h1>Usage</h1>
+						</a>
+						<!-- usage -->
+						<pre><code class="language-sh-session">$ npm install -g @toolscip/clisc
+$ clisc COMMAND
+running command...
+$ clisc (-v|--version|version)
+@toolscip/clisc/1.0.0 linux-x64 node-v10.16.3
+$ clisc --help [COMMAND]
+USAGE
+$ clisc COMMAND
+...</code></pre>
+						<!-- usagestop -->
+						<a href="#commands" id="commands" style="color: inherit; text-decoration: none;">
+							<h1>Commands</h1>
+						</a>
+					<!-- commands --></li>
+					<li><a href="#clisc-help-command"><code>clisc help [COMMAND]</code></a></li>
+					<li><a href="#clisc-init"><code>clisc init</code></a></li>
+					<li><a href="#clisc-invoke-contract"><code>clisc invoke CONTRACT</code></a></li>
+					<li><a href="#clisc-query-contract"><code>clisc query CONTRACT</code></a></li>
+					<li><a href="#clisc-scdladd-contract"><code>clisc scdl:add CONTRACT</code></a></li>
+					<li><a href="#clisc-scdldelete-contract"><code>clisc scdl:delete CONTRACT</code></a></li>
+					<li><a href="#clisc-scdllist-keyword"><code>clisc scdl:list [KEYWORD]</code></a></li>
+					<li><a href="#clisc-subscribe-contract"><code>clisc subscribe CONTRACT</code></a></li>
+					<li><a href="#clisc-unsubscribe-contract"><code>clisc unsubscribe CONTRACT</code></a></li>
+				</ul>
+				<a href="#codeclisc-help-commandcode" id="codeclisc-help-commandcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc help [COMMAND]</code></h2>
+				</a>
+				<p>display help for clisc</p>
+				<pre><code>USAGE
+  $ clisc <span class="hljs-keyword">help</span> [COMMAND]
+
+ARGUMENTS
+  COMMAND  <span class="hljs-keyword">command</span> <span class="hljs-keyword">to</span> show <span class="hljs-keyword">help</span> <span class="hljs-keyword">for</span>
+
+OPTIONS
+  --<span class="hljs-keyword">all</span>  see <span class="hljs-keyword">all</span> commands in CLI</code></pre><p><em>See code: <a href="https://github.com/oclif/plugin-help/blob/v2.2.2/src/commands/help.ts">@oclif/plugin-help</a></em></p>
+				<a href="#codeclisc-initcode" id="codeclisc-initcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc init</code></h2>
+				</a>
+				<p>initialize the &#39;clisci&#39; configuration files, this command MUST be executed in the directory where the user wants to store the project.</p>
+				<pre><code>USAGE
+  $ clisc init
+
+OPTIONS
+  -h, --help       show init command help
+  -p, <span class="hljs-attribute">--path</span>=path  provide a path where the<span class="hljs-built_in"> config </span>files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current directory is used
+  -s, --server     initialize a<span class="hljs-built_in"> simple </span><span class="hljs-string">'express.js'</span><span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> receive asynchronous responses</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts">dist/commands/init.ts</a></em></p>
+				<a href="#codeclisc-invoke-contractcode" id="codeclisc-invoke-contractcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc invoke CONTRACT</code></h2>
+				</a>
+				<p>invoke a target smart contract&#39;s function/method starting from a smart contract&#39;s descriptor.</p>
+				<pre><code><span class="hljs-keyword">USAGE</span>
+  $ clisc invoke CONTRACT
+
+ARGUMENTS
+  CONTRACT  <span class="hljs-type">name</span> <span class="hljs-keyword">of</span> the contract <span class="hljs-keyword">to</span> interact <span class="hljs-keyword">with</span>
+
+<span class="hljs-keyword">OPTIONS</span>
+  -F, <span class="hljs-comment">--file=file            path to a JSON file that contains all required parameter for the specific request</span>
+  -I, <span class="hljs-comment">--id=id                jsonrpc request identifier</span>
+  -a, <span class="hljs-comment">--auth=auth            authorization token</span>
+  -d, <span class="hljs-comment">--doc=doc              degree of confidence's value</span>
+  -h, <span class="hljs-comment">--help                 show invoke command help</span>
+  -i, <span class="hljs-comment">--corrId=corrId        client-provided correlation identifier</span>
+  -m, <span class="hljs-comment">--method=method        (required) name of the request's target function/method</span>
+
+  -p, <span class="hljs-comment">--path=path            provide a path where the config files are located, if not set, the current directory is</span>
+                             used
+
+  -s, <span class="hljs-comment">--signature=signature  [default: sha256] cryptographic hash function's name that has to be used to sign the</span>
+                             request
+
+  -t, <span class="hljs-comment">--timeout=timeout      timeout that the gateway have to wait before block the operation</span>
+
+  -u, <span class="hljs-comment">--callback=callback    callback URL to which the gateway will send all asynchronous responses</span>
+
+  -v, <span class="hljs-comment">--value=value          target function or event parameter's value, if more than one value is required you can set</span>
+                             this flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)
+
+EXAMPLES
+  # Suppose you want <span class="hljs-keyword">to</span> invoke a <span class="hljs-keyword">method</span> named <span class="hljs-string">'balanceOf'</span> <span class="hljs-keyword">of</span> a contract named <span class="hljs-string">'Token'</span>
+  $ clisc invoke Token -j abcdef -m balanceOf -v <span class="hljs-number">0x23ab34bd</span>..</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts">dist/commands/invoke.ts</a></em></p>
+				<a href="#codeclisc-query-contractcode" id="codeclisc-query-contractcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc query CONTRACT</code></h2>
+				</a>
+				<p>query past event occurences or function invocations</p>
+				<pre><code>USAGE
+  $ clisc query CONTRACT
+
+ARGUMENTS
+  CONTRACT  name of the contract <span class="hljs-keyword">to</span> interact with
+
+OPTIONS
+  -F, <span class="hljs-attribute">--file</span>=file            path <span class="hljs-keyword">to</span> a JSON file that contains all required parameter <span class="hljs-keyword">for</span> the specific request
+  -I, <span class="hljs-attribute">--id</span>=id                jsonrpc request identifier
+  -a, <span class="hljs-attribute">--auth</span>=auth            authorization token
+  -d, <span class="hljs-attribute">--endTime</span>=endTime      end time <span class="hljs-keyword">from</span> which stop considering event occurrences <span class="hljs-keyword">or</span> function invocations
+  -e, <span class="hljs-attribute">--event</span>=event          (required) name of the request<span class="hljs-string">'s target event
+  -f, --filter=filter        C-style boolean expression over function/event parameters
+  -h, --help                 show query command help
+  -m, --method=method        (required) name of the request'</span>s target function/method
+
+  -p, <span class="hljs-attribute">--path</span>=path            provide a path where the<span class="hljs-built_in"> config </span>files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current directory is
+                             used
+
+  -s, <span class="hljs-attribute">--startTime</span>=startTime  start time <span class="hljs-keyword">from</span> which start considering event occurrences <span class="hljs-keyword">or</span> function invocations
+
+  -v, <span class="hljs-attribute">--value</span>=value          target function <span class="hljs-keyword">or</span> event parameter<span class="hljs-string">'s value, if more than one value is required you can set
+                             this flag multiple times (the order is important!)</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts">dist/commands/query.ts</a></em></p>
+				<a href="#codeclisc-scdladd-contractcode" id="codeclisc-scdladd-contractcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc scdl:add CONTRACT</code></h2>
+				</a>
+				<p>add a new SCDL descriptor in the local directory.</p>
+				<pre><code>USAGE
+  $ clisc scdl:<span class="hljs-builtin-name">add</span> CONTRACT
+
+ARGUMENTS
+  CONTRACT  path <span class="hljs-keyword">to</span> a local SCDL file <span class="hljs-keyword">or</span> a unique identifier inside the online registry
+
+OPTIONS
+  -h, --help       show scdl:<span class="hljs-builtin-name">add</span> command help
+  -l, --local      <span class="hljs-builtin-name">add</span> a new descriptor <span class="hljs-keyword">from</span> a local file path
+  -p, <span class="hljs-attribute">--path</span>=path  provide a path where the<span class="hljs-built_in"> config </span>files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current directory is used
+  -r, --remote     <span class="hljs-builtin-name">add</span> a new descriptor <span class="hljs-keyword">from</span> a remote online registry
+
+ALIASES
+  $ clisc scdl:<span class="hljs-builtin-name">add</span>
+  $ clisc scdl:load
+
+EXAMPLES
+  # <span class="hljs-builtin-name">add</span> a new descriptor <span class="hljs-keyword">from</span> a local file
+  $ clisc scdl:<span class="hljs-builtin-name">add</span> MyToken.json --local
+  # download a descriptor <span class="hljs-keyword">from</span> an online registry
+  $ clisc scdl:<span class="hljs-builtin-name">add</span> 5dfcdad2fd321d00179ede01 --remote</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/add.ts">dist/commands/scdl/add.ts</a></em></p>
+				<a href="#codeclisc-scdldelete-contractcode" id="codeclisc-scdldelete-contractcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc scdl:delete CONTRACT</code></h2>
+				</a>
+				<p>delete a specific descriptor from the local directory</p>
+				<pre><code>USAGE
+  $ clisc scdl:<span class="hljs-built_in">delete</span> CONTRACT
+
+ARGUMENTS
+  CONTRACT  name of the <span class="hljs-built_in">contract</span>'s descriptor to <span class="hljs-built_in">delete</span>
+
+OPTIONS
+  -h, --help       <span class="hljs-built_in">show</span> scdl:list command help
+  -p, --path=path  provide a path where the config files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current <span class="hljs-built_in">directory</span> <span class="hljs-built_in">is</span> used
+
+ALIASES
+  $ clisc scdl:<span class="hljs-built_in">delete</span>
+  $ clisc scdl:<span class="hljs-built_in">remove</span>
+  $ clisc scdl:<span class="hljs-built_in">del</span>
+  $ clisc scdl:rm
+
+EXAMPLES
+  # <span class="hljs-built_in">delete</span> a descriptor file named 'ZilliqaToken.json'
+  $ clisc scdl:<span class="hljs-built_in">delete</span> ZilliqaToken.json</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/delete.ts">dist/commands/scdl/delete.ts</a></em></p>
+				<a href="#codeclisc-scdllist-keywordcode" id="codeclisc-scdllist-keywordcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc scdl:list [KEYWORD]</code></h2>
+				</a>
+				<p>list saved SCDL smart contract&#39;s descriptors</p>
+				<pre><code>USAGE
+  $ clisc scd<span class="hljs-variable">l:list</span> [KEYWORD]
+
+ARGUMENTS
+  KEYWORD  keyword <span class="hljs-built_in">search</span>
+
+OPTIONS
+  -<span class="hljs-keyword">e</span>, --extended   retrieve ALL saved descriptors
+  -h, --<span class="hljs-keyword">help</span>       show scd<span class="hljs-variable">l:list</span> <span class="hljs-keyword">command</span> <span class="hljs-keyword">help</span>
+  -<span class="hljs-keyword">p</span>, --path=path  provide <span class="hljs-keyword">a</span> path where the config <span class="hljs-keyword">files</span> are located, <span class="hljs-keyword">if</span> not <span class="hljs-keyword">set</span>, the current directory <span class="hljs-keyword">is</span> used
+
+ALIASES
+  $ clisc scd<span class="hljs-variable">l:list</span>
+  $ clisc scd<span class="hljs-variable">l:ls</span>
+  $ clisc scd<span class="hljs-variable">l:index</span>
+  $ clisc scd<span class="hljs-variable">l:get</span>
+
+EXAMPLES
+  # <span class="hljs-keyword">list</span> <span class="hljs-keyword">a</span> summary of <span class="hljs-number">5</span> descriptors
+  $ clisc scd<span class="hljs-variable">l:list</span>
+  # <span class="hljs-keyword">list</span> <span class="hljs-keyword">all</span> saved descriptors
+  $ clisc scd<span class="hljs-variable">l:list</span> --extended
+  # <span class="hljs-keyword">list</span> <span class="hljs-keyword">all</span> descriptors that <span class="hljs-keyword">match</span> the provided keyword
+  $ clisc scd<span class="hljs-variable">l:list</span> Token</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/list.ts">dist/commands/scdl/list.ts</a></em></p>
+				<a href="#codeclisc-subscribe-contractcode" id="codeclisc-subscribe-contractcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc subscribe CONTRACT</code></h2>
+				</a>
+				<p>monitor a target smart contract&#39;s function invocations or event occurrences starting from a smart contract&#39;s descriptor.</p>
+				<pre><code><span class="hljs-keyword">USAGE</span>
+  $ clisc subscribe CONTRACT
+
+ARGUMENTS
+  CONTRACT  <span class="hljs-type">name</span> <span class="hljs-keyword">of</span> the contract <span class="hljs-keyword">to</span> interact <span class="hljs-keyword">with</span>
+
+<span class="hljs-keyword">OPTIONS</span>
+  -F, <span class="hljs-comment">--file=file          path to a JSON file that contains all required parameter for the specific request</span>
+  -I, <span class="hljs-comment">--id=id              jsonrpc request identifier</span>
+  -a, <span class="hljs-comment">--auth=auth          authorization token</span>
+  -d, <span class="hljs-comment">--doc=doc            degree of confidence's value</span>
+  -e, <span class="hljs-comment">--event=event        (required) name of the request's target event</span>
+  -f, <span class="hljs-comment">--filter=filter      C-style boolean expression over function/event parameters</span>
+  -h, <span class="hljs-comment">--help               show subscribe command help</span>
+  -i, <span class="hljs-comment">--corrId=corrId      client-provided correlation identifier</span>
+  -m, <span class="hljs-comment">--method=method      (required) name of the request's target function/method</span>
+  -p, <span class="hljs-comment">--path=path          provide a path where the config files are located, if not set, the current directory is used</span>
+  -u, <span class="hljs-comment">--callback=callback  callback URL to which the gateway will send all asynchronous responses</span>
+
+  -v, <span class="hljs-comment">--value=value        target function or event parameter's value, if more than one value is required you can set</span>
+                           this flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts">dist/commands/subscribe.ts</a></em></p>
+				<a href="#codeclisc-unsubscribe-contractcode" id="codeclisc-unsubscribe-contractcode" style="color: inherit; text-decoration: none;">
+					<h2><code>clisc unsubscribe CONTRACT</code></h2>
+				</a>
+				<p>stop live monitoring of a smart contract&#39;s function or event by unsubscribing a previous subscription.</p>
+				<pre><code><span class="hljs-keyword">USAGE</span>
+  $ clisc unsubscribe CONTRACT
+
+ARGUMENTS
+  CONTRACT  <span class="hljs-type">name</span> <span class="hljs-keyword">of</span> the contract <span class="hljs-keyword">to</span> interact <span class="hljs-keyword">with</span>
+
+<span class="hljs-keyword">OPTIONS</span>
+  -F, <span class="hljs-comment">--file=file      path to a JSON file that contains all required parameter for the specific request</span>
+  -I, <span class="hljs-comment">--id=id          jsonrpc request identifier</span>
+  -a, <span class="hljs-comment">--auth=auth      authorization token</span>
+  -e, <span class="hljs-comment">--event=event    (required) name of the request's target event</span>
+  -h, <span class="hljs-comment">--help           show unsubscribe command help</span>
+  -i, <span class="hljs-comment">--corrId=corrId  client-provided correlation identifier</span>
+  -m, <span class="hljs-comment">--method=method  (required) name of the request's target function/method</span>
+  -p, <span class="hljs-comment">--path=path      provide a path where the config files are located, if not set, the current directory is used</span>
+
+  -v, <span class="hljs-comment">--val=val        target function or event parameter's value, if more than one value is required you can set this</span>
+                       flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts">dist/commands/unsubscribe.ts</a></em></p>
+				<!-- commandsstop -->
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_base_.html">&quot;base&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_init_.html">&quot;commands/init&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_invoke_.html">&quot;commands/invoke&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_query_.html">&quot;commands/query&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_scdl_add_.html">&quot;commands/scdl/add&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_scdl_delete_.html">&quot;commands/scdl/delete&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_scdl_list_.html">&quot;commands/scdl/list&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_subscribe_.html">&quot;commands/subscribe&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_commands_unsubscribe_.html">&quot;commands/unsubscribe&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_config_.html">&quot;config&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_scip_.html">&quot;scip&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_shared_.html">&quot;shared&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

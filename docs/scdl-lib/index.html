@@ -1,0 +1,338 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@toolscip/scdl-lib</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@toolscip/scdl-lib</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @toolscip/scdl-lib</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#codescdl-libcode" id="codescdl-libcode" style="color: inherit; text-decoration: none;">
+					<h1><code>scdl-lib</code></h1>
+				</a>
+				<p>This library provides an programmatic way to interact with different smart contracts simply using their descriptors (i.e. <a href="">Smart Contract Description Language</a>). The interaction is implemented with a <a href="">SCIP</a> compliant communication, which is performed through the <a href="">scip-lib</a> module.</p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of Contents</h2>
+				</a>
+				<ul>
+					<li><a href="#installation">Installation</a></li>
+					<li><a href="#usage">Usage</a></li>
+					<li><a href="scdl-specification">SCDL Specification</a></li>
+					<li><a href="#examples">Examples</a></li>
+					<li><a href="#contributing">Contributing</a></li>
+				</ul>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>This package can be installed via <a href="https://www.npmjs.com/">npm</a> as follow:</p>
+				<pre><code class="language-bash">npm install --save @lampajr/scdl-lib</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>In order to use this module you just have to import it like any other package:</p>
+				<p><em>JavaScript</em> import</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> scdl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@toolscip/scdl-lib'</span>);</code></pre>
+				<p><em>Typescript</em> import</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> scdl <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span>;
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">import</span> { scdl } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span>;</code></pre>
+				<p>This package was mainly written to provide an automatic way to interact with smart contracts simply using their <em>SCDL-based</em> descriptors. In order to do so the package simply provide a single class object <code>Contract</code> that must be instantiated providing a descriptor as parameter and then once instantiated the resulting object is a new one that exposes new properties, which are exactly named as its functions and events. These properties are instances of specific classes (i.e. <code>Method</code> and <code>Event</code> respectively) which allow a client to perform all allowed <em>SCIP</em> requests (i.e. <em>invocation, subscription, unsubscription</em> and <em>query</em>) by simply invoking the corresponding function on the property object (i.e. <code>invoke</code>, <code>subscribe</code>, <code>unsubscribe</code>, and <code>query</code>). All these function, since perform http requests, returns <code>AxiosResponse</code> promises.</p>
+				<pre><code class="language-typescript"><span class="hljs-comment">// import the 'Contract' class</span>
+<span class="hljs-keyword">import</span> { Contract } <span class="hljs-keyword">from</span> <span class="hljs-string">'@lampajr/scdl-lib'</span>;
+<span class="hljs-comment">// or using the package 'scdl.Contract'</span>
+
+<span class="hljs-keyword">const</span> descriptor = {
+  <span class="hljs-comment">/*...*/</span>
+}; <span class="hljs-comment">// scdl descriptor</span>
+<span class="hljs-keyword">const</span> contract = <span class="hljs-keyword">new</span> Contract(descriptor); <span class="hljs-comment">// new contract instance</span></code></pre>
+				<p>Now once you have created the <code>Contract</code> object, you can easily access its functions and events simply accessing the <code>methods</code> and <code>events</code> property respectively.</p>
+				<pre><code class="language-typescript">contract.methods; <span class="hljs-comment">// all contract's functions</span></code></pre>
+				<pre><code class="language-typescript">contract.events; <span class="hljs-comment">// all contract's events</span></code></pre>
+				<p>Suppose that you want to invoke a specific function (e.g. named &#39;send&#39;), then you just have to use its name as property of the <code>contract.methods</code> object and then call the <code>invoke</code> [^1]function on it. </p>
+				<pre><code class="language-typescript"><span class="hljs-comment">// performs a SCIP invocation request</span>
+contract.methods.send
+  .invoke(<span class="hljs-comment">/*...*/</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
+    <span class="hljs-comment">// ...</span>
+  })
+  .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> {
+    <span class="hljs-comment">// ...</span>
+  });</code></pre>
+				<p>In addition this library provides an interface definition of an <em>SCDL descriptor</em> object, which can be imported as follow:</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { ISCDL } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span></code></pre>
+				<p>[^1]: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the <a href="https://github.com/lampajr/toolscip/tree/master/packages/scip-lib">scip-lib</a> documentation, which fully describe the meaning of all required parameters.</p>
+				<a href="#scdl-specification" id="scdl-specification" style="color: inherit; text-decoration: none;">
+					<h2>SCDL Specification</h2>
+				</a>
+				<p>The following table defines each individual language construct in detail and equips it with a respective domain of possible values.</p>
+				<img src="table.png" width="700px"/>
+				<p><strong>Note</strong>: a complete <em>SCDL</em> specification can be found in the <a href="https://github.com/floriandanielit/scdl">scdl repository</a>.</p>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h2>Examples</h2>
+				</a>
+				<p>Given an <em>SCDL</em> descriptor</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> model = {
+    <span class="hljs-string">"scdl_version"</span> : <span class="hljs-string">"1.0"</span>,
+    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Token"</span>,
+    <span class="hljs-string">"version"</span> : <span class="hljs-string">"^0.4.18"</span>,
+    <span class="hljs-string">"latest_url"</span> : <span class="hljs-string">""</span>,
+    <span class="hljs-string">"author"</span> : <span class="hljs-string">"0xBfE4aA5c37D223EEBe0A1F7111556Ae49bE0dcD2"</span>,
+    <span class="hljs-string">"description"</span> : <span class="hljs-string">"Contract token implementation following the ERC20 standars, the new created token is called ZIL"</span>,
+    <span class="hljs-string">"created_on"</span> : <span class="hljs-string">"Jan-12-2018 09:44:42 AM +UTC"</span>,
+    <span class="hljs-string">"updated_on"</span> : <span class="hljs-string">"Jan-12-2018 09:44:42 AM +UTC"</span>,
+    <span class="hljs-string">"scl"</span> : <span class="hljs-string">"http://localhost:3000?blockchain=ethereum&amp;blockchain-id=eth-mainnet&amp;address=0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27"</span>,
+    <span class="hljs-string">"internal_address"</span> : <span class="hljs-string">"0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27"</span>,
+    <span class="hljs-string">"blockchain_type"</span> : <span class="hljs-string">"ethereum"</span>,
+    <span class="hljs-string">"blockchain_version"</span> : <span class="hljs-string">"v0.4.18+commit.9cf6e910"</span>,
+    <span class="hljs-string">"metadata"</span> : <span class="hljs-string">"https://etherscan.io/address/0x05f4a42e251f2d52b8ed15e9fedaacfcef1fad27#code"</span>,
+    <span class="hljs-string">"hash"</span> : <span class="hljs-string">"b311edaec5a164050cede3219bf28cc6ce4c0ca43b8bf34d6fd309fb60c4d1d8  -"</span>,
+    <span class="hljs-string">"is_stateful"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"lifecycle"</span> : <span class="hljs-string">"ready"</span>,
+    <span class="hljs-string">"functions"</span> : [
+        {
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"balanceOf"</span>,
+            <span class="hljs-string">"description"</span> : <span class="hljs-string">"* @dev Gets the balance of the specified address. @param _owner The address to query the the balance of. @return An uint256 representing the amount owned by the passed address."</span>,
+            <span class="hljs-string">"scope"</span> : <span class="hljs-string">"public"</span>,
+            <span class="hljs-string">"has_side_effects"</span> : <span class="hljs-literal">false</span>,
+            <span class="hljs-string">"inputs"</span> : [
+                {
+                    <span class="hljs-string">"name"</span>: <span class="hljs-string">"_owner"</span>,
+                    <span class="hljs-string">"type"</span> : {
+                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+                        <span class="hljs-string">"pattern"</span>: <span class="hljs-string">"^0x[a-fA-F0-9]{40}$"</span>
+                    }
+                }
+            ],
+            <span class="hljs-string">"outputs"</span> : [
+                {
+                    <span class="hljs-string">"name"</span>: <span class="hljs-string">""</span>,
+                    <span class="hljs-string">"type"</span>: {
+                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"integer"</span>,
+                         <span class="hljs-string">"minimum"</span>: <span class="hljs-number">0</span>,
+                         <span class="hljs-string">"maximum"</span>: <span class="hljs-string">"2^256 - 1"</span>
+                    }
+                }
+            ],
+            <span class="hljs-string">"events"</span> : [],
+            <span class="hljs-string">"dispatcher"</span> : <span class="hljs-string">""</span>
+        }
+    ],
+    <span class="hljs-string">"events"</span> : [
+        {
+            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Transfer"</span>,
+            <span class="hljs-string">"description"</span> : <span class="hljs-string">"Triggered when tokens are transferred"</span>,
+            <span class="hljs-string">"outputs"</span> : [
+                {
+                    <span class="hljs-string">"name"</span> : <span class="hljs-string">"from"</span>,
+                    <span class="hljs-string">"type"</span> : {
+                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+                        <span class="hljs-string">"pattern"</span>: <span class="hljs-string">"^0x[a-fA-F0-9]{40}$"</span>
+                    },
+                    <span class="hljs-string">"is_indexed"</span> : <span class="hljs-literal">true</span>
+                },
+                {
+                    <span class="hljs-string">"name"</span> : <span class="hljs-string">"to"</span>,
+                    <span class="hljs-string">"type"</span> : {
+                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
+                        <span class="hljs-string">"pattern"</span>: <span class="hljs-string">"^0x[a-fA-F0-9]{40}$"</span>
+                    },
+                    <span class="hljs-string">"is_indexed"</span> : <span class="hljs-literal">true</span>
+                },
+                {
+                    <span class="hljs-string">"name"</span> : <span class="hljs-string">"value"</span>,
+                    <span class="hljs-string">"type"</span>: {
+                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"integer"</span>,
+                         <span class="hljs-string">"minimum"</span>: <span class="hljs-number">0</span>,
+                         <span class="hljs-string">"maximum"</span>: <span class="hljs-string">"2^256 - 1"</span>
+                    },
+                    <span class="hljs-string">"is_indexed"</span> : <span class="hljs-literal">false</span>
+                }
+            ]
+        }
+    ]
+}</code></pre>
+				<p>You can just create the contract object by simply using the <em>new</em> keyword on the <code>Contract</code> class providing the descriptor as parameter.</p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Contract } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span>;
+
+<span class="hljs-keyword">const</span> contract = <span class="hljs-keyword">new</span> Contract(model); 
+
+<span class="hljs-comment">/* Retrieve the function object */</span>
+contract.methods.balanceOf;
+
+<span class="hljs-comment">/* Retrieve the event object */</span>
+contract.events.Transfer;</code></pre>
+				<p>On these last objects (i.e.  <code>Method</code> and <code>Event</code>) you can call perform all allowed <em>SCIP</em> operations, such as invocation (only for methods), subscription, unsubscription and query.</p>
+				<pre><code class="language-typescript"><span class="hljs-comment">/* Invoke a method/function */</span>
+contract.methods.balanceOf.invoke(<span class="hljs-comment">/*...*/</span>)
+    .then(res) {
+        <span class="hljs-comment">// handle response</span>
+    }
+    .catch(err) {
+        <span class="hljs-comment">// handle error</span>
+    };
+
+<span class="hljs-comment">/* Subscribe an event */</span>
+contract.events.Transfer.subscribe(<span class="hljs-comment">/*...*/</span>)
+    .then(res) {
+        <span class="hljs-comment">// handle response</span>
+    }
+    .catch(err) {
+        <span class="hljs-comment">// handle error</span>
+    };</code></pre>
+				<p>If you want to see a more complete example of usage please take a look at the <a href="https://github.com/lampajr/toolscip/tree/master/packages/clisc">clisc</a>, a Node.js command line interface, which was built for automating the <em>SCIP</em> request invocations starting from an <em>SCDL</em> descriptor.</p>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
+				<p>Feel free to post questions and problems on the issue tracker. Pull requests are welcome!</p>
+				<p>Feel free to fork and modify or add new features and functionality to the library</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_scdl_.html">&quot;scdl&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_utils_.html">&quot;utils&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
