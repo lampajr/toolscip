@@ -35,9 +35,13 @@ export default abstract class extends Command {
         console.warn(msg);
         break;
       case 'err':
-        console.error(chalk.red('> Error: ') + msg);
+        console.error(chalk.red('> ') + msg);
         break;
     }
+  }
+
+  errorMessage(msg: any) {
+    this.log(chalk.red('Error: ') + msg, 'err');
   }
 
   /**
@@ -61,7 +65,7 @@ export default abstract class extends Command {
 
   async catch(err: any) {
     // handle any error from the command
-    this.log(err.message, 'err');
+    this.errorMessage(err.message);
   }
 
   async finally(_err: any) {

@@ -61,7 +61,7 @@ export default class Invoke extends ScipCommand {
       );
     }
     return method.invoke(
-      this.flags.jsonrpc,
+      this.flags.id,
       this.flags.method,
       this.flags.value !== undefined ? this.flags.value : [],
       this.flags.signature,

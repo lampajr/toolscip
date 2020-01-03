@@ -7,12 +7,13 @@ import Config from './config';
 import scip, { types, ScipRequest } from '@toolscip/scip-lib';
 import { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
+import chalk = require('chalk');
 
 export default abstract class extends BaseCommand {
   static flags = {
     ...BaseCommand.flags,
     auth: shared.auth,
-    jsonrpc: shared.jsonrpc,
+    id: shared.id,
     file: shared.file,
   };
 
@@ -73,26 +74,44 @@ export default abstract class extends BaseCommand {
       const response = scip.parseResponse(data);
       if (response instanceof types.ScipQueryResult) {
         const queryResult = response.result as types.QueryResult;
-        queryResult.occurrences.forEach(occurrence => {
-          this.log('=========================================================================');
-          this.log(`Occurrence at ${occurrence.timestamp} produces the following values:`);
-          let count = 0;
-          occurrence.params.forEach(param => {
-            this.log(`${param.name !== '' ? param.name : 'param' + count} => ${param.value}`);
-            count += 1;
-          });
+        queryResult.occurrences.forEach((occurrence, i) => {
+          this.logOccurrence(occurrence, i);
         });
       } else if (response instanceof types.ScipSuccess) {
-        this.log(`Invoke request succeed with result : ${response.result}`);
+        this.logSucceedResponse(response);
       } else if (response instanceof types.ScipError) {
-        this.log(`Invoke request failed with error :`, 'err');
-        this.log('Code: ' + response.error.code, 'err');
-        this.log('Message: ' + response.error.message, 'err');
-        this.log('Info: ' + response.error.data, 'err');
+        this.logErrorResponse(response);
       }
     } catch (err) {
       this.log(JSON.stringify(err), 'err');
     }
+  }
+
+  logOccurrence(occurrence: types.Occurrence, num: number) {
+    this.log(chalk.yellow(`========== OCCURRENCE ${num}`));
+    const padding = 13;
+    this.log('Timestamp'.padEnd(padding) + `=> ${occurrence.timestamp}`);
+    occurrence.params.forEach((param, count) => {
+      this.log(`${param.name !== '' ? param.name : 'param' + count}`.padEnd(padding) + `=> ${param.value}`);
+    });
+    this.log(`========== END OCCURRENCE `);
+  }
+
+  logSucceedResponse(res: types.ScipSuccess) {
+    this.log(chalk.green(`========== REQUEST ${res.id} SUCCEED`));
+    this.log('Result  := ' + res.result);
+    this.log(`========== END RESPONSE`);
+  }
+
+  logErrorResponse(err: types.ScipError) {
+    this.log(chalk.red(`========== REQUEST FAILED`), 'err');
+    this.log('Request id  => ' + err.id, 'err');
+    this.log('Code        => ' + err.error.code, 'err');
+    this.log('Message     => ' + err.error.message, 'err');
+    if (err.error.data) {
+      this.log('Info:       => ' + err.error.data, 'err');
+    }
+    this.log(`========== END RESPONSE`, 'err');
   }
 
   async init() {
@@ -121,8 +140,8 @@ export default abstract class extends BaseCommand {
         throw err;
       }
     } else {
-      if (!this.flags.jsonrpc) {
-        throw new CLIError(`Missing required flag: -j --jsonrpc`);
+      if (!this.flags.id) {
+        throw new CLIError(`Missing required flag: -I --id`);
       }
       this.fromFlags()
         .then(res => {
