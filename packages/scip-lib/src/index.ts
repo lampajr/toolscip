@@ -269,6 +269,17 @@ export type ScipRequest = types.ScipInvocation | types.ScipSubscription | types.
 /** SCIP response messages */
 export type ScipResponse = types.ScipCallback | types.ScipSuccess | types.ScipError;
 
+/** SCIP params objects */
+export type ScipParam =
+  | types.Invocation
+  | types.EventSubscription
+  | types.FunctionSubscription
+  | types.EventUnsubscription
+  | types.FunctionUnsubscription
+  | types.EventQuery
+  | types.FunctionQuery
+  | types.Callback;
+
 /**
  * Try to parse an object into a Scip object
  * @param data object to parse
@@ -382,6 +393,60 @@ export function parseResponse(data: any): ScipResponse {
     );
   }
   return parsed;
+}
+
+/**
+ * Parse a SCIP params object from any type
+ * @param data object to parse
+ * @returns the specific [[ScipParam]] object instance
+ * @throws [[ScipErrorObject]] if invalid data
+ */
+export function parseParams(data: any): ScipParam {
+  try {
+    if (validation.isString(data)) {
+      data = JSON.parse(data);
+    } else if (!validation.isObject(data)) {
+      throw types.ScipErrorObject.invalidParams('The data MUST be in string or JSON object format');
+    }
+  } catch (err) {
+    throw types.ScipErrorObject.invalidParams('The data MUST be a valid JSON object');
+  }
+  let res: ScipParam;
+  try {
+    res = parseInvocation(data);
+  } catch (err) {
+    try {
+      res = parseEventSubscription(data);
+    } catch (err) {
+      try {
+        res = parseFunctionSubscription(data);
+      } catch (err) {
+        try {
+          res = parseEventUnsubscription(data);
+        } catch (err) {
+          try {
+            res = parseFunctionUnsubscription(data);
+          } catch (err) {
+            try {
+              res = parseEventQuery(data);
+            } catch (err) {
+              try {
+                res = parseFunctionQuery(data);
+              } catch (err) {
+                try {
+                  res = parseCallback(data);
+                } catch (err) {
+                  throw types.ScipErrorObject.invalidParams('Invalid SCIP request param');
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return res;
 }
 
 /******************************************** SCIP Functions ********************************************/
@@ -505,6 +570,7 @@ const scip = {
   parse,
   parseRequest,
   parseResponse,
+  parseParams,
 };
 
 export default scip;
