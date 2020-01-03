@@ -71,24 +71,33 @@ export default class Init extends BaseCommand {
             // the *entire* stdout and stderr (buffered)
             this.log(`stdout: ${stdout}`);
             this.log(`stderr: ${stderr}`);
+
+            // TODO: add 'npm install @toolscip/scip-lib'
+            const depRes = exec('npm install --save express body-parser', (error, stdout, stderr) => {
+              if (error) {
+                throw new CLIError(
+                  `Ops something went wrong while installing dependencies (express, body-parser and @toolscip/scip-lib) - ${error.message}`,
+                );
+              } else {
+                // the *entire* stdout and stderr (buffered)
+                this.log(`stdout: ${stdout}`);
+                this.log(`stderr: ${stderr}`);
+              }
+            });
+
+            depRes.on('exit', code => this.log('Code: ' + code));
           }
         });
+
         initRes.on('exit', code => this.log('Code: ' + code));
 
-        // TODO: add 'npm install @toolscip/scip-lib'
-        const depRes = exec('npm install --save express body-parser', (error, stdout, stderr) => {
-          if (error) {
-            throw new CLIError(
-              `Ops something went wrong while installing dependencies (express, body-parser and @toolscip/scip-lib) - ${error.message}`,
-            );
-          } else {
-            // the *entire* stdout and stderr (buffered)
-            this.log(`stdout: ${stdout}`);
-            this.log(`stderr: ${stderr}`);
-          }
-        });
-
-        depRes.on('exit', code => this.log('Code: ' + code));
+        fs.writeFile(answers.entry, mainFile)
+          .then(val => {
+            console.log(val);
+          })
+          .catch(err => {
+            console.error(err);
+          });
       }
     } catch (err) {
       throw new CLIError(err.message);
@@ -145,3 +154,6 @@ export default class Init extends BaseCommand {
     }
   }
 }
+
+const mainFile =
+  'const express = require("express");\nconst bodyParser = require("body-parser");\nconst scip = require("@toolscip/scip-lib");\n\nconst PORT = 8080;\nconst app = express();\n\napp.use(bodyParser.urlencoded({ extended: true }));\napp.use(bodyParser.json());\n\napp.post("/", (req, res) => {\n\ttry {\n\t\tconst response = scip.parseResponse(req.body);\n\t\tif (response.method === "ReceiveCallback") {\n\t\t\t// TODO: implement your logic here\n\t\t}\n\t} catch (err) {\n\t\tres.json(scip.error(req.body.id, err));\n\t}\n});\n\n// make the server listen to requests\napp.listen(PORT, () => {\n\tconsole.log(`Server running at port ${PORT}`);\n});';
