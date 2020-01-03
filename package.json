@@ -12,10 +12,6 @@
     "docs": "lerna run docs",
     "test": "lerna run test"
   },
-  "dependencies": {
-    "@toolscip/scdl-lib": "file:packages/scdl-lib",
-    "@toolscip/scip-lib": "file:packages/scip-lib"
-  },
   "devDependencies": {
     "lerna": "^3.20.2",
     "prettier": "^1.19.1",
