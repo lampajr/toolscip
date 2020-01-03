@@ -172,7 +172,7 @@ export default class Init extends BaseCommand {
       await fs.mkdirp(path);
       this.log(`Directory at '${path}' successfully created!`);
     } catch (err) {
-      console.error(err);
+      throw new CLIError(err.message);
     }
   }
 }
