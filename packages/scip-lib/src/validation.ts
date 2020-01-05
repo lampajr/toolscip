@@ -55,11 +55,6 @@ function isUrl(str: string): boolean {
  * @throws [[ErrorObject]] Parse Error
  */
 export function validateType(obj: any, required = true): void {
-  // try {
-  //   JSON.parse(absType);
-  // } catch (err) {
-  //   throw types.ScipErrorObject.parseError(`Abstract type JSON parsing error: ${err.message}`);
-  // }
   if (required && !hasOwnProperty.call(obj, 'type')) {
     throw types.ScipErrorObject.parseError("A parameter MUST have a 'type' member!");
   }
