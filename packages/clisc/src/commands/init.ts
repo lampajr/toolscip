@@ -41,7 +41,7 @@ export default class Init extends BaseCommand {
     // clear the console
     console.clear();
     // print a nice banner
-    this.banner('CLISC', chalk.redBright);
+    this.banner('CLISC', chalk.blueBright);
 
     // ask questions
     try {
