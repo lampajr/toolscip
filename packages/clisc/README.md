@@ -1,18 +1,20 @@
-clisci
-======
+# clisc
 
 Command Line Interface for Smart Contracts interaction
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/clisci.svg)](https://npmjs.org/package/clisci)
-[![Downloads/week](https://img.shields.io/npm/dw/clisci.svg)](https://npmjs.org/package/clisci)
-[![License](https://img.shields.io/npm/l/clisci.svg)](https://github.com/lampajr/toolscip/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/clisc.svg)](https://npmjs.org/package/clisc)
+[![Downloads/week](https://img.shields.io/npm/dw/clisc.svg)](https://npmjs.org/package/clisc)
+[![License](https://img.shields.io/npm/l/clisc.svg)](https://github.com/lampajr/toolscip/blob/master/package.json)
 
 <!-- toc -->
+* [clisc](#clisc)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
 ```sh-session
 $ npm install -g @toolscip/clisc
@@ -26,7 +28,9 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
 * [`clisc help [COMMAND]`](#clisc-help-command)
 * [`clisc init`](#clisc-init)
@@ -57,7 +61,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.2
 
 ## `clisc init`
 
-initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.
+initialize the 'clisc' configuration files, this command MUST be executed in the directory where the user wants to store the project.
 
 ```
 USAGE

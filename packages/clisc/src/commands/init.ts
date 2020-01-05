@@ -25,7 +25,7 @@ import chalk = require('chalk');
 import ora = require('ora');
 
 export default class Init extends BaseCommand {
-  static description = `initialize the 'clisci' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
+  static description = `initialize the 'clisc' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
 
   static flags = {
     ...BaseCommand.flags,
@@ -41,7 +41,7 @@ export default class Init extends BaseCommand {
     // clear the console
     console.clear();
     // print a nice banner
-    this.banner('CLISC', chalk.blueBright);
+    this.banner('CLISC', chalk.red);
 
     // ask questions
     try {
