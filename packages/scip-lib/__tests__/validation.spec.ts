@@ -496,4 +496,28 @@ describe('Test validation.ts', () => {
       expect(() => validateIdentifier(obj, 'eventId')).not.to.throw();
     });
   });
+
+  /** Validate the Occurrences */
+  // tslint:disable-next-line:no-empty
+  describe('#validateOccurrences', () => {});
+
+  /** Validate the Param */
+  // tslint:disable-next-line:no-empty
+  describe('#validateParam', () => {});
+
+  /** Validate the Value */
+  // tslint:disable-next-line:no-empty
+  describe('#validateValue', () => {});
+
+  /** Validate the Name */
+  // tslint:disable-next-line:no-empty
+  describe('#validateName', () => {});
+
+  /** Validate the Params */
+  // tslint:disable-next-line:no-empty
+  describe('#validateParams', () => {});
+
+  /** Validate the Type */
+  // tslint:disable-next-line:no-empty
+  describe('#validateType', () => {});
 });
