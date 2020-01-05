@@ -52,7 +52,7 @@ function isUrl(str: string): boolean {
  * Validates if the type is a valid scip abstract type
  * @param obj parent object
  * @param required if the params member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateType(obj: any, required = true): void {
   // try {
@@ -80,7 +80,7 @@ export function validateType(obj: any, required = true): void {
  * @param obj parent object
  * @param required if the params member is required or not
  * @param name params type: 'inputs', 'outputs' or generic 'params'
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateParams(obj: any, name: string, required: boolean = true): void {
   if (required && !hasOwnProperty.call(obj, name)) {
@@ -95,7 +95,7 @@ export function validateParams(obj: any, name: string, required: boolean = true)
  * Validate the name member of an parameter
  * @param obj parent object
  * @param required if the name member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateName(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'name')) {
@@ -110,7 +110,7 @@ export function validateName(obj: any, required = true): void {
  * Validate the value member of an parameter
  * @param obj parent object
  * @param required if the value member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateValue(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'value')) {
@@ -121,7 +121,7 @@ export function validateValue(obj: any, required = true): void {
 /**
  * Validate the single param object
  * @param param parameter object
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateParam(param: any): void {
   if (!hasOwnProperty.call(param, 'type')) {
@@ -138,7 +138,7 @@ export function validateParam(param: any): void {
  * Validate the occurrences member of an object
  * @param obj parent object
  * @param required if the occurrences member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateOccurrences(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'occurrences')) {
@@ -153,7 +153,7 @@ export function validateOccurrences(obj: any, required = true): void {
  * Checks if the object has valid identifier, either function or event
  * @param obj object to validate
  * @param name name of the field's identifier, default 'functionId'
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateIdentifier(obj: any, name = 'functionId'): void {
   if (!hasOwnProperty.call(obj, name)) {
@@ -168,7 +168,7 @@ export function validateIdentifier(obj: any, name = 'functionId'): void {
  * Validate the correlation identifier
  * @param obj parent object
  * @param required if the corrId member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateCorrId(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'corrId')) {
@@ -183,7 +183,7 @@ export function validateCorrId(obj: any, required = false): void {
  * Validate the degree of confidence of an object
  * @param obj parent object
  * @param required if the doc member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateDoc(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'doc')) {
@@ -198,7 +198,7 @@ export function validateDoc(obj: any, required = false): void {
  * Validate the callback url of an object
  * @param obj parent object
  * @param required if the callback member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateCallbackUrl(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'callback')) {
@@ -213,7 +213,7 @@ export function validateCallbackUrl(obj: any, required = false): void {
  * Validate the filter of an object
  * @param obj parent object
  * @param required if the filter member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateFilter(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'filter')) {
@@ -228,7 +228,7 @@ export function validateFilter(obj: any, required = false): void {
  * Validate the timeout of an object
  * @param obj parent object
  * @param required if the timeout member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateTimeout(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'timeout')) {
@@ -243,7 +243,7 @@ export function validateTimeout(obj: any, required = false): void {
  * Validate the signature of an object
  * @param obj parent object
  * @param required if the signature member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateSignature(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'signature')) {
@@ -259,7 +259,7 @@ export function validateSignature(obj: any, required = false): void {
  * @param obj parent object
  * @param required if the time member is required or not
  * @param name field's name, either 'startTime' (default) or 'endTime'
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateTime(obj: any, required = false, name = 'startTime'): void {
   if (required && !hasOwnProperty.call(obj, name)) {
@@ -274,7 +274,7 @@ export function validateTime(obj: any, required = false, name = 'startTime'): vo
  * Validate the timestamp of an object
  * @param obj parent object
  * @param required if the timestamp member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateTimestamp(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'timestamp')) {
@@ -289,14 +289,14 @@ export function validateTimestamp(obj: any, required = false): void {
  * Validate the code of an error object
  * @param obj parent object
  * @param required if the code member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateErrorCode(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'code')) {
     throw types.ScipErrorObject.parseError(`Error code is missing, but it is required!`);
   }
-  if (hasOwnProperty.call(obj, 'code') && !isInteger(obj.code)) {
-    throw types.ScipErrorObject.parseError(`The timestamp, if present, MUST be of string type!`);
+  if (hasOwnProperty.call(obj, 'code') && (!isInteger(obj.code) || obj.code > 0)) {
+    throw types.ScipErrorObject.parseError(`The error code, if present, MUST be a negative integer!`);
   }
 }
 
@@ -304,13 +304,13 @@ export function validateErrorCode(obj: any, required = true): void {
  * Validate the message of an error object
  * @param obj parent object
  * @param required if the message member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateErrorMessage(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'message')) {
     throw types.ScipErrorObject.parseError(`Error message is missing, but it is required!`);
   }
-  if (hasOwnProperty.call(obj, 'message') && !isInteger(obj.code)) {
-    throw types.ScipErrorObject.parseError(`The timestamp, if present, MUST be of string type!`);
+  if (hasOwnProperty.call(obj, 'message') && !isString(obj.message)) {
+    throw types.ScipErrorObject.parseError(`The error message, if present, MUST be of string type!`);
   }
 }
