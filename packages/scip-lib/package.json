@@ -43,7 +43,7 @@
     "build": "npm run clean && npm run format && npm run lint && npm run compile",
     "clean": "rm -rf ./dist",
     "compile": "tsc -b tsconfig.json",
-    "test": "",
+    "test": "mocha -r ts-node/register __tests__/**/*.spec.ts",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json --fix",
     "prepublishOnly": "npm run build",
