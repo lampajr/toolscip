@@ -57,16 +57,16 @@ export default class Init extends BaseCommand {
         await fs.writeJSON(join(cliscConfig.dir, Config.configFile), cliscConfig, {
           spaces: '\t',
         });
-        this.log(`Configuration file '${Config.configFile}' successfully created!`);
+        this.log(`Configuration file generated at '${join(cliscConfig.dir, Config.configFile)}'!`);
       } catch (err) {
-        console.error(err);
+        this.errorMessage('Configuration file was not generated: ' + err.message);
       }
 
       if (this.flags.server) {
         // initialize the express.js server
         this.log('\nInitializing simple server..');
         let spinner = ora({
-          text: 'Initializing npm',
+          text: 'Initializing npm..',
         }).start();
 
         exec('npm init --yes', (error, _stdout, _stderr) => {
@@ -74,15 +74,10 @@ export default class Init extends BaseCommand {
             spinner.fail();
             throw new CLIError(`Ops something went wrong while executing 'npm init' - ${error.message}`);
           } else {
-            // the *entire* stdout and stderr (buffered)
-            // this.log(stdout);
-            // if (stderr) {
-            //   this.log(stderr);
-            // }
-            spinner.succeed('npm initialized');
+            spinner.succeed('Npm initialized');
 
             spinner = ora({
-              text: 'Installing dependencies',
+              text: 'Installing dependencies..',
             }).start();
 
             // TODO: add 'npm install @toolscip/scip-lib'
@@ -93,15 +88,10 @@ export default class Init extends BaseCommand {
                   `Ops something went wrong while installing dependencies (express, body-parser and @toolscip/scip-lib) - ${error.message}`,
                 );
               } else {
-                // the *entire* stdout and stderr (buffered)
-                // this.log(stdout);
-                // if (stderr) {
-                //   this.log(stderr);
-                // }
-                spinner.succeed('express, body-parser and @toolscip/scip-lib successfully installed');
+                spinner.succeed('Express, body-parser and @toolscip/scip-lib successfully installed');
 
                 spinner = ora({
-                  text: 'Generating simple entry point',
+                  text: 'Generating index.js..',
                 }).start();
 
                 fs.writeFile(answers.entry, mainFile)
@@ -167,9 +157,9 @@ export default class Init extends BaseCommand {
   private async createDirectory(path: string) {
     try {
       await fs.mkdirp(path);
-      this.log(`Directory at '${path}' successfully created!`);
+      this.log(`Directory at successfully created '${path}'!`);
     } catch (err) {
-      throw new CLIError(err.message);
+      this.errorMessage('Directory generation failed: ' + err.message);
     }
   }
 }
