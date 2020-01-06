@@ -11,7 +11,7 @@ import {
   validateIdentifier,
 } from '../src/validation';
 
-describe('Test validation.ts', () => {
+describe('validation.ts test', () => {
   /** Validate the Error Message */
   describe('#validateErrorMessage', () => {
     it('Should throw an error if the object does not have a required `message` property', () => {
