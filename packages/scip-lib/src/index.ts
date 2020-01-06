@@ -373,7 +373,7 @@ export function parseRequest(data: any): ScipRequest {
   const parsed: ScipMessage = parse(data);
   if (!(parsed instanceof JsonRpcRequest)) {
     throw types.ScipErrorObject.parseError(
-      `The parsed data is not a valid scip request, obtained ${parsed.constructor.name} instead! `,
+      `The parsed data is not a valid scip request, obtained ${parsed.constructor.name} instead!`,
     );
   }
   return parsed;
