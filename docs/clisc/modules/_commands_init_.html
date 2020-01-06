@@ -76,7 +76,26 @@
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_commands_init_.init.html" class="tsd-kind-icon">Init</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_commands_init_.html#mainfile" class="tsd-kind-icon">main<wbr>File</a></li>
+							</ul>
+						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+					<a name="mainfile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> main<wbr>File</h3>
+					<div class="tsd-signature tsd-kind-icon">main<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"const express &#x3D; require(&quot;express&quot;);const bodyParser &#x3D; require(&quot;body-parser&quot;);const scip &#x3D; require(&quot;@toolscip/scip-lib&quot;);const PORT &#x3D; 8080;const   app &#x3D; express();app.use(bodyParser.urlencoded({ extended: true }));app.use(bodyParser.json());app.post(&quot;/&quot;, (req, res) &#x3D;&gt; {try {const   response &#x3D; scip.parseResponse(req.body);if (response.method &#x3D;&#x3D;&#x3D; &quot;ReceiveCallback&quot;) {// TODO: implement your logic here}} catch (err)   {res.json(scip.error(req.body.id, err));}});// make the server listen to requestsapp.listen(PORT, () &#x3D;&gt; {console.log(&#x60;Server running at   port ${PORT}&#x60;);});"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;const express &#x3D; require(&quot;express&quot;);const bodyParser &#x3D; require(&quot;body-parser&quot;);const scip &#x3D; require(&quot;@toolscip/scip-lib&quot;);const PORT &#x3D; 8080;const   app &#x3D; express();app.use(bodyParser.urlencoded({ extended: true }));app.use(bodyParser.json());app.post(&quot;/&quot;, (req, res) &#x3D;&gt; {try {const   response &#x3D; scip.parseResponse(req.body);if (response.method &#x3D;&#x3D;&#x3D; &quot;ReceiveCallback&quot;) {// TODO: implement your logic here}} catch (err)   {res.json(scip.error(req.body.id, err));}});// make the server listen to requestsapp.listen(PORT, () &#x3D;&gt; {console.log(&#x60;Server running at   port ${PORT}&#x60;);});&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/4abbcdc/packages/clisc/src/commands/init.ts#L167">src/commands/init.ts:167</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -131,6 +150,9 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_commands_init_.init.html" class="tsd-kind-icon">Init</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_commands_init_.html#mainfile" class="tsd-kind-icon">main<wbr>File</a>
 					</li>
 				</ul>
 			</nav>
