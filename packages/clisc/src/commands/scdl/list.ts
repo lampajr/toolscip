@@ -51,7 +51,10 @@ export default class ScdlList extends BaseCommand {
 
     fs.readdir(this.cliscConfig.descriptorsFolder() as string)
       .then(files => {
-        this.log(files);
+        const ll = (this.flags.extended ? files : files.slice(0, this.cliscConfig?.limit)).filter(name =>
+          name.includes(this.args.keyword ? this.args.keyword : ''),
+        );
+        this.log(ll);
       })
       .catch(err => {
         throw new CLIError('Unable to read the descriptors directory - ' + err.message);

@@ -35,7 +35,7 @@ export default class Config {
     const p: string = path === undefined ? join(process.cwd(), Config.configFile) : path;
     try {
       const value: any = await fs.readJSON(p);
-      return new Config(value.owner, value.dir, value.registry);
+      return new Config(value.owner, value.dir, value.limit, value.registry);
     } catch (err) {
       throw new CLIError(`Unable to find the config file at '${p}'`);
     }
@@ -61,12 +61,15 @@ export default class Config {
   owner: string;
   /** Main directory, where config files are stored */
   dir: string;
+  /** Default number of returned descriptor when queried */
+  limit: number;
   /** Online registry URL [optional] */
   registry?: string;
 
-  constructor(owner: string, dir: string, registry?: string) {
+  constructor(owner: string, dir: string, limit: number, registry?: string) {
     this.owner = owner;
     this.dir = dir;
+    this.limit = limit;
     if (registry) {
       this.registry = registry;
     }
