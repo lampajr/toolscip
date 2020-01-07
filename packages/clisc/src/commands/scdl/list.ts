@@ -48,9 +48,11 @@ export default class ScdlList extends BaseCommand {
     if (this.cliscConfig === undefined) {
       throw new CLIError('Unable to load the clisc configuration file!');
     } else {
+      const limit = this.cliscConfig.limit;
+
       fs.readdir(this.cliscConfig.descriptorsFolder() as string)
         .then(files => {
-          this.log(this.flags.extended ? files : files.slice(0, this.cliscConfig?.limit));
+          this.log(this.flags.extended ? files : files.slice(0, limit));
         })
         .catch(err => {
           throw new CLIError('Unable to read the descriptors directory - ' + err.message);

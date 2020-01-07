@@ -35,7 +35,7 @@ export default class Config {
     const p: string = path === undefined ? join(process.cwd(), Config.configFile) : path;
     try {
       const value: any = await fs.readJSON(p);
-      return new Config(value.owner, value.dir, value.registry);
+      return new Config(value.owner, value.dir, value.limit, value.registry);
     } catch (err) {
       throw new CLIError(`Unable to find the config file at '${p}'`);
     }
