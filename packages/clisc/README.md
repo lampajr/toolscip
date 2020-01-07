@@ -228,7 +228,7 @@ ALIASES
   $ clisc scdl:get
 
 EXAMPLES
-  # list a summary of 5 descriptors
+  # list a summary of 1 descriptors
   $ clisc scdl:list
   # list all saved descriptors
   $ clisc scdl:list --extended

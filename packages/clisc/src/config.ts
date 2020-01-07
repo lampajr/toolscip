@@ -61,12 +61,15 @@ export default class Config {
   owner: string;
   /** Main directory, where config files are stored */
   dir: string;
+  /** Default number of returned descriptor when queried */
+  limit: number;
   /** Online registry URL [optional] */
   registry?: string;
 
-  constructor(owner: string, dir: string, registry?: string) {
+  constructor(owner: string, dir: string, limit: number, registry?: string) {
     this.owner = owner;
     this.dir = dir;
+    this.limit = limit;
     if (registry) {
       this.registry = registry;
     }

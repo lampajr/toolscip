@@ -23,6 +23,7 @@ import chalk = require('chalk');
 import ora = require('ora');
 import BaseCommand from '../base';
 import Config from '../config';
+import ScdlList from './scdl/list';
 
 export default class Init extends BaseCommand {
   static description = `initialize the 'clisc' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
@@ -47,7 +48,7 @@ export default class Init extends BaseCommand {
     try {
       const answers = await this.ask(this.flags.server);
 
-      const cliscConfig = new Config(answers.owner, process.cwd(), answers.registry);
+      const cliscConfig = new Config(answers.owner, process.cwd(), answers.limit, answers.registry);
 
       this.log('');
       this.createDirectory(cliscConfig.configFolder());
@@ -139,6 +140,12 @@ export default class Init extends BaseCommand {
         when: answers => {
           return answers.useRegistry;
         },
+      },
+      {
+        type: 'number',
+        name: 'limit',
+        message: 'How many descriptors do you want to return, as default?',
+        default: ScdlList.limit,
       },
       {
         type: 'input',
