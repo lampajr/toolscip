@@ -1,13 +1,13 @@
 import { Input } from '@oclif/parser';
 import { CLIError } from '@oclif/errors';
-import { Contract } from '@toolscip/scdl-lib';
-import BaseCommand from './base';
-import shared from './shared';
-import Config from './config';
-import scip, { types, ScipRequest } from '@toolscip/scip-lib';
+import { Contract } from '@toolusci/scdl-lib';
+import scip, { types, ScipRequest } from '@toolusci/scip-lib';
 import { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
 import chalk = require('chalk');
+import BaseCommand from './base';
+import shared from './shared';
+import Config from './config';
 
 export default abstract class extends BaseCommand {
   static flags = {

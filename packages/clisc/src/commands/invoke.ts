@@ -14,12 +14,12 @@
  */
 
 import { flags } from '@oclif/command';
-import { Method } from '@toolscip/scdl-lib';
-import { types, ScipRequest } from '@toolscip/scip-lib';
 import { CLIError } from '@oclif/errors';
+import { types, ScipRequest } from '@toolusci/scip-lib';
+import { Method } from '@toolusci/scdl-lib';
+import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';
-import { AxiosResponse } from 'axios';
 
 export default class Invoke extends ScipCommand {
   static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;

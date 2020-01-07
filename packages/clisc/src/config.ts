@@ -13,9 +13,9 @@
  * limitations under the License.
  */
 
+import { CLIError } from '@oclif/errors';
 import * as fs from 'fs-extra';
 import { join } from 'path';
-import { CLIError } from '@oclif/errors';
 
 /**
  * Configuration file

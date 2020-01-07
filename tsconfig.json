@@ -13,9 +13,9 @@
     "esModuleInterop": true,
     "baseUrl": "./packages",
     "paths": {
-      "@toolscip/scip-lib": ["scip-lib/dist"],
-      "@toolscip/scdl-lib": ["scdl-lib/dist"],
-      "@toolscip/clisc": ["clisc/dist"]
+      "@toolusci/scip-lib": ["scip-lib/dist"],
+      "@toolusci/scdl-lib": ["scdl-lib/dist"],
+      "@toolusci/clisc": ["clisc/dist"]
     }
   },
   "exclude": ["node_modules", "dist", "__tests__", "docs", "examples"]

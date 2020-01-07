@@ -17,11 +17,11 @@ Command Line Interface for Smart Contracts interaction
 
 <!-- usage -->
 ```sh-session
-$ npm install -g @toolscip/clisc
+$ npm install -g @toolusci/clisc
 $ clisc COMMAND
 running command...
 $ clisc (-v|--version|version)
-@toolscip/clisc/1.0.0 linux-x64 node-v10.16.3
+@toolusci/clisc/1.0.0 linux-x64 node-v10.16.3
 $ clisc --help [COMMAND]
 USAGE
   $ clisc COMMAND

@@ -15,11 +15,11 @@
 
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { Method, Event } from '@toolscip/scdl-lib';
-import { types, ScipRequest } from '@toolscip/scip-lib';
+import { Method, Event } from '@toolusci/scdl-lib';
+import { types, ScipRequest } from '@toolusci/scip-lib';
+import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';
-import { AxiosResponse } from 'axios';
 
 export default class Query extends ScipCommand {
   static description = 'query past event occurences or function invocations';

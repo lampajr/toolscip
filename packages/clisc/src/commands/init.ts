@@ -19,10 +19,10 @@ import * as fs from 'fs-extra';
 import { join } from 'path';
 import * as inquirer from 'inquirer';
 import { exec } from 'child_process';
-import BaseCommand from '../base';
-import Config from '../config';
 import chalk = require('chalk');
 import ora = require('ora');
+import BaseCommand from '../base';
+import Config from '../config';
 
 export default class Init extends BaseCommand {
   static description = `initialize the 'clisc' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;

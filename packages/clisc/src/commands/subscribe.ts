@@ -15,11 +15,11 @@
 
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { Method, Event } from '@toolscip/scdl-lib';
+import { types, ScipRequest } from '@toolusci/scip-lib';
+import { Method, Event } from '@toolusci/scdl-lib';
+import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';
-import { AxiosResponse } from 'axios';
-import { types, ScipRequest } from '@toolscip/scip-lib';
 
 export default class Subscribe extends ScipCommand {
   static description = `monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.`;
