@@ -23,6 +23,12 @@ import shared from '../shared';
 
 export default class Subscribe extends ScipCommand {
   static description = `monitor a target smart contract's function invocations or event occurrences starting from a smart contract's descriptor.`;
+  static examples = [
+    `# Subscribe to 'Token' contract's 'balanceOf' method`,
+    `$ clisc subscribe Token -I abcdefg --method=balanceOf --value=0x23f3ab3 --callback=http://mydomain.org`,
+    `# Subscribe to 'Token' contract's 'Approval' event`,
+    `$ clisc subscribe Token -I abcdefg --event=Approval --callback=http://mydomain.org`,
+  ];
 
   static flags = {
     ...ScipCommand.flags,

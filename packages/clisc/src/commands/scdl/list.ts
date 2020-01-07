@@ -37,7 +37,7 @@ export default class ScdlList extends BaseCommand {
     help: flags.help({ char: 'h', description: `show scdl:list command help` }),
     extended: flags.boolean({
       char: 'e',
-      description: 'retrieve ALL saved descriptors',
+      description: 'retrieve all saved descriptors',
       default: false,
     }),
   };

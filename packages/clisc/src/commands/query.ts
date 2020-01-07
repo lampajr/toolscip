@@ -22,7 +22,13 @@ import ScipCommand from '../scip';
 import shared from '../shared';
 
 export default class Query extends ScipCommand {
-  static description = 'query past event occurences or function invocations';
+  static description = 'query past event occurences or function invocations of a target smart contract';
+  static examples = [
+    `# Query past invocations of 'Token' contract's 'balanceOf' method`,
+    `$ clisc query Token -I abcdefg --method=balanceOf --value=0x23f3ab3`,
+    `# Query past occurrences of 'Token' contract's 'Approval' event`,
+    `$ clisc query Token -I abcdefg --event=Approval`,
+  ];
 
   static flags = {
     ...ScipCommand.flags,

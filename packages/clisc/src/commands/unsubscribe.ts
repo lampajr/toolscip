@@ -23,6 +23,12 @@ import shared from '../shared';
 
 export default class Unsubscribe extends ScipCommand {
   static description = `stop live monitoring of a smart contract's function or event by unsubscribing a previous subscription.`;
+  static examples = [
+    `# Unsubscribe a previous subscription to a 'Token' contract's 'balanceOf' method`,
+    `$ clisc unsubscribe Token -I abcdefg --method=balanceOf`,
+    `# Unsubscribe a previous subscription to a 'Token' contract's 'Approval' event`,
+    `$ clisc unsubscribe Token -I abcdefg --event=Approval`,
+  ];
 
   static flags = {
     ...ScipCommand.flags,
