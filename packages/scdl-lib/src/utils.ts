@@ -116,16 +116,23 @@ export interface Invocable {
  * Creates a new [[Parameter]] array assigning for each of them its corresponding value
  * @param values array of values
  * @param prevParams array of [[IParameter]] objects
+ * @param required whether the values are requried or not [default: true]
  * @returns array of [[Parameter]] objects
  * @throws [[InvalidRequest]] if the lengths mismatch
  */
-export function createParams(values: any[], prevParams: IParameter[]): types.Parameter[] {
-  if (values.length !== prevParams.length) {
+export function createParams(values: any[], prevParams: IParameter[], required: boolean = true): types.Parameter[] {
+  if (required && values.length !== prevParams.length) {
     // checks whether there is a length mismatch between input params and input values
     throw new InvalidRequest(
       `The number of passed values (${values.length}) mismatch the number of required parameters (${prevParams.length})!`,
     );
   }
+
+  if (values.length > 0 && values.length < prevParams.length) {
+    // you must provide values for all parameters or for none of them.
+    throw new InvalidRequest(`Provide 0 or (${prevParams.length}) values!`);
+  }
+
   // create input params objects with their values
   const params: types.Parameter[] = [];
   for (let index = 0; index < values.length; index++) {
