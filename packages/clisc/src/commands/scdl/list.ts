@@ -24,10 +24,12 @@ export default class ScdlList extends BaseCommand {
   static description = `list saved SCDL smart contract's descriptors`;
   static aliases = ['scdl:list', 'scdl:ls', 'scdl:index', 'scdl:get'];
   static examples = [
-    `# list a summary of ${ScdlList.limit} descriptors`,
+    `# list a default number of saved descriptors`,
     '$ clisc scdl:list',
     `# list all saved descriptors`,
     '$ clisc scdl:list --extended',
+    `# list a maximum of 5 descriptors`,
+    '$ clisc scdl:list --max 5',
     '# list all descriptors that match the provided keyword',
     '$ clisc scdl:list Token',
   ];
@@ -37,9 +39,10 @@ export default class ScdlList extends BaseCommand {
     help: flags.help({ char: 'h', description: `show scdl:list command help` }),
     extended: flags.boolean({
       char: 'e',
-      description: 'retrieve ALL saved descriptors',
+      description: 'display all saved descriptors',
       default: false,
     }),
+    max: flags.integer({ char: 'm', description: `maximum number of descriptors to display` }),
   };
 
   static args = [{ name: 'keyword', description: 'keyword search' }];
@@ -51,7 +54,8 @@ export default class ScdlList extends BaseCommand {
 
     fs.readdir(this.cliscConfig.descriptorsFolder() as string)
       .then(files => {
-        const ll = (this.flags.extended ? files : files.slice(0, this.cliscConfig?.limit)).filter(name =>
+        const limit: number = this.flags.max ? this.flags.max : this.cliscConfig?.limit;
+        const ll = (this.flags.extended ? files : files.slice(0, limit)).filter(name =>
           name.includes(this.args.keyword ? this.args.keyword : ''),
         );
         this.log(ll);

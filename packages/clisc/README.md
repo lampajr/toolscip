@@ -71,6 +71,13 @@ OPTIONS
   -h, --help       show init command help
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
   -s, --server     initialize a simple 'express.js' server for receive asynchronous responses
+
+EXAMPLES
+  # Initialize the 'clisc' configuration files for the current project
+  $ clisc init
+  # Initialize the 'clisc' configuration files for the current project with a simple express.js server for the 
+  asynchronous responses
+  $ clisc init --server
 ```
 
 _See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts)_
@@ -109,15 +116,15 @@ OPTIONS
                              this flag multiple times (the order is important!)
 
 EXAMPLES
-  # Suppose you want to invoke a method named 'balanceOf' of a contract named 'Token'
-  $ clisc invoke Token -j abcdef -m balanceOf -v 0x23ab34bd..
+  # Invoke a method named 'balanceOf' of a contract named 'Token'
+  $ clisc invoke Token -I abcdef --method=balanceOf --value=0x23ab34bd..
 ```
 
 _See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts)_
 
 ## `clisc query CONTRACT`
 
-query past event occurences or function invocations
+query past event occurences or function invocations of a target smart contract
 
 ```
 USAGE
@@ -143,6 +150,12 @@ OPTIONS
 
   -v, --value=value          target function or event parameter's value, if more than one value is required you can set
                              this flag multiple times (the order is important!)
+
+EXAMPLES
+  # Query past invocations of 'Token' contract's 'balanceOf' method
+  $ clisc query Token -I abcdefg --method=balanceOf --value=0x23f3ab3
+  # Query past occurrences of 'Token' contract's 'Approval' event
+  $ clisc query Token -I abcdefg --event=Approval
 ```
 
 _See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts)_
@@ -217,8 +230,9 @@ ARGUMENTS
   KEYWORD  keyword search
 
 OPTIONS
-  -e, --extended   retrieve ALL saved descriptors
+  -e, --extended   display all saved descriptors
   -h, --help       show scdl:list command help
+  -m, --max=max    maximum number of descriptors to display
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
 
 ALIASES
@@ -228,10 +242,12 @@ ALIASES
   $ clisc scdl:get
 
 EXAMPLES
-  # list a summary of 5 descriptors
+  # list a default number of saved descriptors
   $ clisc scdl:list
   # list all saved descriptors
   $ clisc scdl:list --extended
+  # list a maximum of 5 descriptors
+  $ clisc scdl:list --max 5
   # list all descriptors that match the provided keyword
   $ clisc scdl:list Token
 ```
@@ -264,6 +280,12 @@ OPTIONS
 
   -v, --value=value        target function or event parameter's value, if more than one value is required you can set
                            this flag multiple times (the order is important!)
+
+EXAMPLES
+  # Subscribe to 'Token' contract's 'balanceOf' method
+  $ clisc subscribe Token -I abcdefg --method=balanceOf --value=0x23f3ab3 --callback=http://mydomain.org
+  # Subscribe to 'Token' contract's 'Approval' event
+  $ clisc subscribe Token -I abcdefg --event=Approval --callback=http://mydomain.org
 ```
 
 _See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts)_
@@ -291,6 +313,12 @@ OPTIONS
 
   -v, --val=val        target function or event parameter's value, if more than one value is required you can set this
                        flag multiple times (the order is important!)
+
+EXAMPLES
+  # Unsubscribe a previous subscription to a 'Token' contract's 'balanceOf' method
+  $ clisc unsubscribe Token -I abcdefg --method=balanceOf
+  # Unsubscribe a previous subscription to a 'Token' contract's 'Approval' event
+  $ clisc unsubscribe Token -I abcdefg --event=Approval
 ```
 
 _See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts)_

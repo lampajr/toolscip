@@ -27,6 +27,12 @@ import ScdlList from './scdl/list';
 
 export default class Init extends BaseCommand {
   static description = `initialize the 'clisc' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
+  static examples = [
+    `# Initialize the 'clisc' configuration files for the current project`,
+    `$ clisc init`,
+    `# Initialize the 'clisc' configuration files for the current project with a simple express.js server for the asynchronous responses`,
+    `$ clisc init --server`,
+  ];
 
   static flags = {
     ...BaseCommand.flags,
