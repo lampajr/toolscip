@@ -49,7 +49,7 @@ export class Method extends utils.Callable implements Invocable, Subscribable, Q
     timeout?: number,
   ): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>> {
     // creates the input params objects
-    const inputs: types.Parameter[] = createParams(values, this.data.inputs);
+    const inputs: types.Parameter[] = createParams(values, this.data.inputs, true);
     // creates output params objects
     const outputs: types.Parameter[] = convertParams(this.data.outputs);
 
@@ -68,7 +68,7 @@ export class Method extends utils.Callable implements Invocable, Subscribable, Q
     filter?: string | undefined,
   ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
     // creates the input params objects
-    const params = createParams(values, this.data.inputs);
+    const params = createParams(values, this.data.inputs, false);
 
     // create SCIP [[FunctionSubscription]] param object
     const scipParams = new types.FunctionSubscription(id, params, callback, corrId, doc, filter);
@@ -96,7 +96,7 @@ export class Method extends utils.Callable implements Invocable, Subscribable, Q
     endTime?: string | undefined,
   ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
     // creates the input params objects
-    const params = createParams(values, this.data.inputs);
+    const params = createParams(values, this.data.inputs, false);
 
     // create SCIP [[FunctionSubscription]] param object
     const scipParams = new types.FunctionQuery(id, params, filter, startTime, endTime);
@@ -124,7 +124,7 @@ export class Event extends utils.Callable implements Subscribable, Queryable {
     filter?: string | undefined,
   ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
     // creates the input params objects
-    const params = createParams(values, this.data.outputs);
+    const params = createParams(values, this.data.outputs, false);
 
     // create SCIP [[EventSubscription]] param object
     const scipParams = new types.EventSubscription(id, params, callback, corrId, doc, filter);
@@ -152,7 +152,7 @@ export class Event extends utils.Callable implements Subscribable, Queryable {
     endTime?: string | undefined,
   ): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
     // creates the input params objects
-    const params = createParams(values, this.data.outputs);
+    const params = createParams(values, this.data.outputs, false);
 
     // create SCIP [[FunctionSubscription]] param object
     const scipParams = new types.EventQuery(id, params, filter, startTime, endTime);
