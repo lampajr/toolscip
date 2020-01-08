@@ -49,15 +49,16 @@ export default class Subscribe extends ScipCommand {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
 
+    if (!this.flags.method && !this.flags.event) {
+      throw new CLIError(`You MUST provide 'method' (-m --method) or 'event' (-e --event) name!`);
+    }
+
     if (this.flags.callback === undefined) {
       throw new CLIError(
         `You MUST set a callback to which the gateway will send the async responses. Use flag '--calback' or '-u'`,
       );
     }
 
-    if (!this.flags.method && !this.flags.event) {
-      throw new CLIError(`You MUST provide 'method' (-m --method) or 'event' (-e --event) name!`);
-    }
     // retrieve the function/event to subscribe
     const attribute: Method | Event = this.flags.method
       ? this.contract.methods[this.flags.method]
@@ -74,6 +75,7 @@ export default class Subscribe extends ScipCommand {
         }]`,
       );
     }
+
     return attribute.subscribe(
       this.flags.id,
       this.flags.method ? this.flags.method : (this.flags.event as string),
