@@ -128,9 +128,9 @@ export function createParams(values: any[], prevParams: IParameter[], required: 
     );
   }
 
-  if (values.length > 0 && values.length < prevParams.length) {
+  if (values.length !== 0 && values.length !== prevParams.length) {
     // you must provide values for all parameters or for none of them.
-    throw new InvalidRequest(`Provide 0 or (${prevParams.length}) values!`);
+    throw new InvalidRequest(`Provide 0 or ${prevParams.length} values!`);
   }
 
   // create input params objects with their values
