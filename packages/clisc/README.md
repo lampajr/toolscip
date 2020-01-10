@@ -3,8 +3,8 @@
 Command Line Interface for Smart Contracts interaction
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-![Version](https://www.npmjs.com/package/@toolscip/clisc)
-![Downloads/week](https://www.npmjs.com/package/@toolscip/clisc)
+[![Version](https://img.shields.io/npm/v/@toolscip/clisc)](https://www.npmjs.com/package/@toolscip/clisc)
+[![Downloads/week](https://img.shields.io/npm/dw/@toolscip/clisc)](https://www.npmjs.com/package/@toolscip/clisc)
 ![License](https://img.shields.io/github/license/lampajr/toolscip)
 
 <!-- toc -->
