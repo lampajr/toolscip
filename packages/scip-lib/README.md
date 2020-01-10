@@ -1,7 +1,7 @@
 # `scip-lib`
 
 ![Version](https://www.npmjs.com/package/@toolscip/scip-lib)
-![Downloads/week]](https://img.shields.io/npm/dw/@toolscip/scip-lib)
+![Downloads/week](https://img.shields.io/npm/dw/@toolscip/scip-lib)
 ![License](https://img.shields.io/github/license/lampajr/toolscip)
 
 This is a simple [Smart Contract Invocation Protocol]() compliant parser and generator library written in Typescript for [Node.js](https://nodejs.org/en/). It was built out as an extension of the [jsonrpc-lib](https://github.com/lampajr/jsonrpc-lib) since SCIP is made out as an extension of [JSON-RPC](https://www.jsonrpc.org/specification).
