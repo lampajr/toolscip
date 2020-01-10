@@ -1,25 +1,35 @@
 {
-  "name": "@lampajr/scdl-lib",
+  "name": "@toolscip/scdl-lib",
   "version": "1.0.0",
   "description": "Smart Contract Description Language api library",
   "keywords": [
     "SCDL",
-    "Smart",
-    "Contract",
-    "Descriptor",
-    "Blockchain"
+    "Smart Contract Description Language",
+    "smart contract",
+    "descriptor",
+    "blockchain",
+    "sdk"
   ],
-  "author": "lampajr <lampa9559@gmail.com>",
+  "author": "Andrea Lamparelli <lampa9559@gmail.com>",
   "homepage": "https://github.com/lampajr/toolscip/tree/master/packages/scdl-lib#readme",
   "license": "Apache-2.0",
+  "contributors": [
+    "Andrea Lamparelli <lampa9559@gmail.com>"
+  ],
+  "maintainers": [
+    "Andrea Lamparelli <lampa9559@gmail.com>"
+  ],
   "engines": {
-    "node": ">= 10.16.3"
+    "node": "^10.16.3",
+    "npm": "^6.13.4"
   },
   "main": "dist/index.js",
   "type": "dist/index.d.ts",
   "directories": {
     "lib": "src",
-    "test": "__tests__"
+    "test": "__tests__",
+    "doc": "docs",
+    "example": "examples"
   },
   "files": [
     "dist"
@@ -33,15 +43,22 @@
     "clean": "rm -rf ./dist",
     "compile": "tsc -b tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "tslint -p tsconfig.json --fix",
     "prepublishOnly": "npm run build",
-    "docs": "typedoc --out docs src/*"
+    "docs": "typedoc --out ../../docs/scdl-lib src/*"
   },
   "bugs": {
     "url": "https://github.com/lampajr/toolscip/issues"
   },
   "dependencies": {
-    "@lampajr/jsonrpc-lib": "^0.1.1",
-    "@lampajr/scip-lib": "^1.0.0"
+    "@lampajr/jsonrpc-lib": "^1.0.0",
+    "@toolscip/scip-lib": "^1.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.7.3"
   }
 }

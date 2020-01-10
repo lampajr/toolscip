@@ -1,12 +1,3 @@
-import {
-  ErrorObject,
-  Id,
-  JsonRpcNotification,
-  JsonRpcRequest,
-  JsonRpcSuccess,
-  JsonRpcError,
-} from '@lampajr/jsonrpc-lib';
-
 /**
  * * * Copyright * 2019 Andrea Lamparelli
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,6 +40,15 @@ import {
  * *value* :                    the value of this parameter
  */
 
+import {
+  ErrorObject,
+  Id,
+  JsonRpcNotification,
+  JsonRpcRequest,
+  JsonRpcSuccess,
+  JsonRpcError,
+} from '@lampajr/jsonrpc-lib';
+
 /**************************************** SCIP parameters Types ****************************************/
 /**
  * Generic Scip parameter, which is used for both
@@ -73,26 +73,26 @@ export class Parameter {
  * parameters.
  */
 export class Invocation {
-  id: string;
+  functionId: string;
   inputs: Parameter[];
   outputs: Parameter[];
-  callback: string;
-  corrId: string;
-  doc: number;
-  timeout: number;
   signature: string;
+  callback?: string;
+  corrId?: string;
+  doc?: number;
+  timeout?: number;
 
   constructor(
-    id: string,
+    functionId: string,
     inputs: Parameter[],
     outputs: Parameter[],
-    callback: string,
-    corrId: string,
-    doc: number,
-    timeout: number,
     signature: string,
+    callback?: string,
+    corrId?: string,
+    doc?: number,
+    timeout?: number,
   ) {
-    this.id = id;
+    this.functionId = functionId;
     this.inputs = inputs;
     this.outputs = outputs;
     this.callback = callback;
@@ -112,11 +112,11 @@ export class Invocation {
 class Subscription {
   params: Parameter[];
   callback: string;
-  corrId: string;
-  doc: number;
-  filter: string;
+  corrId?: string;
+  doc?: number;
+  filter?: string;
 
-  constructor(params: Parameter[], callback: string, corrId: string, doc: number, filter: string) {
+  constructor(params: Parameter[], callback: string, corrId?: string, doc?: number, filter?: string) {
     this.params = params;
     this.callback = callback;
     this.corrId = corrId;
@@ -131,7 +131,7 @@ class Subscription {
 export class EventSubscription extends Subscription {
   eventId: string;
 
-  constructor(eventId: string, params: Parameter[], callback: string, corrId: string, doc: number, filter: string) {
+  constructor(eventId: string, params: Parameter[], callback: string, corrId?: string, doc?: number, filter?: string) {
     super(params, callback, corrId, doc, filter);
     this.eventId = eventId;
   }
@@ -143,7 +143,14 @@ export class EventSubscription extends Subscription {
 export class FunctionSubscription extends Subscription {
   functionId: string;
 
-  constructor(functionId: string, params: Parameter[], callback: string, corrId: string, doc: number, filter: string) {
+  constructor(
+    functionId: string,
+    params: Parameter[],
+    callback: string,
+    corrId?: string,
+    doc?: number,
+    filter?: string,
+  ) {
     super(params, callback, corrId, doc, filter);
     this.functionId = functionId;
   }
@@ -157,9 +164,9 @@ export class FunctionSubscription extends Subscription {
  */
 class Unsubscription {
   params: Parameter[];
-  corrId: string;
+  corrId?: string;
 
-  constructor(params: Parameter[], corrId: string) {
+  constructor(params: Parameter[], corrId?: string) {
     this.params = params;
     this.corrId = corrId;
   }
@@ -171,7 +178,7 @@ class Unsubscription {
 export class EventUnsubscription extends Unsubscription {
   eventId: string;
 
-  constructor(eventId: string, params: Parameter[], corrId: string) {
+  constructor(eventId: string, params: Parameter[], corrId?: string) {
     super(params, corrId);
     this.eventId = eventId;
   }
@@ -183,7 +190,7 @@ export class EventUnsubscription extends Unsubscription {
 export class FunctionUnsubscription extends Unsubscription {
   functionId: string;
 
-  constructor(functionId: string, params: Parameter[], corrId: string) {
+  constructor(functionId: string, params: Parameter[], corrId?: string) {
     super(params, corrId);
     this.functionId = functionId;
   }
@@ -196,14 +203,12 @@ export class FunctionUnsubscription extends Unsubscription {
  */
 class Query {
   params: Parameter[];
-  timestamp: string;
-  filter: string;
-  startTime: string;
-  endTime: string;
+  filter?: string;
+  startTime?: string;
+  endTime?: string;
 
-  constructor(params: Parameter[], timestamp: string, filter: string, startTime: string, endTime: string) {
+  constructor(params: Parameter[], filter?: string, startTime?: string, endTime?: string) {
     this.params = params;
-    this.timestamp = timestamp;
     this.filter = filter;
     this.startTime = startTime;
     this.endTime = endTime;
@@ -216,15 +221,8 @@ class Query {
 export class EventQuery extends Query {
   eventId: string;
 
-  constructor(
-    eventId: string,
-    params: Parameter[],
-    timestamp: string,
-    filter: string,
-    startTime: string,
-    endTime: string,
-  ) {
-    super(params, timestamp, filter, startTime, endTime);
+  constructor(eventId: string, params: Parameter[], filter?: string, startTime?: string, endTime?: string) {
+    super(params, filter, startTime, endTime);
     this.eventId = eventId;
   }
 }
@@ -235,15 +233,8 @@ export class EventQuery extends Query {
 export class FunctionQuery extends Query {
   functionId: string;
 
-  constructor(
-    functionId: string,
-    params: Parameter[],
-    timestamp: string,
-    filter: string,
-    startTime: string,
-    endTime: string,
-  ) {
-    super(params, timestamp, filter, startTime, endTime);
+  constructor(functionId: string, params: Parameter[], filter?: string, startTime?: string, endTime?: string) {
+    super(params, filter, startTime, endTime);
     this.functionId = functionId;
   }
 }
@@ -284,10 +275,10 @@ export class Occurrence {
  */
 export class Callback {
   params: Parameter[];
-  corrId: string;
   timestamp: string;
+  corrId?: string;
 
-  constructor(params: Parameter[], corrId: string, timestamp: string) {
+  constructor(params: Parameter[], timestamp: string, corrId?: string) {
     this.params = params;
     this.corrId = corrId;
     this.timestamp = timestamp;
@@ -321,7 +312,7 @@ export class ScipQuery extends JsonRpcRequest {
 }
 
 export class ScipCallback extends JsonRpcNotification {
-  static validMethod: string = 'ReceiveCallback';
+  static validMethod = 'ReceiveCallback';
 
   constructor(params: Callback) {
     super('ReceiveCallback', params);

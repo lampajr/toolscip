@@ -1,4 +1,3 @@
-import * as types from './types';
 /**
  * * Copyright * 2019 Andrea Lamparelli
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +16,8 @@ import * as types from './types';
  *   * Utility: some helpful functions that can be used to infer the type of a generic object
  *   * Validation: several validity functions that are used to check the structure of generic objects
  */
+
+import * as types from './types';
 
 /********************************************** Utilities Function **********************************************/
 /** Checks whether a value is an integer or not */
@@ -49,20 +50,23 @@ function isUrl(str: string): boolean {
 
 /**
  * Validates if the type is a valid scip abstract type
- * @param absType type to validate
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @param obj parent object
+ * @param required if the params member is required or not
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateAbsType(absType: any): void {
-  try {
-    JSON.parse(absType);
-  } catch (err) {
-    throw types.ScipErrorObject.parseError(`Abstract type JSON parsing error: ${err.message}`);
+export function validateType(obj: any, required = true): void {
+  if (required && !hasOwnProperty.call(obj, 'type')) {
+    throw types.ScipErrorObject.parseError("A parameter MUST have a 'type' member!");
   }
-  if (!isObject(absType)) {
-    throw types.ScipErrorObject.parseError('Abstract type MUST be an object!');
-  }
-  if (!hasOwnProperty.call(absType, 'type')) {
-    throw types.ScipErrorObject.parseError('Type field is missing, but it is required!');
+
+  if (hasOwnProperty.call(obj, 'type')) {
+    const type = obj.type;
+    if (!isObject(type)) {
+      throw types.ScipErrorObject.parseError("Parameter's type MUST be an object!");
+    }
+    if (!hasOwnProperty.call(type, 'type')) {
+      throw types.ScipErrorObject.parseError("A parameter's type MUST have an inner 'type' field, but it is missing!");
+    }
   }
 }
 
@@ -71,9 +75,9 @@ export function validateAbsType(absType: any): void {
  * @param obj parent object
  * @param required if the params member is required or not
  * @param name params type: 'inputs', 'outputs' or generic 'params'
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateParams(obj: any, name: string = '', required: boolean = true): void {
+export function validateParams(obj: any, name: string, required: boolean = true): void {
   if (required && !hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`${name} is missing, but it is required!`);
   }
@@ -86,9 +90,9 @@ export function validateParams(obj: any, name: string = '', required: boolean = 
  * Validate the name member of an parameter
  * @param obj parent object
  * @param required if the name member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateName(obj: any, required: boolean = true): void {
+export function validateName(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'name')) {
     throw types.ScipErrorObject.parseError(`Name is missing, but it is required!`);
   }
@@ -98,15 +102,27 @@ export function validateName(obj: any, required: boolean = true): void {
 }
 
 /**
+ * Validate the value member of an parameter
+ * @param obj parent object
+ * @param required if the value member is required or not
+ * @throws [[ErrorObject]] Parse Error
+ */
+export function validateValue(obj: any, required = true): void {
+  if (required && !hasOwnProperty.call(obj, 'value')) {
+    throw types.ScipErrorObject.parseError(`A parameter value is missing, but it is required!`);
+  }
+}
+
+/**
  * Validate the single param object
  * @param param parameter object
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
 export function validateParam(param: any): void {
   if (!hasOwnProperty.call(param, 'type')) {
     throw types.ScipErrorObject.parseError(`Parameter MUST have an abstract type (i.e. field "type")!`);
   } else {
-    validateAbsType(param.type);
+    validateType(param.type);
   }
   if (!hasOwnProperty.call(param, 'name') || !isString(param.name)) {
     throw types.ScipErrorObject.parseError(`Parameter MUST have a string name!`);
@@ -117,9 +133,9 @@ export function validateParam(param: any): void {
  * Validate the occurrences member of an object
  * @param obj parent object
  * @param required if the occurrences member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateOccurrences(obj: any, required: boolean = true): void {
+export function validateOccurrences(obj: any, required = true): void {
   if (required && !hasOwnProperty.call(obj, 'occurrences')) {
     throw types.ScipErrorObject.parseError(`Occurrences member is missing, but it is required!`);
   }
@@ -132,9 +148,9 @@ export function validateOccurrences(obj: any, required: boolean = true): void {
  * Checks if the object has valid identifier, either function or event
  * @param obj object to validate
  * @param name name of the field's identifier, default 'functionId'
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateIdentifier(obj: any, name: string = 'functionId'): void {
+export function validateIdentifier(obj: any, name = 'functionId'): void {
   if (!hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`The ${name} is missing, but it is required!`);
   }
@@ -147,9 +163,9 @@ export function validateIdentifier(obj: any, name: string = 'functionId'): void 
  * Validate the correlation identifier
  * @param obj parent object
  * @param required if the corrId member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateCorrId(obj: any, required: boolean = false): void {
+export function validateCorrId(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'corrId')) {
     throw types.ScipErrorObject.parseError('Correlation identifier is missing, but it is required!');
   }
@@ -162,9 +178,9 @@ export function validateCorrId(obj: any, required: boolean = false): void {
  * Validate the degree of confidence of an object
  * @param obj parent object
  * @param required if the doc member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateDoc(obj: any, required: boolean = false): void {
+export function validateDoc(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'doc')) {
     throw types.ScipErrorObject.parseError('Degree of confidence is missing, but it is required!');
   }
@@ -177,9 +193,9 @@ export function validateDoc(obj: any, required: boolean = false): void {
  * Validate the callback url of an object
  * @param obj parent object
  * @param required if the callback member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateCallbackUrl(obj: any, required: boolean = false): void {
+export function validateCallbackUrl(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'callback')) {
     throw types.ScipErrorObject.parseError('Callback URL is missing, but it is required!');
   }
@@ -192,9 +208,9 @@ export function validateCallbackUrl(obj: any, required: boolean = false): void {
  * Validate the filter of an object
  * @param obj parent object
  * @param required if the filter member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateFilter(obj: any, required: boolean = false): void {
+export function validateFilter(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'filter')) {
     throw types.ScipErrorObject.parseError('Filter is missing, but it is required!');
   }
@@ -207,9 +223,9 @@ export function validateFilter(obj: any, required: boolean = false): void {
  * Validate the timeout of an object
  * @param obj parent object
  * @param required if the timeout member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateTimeout(obj: any, required: boolean = false): void {
+export function validateTimeout(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'timeout')) {
     throw types.ScipErrorObject.parseError('Timeout is missing, but it is required!');
   }
@@ -222,9 +238,9 @@ export function validateTimeout(obj: any, required: boolean = false): void {
  * Validate the signature of an object
  * @param obj parent object
  * @param required if the signature member is required or not
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateSignature(obj: any, required: boolean = false): void {
+export function validateSignature(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'signature')) {
     throw types.ScipErrorObject.parseError('Signature is missing, but it is required!');
   }
@@ -238,9 +254,9 @@ export function validateSignature(obj: any, required: boolean = false): void {
  * @param obj parent object
  * @param required if the time member is required or not
  * @param name field's name, either 'startTime' (default) or 'endTime'
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateTime(obj: any, required: boolean = false, name: string = 'startTime'): void {
+export function validateTime(obj: any, required = false, name = 'startTime'): void {
   if (required && !hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`${name} is missing, but it is required!`);
   }
@@ -253,14 +269,43 @@ export function validateTime(obj: any, required: boolean = false, name: string =
  * Validate the timestamp of an object
  * @param obj parent object
  * @param required if the timestamp member is required or not
- * @param name field's name, either 'startTime' (default) or 'endTime'
- * @throws [[jsonrpc-lib.ErrorObject]] Parse Error
+ * @throws [[ErrorObject]] Parse Error
  */
-export function validateTimestamp(obj: any, required: boolean = false): void {
+export function validateTimestamp(obj: any, required = false): void {
   if (required && !hasOwnProperty.call(obj, 'timestamp')) {
     throw types.ScipErrorObject.parseError(`Timestamp is missing, but it is required!`);
   }
   if (hasOwnProperty.call(obj, 'timestamp') && !isString(obj.timestamp)) {
     throw types.ScipErrorObject.parseError(`The timestamp, if present, MUST be of string type!`);
+  }
+}
+
+/**
+ * Validate the code of an error object
+ * @param obj parent object
+ * @param required if the code member is required or not
+ * @throws [[ErrorObject]] Parse Error
+ */
+export function validateErrorCode(obj: any, required = true): void {
+  if (required && !hasOwnProperty.call(obj, 'code')) {
+    throw types.ScipErrorObject.parseError(`Error code is missing, but it is required!`);
+  }
+  if (hasOwnProperty.call(obj, 'code') && (!isInteger(obj.code) || obj.code > 0)) {
+    throw types.ScipErrorObject.parseError(`The error code, if present, MUST be a negative integer!`);
+  }
+}
+
+/**
+ * Validate the message of an error object
+ * @param obj parent object
+ * @param required if the message member is required or not
+ * @throws [[ErrorObject]] Parse Error
+ */
+export function validateErrorMessage(obj: any, required = true): void {
+  if (required && !hasOwnProperty.call(obj, 'message')) {
+    throw types.ScipErrorObject.parseError(`Error message is missing, but it is required!`);
+  }
+  if (hasOwnProperty.call(obj, 'message') && !isString(obj.message)) {
+    throw types.ScipErrorObject.parseError(`The error message, if present, MUST be of string type!`);
   }
 }

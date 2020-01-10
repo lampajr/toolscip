@@ -1,24 +1,22 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "lib": ["es2017", "es7", "es6", "dom"],
-        "declaration": true,
-        "strict": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "baseUrl": "./packages",
-        "paths": {
-            "@lampajr/scip-lib": ["scip-lib/dist"],
-            "@lampajr/scdl-lib": ["scdl-lib/dist"],
-        }
-    },
-    "exclude": [
-        "node_modules",
-        "dist",
-        "__tests__",
-        "docs"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "declaration": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@toolscip/scip-lib": ["scip-lib/dist"],
+      "@toolscip/scdl-lib": ["scdl-lib/dist"],
+      "@toolscip/clisc": ["clisc/dist"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "__tests__", "docs", "examples"]
 }
