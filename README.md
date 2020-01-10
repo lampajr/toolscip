@@ -1,3 +1,29 @@
-# toolusci
+# TOOLSCIP
 
-Unified Smart Contract Integration toolkit
+This is the JavaScript toolkit for the Unified Smart Contracts Integration.
+
+This toolkit provides three different packages:
+
+## scip-lib
+
+__version__: 1.0.0
+
+A JavaScript parser library for the [SCIP](https://github.com/lampajr/scip) protocol.
+
+Please read the [README](https://github.com/lampajr/toolscip/blob/master/packages/scip-lib/README.md) for more details.
+
+## scdl-lib
+
+__version__: 1.0.0
+
+A JavaScript library for the [SCDL](https://github.com/floriandanielit/scdl), a JSON-based smart contract descriptor language.
+
+Please read the [README](https://github.com/lampajr/toolscip/blob/master/packages/scdl-lib/README.md) for more details.
+
+## clisc
+
+__version__: 1.0.0
+
+A [Node.js](https://nodejs.org/it/) command line interface that automates the SCIP requests invocation using the SCDL.
+
+Please read the [README](https://github.com/lampajr/toolscip/blob/master/packages/clisc/README.md) for more details.
