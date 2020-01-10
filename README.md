@@ -6,7 +6,7 @@ This toolkit provides three different packages:
 
 ## scip-lib
 
-**version**: 1.0.1
+**version**: 1.0.2
 
 A JavaScript parser library for the [SCIP](https://github.com/lampajr/scip) protocol.
 
