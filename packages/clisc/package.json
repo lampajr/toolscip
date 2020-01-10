@@ -48,7 +48,7 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/lampajr/toolscip/tree/master/packages/clisci#readme",
+  "homepage": "https://github.com/lampajr/toolscip/tree/master/packages/clisc#readme",
   "keywords": [
     "oclif",
     "SCIP",
