@@ -15,8 +15,8 @@
 
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { types, ScipRequest } from '@toolusci/scip-lib';
-import { Method } from '@toolusci/scdl-lib';
+import { types, ScipRequest } from '@toolscip/scip-lib';
+import { Method } from '@toolscip/scdl-lib';
 import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';

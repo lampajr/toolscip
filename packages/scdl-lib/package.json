@@ -1,5 +1,5 @@
 {
-  "name": "@toolusci/scdl-lib",
+  "name": "@toolscip/scdl-lib",
   "version": "1.0.0",
   "description": "Smart Contract Description Language api library",
   "keywords": [
@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@lampajr/jsonrpc-lib": "^1.0.0",
-    "@toolusci/scip-lib": "^1.0.0"
+    "@toolscip/scip-lib": "^1.0.0"
   },
   "devDependencies": {
     "prettier": "^1.19.1",

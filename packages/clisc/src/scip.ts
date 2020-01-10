@@ -1,7 +1,7 @@
 import { Input } from '@oclif/parser';
 import { CLIError } from '@oclif/errors';
-import { Contract } from '@toolusci/scdl-lib';
-import scip, { types, ScipRequest } from '@toolusci/scip-lib';
+import { Contract } from '@toolscip/scdl-lib';
+import scip, { types, ScipRequest } from '@toolscip/scip-lib';
 import { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
 import chalk = require('chalk');

@@ -15,7 +15,7 @@
 
 import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
-import { ISCDL } from '@toolusci/scdl-lib';
+import { ISCDL } from '@toolscip/scdl-lib';
 import * as fs from 'fs-extra';
 import { join } from 'path';
 import axios from 'axios';
