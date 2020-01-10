@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
-require('@oclif/command').run()
-.then(require('@oclif/command/flush'))
-.catch(require('@oclif/errors/handle'))
+// tslint:disable-next-line:no-var-requires
+require('@oclif/command')
+  .run()
+  // tslint:disable-next-line:no-var-requires
+  .then(require('@oclif/command/flush'))
+  // tslint:disable-next-line:no-var-requires
+  .catch(require('@oclif/errors/handle'));

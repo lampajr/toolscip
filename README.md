@@ -6,7 +6,7 @@ This toolkit provides three different packages:
 
 ## scip-lib
 
-__version__: 1.0.0
+**version**: 1.0.1
 
 A JavaScript parser library for the [SCIP](https://github.com/lampajr/scip) protocol.
 
@@ -14,7 +14,7 @@ Please read the [README](https://github.com/lampajr/toolscip/blob/master/package
 
 ## scdl-lib
 
-__version__: 1.0.0
+**version**: 1.0.1
 
 A JavaScript library for the [SCDL](https://github.com/floriandanielit/scdl), a JSON-based smart contract descriptor language.
 
@@ -22,7 +22,7 @@ Please read the [README](https://github.com/lampajr/toolscip/blob/master/package
 
 ## clisc
 
-__version__: 1.0.0
+**version**: 1.0.1
 
 A [Node.js](https://nodejs.org/it/) command line interface that automates the SCIP requests invocation using the SCDL.
 
