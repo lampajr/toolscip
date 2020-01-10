@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@toolusci/clisc</title>
+	<title>@toolscip/clisc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@toolusci/clisc</a>
+					<a href="index.html" class="title">@toolscip/clisc</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> @toolusci/clisc</h1>
+			<h1> @toolscip/clisc</h1>
 		</div>
 	</div>
 </header>
@@ -83,11 +83,11 @@
 					<h1>Usage</h1>
 				</a>
 				<!-- usage -->
-				<pre><code class="language-sh-session">$ npm install -g @toolusci/clisc
+				<pre><code class="language-sh-session">$ npm install -g @toolscip/clisc
 $ clisc COMMAND
 running command...
 $ clisc (-v|--version|version)
-@toolusci/clisc/1.0.0 linux-x64 node-v10.16.3
+@toolscip/clisc/1.0.0 linux-x64 node-v10.16.3
 $ clisc --help [COMMAND]
 USAGE
   $ clisc COMMAND
@@ -130,7 +130,14 @@ OPTIONS
 OPTIONS
   -h, --help       show init command help
   -p, <span class="hljs-attribute">--path</span>=path  provide a path where the<span class="hljs-built_in"> config </span>files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current directory is used
-  -s, --server     initialize a<span class="hljs-built_in"> simple </span><span class="hljs-string">'express.js'</span><span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> receive asynchronous responses</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts">dist/commands/init.ts</a></em></p>
+  -s, --server     initialize a<span class="hljs-built_in"> simple </span><span class="hljs-string">'express.js'</span><span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> receive asynchronous responses
+
+EXAMPLES
+  # Initialize the <span class="hljs-string">'clisc'</span> configuration files <span class="hljs-keyword">for</span> the current project
+  $ clisc init
+  # Initialize the <span class="hljs-string">'clisc'</span> configuration files <span class="hljs-keyword">for</span> the current project with a<span class="hljs-built_in"> simple </span>express.js<span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> the 
+  asynchronous responses
+  $ clisc init --server</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/init.ts">dist/commands/init.ts</a></em></p>
 				<a href="#codeclisc-invoke-contractcode" id="codeclisc-invoke-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc invoke CONTRACT</code></h2>
 				</a>
@@ -164,12 +171,12 @@ ARGUMENTS
                              this flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)
 
 EXAMPLES
-  # Suppose you want <span class="hljs-keyword">to</span> invoke a <span class="hljs-keyword">method</span> named <span class="hljs-string">'balanceOf'</span> <span class="hljs-keyword">of</span> a contract named <span class="hljs-string">'Token'</span>
-  $ clisc invoke Token -j abcdef -m balanceOf -v <span class="hljs-number">0x23ab34bd</span>..</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts">dist/commands/invoke.ts</a></em></p>
+  # Invoke a <span class="hljs-keyword">method</span> named <span class="hljs-string">'balanceOf'</span> <span class="hljs-keyword">of</span> a contract named <span class="hljs-string">'Token'</span>
+  $ clisc invoke Token -I abcdef <span class="hljs-comment">--method=balanceOf --value=0x23ab34bd..</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/invoke.ts">dist/commands/invoke.ts</a></em></p>
 				<a href="#codeclisc-query-contractcode" id="codeclisc-query-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc query CONTRACT</code></h2>
 				</a>
-				<p>query past event occurences or function invocations</p>
+				<p>query past event occurences or function invocations of a target smart contract</p>
 				<pre><code>USAGE
   $ clisc query CONTRACT
 
@@ -192,7 +199,13 @@ OPTIONS
   -s, <span class="hljs-attribute">--startTime</span>=startTime  start time <span class="hljs-keyword">from</span> which start considering event occurrences <span class="hljs-keyword">or</span> function invocations
 
   -v, <span class="hljs-attribute">--value</span>=value          target function <span class="hljs-keyword">or</span> event parameter<span class="hljs-string">'s value, if more than one value is required you can set
-                             this flag multiple times (the order is important!)</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts">dist/commands/query.ts</a></em></p>
+                             this flag multiple times (the order is important!)
+
+EXAMPLES
+  # Query past invocations of '</span>Token<span class="hljs-string">' contract'</span>s <span class="hljs-string">'balanceOf'</span> method
+  $ clisc query Token -I abcdefg <span class="hljs-attribute">--method</span>=balanceOf <span class="hljs-attribute">--value</span>=0x23f3ab3
+  # Query past occurrences of <span class="hljs-string">'Token'</span> contract<span class="hljs-string">'s '</span>Approval<span class="hljs-string">' event
+  $ clisc query Token -I abcdefg --event=Approval</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/query.ts">dist/commands/query.ts</a></em></p>
 				<a href="#codeclisc-scdladd-contractcode" id="codeclisc-scdladd-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc scdl:add CONTRACT</code></h2>
 				</a>
@@ -252,8 +265,9 @@ ARGUMENTS
   KEYWORD  keyword <span class="hljs-built_in">search</span>
 
 OPTIONS
-  -<span class="hljs-keyword">e</span>, --extended   retrieve ALL saved descriptors
+  -<span class="hljs-keyword">e</span>, --extended   <span class="hljs-keyword">display</span> <span class="hljs-keyword">all</span> saved descriptors
   -h, --<span class="hljs-keyword">help</span>       show scd<span class="hljs-variable">l:list</span> <span class="hljs-keyword">command</span> <span class="hljs-keyword">help</span>
+  -<span class="hljs-keyword">m</span>, --<span class="hljs-built_in">max</span>=<span class="hljs-built_in">max</span>    maximum <span class="hljs-keyword">number</span> of descriptors <span class="hljs-keyword">to</span> <span class="hljs-keyword">display</span>
   -<span class="hljs-keyword">p</span>, --path=path  provide <span class="hljs-keyword">a</span> path where the config <span class="hljs-keyword">files</span> are located, <span class="hljs-keyword">if</span> not <span class="hljs-keyword">set</span>, the current directory <span class="hljs-keyword">is</span> used
 
 ALIASES
@@ -263,10 +277,12 @@ ALIASES
   $ clisc scd<span class="hljs-variable">l:get</span>
 
 EXAMPLES
-  # <span class="hljs-keyword">list</span> <span class="hljs-keyword">a</span> summary of <span class="hljs-number">5</span> descriptors
+  # <span class="hljs-keyword">list</span> <span class="hljs-keyword">a</span> default <span class="hljs-keyword">number</span> of saved descriptors
   $ clisc scd<span class="hljs-variable">l:list</span>
   # <span class="hljs-keyword">list</span> <span class="hljs-keyword">all</span> saved descriptors
   $ clisc scd<span class="hljs-variable">l:list</span> --extended
+  # <span class="hljs-keyword">list</span> <span class="hljs-keyword">a</span> maximum of <span class="hljs-number">5</span> descriptors
+  $ clisc scd<span class="hljs-variable">l:list</span> --<span class="hljs-built_in">max</span> <span class="hljs-number">5</span>
   # <span class="hljs-keyword">list</span> <span class="hljs-keyword">all</span> descriptors that <span class="hljs-keyword">match</span> the provided keyword
   $ clisc scd<span class="hljs-variable">l:list</span> Token</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/scdl/list.ts">dist/commands/scdl/list.ts</a></em></p>
 				<a href="#codeclisc-subscribe-contractcode" id="codeclisc-subscribe-contractcode" style="color: inherit; text-decoration: none;">
@@ -293,7 +309,13 @@ ARGUMENTS
   -u, <span class="hljs-comment">--callback=callback  callback URL to which the gateway will send all asynchronous responses</span>
 
   -v, <span class="hljs-comment">--value=value        target function or event parameter's value, if more than one value is required you can set</span>
-                           this flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts">dist/commands/subscribe.ts</a></em></p>
+                           this flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)
+
+EXAMPLES
+  # Subscribe <span class="hljs-keyword">to</span> <span class="hljs-string">'Token'</span> contract<span class="hljs-string">'s '</span>balanceOf<span class="hljs-string">' method
+  $ clisc subscribe Token -I abcdefg --method=balanceOf --value=0x23f3ab3 --callback=http://mydomain.org
+  # Subscribe to '</span>Token<span class="hljs-string">' contract'</span>s <span class="hljs-string">'Approval'</span> event
+  $ clisc subscribe Token -I abcdefg <span class="hljs-comment">--event=Approval --callback=http://mydomain.org</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/subscribe.ts">dist/commands/subscribe.ts</a></em></p>
 				<a href="#codeclisc-unsubscribe-contractcode" id="codeclisc-unsubscribe-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc unsubscribe CONTRACT</code></h2>
 				</a>
@@ -315,7 +337,13 @@ ARGUMENTS
   -p, <span class="hljs-comment">--path=path      provide a path where the config files are located, if not set, the current directory is used</span>
 
   -v, <span class="hljs-comment">--val=val        target function or event parameter's value, if more than one value is required you can set this</span>
-                       flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts">dist/commands/unsubscribe.ts</a></em></p>
+                       flag multiple times (the <span class="hljs-keyword">order</span> <span class="hljs-keyword">is</span> important!)
+
+EXAMPLES
+  # Unsubscribe a previous <span class="hljs-keyword">subscription</span> <span class="hljs-keyword">to</span> a <span class="hljs-string">'Token'</span> contract<span class="hljs-string">'s '</span>balanceOf<span class="hljs-string">' method
+  $ clisc unsubscribe Token -I abcdefg --method=balanceOf
+  # Unsubscribe a previous subscription to a '</span>Token<span class="hljs-string">' contract'</span>s <span class="hljs-string">'Approval'</span> event
+  $ clisc unsubscribe Token -I abcdefg <span class="hljs-comment">--event=Approval</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts">dist/commands/unsubscribe.ts</a></em></p>
 				<!-- commandsstop -->
 			</div>
 		</div>
