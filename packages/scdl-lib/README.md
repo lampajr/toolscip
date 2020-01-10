@@ -1,7 +1,7 @@
 # `scdl-lib`
 
-![Version](https://www.npmjs.com/package/@toolscip/scdl-lib)
-![Downloads/week]](https://img.shields.io/npm/dw/@toolscip/scdl-lib)
+[![Version](https://img.shields.io/npm/v/@toolscip/scdl-lib)](https://www.npmjs.com/package/@toolscip/scdl-lib)
+[![Downloads/week](https://img.shields.io/npm/dw/@toolscip/scdl-lib)](https://www.npmjs.com/package/@toolscip/scdl-lib)
 ![License](https://img.shields.io/github/license/lampajr/toolscip)
 
 This library provides an programmatic way to interact with different smart contracts simply using their descriptors (i.e. [Smart Contract Description Language]()). The interaction is implemented with a [SCIP]() compliant communication, which is performed through the [scip-lib]() module.
