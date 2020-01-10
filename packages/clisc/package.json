@@ -1,7 +1,7 @@
 {
   "name": "@toolscip/clisc",
   "description": "Command Line Interface for Smart Contracts interaction",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "lampajr <lampa9559@gmail.com>",
   "bin": {
     "clisc": "./bin/run"
