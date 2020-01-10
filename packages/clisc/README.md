@@ -3,19 +3,21 @@
 Command Line Interface for Smart Contracts interaction
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/clisc.svg)](https://npmjs.org/package/clisc)
-[![Downloads/week](https://img.shields.io/npm/dw/clisc.svg)](https://npmjs.org/package/clisc)
-[![License](https://img.shields.io/npm/l/clisc.svg)](https://github.com/lampajr/toolscip/blob/master/package.json)
+![Version](https://www.npmjs.com/package/@toolscip/clisc)
+![Downloads/week](https://www.npmjs.com/package/@toolscip/clisc)
+![License](https://img.shields.io/github/license/lampajr/toolscip)
 
 <!-- toc -->
-* [clisc](#clisc)
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [clisc](#clisc)
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @toolscip/clisc
 $ clisc COMMAND
@@ -27,20 +29,22 @@ USAGE
   $ clisc COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`clisc help [COMMAND]`](#clisc-help-command)
-* [`clisc init`](#clisc-init)
-* [`clisc invoke CONTRACT`](#clisc-invoke-contract)
-* [`clisc query CONTRACT`](#clisc-query-contract)
-* [`clisc scdl:add CONTRACT`](#clisc-scdladd-contract)
-* [`clisc scdl:delete CONTRACT`](#clisc-scdldelete-contract)
-* [`clisc scdl:list [KEYWORD]`](#clisc-scdllist-keyword)
-* [`clisc subscribe CONTRACT`](#clisc-subscribe-contract)
-* [`clisc unsubscribe CONTRACT`](#clisc-unsubscribe-contract)
+
+- [`clisc help [COMMAND]`](#clisc-help-command)
+- [`clisc init`](#clisc-init)
+- [`clisc invoke CONTRACT`](#clisc-invoke-contract)
+- [`clisc query CONTRACT`](#clisc-query-contract)
+- [`clisc scdl:add CONTRACT`](#clisc-scdladd-contract)
+- [`clisc scdl:delete CONTRACT`](#clisc-scdldelete-contract)
+- [`clisc scdl:list [KEYWORD]`](#clisc-scdllist-keyword)
+- [`clisc subscribe CONTRACT`](#clisc-subscribe-contract)
+- [`clisc unsubscribe CONTRACT`](#clisc-unsubscribe-contract)
 
 ## `clisc help [COMMAND]`
 
@@ -75,7 +79,7 @@ OPTIONS
 EXAMPLES
   # Initialize the 'clisc' configuration files for the current project
   $ clisc init
-  # Initialize the 'clisc' configuration files for the current project with a simple express.js server for the 
+  # Initialize the 'clisc' configuration files for the current project with a simple express.js server for the
   asynchronous responses
   $ clisc init --server
 ```
@@ -322,4 +326,5 @@ EXAMPLES
 ```
 
 _See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.0/dist/commands/unsubscribe.ts)_
+
 <!-- commandsstop -->
