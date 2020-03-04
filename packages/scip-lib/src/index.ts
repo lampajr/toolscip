@@ -1,5 +1,5 @@
 /**
- * * Copyright * 2019 Andrea Lamparelli
+ * *Copyright* 2019 Andrea Lamparelli
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -167,10 +167,9 @@ function parseFunctionUnsubscription(obj: any): types.FunctionUnsubscription {
 function parseEventQuery(obj: any): types.EventQuery {
   validation.validateIdentifier(obj, 'eventId');
   validation.validateFilter(obj);
-  validation.validateTime(obj, false, 'startTime');
-  validation.validateTime(obj, false, 'endTime');
+  validation.validateTimeframe(obj, false);
   const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.EventQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
+  return new types.EventQuery(obj.functionId, params, obj.filter, obj.timeframe);
 }
 
 /**
@@ -182,10 +181,9 @@ function parseEventQuery(obj: any): types.EventQuery {
 function parseFunctionQuery(obj: any): types.FunctionQuery {
   validation.validateIdentifier(obj, 'functionId');
   validation.validateFilter(obj);
-  validation.validateTime(obj, false, 'startTime');
-  validation.validateTime(obj, false, 'endTime');
+  validation.validateTimeframe(obj, false);
   const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.FunctionQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
+  return new types.FunctionQuery(obj.functionId, params, obj.filter, obj.timeframe);
 }
 
 /**

@@ -250,18 +250,22 @@ export function validateSignature(obj: any, required = false): void {
 }
 
 /**
- * Validate the ISO time of an object, either startTime or endTime
+ * Validate the timeframe of an object
  * @param obj parent object
- * @param required if the time member is required or not
- * @param name field's name, either 'startTime' (default) or 'endTime'
+ * @param required if the timeframe member is required or not
  * @throws [[ErrorObject]] Parse Error
  */
-export function validateTime(obj: any, required = false, name = 'startTime'): void {
-  if (required && !hasOwnProperty.call(obj, name)) {
-    throw types.ScipErrorObject.parseError(`${name} is missing, but it is required!`);
+export function validateTimeframe(obj: any, required = false): void {
+  if (required && !hasOwnProperty.call(obj, 'timeframe')) {
+    throw types.ScipErrorObject.parseError('Timeframe is missing, but it is required!');
   }
-  if (hasOwnProperty.call(obj, name) && !isString(obj[name])) {
-    throw types.ScipErrorObject.parseError(`The ${name}, if present, MUST be of string type!`);
+  if (hasOwnProperty.call(obj, 'timeframe')) {
+    if (!hasOwnProperty.call(obj.timeframe, 'from') || !hasOwnProperty.call(obj.timeframe, 'to')) {
+      throw types.ScipErrorObject.parseError(`Timeframe invalid structure, it must have "from" and "to" properties!`);
+    }
+    if (!isString(obj.timeframe.from) || !isString(obj.timeframe.to)) {
+      throw types.ScipErrorObject.parseError(`Timeframe properties "from" and "to" MUST be of string type!`);
+    }
   }
 }
 
