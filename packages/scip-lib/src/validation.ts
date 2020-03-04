@@ -51,7 +51,7 @@ function isUrl(str: string): boolean {
 /**
  * Validates if the type is a valid scip abstract type
  * @param obj parent object
- * @param required if the params member is required or not
+ * @param required if the parameters member is required or not
  * @throws [[ErrorObject]] Parse Error
  */
 export function validateType(obj: any, required = true): void {
@@ -61,20 +61,23 @@ export function validateType(obj: any, required = true): void {
 
   if (hasOwnProperty.call(obj, 'type')) {
     const type = obj.type;
-    if (!isObject(type)) {
-      throw types.ScipErrorObject.parseError("Parameter's type MUST be an object!");
+    if (!isString(type)) {
+      throw types.ScipErrorObject.parseError("Parameter's type MUST be of string type!");
     }
-    if (!hasOwnProperty.call(type, 'type')) {
-      throw types.ScipErrorObject.parseError("A parameter's type MUST have an inner 'type' field, but it is missing!");
-    }
+    // if (!isObject(type)) {
+    //   throw types.ScipErrorObject.parseError("Parameter's type MUST be an object!");
+    // }
+    // if (!hasOwnProperty.call(type, 'type')) {
+    //   throw types.ScipErrorObject.parseError("A parameter's type MUST have an inner 'type' field, but it is missing!");
+    // }
   }
 }
 
 /**
- * Validate the params member of an object
+ * Validate the parameters member of an object
  * @param obj parent object
- * @param required if the params member is required or not
- * @param name params type: 'inputs', 'outputs' or generic 'params'
+ * @param required if the parameters member is required or not
+ * @param name parameters type: 'inputs', 'outputs' or generic 'parameters'
  * @throws [[ErrorObject]] Parse Error
  */
 export function validateParams(obj: any, name: string, required: boolean = true): void {
@@ -147,10 +150,10 @@ export function validateOccurrences(obj: any, required = true): void {
 /**
  * Checks if the object has valid identifier, either function or event
  * @param obj object to validate
- * @param name name of the field's identifier, default 'functionId'
+ * @param name name of the field's identifier, default 'functionIdentifier'
  * @throws [[ErrorObject]] Parse Error
  */
-export function validateIdentifier(obj: any, name = 'functionId'): void {
+export function validateIdentifier(obj: any, name = 'functionIdentifier'): void {
   if (!hasOwnProperty.call(obj, name)) {
     throw types.ScipErrorObject.parseError(`The ${name} is missing, but it is required!`);
   }
@@ -270,17 +273,17 @@ export function validateTimeframe(obj: any, required = false): void {
 }
 
 /**
- * Validate the timestamp of an object
+ * Validate the isoTimestamp of an object
  * @param obj parent object
- * @param required if the timestamp member is required or not
+ * @param required if the isoTimestamp member is required or not
  * @throws [[ErrorObject]] Parse Error
  */
 export function validateTimestamp(obj: any, required = false): void {
-  if (required && !hasOwnProperty.call(obj, 'timestamp')) {
+  if (required && !hasOwnProperty.call(obj, 'isoTimestamp')) {
     throw types.ScipErrorObject.parseError(`Timestamp is missing, but it is required!`);
   }
-  if (hasOwnProperty.call(obj, 'timestamp') && !isString(obj.timestamp)) {
-    throw types.ScipErrorObject.parseError(`The timestamp, if present, MUST be of string type!`);
+  if (hasOwnProperty.call(obj, 'isoTimestamp') && !isString(obj.isoTimestamp)) {
+    throw types.ScipErrorObject.parseError(`The isoTimestamp, if present, MUST be of string type!`);
   }
 }
 

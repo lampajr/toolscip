@@ -23,13 +23,13 @@
  * *eventIdentifier* :                  the name of the function
  * *inputs* :                   a list of function input parameters
  * *outputs* :                  a list of function/event output parameters
- * *params* :                   a list of parameters
+ * *parameters* :                   a list of parameters
  * *callbackUrl* :                 the URL to which the Callback message must be sent by the server
  * *correlationIdentifier* :    a client-provided correlation identifier
  * *doc* :       the degree of confidence required from the transaction to be considered as premanent by the client
  * *timeout* :                  the number of seconds the gateway should wait for the transaction to gain the required degree of confidence
  * *signature* :                the client's base 64-encoded signature of the content of a request message
- * *timestamp* :                the UTC time at which an occurrence happened
+ * *isoTimestamp* :                the UTC time at which an occurrence happened
  * *startTime* :                start time from which consider the event occurrences or function invocations
  * *endTime* :                  end time from which consider the event occurrences or function invocations
  * *filter* :                   a C-style boolean expression over parameters
@@ -104,20 +104,26 @@ export class Invocation {
 }
 
 /**
- * The Subscription objectis used as jsonrpc params member for
+ * The Subscription objectis used as jsonrpc parameters member for
  * the **subscribe** scip method, there two kind of subscription:
  * the *event* one, which addiotionally contains an eventIdentifier, and a
  * *function* one, which includes a functionIdentifier instead.
  */
 class Subscription {
-  params: Parameter[];
+  parameters: Parameter[];
   callbackUrl: string;
   doc: number;
   correlationIdentifier?: string;
   filter?: string;
 
-  constructor(params: Parameter[], callbackUrl: string, doc: number, correlationIdentifier?: string, filter?: string) {
-    this.params = params;
+  constructor(
+    parameters: Parameter[],
+    callbackUrl: string,
+    doc: number,
+    correlationIdentifier?: string,
+    filter?: string,
+  ) {
+    this.parameters = parameters;
     this.callbackUrl = callbackUrl;
     this.correlationIdentifier = correlationIdentifier;
     this.doc = doc;
@@ -133,13 +139,13 @@ export class EventSubscription extends Subscription {
 
   constructor(
     eventIdentifier: string,
-    params: Parameter[],
+    parameters: Parameter[],
     callbackUrl: string,
     doc: number,
     correlationIdentifier?: string,
     filter?: string,
   ) {
-    super(params, callbackUrl, doc, correlationIdentifier, filter);
+    super(parameters, callbackUrl, doc, correlationIdentifier, filter);
     this.eventIdentifier = eventIdentifier;
   }
 }
@@ -152,29 +158,29 @@ export class FunctionSubscription extends Subscription {
 
   constructor(
     functionIdentifier: string,
-    params: Parameter[],
+    parameters: Parameter[],
     callbackUrl: string,
     doc: number,
     correlationIdentifier?: string,
     filter?: string,
   ) {
-    super(params, callbackUrl, doc, correlationIdentifier, filter);
+    super(parameters, callbackUrl, doc, correlationIdentifier, filter);
     this.functionIdentifier = functionIdentifier;
   }
 }
 
 /**
- * The Unsubscription object is used as jsonrpc params member for
+ * The Unsubscription object is used as jsonrpc parameters member for
  * the **unsubscribe** scip method, there two kind of unsubscription:
  * the *event* one, which addiotionally contains an eventIdentifier, and a
  * *function* one, which includes a functionIdentifier instead.
  */
 class Unsubscription {
-  params: Parameter[];
+  parameters: Parameter[];
   correlationIdentifier?: string;
 
-  constructor(params: Parameter[], correlationIdentifier?: string) {
-    this.params = params;
+  constructor(parameters: Parameter[], correlationIdentifier?: string) {
+    this.parameters = parameters;
     this.correlationIdentifier = correlationIdentifier;
   }
 }
@@ -185,8 +191,8 @@ class Unsubscription {
 export class EventUnsubscription extends Unsubscription {
   eventIdentifier: string;
 
-  constructor(eventIdentifier: string, params: Parameter[], correlationIdentifier?: string) {
-    super(params, correlationIdentifier);
+  constructor(eventIdentifier: string, parameters: Parameter[], correlationIdentifier?: string) {
+    super(parameters, correlationIdentifier);
     this.eventIdentifier = eventIdentifier;
   }
 }
@@ -197,8 +203,8 @@ export class EventUnsubscription extends Unsubscription {
 export class FunctionUnsubscription extends Unsubscription {
   functionIdentifier: string;
 
-  constructor(functionIdentifier: string, params: Parameter[], correlationIdentifier?: string) {
-    super(params, correlationIdentifier);
+  constructor(functionIdentifier: string, parameters: Parameter[], correlationIdentifier?: string) {
+    super(parameters, correlationIdentifier);
     this.functionIdentifier = functionIdentifier;
   }
 }
@@ -218,17 +224,17 @@ class Timeframe {
 }
 
 /**
- * The Query object is used as jsonrpc params for the **query** scip method,
+ * The Query object is used as jsonrpc parameters for the **query** scip method,
  * contains helpful information that allow the server to understand what
  * previous occurrences select and return.
  */
 class Query {
-  params: Parameter[];
+  parameters: Parameter[];
   filter?: string;
   timeframe?: Timeframe;
 
-  constructor(params: Parameter[], filter?: string, timeframe?: Timeframe) {
-    this.params = params;
+  constructor(parameters: Parameter[], filter?: string, timeframe?: Timeframe) {
+    this.parameters = parameters;
     this.filter = filter;
     this.timeframe = timeframe;
   }
@@ -240,8 +246,8 @@ class Query {
 export class EventQuery extends Query {
   eventIdentifier: string;
 
-  constructor(eventIdentifier: string, params: Parameter[], filter?: string, timeframe?: Timeframe) {
-    super(params, filter, timeframe);
+  constructor(eventIdentifier: string, parameters: Parameter[], filter?: string, timeframe?: Timeframe) {
+    super(parameters, filter, timeframe);
     this.eventIdentifier = eventIdentifier;
   }
 }
@@ -252,8 +258,8 @@ export class EventQuery extends Query {
 export class FunctionQuery extends Query {
   functionIdentifier: string;
 
-  constructor(functionIdentifier: string, params: Parameter[], filter?: string, timeframe?: Timeframe) {
-    super(params, filter, timeframe);
+  constructor(functionIdentifier: string, parameters: Parameter[], filter?: string, timeframe?: Timeframe) {
+    super(parameters, filter, timeframe);
     this.functionIdentifier = functionIdentifier;
   }
 }
@@ -272,16 +278,16 @@ export class QueryResult {
 }
 
 /**
- * Single Occurrence which contains the timestamp when it has occurred
+ * Single Occurrence which contains the isoTimestamp when it has occurred
  * with the values of their returned values or input parameters.
  */
 export class Occurrence {
-  params: Parameter[];
-  timestamp: string;
+  parameters: Parameter[];
+  isoTimestamp: string;
 
-  constructor(params: Parameter[], timestamp: string) {
-    this.params = params;
-    this.timestamp = timestamp;
+  constructor(parameters: Parameter[], isoTimestamp: string) {
+    this.parameters = parameters;
+    this.isoTimestamp = isoTimestamp;
   }
 }
 
@@ -293,48 +299,48 @@ export class Occurrence {
  * monitoring has produced some results.
  */
 export class Callback {
-  params: Parameter[];
-  timestamp: string;
+  parameters: Parameter[];
+  isoTimestamp: string;
   correlationIdentifier?: string;
 
-  constructor(params: Parameter[], timestamp: string, correlationIdentifier?: string) {
-    this.params = params;
+  constructor(parameters: Parameter[], isoTimestamp: string, correlationIdentifier?: string) {
+    this.parameters = parameters;
     this.correlationIdentifier = correlationIdentifier;
-    this.timestamp = timestamp;
+    this.isoTimestamp = isoTimestamp;
   }
 }
 
 /******************************************** SCIP Messages ********************************************/
 
 export class ScipInvocation extends JsonRpcRequest {
-  constructor(id: Id, params: Invocation) {
-    super(id, 'Invoke', params);
+  constructor(id: Id, parameters: Invocation) {
+    super(id, 'Invoke', parameters);
   }
 }
 
 export class ScipSubscription extends JsonRpcRequest {
-  constructor(id: Id, params: Subscription) {
-    super(id, 'Subscribe', params);
+  constructor(id: Id, parameters: Subscription) {
+    super(id, 'Subscribe', parameters);
   }
 }
 
 export class ScipUnsubscription extends JsonRpcRequest {
-  constructor(id: Id, params: Unsubscription) {
-    super(id, 'Unsubscribe', params);
+  constructor(id: Id, parameters: Unsubscription) {
+    super(id, 'Unsubscribe', parameters);
   }
 }
 
 export class ScipQuery extends JsonRpcRequest {
-  constructor(id: Id, params: Query) {
-    super(id, 'Query', params);
+  constructor(id: Id, parameters: Query) {
+    super(id, 'Query', parameters);
   }
 }
 
 export class ScipCallback extends JsonRpcNotification {
   static validMethod = 'ReceiveCallback';
 
-  constructor(params: Callback) {
-    super('ReceiveCallback', params);
+  constructor(parameters: Callback) {
+    super('ReceiveCallback', parameters);
   }
 }
 
