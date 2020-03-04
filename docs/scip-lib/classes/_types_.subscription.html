@@ -74,8 +74,8 @@
 					<div class="lead">
 						<p>The Subscription objectis used as jsonrpc params member for
 							the <strong>subscribe</strong> scip method, there two kind of subscription:
-							the <em>event</em> one, which addiotionally contains an eventId, and a
-						<em>function</em> one, which includes a functionId instead.</p>
+							the <em>event</em> one, which addiotionally contains an eventIdentifier, and a
+						<em>function</em> one, which includes a functionIdentifier instead.</p>
 					</div>
 				</div>
 			</section>
@@ -108,8 +108,8 @@
 						<section class="tsd-index-section tsd-is-not-exported">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_types_.subscription.html#callback" class="tsd-kind-icon">callback</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_types_.subscription.html#corrid" class="tsd-kind-icon">corr<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_types_.subscription.html#callbackurl" class="tsd-kind-icon">callback<wbr>Url</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_types_.subscription.html#correlationidentifier" class="tsd-kind-icon">correlation<wbr>Identifier</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_types_.subscription.html#doc" class="tsd-kind-icon">doc</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_types_.subscription.html#filter" class="tsd-kind-icon">filter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_types_.subscription.html#params" class="tsd-kind-icon">params</a></li>
@@ -124,13 +124,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Subscription<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="_types_.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol">[]</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, corrId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, doc<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, filter<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_types_.subscription.html" class="tsd-signature-type">Subscription</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Subscription<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="_types_.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol">[]</span>, callbackUrl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, doc<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, correlationIdentifier<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, filter<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_types_.subscription.html" class="tsd-signature-type">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/scip-lib/src/types.ts#L117">src/types.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/ef1ef29/packages/scip-lib/src/types.ts#L117">src/types.ts:117</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -139,13 +139,13 @@
 									<h5>params: <a href="_types_.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol">[]</span></h5>
 								</li>
 								<li>
-									<h5>callback: <span class="tsd-signature-type">string</span></h5>
+									<h5>callbackUrl: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> corrId: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5>doc: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> doc: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> correlationIdentifier: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> filter: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
@@ -159,32 +159,32 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-					<a name="callback" class="tsd-anchor"></a>
-					<h3>callback</h3>
-					<div class="tsd-signature tsd-kind-icon">callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="callbackurl" class="tsd-anchor"></a>
+					<h3>callback<wbr>Url</h3>
+					<div class="tsd-signature tsd-kind-icon">callback<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/scip-lib/src/types.ts#L114">src/types.ts:114</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/ef1ef29/packages/scip-lib/src/types.ts#L114">src/types.ts:114</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-					<a name="corrid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> corr<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">corr<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<a name="correlationidentifier" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> correlation<wbr>Identifier</h3>
+					<div class="tsd-signature tsd-kind-icon">correlation<wbr>Identifier<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/scip-lib/src/types.ts#L115">src/types.ts:115</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/ef1ef29/packages/scip-lib/src/types.ts#L116">src/types.ts:116</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 					<a name="doc" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> doc</h3>
-					<div class="tsd-signature tsd-kind-icon">doc<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<h3>doc</h3>
+					<div class="tsd-signature tsd-kind-icon">doc<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/scip-lib/src/types.ts#L116">src/types.ts:116</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/ef1ef29/packages/scip-lib/src/types.ts#L115">src/types.ts:115</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/scip-lib/src/types.ts#L117">src/types.ts:117</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/ef1ef29/packages/scip-lib/src/types.ts#L117">src/types.ts:117</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -204,7 +204,7 @@
 					<div class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">:</span> <a href="_types_.parameter.html" class="tsd-signature-type">Parameter</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/scip-lib/src/types.ts#L113">src/types.ts:113</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/ef1ef29/packages/scip-lib/src/types.ts#L113">src/types.ts:113</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -301,10 +301,10 @@
 								<a href="_types_.subscription.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_types_.subscription.html#callback" class="tsd-kind-icon">callback</a>
+								<a href="_types_.subscription.html#callbackurl" class="tsd-kind-icon">callback<wbr>Url</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
-								<a href="_types_.subscription.html#corrid" class="tsd-kind-icon">corr<wbr>Id</a>
+								<a href="_types_.subscription.html#correlationidentifier" class="tsd-kind-icon">correlation<wbr>Identifier</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_types_.subscription.html#doc" class="tsd-kind-icon">doc</a>
@@ -319,6 +319,9 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_types_.timeframe.html" class="tsd-kind-icon">Timeframe</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_types_.unsubscription.html" class="tsd-kind-icon">Unsubscription</a>
 					</li>

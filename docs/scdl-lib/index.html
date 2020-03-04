@@ -67,6 +67,9 @@
 				<a href="#codescdl-libcode" id="codescdl-libcode" style="color: inherit; text-decoration: none;">
 					<h1><code>scdl-lib</code></h1>
 				</a>
+				<p><a href="https://www.npmjs.com/package/@toolscip/scdl-lib"><img src="https://img.shields.io/npm/v/@toolscip/scdl-lib" alt="Version"></a>
+					<a href="https://www.npmjs.com/package/@toolscip/scdl-lib"><img src="https://img.shields.io/npm/dw/@toolscip/scdl-lib" alt="Downloads/week"></a>
+				<img src="https://img.shields.io/github/license/lampajr/toolscip" alt="License"></p>
 				<p>This library provides an programmatic way to interact with different smart contracts simply using their descriptors (i.e. <a href="">Smart Contract Description Language</a>). The interaction is implemented with a <a href="">SCIP</a> compliant communication, which is performed through the <a href="">scip-lib</a> module.</p>
 				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
 					<h2>Table of Contents</h2>
@@ -82,7 +85,7 @@
 					<h2>Installation</h2>
 				</a>
 				<p>This package can be installed via <a href="https://www.npmjs.com/">npm</a> as follow:</p>
-				<pre><code class="language-bash">npm install --save @lampajr/scdl-lib</code></pre>
+				<pre><code class="language-bash">npm install --save @toolscip/scdl-lib</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
@@ -105,7 +108,7 @@
 				<p>Now once you have created the <code>Contract</code> object, you can easily access its functions and events simply accessing the <code>methods</code> and <code>events</code> property respectively.</p>
 				<pre><code class="language-typescript">contract.methods; <span class="hljs-comment">// all contract's functions</span></code></pre>
 				<pre><code class="language-typescript">contract.events; <span class="hljs-comment">// all contract's events</span></code></pre>
-				<p>Suppose that you want to invoke a specific function (e.g. named &#39;send&#39;), then you just have to use its name as property of the <code>contract.methods</code> object and then call the <code>invoke</code> [^1]function on it. </p>
+				<p>Suppose that you want to invoke a specific function (e.g. named &#39;send&#39;), then you just have to use its name as property of the <code>contract.methods</code> object and then call the <code>invoke</code> [^1]function on it.</p>
 				<pre><code class="language-typescript"><span class="hljs-comment">// performs a SCIP invocation request</span>
 contract.methods.send
   .invoke(<span class="hljs-comment">/*...*/</span>)
@@ -116,7 +119,7 @@ contract.methods.send
     <span class="hljs-comment">// ...</span>
   });</code></pre>
 				<p>In addition this library provides an interface definition of an <em>SCDL descriptor</em> object, which can be imported as follow:</p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { ISCDL } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span></code></pre>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { ISCDL } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span>;</code></pre>
 				<p>[^1]: In order to understand how to correctly invoke, subscribe, unsubscribe and query specific functions and/or events please refer to the <a href="https://github.com/lampajr/toolscip/tree/master/packages/scip-lib">scip-lib</a> documentation, which fully describe the meaning of all required parameters.</p>
 				<a href="#scdl-specification" id="scdl-specification" style="color: inherit; text-decoration: none;">
 					<h2>SCDL Specification</h2>
@@ -129,96 +132,98 @@ contract.methods.send
 				</a>
 				<p>Given an <em>SCDL</em> descriptor</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> model = {
-    <span class="hljs-string">"scdl_version"</span> : <span class="hljs-string">"1.0"</span>,
-    <span class="hljs-string">"name"</span> : <span class="hljs-string">"Token"</span>,
-    <span class="hljs-string">"version"</span> : <span class="hljs-string">"^0.4.18"</span>,
-    <span class="hljs-string">"latest_url"</span> : <span class="hljs-string">""</span>,
-    <span class="hljs-string">"author"</span> : <span class="hljs-string">"0xBfE4aA5c37D223EEBe0A1F7111556Ae49bE0dcD2"</span>,
-    <span class="hljs-string">"description"</span> : <span class="hljs-string">"Contract token implementation following the ERC20 standars, the new created token is called ZIL"</span>,
-    <span class="hljs-string">"created_on"</span> : <span class="hljs-string">"Jan-12-2018 09:44:42 AM +UTC"</span>,
-    <span class="hljs-string">"updated_on"</span> : <span class="hljs-string">"Jan-12-2018 09:44:42 AM +UTC"</span>,
-    <span class="hljs-string">"scl"</span> : <span class="hljs-string">"http://localhost:3000?blockchain=ethereum&amp;blockchain-id=eth-mainnet&amp;address=0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27"</span>,
-    <span class="hljs-string">"internal_address"</span> : <span class="hljs-string">"0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27"</span>,
-    <span class="hljs-string">"blockchain_type"</span> : <span class="hljs-string">"ethereum"</span>,
-    <span class="hljs-string">"blockchain_version"</span> : <span class="hljs-string">"v0.4.18+commit.9cf6e910"</span>,
-    <span class="hljs-string">"metadata"</span> : <span class="hljs-string">"https://etherscan.io/address/0x05f4a42e251f2d52b8ed15e9fedaacfcef1fad27#code"</span>,
-    <span class="hljs-string">"hash"</span> : <span class="hljs-string">"b311edaec5a164050cede3219bf28cc6ce4c0ca43b8bf34d6fd309fb60c4d1d8  -"</span>,
-    <span class="hljs-string">"is_stateful"</span> : <span class="hljs-literal">true</span>,
-    <span class="hljs-string">"lifecycle"</span> : <span class="hljs-string">"ready"</span>,
-    <span class="hljs-string">"functions"</span> : [
+  scdl_version: <span class="hljs-string">'1.0'</span>,
+  name: <span class="hljs-string">'Token'</span>,
+  version: <span class="hljs-string">'^0.4.18'</span>,
+  latest_url: <span class="hljs-string">''</span>,
+  author: <span class="hljs-string">'0xBfE4aA5c37D223EEBe0A1F7111556Ae49bE0dcD2'</span>,
+  description: <span class="hljs-string">'Contract token implementation following the ERC20 standars, the new created token is called ZIL'</span>,
+  created_on: <span class="hljs-string">'Jan-12-2018 09:44:42 AM +UTC'</span>,
+  updated_on: <span class="hljs-string">'Jan-12-2018 09:44:42 AM +UTC'</span>,
+  scl:
+    <span class="hljs-string">'http://localhost:3000?blockchain=ethereum&amp;blockchain-id=eth-mainnet&amp;address=0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27'</span>,
+  internal_address: <span class="hljs-string">'0x05f4a42e251f2d52b8ed15E9FEdAacFcEF1FAD27'</span>,
+  blockchain_type: <span class="hljs-string">'ethereum'</span>,
+  blockchain_version: <span class="hljs-string">'v0.4.18+commit.9cf6e910'</span>,
+  metadata: <span class="hljs-string">'https://etherscan.io/address/0x05f4a42e251f2d52b8ed15e9fedaacfcef1fad27#code'</span>,
+  hash: <span class="hljs-string">'b311edaec5a164050cede3219bf28cc6ce4c0ca43b8bf34d6fd309fb60c4d1d8  -'</span>,
+  is_stateful: <span class="hljs-literal">true</span>,
+  lifecycle: <span class="hljs-string">'ready'</span>,
+  functions: [
+    {
+      name: <span class="hljs-string">'balanceOf'</span>,
+      description:
+        <span class="hljs-string">'* @dev Gets the balance of the specified address. @param _owner The address to query the the balance of. @return An uint256 representing the amount owned by the passed address.'</span>,
+      scope: <span class="hljs-string">'public'</span>,
+      has_side_effects: <span class="hljs-literal">false</span>,
+      inputs: [
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"balanceOf"</span>,
-            <span class="hljs-string">"description"</span> : <span class="hljs-string">"* @dev Gets the balance of the specified address. @param _owner The address to query the the balance of. @return An uint256 representing the amount owned by the passed address."</span>,
-            <span class="hljs-string">"scope"</span> : <span class="hljs-string">"public"</span>,
-            <span class="hljs-string">"has_side_effects"</span> : <span class="hljs-literal">false</span>,
-            <span class="hljs-string">"inputs"</span> : [
-                {
-                    <span class="hljs-string">"name"</span>: <span class="hljs-string">"_owner"</span>,
-                    <span class="hljs-string">"type"</span> : {
-                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-                        <span class="hljs-string">"pattern"</span>: <span class="hljs-string">"^0x[a-fA-F0-9]{40}$"</span>
-                    }
-                }
-            ],
-            <span class="hljs-string">"outputs"</span> : [
-                {
-                    <span class="hljs-string">"name"</span>: <span class="hljs-string">""</span>,
-                    <span class="hljs-string">"type"</span>: {
-                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"integer"</span>,
-                         <span class="hljs-string">"minimum"</span>: <span class="hljs-number">0</span>,
-                         <span class="hljs-string">"maximum"</span>: <span class="hljs-string">"2^256 - 1"</span>
-                    }
-                }
-            ],
-            <span class="hljs-string">"events"</span> : [],
-            <span class="hljs-string">"dispatcher"</span> : <span class="hljs-string">""</span>
-        }
-    ],
-    <span class="hljs-string">"events"</span> : [
+          name: <span class="hljs-string">'_owner'</span>,
+          <span class="hljs-keyword">type</span>: {
+            <span class="hljs-keyword">type</span>: <span class="hljs-string">'string'</span>,
+            pattern: <span class="hljs-string">'^0x[a-fA-F0-9]{40}$'</span>,
+          },
+        },
+      ],
+      outputs: [
         {
-            <span class="hljs-string">"name"</span> : <span class="hljs-string">"Transfer"</span>,
-            <span class="hljs-string">"description"</span> : <span class="hljs-string">"Triggered when tokens are transferred"</span>,
-            <span class="hljs-string">"outputs"</span> : [
-                {
-                    <span class="hljs-string">"name"</span> : <span class="hljs-string">"from"</span>,
-                    <span class="hljs-string">"type"</span> : {
-                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-                        <span class="hljs-string">"pattern"</span>: <span class="hljs-string">"^0x[a-fA-F0-9]{40}$"</span>
-                    },
-                    <span class="hljs-string">"is_indexed"</span> : <span class="hljs-literal">true</span>
-                },
-                {
-                    <span class="hljs-string">"name"</span> : <span class="hljs-string">"to"</span>,
-                    <span class="hljs-string">"type"</span> : {
-                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"string"</span>,
-                        <span class="hljs-string">"pattern"</span>: <span class="hljs-string">"^0x[a-fA-F0-9]{40}$"</span>
-                    },
-                    <span class="hljs-string">"is_indexed"</span> : <span class="hljs-literal">true</span>
-                },
-                {
-                    <span class="hljs-string">"name"</span> : <span class="hljs-string">"value"</span>,
-                    <span class="hljs-string">"type"</span>: {
-                        <span class="hljs-string">"type"</span>: <span class="hljs-string">"integer"</span>,
-                         <span class="hljs-string">"minimum"</span>: <span class="hljs-number">0</span>,
-                         <span class="hljs-string">"maximum"</span>: <span class="hljs-string">"2^256 - 1"</span>
-                    },
-                    <span class="hljs-string">"is_indexed"</span> : <span class="hljs-literal">false</span>
-                }
-            ]
-        }
-    ]
-}</code></pre>
+          name: <span class="hljs-string">''</span>,
+          <span class="hljs-keyword">type</span>: {
+            <span class="hljs-keyword">type</span>: <span class="hljs-string">'integer'</span>,
+            minimum: <span class="hljs-number">0</span>,
+            maximum: <span class="hljs-string">'2^256 - 1'</span>,
+          },
+        },
+      ],
+      events: [],
+      dispatcher: <span class="hljs-string">''</span>,
+    },
+  ],
+  events: [
+    {
+      name: <span class="hljs-string">'Transfer'</span>,
+      description: <span class="hljs-string">'Triggered when tokens are transferred'</span>,
+      outputs: [
+        {
+          name: <span class="hljs-string">'from'</span>,
+          <span class="hljs-keyword">type</span>: {
+            <span class="hljs-keyword">type</span>: <span class="hljs-string">'string'</span>,
+            pattern: <span class="hljs-string">'^0x[a-fA-F0-9]{40}$'</span>,
+          },
+          is_indexed: <span class="hljs-literal">true</span>,
+        },
+        {
+          name: <span class="hljs-string">'to'</span>,
+          <span class="hljs-keyword">type</span>: {
+            <span class="hljs-keyword">type</span>: <span class="hljs-string">'string'</span>,
+            pattern: <span class="hljs-string">'^0x[a-fA-F0-9]{40}$'</span>,
+          },
+          is_indexed: <span class="hljs-literal">true</span>,
+        },
+        {
+          name: <span class="hljs-string">'value'</span>,
+          <span class="hljs-keyword">type</span>: {
+            <span class="hljs-keyword">type</span>: <span class="hljs-string">'integer'</span>,
+            minimum: <span class="hljs-number">0</span>,
+            maximum: <span class="hljs-string">'2^256 - 1'</span>,
+          },
+          is_indexed: <span class="hljs-literal">false</span>,
+        },
+      ],
+    },
+  ],
+};</code></pre>
 				<p>You can just create the contract object by simply using the <em>new</em> keyword on the <code>Contract</code> class providing the descriptor as parameter.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { Contract } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span>;
 
-<span class="hljs-keyword">const</span> contract = <span class="hljs-keyword">new</span> Contract(model); 
+<span class="hljs-keyword">const</span> contract = <span class="hljs-keyword">new</span> Contract(model);
 
 <span class="hljs-comment">/* Retrieve the function object */</span>
 contract.methods.balanceOf;
 
 <span class="hljs-comment">/* Retrieve the event object */</span>
 contract.events.Transfer;</code></pre>
-				<p>On these last objects (i.e.  <code>Method</code> and <code>Event</code>) you can call perform all allowed <em>SCIP</em> operations, such as invocation (only for methods), subscription, unsubscription and query.</p>
+				<p>On these last objects (i.e. <code>Method</code> and <code>Event</code>) you can call perform all allowed <em>SCIP</em> operations, such as invocation (only for methods), subscription, unsubscription and query.</p>
 				<pre><code class="language-typescript"><span class="hljs-comment">/* Invoke a method/function */</span>
 contract.methods.balanceOf.invoke(<span class="hljs-comment">/*...*/</span>)
     .then(res) {
