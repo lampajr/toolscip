@@ -17,7 +17,6 @@ import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { types, ScipRequest } from '@toolscip/scip-lib';
 import { Method } from '@toolscip/scdl-lib';
-import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';
 
@@ -42,7 +41,7 @@ export default class Invoke extends ScipCommand {
 
   static args = [...ScipCommand.args];
 
-  fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+  fromFlags() {
     if (this.flags.method === undefined) {
       throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);
     }
@@ -65,14 +64,14 @@ export default class Invoke extends ScipCommand {
       this.flags.method,
       this.flags.value !== undefined ? this.flags.value : [],
       this.flags.signature,
+      this.flags.doc,
       this.flags.callback,
       this.flags.corrId,
-      this.flags.doc,
       this.flags.timeout,
     );
   }
 
-  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+  async fromFile() {
     if (this.contract === undefined) {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
@@ -89,7 +88,7 @@ export default class Invoke extends ScipCommand {
       throw new CLIError('Invalid SCIP Invocation request');
     } else {
       // retrieve the function/event to query
-      const method: Method = this.contract.methods[(request.params as types.Invocation).functionId];
+      const method: Method = this.contract.methods[(request.params as types.Invocation).functionIdentifier];
 
       return method.request(request);
     }

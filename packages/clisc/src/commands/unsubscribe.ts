@@ -17,7 +17,6 @@ import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { types, ScipRequest } from '@toolscip/scip-lib';
 import { Method, Event } from '@toolscip/scdl-lib';
-import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';
 
@@ -72,7 +71,7 @@ export default class Unsubscribe extends ScipCommand {
     );
   }
 
-  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+  async fromFile() {
     if (this.contract === undefined) {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
@@ -91,8 +90,8 @@ export default class Unsubscribe extends ScipCommand {
       // retrieve the function/event to query
       const generic: Method | Event =
         request.params instanceof types.FunctionUnsubscription
-          ? this.contract.methods[request.params.functionId]
-          : this.contract.events[(request.params as types.EventUnsubscription).eventId];
+          ? this.contract.methods[request.params.functionIdentifier]
+          : this.contract.events[(request.params as types.EventUnsubscription).eventIdentifier];
 
       return generic.request(request);
     }

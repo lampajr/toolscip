@@ -21,7 +21,7 @@ $ npm install -g @toolscip/clisc
 $ clisc COMMAND
 running command...
 $ clisc (-v|--version|version)
-@toolscip/clisc/1.0.3 linux-x64 node-v10.16.3
+@toolscip/clisc/1.0.3 linux-x64 node-v10.19.0
 $ clisc --help [COMMAND]
 USAGE
   $ clisc COMMAND
