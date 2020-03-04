@@ -56,7 +56,7 @@ export default class Invoke extends ScipCommand {
       throw new CLIError(
         `Method named '${this.flags.method}' not found in '${
           this.contract.descriptor.name
-        }' contract\nThis contract has the following available methods: [${Object.keys(this.contract.methods)}]`,
+        }'. Available methods [${Object.keys(this.contract.methods)}]`,
       );
     }
     return method.invoke(

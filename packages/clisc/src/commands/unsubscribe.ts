@@ -57,7 +57,7 @@ export default class Unsubscribe extends ScipCommand {
       throw new CLIError(
         `${
           this.flags.method ? "Method name '" + this.flags.method : "Event named'" + this.flags.event
-        }" not found in '${this.contract.descriptor.name}' contract\nThis contract has the following available ${
+        }" not found in '${this.contract.descriptor.name}' contract. Available ${
           this.flags.method
             ? 'methods: [' + Object.keys(this.contract.methods)
             : 'events: [' + Object.keys(this.contract.events)

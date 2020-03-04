@@ -4,10 +4,11 @@ import { Contract } from '@toolscip/scdl-lib';
 import scip, { types, ScipRequest } from '@toolscip/scip-lib';
 import { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
-import chalk = require('chalk');
 import BaseCommand from './base';
 import shared from './shared';
 import Config from './config';
+import ora = require('ora');
+import chalk = require('chalk');
 
 export default abstract class extends BaseCommand {
   static flags = {
@@ -43,7 +44,7 @@ export default abstract class extends BaseCommand {
     let request: ScipRequest;
 
     if (this.contract === undefined) {
-      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+      throw new CLIError(`Fatal error: Contract has not been initialized!`);
     }
 
     try {
@@ -66,53 +67,39 @@ export default abstract class extends BaseCommand {
   }
 
   /**
-   * Handle synchronous SCIP response
-   * @param data response body
+   * Handle SCIP response
+   * @param data SCIP response to handle
+   * @param spinner started spinner, if any
    */
-  handleResponse(data: any) {
+  onResponse(data: any, spinner: ora.Ora) {
     try {
       const response = scip.parseResponse(data);
       if (response instanceof types.ScipQueryResult) {
+        spinner.succeed('Request succeed!');
         const queryResult = response.result as types.QueryResult;
+        // TODO: improve occurences print format
+        this.banner('OCCURRENCES', chalk.yellow);
         queryResult.occurrences.forEach((occurrence, i) => {
-          this.logOccurrence(occurrence, i);
+          this.onOccurrence(occurrence, i);
         });
       } else if (response instanceof types.ScipSuccess) {
-        this.logSucceedResponse(response);
+        spinner.succeed(`Request ${response.id} succeed: ${response.result}`);
       } else if (response instanceof types.ScipError) {
-        this.logErrorResponse(response);
+        spinner.fail(`Request ${response.id} failed: ${response.error.message} (code: ${response.error.code})`);
       }
     } catch (err) {
-      this.log(JSON.stringify(err), 'err');
+      spinner?.fail(`Invalid response: ${err.data !== undefined ? err.data : err.message}`);
     }
   }
 
-  logOccurrence(occurrence: types.Occurrence, num: number) {
-    this.log(chalk.yellow(`========== OCCURRENCE ${num}`));
-    const padding = 13;
-    this.log('Timestamp'.padEnd(padding) + `=> ${occurrence.timestamp}`);
-    occurrence.params.forEach((param, count) => {
+  onOccurrence(occurrence: types.Occurrence, num: number) {
+    const padding = 15;
+    const text = `${num + 1}: ${occurrence.isoTimestamp}`;
+    this.log(text);
+    this.log('-'.repeat(text.length));
+    occurrence.parameters.forEach((param, count) => {
       this.log(`${param.name !== '' ? param.name : 'param' + count}`.padEnd(padding) + `=> ${param.value}`);
     });
-    this.log(`========== END OCCURRENCE `);
-  }
-
-  logSucceedResponse(res: types.ScipSuccess) {
-    this.log(chalk.green(`========== REQUEST SUCCEED`));
-    this.log('Request id  => ' + res.id, 'err');
-    this.log('Result      => ' + res.result);
-    this.log(`========== END RESPONSE`);
-  }
-
-  logErrorResponse(err: types.ScipError) {
-    this.log(chalk.red(`========== REQUEST FAILED`), 'err');
-    this.log('Request id  => ' + err.id, 'err');
-    this.log('Code        => ' + err.error.code, 'err');
-    this.log('Message     => ' + err.error.message, 'err');
-    if (err.error.data) {
-      this.log('Info:       => ' + err.error.data, 'err');
-    }
-    this.log(`========== END RESPONSE`, 'err');
   }
 
   async init() {
@@ -128,29 +115,38 @@ export default abstract class extends BaseCommand {
   }
 
   async run() {
+    const spinner = ora({
+      text: 'Sending request...',
+    }).start();
+
     if (this.flags.file) {
       try {
         await this.fromFile()
           .then(res => {
-            this.handleResponse(res.data);
+            this.onResponse(res.data, spinner);
           })
           .catch(err => {
-            throw err;
+            spinner.fail(`Request failed: ${err.message}`);
           });
       } catch (err) {
-        throw err;
+        spinner.fail(`Request failed!: ${err.message}`);
       }
     } else {
       if (!this.flags.id) {
-        throw new CLIError(`Missing required flag: -I --id`);
+        spinner.fail('Missing required jsonrpc id: use flag -I --id');
+      } else {
+        try {
+          this.fromFlags()
+            .then(res => {
+              this.onResponse(res.data, spinner);
+            })
+            .catch(err => {
+              spinner.fail(`Request failed!: ${err.message}`);
+            });
+        } catch (err) {
+          spinner.fail(`Malformed request: ${err.message}`);
+        }
       }
-      await this.fromFlags()
-        .then(res => {
-          this.handleResponse(res.data);
-        })
-        .catch(err => {
-          throw err;
-        });
     }
   }
 }

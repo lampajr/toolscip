@@ -87,7 +87,6 @@ export default class Init extends BaseCommand {
               text: 'Installing dependencies..',
             }).start();
 
-            // TODO: add 'npm install @toolscip/scip-lib'
             exec('npm install --save express body-parser', (error, _stdout, _stderr) => {
               if (error) {
                 spinner.fail();
