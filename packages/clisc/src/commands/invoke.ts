@@ -59,13 +59,18 @@ export default class Invoke extends ScipCommand {
         }'. Available methods [${Object.keys(this.contract.methods)}]`,
       );
     }
+
     return method.invoke(
       this.flags.id,
       this.flags.method,
       this.flags.value !== undefined ? this.flags.value : [],
       this.flags.signature,
       this.flags.doc,
-      this.flags.callback,
+      this.flags.callback !== undefined
+        ? this.flags.callback
+        : this.cliscConfig !== undefined
+        ? this.cliscConfig.callbackUrl
+        : null,
       this.flags.corrId,
       this.flags.timeout,
     );

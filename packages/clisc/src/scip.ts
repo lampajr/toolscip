@@ -78,7 +78,8 @@ export default abstract class extends BaseCommand {
         spinner.succeed('Request succeed!');
         const queryResult = response.result as types.QueryResult;
         // TODO: improve occurences print format
-        this.banner('OCCURRENCES', chalk.yellow);
+        // TODO: check whether empty set
+        this.log(chalk.yellow('===== OCCURRENCES ====='));
         queryResult.occurrences.forEach((occurrence, i) => {
           this.onOccurrence(occurrence, i);
         });
@@ -92,14 +93,17 @@ export default abstract class extends BaseCommand {
     }
   }
 
+  // TODO: improve print format quality
   onOccurrence(occurrence: types.Occurrence, num: number) {
     const padding = 15;
-    const text = `${num + 1}: ${occurrence.isoTimestamp}`;
+    const text = `${num + 1}:  ${occurrence.isoTimestamp}`;
+    this.log('-'.repeat(text.length));
     this.log(text);
     this.log('-'.repeat(text.length));
     occurrence.parameters.forEach((param, count) => {
       this.log(`${param.name !== '' ? param.name : 'param' + count}`.padEnd(padding) + `=> ${param.value}`);
     });
+    this.log('');
   }
 
   async init() {

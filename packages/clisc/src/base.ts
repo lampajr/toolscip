@@ -14,7 +14,7 @@ export default abstract class extends Command {
   // base attributes
   flags: any;
   args: any;
-  cliscConfig: Config | undefined;
+  cliscConfig?: Config;
 
   // base methods
 
