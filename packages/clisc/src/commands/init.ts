@@ -39,7 +39,7 @@ export default class Init extends BaseCommand {
     help: flags.help({ char: 'h', description: `show init command help` }),
     server: flags.boolean({
       char: 's',
-      description: "initialize a simple 'express.js' server for receive asynchronous responses",
+      description: 'initialize a simple server for receiving asynchronous responses',
       default: false,
     }),
   };
@@ -58,12 +58,13 @@ export default class Init extends BaseCommand {
         answers.owner,
         process.cwd(),
         answers.limit,
+        answers.logger,
         answers.registry,
         answers.callbackUrl,
       );
 
       this.log('');
-      const spinner = ora({
+      let spinner = ora({
         text: 'Configuring project...',
       }).start();
 
@@ -75,11 +76,28 @@ export default class Init extends BaseCommand {
         spinner.succeed(`Configuration file generated at '${join(cliscConfig.dir, Config.configFile)}'!`);
         this.log(``);
       } catch (err) {
-        spinner.fail('Configuration file was not generated: ' + err.message);
+        spinner.fail('Configuration file generation failed: ' + err.message);
       }
 
       await this.createDirectory(cliscConfig.configFolder());
       await this.createDirectory(cliscConfig.descriptorsFolder());
+
+      spinner = ora({
+        text: 'Creating logger...',
+      }).start();
+
+      try {
+        await fs.writeJSON(
+          join(cliscConfig.dir, cliscConfig.logger),
+          {},
+          {
+            spaces: '\t',
+          },
+        );
+        spinner.succeed(`Logger file generated at '${join(cliscConfig.dir, cliscConfig.logger)}'!`);
+      } catch (err) {
+        spinner.fail('Logger file generation failed: ' + err.message);
+      }
 
       if (this.flags.server) {
         // initialize the express.js server

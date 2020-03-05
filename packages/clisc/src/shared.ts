@@ -54,6 +54,7 @@ const callback = flags.string({
 const corrId = flags.string({
   char: 'i',
   description: 'client-provided correlation identifier',
+  required: true,
 });
 
 const doc = flags.integer({
@@ -85,6 +86,12 @@ const startTime = flags.string({
 const endTime = flags.string({
   char: 'd',
   description: 'end time from which stop considering event occurrences or function invocations',
+});
+
+const logger = flags.boolean({
+  char: 'l',
+  description: 'whether enable or not the file logger',
+  default: false,
 });
 
 const file = flags.string({
@@ -120,6 +127,7 @@ const shared = {
   filter,
   startTime,
   endTime,
+  logger,
   file,
 };
 

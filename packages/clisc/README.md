@@ -70,7 +70,7 @@ USAGE
 OPTIONS
   -h, --help       show init command help
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
-  -s, --server     initialize a simple 'express.js' server for receive asynchronous responses
+  -s, --server     initialize a simple server for receiving asynchronous responses
 
 EXAMPLES
   # Initialize the 'clisc' configuration files for the current project
@@ -99,7 +99,8 @@ OPTIONS
   -a, --auth=auth            authorization token
   -d, --doc=doc              degree of confidence's value
   -h, --help                 show invoke command help
-  -i, --corrId=corrId        client-provided correlation identifier
+  -i, --corrId=corrId        (required) client-provided correlation identifier
+  -l, --logger               whether enable or not the file logger
   -m, --method=method        (required) name of the request's target function/method
 
   -p, --path=path            provide a path where the config files are located, if not set, the current directory is
@@ -141,6 +142,7 @@ OPTIONS
   -e, --event=event          (required) name of the request's target event
   -f, --filter=filter        C-style boolean expression over function/event parameters
   -h, --help                 show query command help
+  -l, --logger               whether enable or not the file logger
   -m, --method=method        (required) name of the request's target function/method
 
   -p, --path=path            provide a path where the config files are located, if not set, the current directory is
@@ -273,7 +275,7 @@ OPTIONS
   -e, --event=event        (required) name of the request's target event
   -f, --filter=filter      C-style boolean expression over function/event parameters
   -h, --help               show subscribe command help
-  -i, --corrId=corrId      client-provided correlation identifier
+  -i, --corrId=corrId      (required) client-provided correlation identifier
   -m, --method=method      (required) name of the request's target function/method
   -p, --path=path          provide a path where the config files are located, if not set, the current directory is used
   -u, --callback=callback  callback URL to which the gateway will send all asynchronous responses
@@ -307,7 +309,7 @@ OPTIONS
   -a, --auth=auth      authorization token
   -e, --event=event    (required) name of the request's target event
   -h, --help           show unsubscribe command help
-  -i, --corrId=corrId  client-provided correlation identifier
+  -i, --corrId=corrId  (required) client-provided correlation identifier
   -m, --method=method  (required) name of the request's target function/method
   -p, --path=path      provide a path where the config files are located, if not set, the current directory is used
 

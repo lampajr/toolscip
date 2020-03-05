@@ -19,6 +19,7 @@ import { types, ScipRequest } from '@toolscip/scip-lib';
 import { Method } from '@toolscip/scdl-lib';
 import ScipCommand from '../scip';
 import shared from '../shared';
+import { addEntry, State, Entry } from '../logger';
 
 export default class Invoke extends ScipCommand {
   static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;
@@ -37,11 +38,12 @@ export default class Invoke extends ScipCommand {
     doc: shared.doc,
     timeout: shared.timeout,
     signature: shared.signature,
+    logger: shared.logger,
   };
 
   static args = [...ScipCommand.args];
 
-  fromFlags() {
+  async fromFlags() {
     if (this.flags.method === undefined) {
       throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);
     }
@@ -58,6 +60,21 @@ export default class Invoke extends ScipCommand {
           this.contract.descriptor.name
         }'. Available methods [${Object.keys(this.contract.methods)}]`,
       );
+    }
+
+    if (this.cliscConfig === undefined || this.loggerFilename === undefined) {
+      throw new CLIError('Unable to load config file');
+    }
+
+    const entry: Entry = {
+      request: 'Invocation',
+      state: State.SENT,
+      note: 'Invocation request formulated and sent',
+      results: [],
+    };
+
+    if (this.flags.logger) {
+      addEntry(this.loggerFilename, this.flags.corrId, entry);
     }
 
     return method.invoke(

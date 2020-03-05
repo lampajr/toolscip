@@ -19,6 +19,7 @@ import { Method, Event } from '@toolscip/scdl-lib';
 import { types, ScipRequest } from '@toolscip/scip-lib';
 import ScipCommand from '../scip';
 import shared from '../shared';
+import { Entry, State, addEntry } from '../logger';
 
 export default class Query extends ScipCommand {
   static description = 'query past event occurences or function invocations of a target smart contract';
@@ -38,6 +39,7 @@ export default class Query extends ScipCommand {
     filter: shared.filter,
     startTime: shared.startTime,
     endTime: shared.endTime,
+    logger: shared.logger,
   };
 
   static args = [...ScipCommand.args];
@@ -58,7 +60,7 @@ export default class Query extends ScipCommand {
     if (generic === undefined) {
       throw new CLIError(
         `${
-          this.flags.method ? "Method name '" + this.flags.method : "Event named'" + this.flags.event
+          this.flags.method ? "Method name '" + this.flags.method : "Event named' " + this.flags.event
         }" not found in '${this.contract.descriptor.name}' contract. Available ${
           this.flags.method
             ? 'methods: [' + Object.keys(this.contract.methods)
@@ -66,6 +68,26 @@ export default class Query extends ScipCommand {
         }]`,
       );
     }
+
+    if (this.cliscConfig === undefined || this.loggerFilename === undefined) {
+      throw new CLIError('Unable to load config file');
+    }
+
+    const entry: Entry = {
+      request: 'Query',
+      state: State.SENT,
+      note: 'Query request formulated and sent',
+      results: [],
+    };
+
+    if (this.flags.logger) {
+      addEntry(
+        this.loggerFilename,
+        `${this.contract.descriptor.name}.${this.flags.method !== undefined ? this.flags.method : this.flags.event}`,
+        entry,
+      );
+    }
+
     return generic.query(
       this.flags.id,
       this.flags.method ? this.flags.method : (this.flags.event as string),

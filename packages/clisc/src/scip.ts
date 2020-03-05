@@ -9,6 +9,8 @@ import shared from './shared';
 import Config from './config';
 import ora = require('ora');
 import chalk = require('chalk');
+import { join } from 'path';
+import { updateState, State } from './logger';
 
 export default abstract class extends BaseCommand {
   static flags = {
@@ -83,13 +85,48 @@ export default abstract class extends BaseCommand {
         queryResult.occurrences.forEach((occurrence, i) => {
           this.onOccurrence(occurrence, i);
         });
+        if (this.flags.logger) {
+          updateState(
+            this.loggerFilename as string,
+            `${this.contract?.descriptor.name}.${
+              this.flags.method !== undefined ? this.flags.method : this.flags.event
+            }`,
+            State.SUCCEED,
+            'Request succeed',
+            queryResult.occurrences,
+          );
+        }
       } else if (response instanceof types.ScipSuccess) {
         spinner.succeed(`Request ${response.id} succeed: ${response.result}`);
+        if (this.flags.logger) {
+          updateState(
+            this.loggerFilename as string,
+            this.flags.corrId,
+            State.SUCCEED,
+            'Request succeed, asynchronous responses are still pending',
+          );
+        }
       } else if (response instanceof types.ScipError) {
         spinner.fail(`Request ${response.id} failed: ${response.error.message} (code: ${response.error.code})`);
+        if (this.flags.logger) {
+          updateState(
+            this.loggerFilename as string,
+            this.flags.corrId,
+            State.FAILED,
+            response.error.data !== undefined ? response.error.data : response.error.message,
+          );
+        }
+      } else {
+        spinner.fail(`Unexpacted behaviour!`);
+        if (this.flags.logger) {
+          updateState(this.loggerFilename as string, this.flags.corrId, State.INVALID, 'Unexpected behaviour');
+        }
       }
     } catch (err) {
-      spinner?.fail(`Invalid response: ${err.data !== undefined ? err.data : err.message}`);
+      spinner.fail(`Invalid response: ${err.data !== undefined ? err.data : err.message}`);
+      if (this.flags.logger) {
+        updateState(this.loggerFilename as string, this.flags.corrId, State.INVALID, err.message);
+      }
     }
   }
 
@@ -110,47 +147,83 @@ export default abstract class extends BaseCommand {
     const { args, flags } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
     this.args = args;
-    this.cliscConfig = await Config.loadConfig(flags.path);
-    // retrieve the contract's information
-    const filename: string = this.args.contract + '.json';
-    const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
-    // initialize the [[Contract]] object starting from its descriptor
-    this.contract = new Contract(descriptor, this.flags.auth);
+    // this.cliscConfig = await Config.load(flags.path);
+    // this.loggerFilename = join(this.cliscConfig.dir, this.cliscConfig.logger);
+    // // retrieve the contract's information
+    // const filename: string = this.args.contract + '.json';
+    // const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
+    // // initialize the [[Contract]] object starting from its descriptor
+    // this.contract = new Contract(descriptor, this.flags.auth);
   }
 
   async run() {
+    this.cliscConfig = await Config.load(this.flags.path);
+    this.loggerFilename = join(this.cliscConfig.dir, this.cliscConfig.logger);
+
+    if (this.cliscConfig === undefined) {
+      throw new CLIError('Unable to load configuration files!');
+    }
+
+    if (this.loggerFilename === undefined) {
+      throw new CLIError('Unable to load logger file!');
+    }
+
     const spinner = ora({
       text: 'Sending request...',
     }).start();
 
-    if (this.flags.file) {
-      try {
-        await this.fromFile()
-          .then(res => {
-            this.onResponse(res.data, spinner);
-          })
-          .catch(err => {
-            spinner.fail(`Request failed: ${err.message}`);
-          });
-      } catch (err) {
-        spinner.fail(`Request failed!: ${err.message}`);
-      }
-    } else {
-      if (!this.flags.id) {
-        spinner.fail('Missing required jsonrpc id: use flag -I --id');
-      } else {
+    try {
+      // retrieve the contract's information
+      const filename: string = this.args.contract + '.json';
+      const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
+      // initialize the [[Contract]] object starting from its descriptor
+      this.contract = new Contract(descriptor, this.flags.auth);
+
+      if (this.flags.file) {
         try {
-          this.fromFlags()
+          await this.fromFile()
             .then(res => {
               this.onResponse(res.data, spinner);
             })
             .catch(err => {
-              spinner.fail(`Request failed!: ${err.message}`);
+              spinner.fail(`Malformed request: ${err.message}`);
             });
         } catch (err) {
-          spinner.fail(`Malformed request: ${err.message}`);
+          spinner.fail(`Request failed: ${err.message}`);
+        }
+      } else {
+        if (!this.flags.id) {
+          spinner.fail('Missing required jsonrpc id: use flag -I --id');
+        } else {
+          try {
+            this.fromFlags()
+              .then(res => {
+                this.onResponse(res.data, spinner);
+              })
+              .catch(err => {
+                spinner.fail(`Malformed request: ${err.message}`);
+                if (this.flags.logger) {
+                  updateState(
+                    this.loggerFilename as string,
+                    this.flags.corrId !== undefined ? this.flags.corrId : '',
+                    State.FAILED,
+                    err.message,
+                  );
+                }
+              });
+          } catch (err) {
+            spinner.fail(`Request failed: ${err.message}`);
+            // updateState(
+            //   this.loggerFilename as string,
+            //   this.flags.corrId !== undefined ? this.flags.corrId : '',
+            //   State.FAILED,
+            //   err.message,
+            // );
+          }
         }
       }
+    } catch (err) {
+      spinner.fail(`Fatal error: ${err.message}`);
     }
   }
 }
