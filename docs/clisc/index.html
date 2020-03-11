@@ -130,7 +130,7 @@ OPTIONS
 OPTIONS
   -h, --help       show init command help
   -p, <span class="hljs-attribute">--path</span>=path  provide a path where the<span class="hljs-built_in"> config </span>files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current directory is used
-  -s, --server     initialize a<span class="hljs-built_in"> simple </span><span class="hljs-string">'express.js'</span><span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> receive asynchronous responses
+  -s, --server     initialize a<span class="hljs-built_in"> simple server </span><span class="hljs-keyword">for</span> receiving asynchronous responses
 
 EXAMPLES
   # Initialize the <span class="hljs-string">'clisc'</span> configuration files <span class="hljs-keyword">for</span> the current project
@@ -154,7 +154,8 @@ ARGUMENTS
   -a, <span class="hljs-comment">--auth=auth            authorization token</span>
   -d, <span class="hljs-comment">--doc=doc              degree of confidence's value</span>
   -h, <span class="hljs-comment">--help                 show invoke command help</span>
-  -i, <span class="hljs-comment">--corrId=corrId        client-provided correlation identifier</span>
+  -i, <span class="hljs-comment">--corrId=corrId        (required) client-provided correlation identifier</span>
+  -l, <span class="hljs-comment">--logger               whether enable or not the file logger</span>
   -m, <span class="hljs-comment">--method=method        (required) name of the request's target function/method</span>
 
   -p, <span class="hljs-comment">--path=path            provide a path where the config files are located, if not set, the current directory is</span>
@@ -191,6 +192,7 @@ OPTIONS
   -e, <span class="hljs-attribute">--event</span>=event          (required) name of the request<span class="hljs-string">'s target event
   -f, --filter=filter        C-style boolean expression over function/event parameters
   -h, --help                 show query command help
+  -l, --logger               whether enable or not the file logger
   -m, --method=method        (required) name of the request'</span>s target function/method
 
   -p, <span class="hljs-attribute">--path</span>=path            provide a path where the<span class="hljs-built_in"> config </span>files are located, <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> set, the current directory is
@@ -303,7 +305,7 @@ ARGUMENTS
   -e, <span class="hljs-comment">--event=event        (required) name of the request's target event</span>
   -f, <span class="hljs-comment">--filter=filter      C-style boolean expression over function/event parameters</span>
   -h, <span class="hljs-comment">--help               show subscribe command help</span>
-  -i, <span class="hljs-comment">--corrId=corrId      client-provided correlation identifier</span>
+  -i, <span class="hljs-comment">--corrId=corrId      (required) client-provided correlation identifier</span>
   -m, <span class="hljs-comment">--method=method      (required) name of the request's target function/method</span>
   -p, <span class="hljs-comment">--path=path          provide a path where the config files are located, if not set, the current directory is used</span>
   -u, <span class="hljs-comment">--callback=callback  callback URL to which the gateway will send all asynchronous responses</span>
@@ -332,7 +334,7 @@ ARGUMENTS
   -a, <span class="hljs-comment">--auth=auth      authorization token</span>
   -e, <span class="hljs-comment">--event=event    (required) name of the request's target event</span>
   -h, <span class="hljs-comment">--help           show unsubscribe command help</span>
-  -i, <span class="hljs-comment">--corrId=corrId  client-provided correlation identifier</span>
+  -i, <span class="hljs-comment">--corrId=corrId  (required) client-provided correlation identifier</span>
   -m, <span class="hljs-comment">--method=method  (required) name of the request's target function/method</span>
   -p, <span class="hljs-comment">--path=path      provide a path where the config files are located, if not set, the current directory is used</span>
 
@@ -385,6 +387,9 @@ EXAMPLES
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_logger_.html">&quot;logger&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_scip_.html">&quot;scip&quot;</a>
