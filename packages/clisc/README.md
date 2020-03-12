@@ -76,6 +76,8 @@ OPTIONS
 EXAMPLES
   # Initialize the 'clisc' configuration files for the current project
   $ clisc init
+  # Initialize the 'clisc' configuration files for the current project skipping all questions
+  $ clisc init --yes
   # Initialize the 'clisc' configuration files for the current project with a simple express.js server for the 
   asynchronous responses
   $ clisc init --server
