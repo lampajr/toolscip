@@ -71,6 +71,7 @@ OPTIONS
   -h, --help       show init command help
   -p, --path=path  provide a path where the config files are located, if not set, the current directory is used
   -s, --server     initialize a simple server for receiving asynchronous responses
+  -y, --yes        skip questions, set all values with default ones.
 
 EXAMPLES
   # Initialize the 'clisc' configuration files for the current project

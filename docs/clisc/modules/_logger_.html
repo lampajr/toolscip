@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;commands/init&quot; | @toolscip/clisc</title>
+	<title>&quot;logger&quot; | @toolscip/clisc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_commands_init_.html">&quot;commands/init&quot;</a>
+					<a href="_logger_.html">&quot;logger&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;commands/init&quot;</h1>
+			<h1>External module &quot;logger&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -71,42 +71,123 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Classes</h3>
+							<h3>Enumerations</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_commands_init_.init.html" class="tsd-kind-icon">Init</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-external-module"><a href="../enums/_logger_.state.html" class="tsd-kind-icon">State</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-not-exported">
-							<h3>Variables</h3>
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_commands_init_.html#expressfile" class="tsd-kind-icon">express<wbr>File</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported"><a href="_commands_init_.html#jaysonfile" class="tsd-kind-icon">jayson<wbr>File</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_logger_.entry.html" class="tsd-kind-icon">Entry</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_logger_.html#addentry" class="tsd-kind-icon">add<wbr>Entry</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_logger_.html#updatestate" class="tsd-kind-icon">update<wbr>State</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="expressfile" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> express<wbr>File</h3>
-					<div class="tsd-signature tsd-kind-icon">express<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"const express &#x3D; require(&quot;express&quot;);const bodyParser &#x3D; require(&quot;body-parser&quot;);const scip &#x3D; require(&quot;@toolscip/scip-lib&quot;);const PORT &#x3D; 8080;const   app &#x3D; express();app.use(bodyParser.urlencoded({ extended: true }));app.use(bodyParser.json());app.post(&quot;/&quot;, (req, res) &#x3D;&gt; {try {const   response &#x3D; scip.parseResponse(req.body);if (response.method &#x3D;&#x3D;&#x3D; &quot;ReceiveCallback&quot;) {// TODO: implement your logic here}} catch (err)   {res.json(scip.error(req.body.id, err));}});// make the server listen to requestsapp.listen(PORT, () &#x3D;&gt; {console.log(&#x60;Server running at   port ${PORT}&#x60;);});"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;const express &#x3D; require(&quot;express&quot;);const bodyParser &#x3D; require(&quot;body-parser&quot;);const scip &#x3D; require(&quot;@toolscip/scip-lib&quot;);const PORT &#x3D; 8080;const   app &#x3D; express();app.use(bodyParser.urlencoded({ extended: true }));app.use(bodyParser.json());app.post(&quot;/&quot;, (req, res) &#x3D;&gt; {try {const   response &#x3D; scip.parseResponse(req.body);if (response.method &#x3D;&#x3D;&#x3D; &quot;ReceiveCallback&quot;) {// TODO: implement your logic here}} catch (err)   {res.json(scip.error(req.body.id, err));}});// make the server listen to requestsapp.listen(PORT, () &#x3D;&gt; {console.log(&#x60;Server running at   port ${PORT}&#x60;);});&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/commands/init.ts#L298">src/commands/init.ts:298</a></li>
-						</ul>
-					</aside>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="addentry" class="tsd-anchor"></a>
+					<h3>add<wbr>Entry</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Entry<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, correlationIdentifier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, content<span class="tsd-signature-symbol">: </span><a href="../interfaces/_logger_.entry.html" class="tsd-signature-type">Entry</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/logger.ts#L64">src/logger.ts:64</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add a new entry inside the logger</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>where the logger is located</p>
+									</div>
+								</li>
+								<li>
+									<h5>correlationIdentifier: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new correlation identifier</p>
+									</div>
+								</li>
+								<li>
+									<h5>content: <a href="../interfaces/_logger_.entry.html" class="tsd-signature-type">Entry</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new content (Entry)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="jaysonfile" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> jayson<wbr>File</h3>
-					<div class="tsd-signature tsd-kind-icon">jayson<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;&quot;</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/commands/init.ts#L306">src/commands/init.ts:306</a></li>
-						</ul>
-					</aside>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="updatestate" class="tsd-anchor"></a>
+					<h3>update<wbr>State</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>State<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, correlationIdentifier<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, state<span class="tsd-signature-symbol">: </span><a href="../enums/_logger_.state.html" class="tsd-signature-type">State</a>, note<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, results<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/logger.ts#L30">src/logger.ts:30</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update the state of an entry inside the logger</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>path: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>where the logger is located</p>
+									</div>
+								</li>
+								<li>
+									<h5>correlationIdentifier: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>corrId of the entry</p>
+									</div>
+								</li>
+								<li>
+									<h5>state: <a href="../enums/_logger_.state.html" class="tsd-signature-type">State</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new state</p>
+									</div>
+								</li>
+								<li>
+									<h5>note: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>new note</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> results: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -119,7 +200,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_base_.html">&quot;base&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="_commands_init_.html">&quot;commands/init&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -149,7 +230,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="_index_.html">&quot;index&quot;</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="_logger_.html">&quot;logger&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -162,14 +243,17 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_commands_init_.init.html" class="tsd-kind-icon">Init</a>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_logger_.state.html" class="tsd-kind-icon">State</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_commands_init_.html#expressfile" class="tsd-kind-icon">express<wbr>File</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_logger_.entry.html" class="tsd-kind-icon">Entry</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_commands_init_.html#jaysonfile" class="tsd-kind-icon">jayson<wbr>File</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_logger_.html#addentry" class="tsd-kind-icon">add<wbr>Entry</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_logger_.html#updatestate" class="tsd-kind-icon">update<wbr>State</a>
 					</li>
 				</ul>
 			</nav>
