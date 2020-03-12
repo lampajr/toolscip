@@ -44,7 +44,7 @@ This package was mainly written to provide an automatic way to interact with sma
 
 ```typescript
 // import the 'Contract' class
-import { Contract } from '@lampajr/scdl-lib';
+import { Contract } from '@toolscip/scdl-lib';
 // or using the package 'scdl.Contract'
 
 const descriptor = {
