@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;config&quot; | @toolscip/clisc</title>
+	<title>Entry | @toolscip/clisc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,26 +56,103 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_config_.html">&quot;config&quot;</a>
+					<a href="../modules/_logger_.html">&quot;logger&quot;</a>
+				</li>
+				<li>
+					<a href="_logger_.entry.html">Entry</a>
 				</li>
 			</ul>
-			<h1>External module &quot;config&quot;</h1>
+			<h1>Interface Entry</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Entry</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Classes</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_config_.config.html" class="tsd-kind-icon">Config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logger_.entry.html#note" class="tsd-kind-icon">note</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logger_.entry.html#request" class="tsd-kind-icon">request</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logger_.entry.html#results" class="tsd-kind-icon">results</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_logger_.entry.html#state" class="tsd-kind-icon">state</a></li>
 							</ul>
 						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="note" class="tsd-anchor"></a>
+					<h3>note</h3>
+					<div class="tsd-signature tsd-kind-icon">note<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/logger.ts#L18">src/logger.ts:18</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Request note, e.g., failure motivation, etc.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="request" class="tsd-anchor"></a>
+					<h3>request</h3>
+					<div class="tsd-signature tsd-kind-icon">request<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/logger.ts#L14">src/logger.ts:14</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Request type, e.g., Invocation, Subscription and etc.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="results" class="tsd-anchor"></a>
+					<h3>results</h3>
+					<div class="tsd-signature tsd-kind-icon">results<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/logger.ts#L20">src/logger.ts:20</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Request asynchronous results, e.g., subscription occurrences, function invocation results and etc.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="state" class="tsd-anchor"></a>
+					<h3>state</h3>
+					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../enums/_logger_.state.html" class="tsd-signature-type">State</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/logger.ts#L16">src/logger.ts:16</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Request state, e.g., sent, active, closed and etc.</p>
+						</div>
 					</div>
 				</section>
 			</section>
@@ -87,53 +164,80 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_base_.html">&quot;base&quot;</a>
+						<a href="../modules/_base_.html">&quot;base&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_init_.html">&quot;commands/init&quot;</a>
+						<a href="../modules/_commands_init_.html">&quot;commands/init&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_invoke_.html">&quot;commands/invoke&quot;</a>
+						<a href="../modules/_commands_invoke_.html">&quot;commands/invoke&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_query_.html">&quot;commands/query&quot;</a>
+						<a href="../modules/_commands_query_.html">&quot;commands/query&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_scdl_add_.html">&quot;commands/scdl/add&quot;</a>
+						<a href="../modules/_commands_scdl_add_.html">&quot;commands/scdl/add&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_scdl_delete_.html">&quot;commands/scdl/delete&quot;</a>
+						<a href="../modules/_commands_scdl_delete_.html">&quot;commands/scdl/delete&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_scdl_list_.html">&quot;commands/scdl/list&quot;</a>
+						<a href="../modules/_commands_scdl_list_.html">&quot;commands/scdl/list&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_subscribe_.html">&quot;commands/subscribe&quot;</a>
+						<a href="../modules/_commands_subscribe_.html">&quot;commands/subscribe&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_commands_unsubscribe_.html">&quot;commands/unsubscribe&quot;</a>
+						<a href="../modules/_commands_unsubscribe_.html">&quot;commands/unsubscribe&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_config_.html">&quot;config&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_index_.html">&quot;index&quot;</a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_config_.html">&quot;config&quot;</a>
+						<a href="../modules/_logger_.html">&quot;logger&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_index_.html">&quot;index&quot;</a>
+						<a href="../modules/_scip_.html">&quot;scip&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="_logger_.html">&quot;logger&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_scip_.html">&quot;scip&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_shared_.html">&quot;shared&quot;</a>
+						<a href="../modules/_shared_.html">&quot;shared&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/_config_.config.html" class="tsd-kind-icon">Config</a>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_logger_.state.html" class="tsd-kind-icon">State</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_logger_.entry.html" class="tsd-kind-icon">Entry</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_logger_.entry.html#note" class="tsd-kind-icon">note</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_logger_.entry.html#request" class="tsd-kind-icon">request</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_logger_.entry.html#results" class="tsd-kind-icon">results</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_logger_.entry.html#state" class="tsd-kind-icon">state</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_logger_.html#addentry" class="tsd-kind-icon">add<wbr>Entry</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_logger_.html#updatestate" class="tsd-kind-icon">update<wbr>State</a>
 					</li>
 				</ul>
 			</nav>

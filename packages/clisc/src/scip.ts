@@ -4,10 +4,13 @@ import { Contract } from '@toolscip/scdl-lib';
 import scip, { types, ScipRequest } from '@toolscip/scip-lib';
 import { AxiosResponse } from 'axios';
 import * as fs from 'fs-extra';
-import chalk = require('chalk');
 import BaseCommand from './base';
 import shared from './shared';
 import Config from './config';
+import ora = require('ora');
+import chalk = require('chalk');
+import { join } from 'path';
+import { updateState, State } from './logger';
 
 export default abstract class extends BaseCommand {
   static flags = {
@@ -43,7 +46,7 @@ export default abstract class extends BaseCommand {
     let request: ScipRequest;
 
     if (this.contract === undefined) {
-      throw new CLIError(`Contract has not been initialized. Fatal error!`);
+      throw new CLIError(`Fatal error: Contract has not been initialized!`);
     }
 
     try {
@@ -66,91 +69,161 @@ export default abstract class extends BaseCommand {
   }
 
   /**
-   * Handle synchronous SCIP response
-   * @param data response body
+   * Handle SCIP response
+   * @param data SCIP response to handle
+   * @param spinner started spinner, if any
    */
-  handleResponse(data: any) {
+  onResponse(data: any, spinner: ora.Ora) {
     try {
       const response = scip.parseResponse(data);
       if (response instanceof types.ScipQueryResult) {
+        spinner.succeed('Request succeed!');
         const queryResult = response.result as types.QueryResult;
+        // TODO: improve occurences print format
+        // TODO: check whether empty set
+        this.log(chalk.yellow('===== OCCURRENCES ====='));
         queryResult.occurrences.forEach((occurrence, i) => {
-          this.logOccurrence(occurrence, i);
+          this.onOccurrence(occurrence, i);
         });
+        if (this.flags.logger) {
+          updateState(
+            this.loggerFilename as string,
+            `${this.contract?.descriptor.name}.${
+              this.flags.method !== undefined ? this.flags.method : this.flags.event
+            }`,
+            State.SUCCEED,
+            'Request succeed',
+            queryResult.occurrences,
+          );
+        }
       } else if (response instanceof types.ScipSuccess) {
-        this.logSucceedResponse(response);
+        spinner.succeed(`Request ${response.id} succeed: ${response.result}`);
+        if (this.flags.logger) {
+          updateState(
+            this.loggerFilename as string,
+            this.flags.corrId,
+            State.SUCCEED,
+            'Request succeed, asynchronous responses are still pending',
+          );
+        }
       } else if (response instanceof types.ScipError) {
-        this.logErrorResponse(response);
+        spinner.fail(`Request ${response.id} failed: ${response.error.message} (code: ${response.error.code})`);
+        if (this.flags.logger) {
+          updateState(
+            this.loggerFilename as string,
+            this.flags.corrId,
+            State.FAILED,
+            response.error.data !== undefined ? response.error.data : response.error.message,
+          );
+        }
+      } else {
+        spinner.fail(`Unexpacted behaviour!`);
+        if (this.flags.logger) {
+          updateState(this.loggerFilename as string, this.flags.corrId, State.INVALID, 'Unexpected behaviour');
+        }
       }
     } catch (err) {
-      this.log(JSON.stringify(err), 'err');
+      spinner.fail(`Invalid response: ${err.data !== undefined ? err.data : err.message}`);
+      if (this.flags.logger) {
+        updateState(this.loggerFilename as string, this.flags.corrId, State.INVALID, err.message);
+      }
     }
   }
 
-  logOccurrence(occurrence: types.Occurrence, num: number) {
-    this.log(chalk.yellow(`========== OCCURRENCE ${num}`));
-    const padding = 13;
-    this.log('Timestamp'.padEnd(padding) + `=> ${occurrence.timestamp}`);
-    occurrence.params.forEach((param, count) => {
+  // TODO: improve print format quality
+  onOccurrence(occurrence: types.Occurrence, num: number) {
+    const padding = 15;
+    const text = `${num + 1}:  ${occurrence.isoTimestamp}`;
+    this.log('-'.repeat(text.length));
+    this.log(text);
+    this.log('-'.repeat(text.length));
+    occurrence.parameters.forEach((param, count) => {
       this.log(`${param.name !== '' ? param.name : 'param' + count}`.padEnd(padding) + `=> ${param.value}`);
     });
-    this.log(`========== END OCCURRENCE `);
-  }
-
-  logSucceedResponse(res: types.ScipSuccess) {
-    this.log(chalk.green(`========== REQUEST SUCCEED`));
-    this.log('Request id  => ' + res.id, 'err');
-    this.log('Result      => ' + res.result);
-    this.log(`========== END RESPONSE`);
-  }
-
-  logErrorResponse(err: types.ScipError) {
-    this.log(chalk.red(`========== REQUEST FAILED`), 'err');
-    this.log('Request id  => ' + err.id, 'err');
-    this.log('Code        => ' + err.error.code, 'err');
-    this.log('Message     => ' + err.error.message, 'err');
-    if (err.error.data) {
-      this.log('Info:       => ' + err.error.data, 'err');
-    }
-    this.log(`========== END RESPONSE`, 'err');
+    this.log('');
   }
 
   async init() {
     const { args, flags } = this.parse(this.constructor as Input<any>);
     this.flags = flags;
     this.args = args;
-    this.cliscConfig = await Config.loadConfig(flags.path);
-    // retrieve the contract's information
-    const filename: string = this.args.contract + '.json';
-    const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
-    // initialize the [[Contract]] object starting from its descriptor
-    this.contract = new Contract(descriptor, this.flags.auth);
+    // this.cliscConfig = await Config.load(flags.path);
+    // this.loggerFilename = join(this.cliscConfig.dir, this.cliscConfig.logger);
+    // // retrieve the contract's information
+    // const filename: string = this.args.contract + '.json';
+    // const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
+    // // initialize the [[Contract]] object starting from its descriptor
+    // this.contract = new Contract(descriptor, this.flags.auth);
   }
 
   async run() {
-    if (this.flags.file) {
-      try {
-        await this.fromFile()
-          .then(res => {
-            this.handleResponse(res.data);
-          })
-          .catch(err => {
-            throw err;
-          });
-      } catch (err) {
-        throw err;
+    this.cliscConfig = await Config.load(this.flags.path);
+    this.loggerFilename = join(this.cliscConfig.dir, this.cliscConfig.logger);
+
+    if (this.cliscConfig === undefined) {
+      throw new CLIError('Unable to load configuration files!');
+    }
+
+    if (this.loggerFilename === undefined) {
+      throw new CLIError('Unable to load logger file!');
+    }
+
+    const spinner = ora({
+      text: 'Sending request...',
+    }).start();
+
+    try {
+      // retrieve the contract's information
+      const filename: string = this.args.contract + '.json';
+      const descriptor = await Config.getDescriptor(filename, this.cliscConfig.descriptorsFolder());
+      // initialize the [[Contract]] object starting from its descriptor
+      this.contract = new Contract(descriptor, this.flags.auth);
+
+      if (this.flags.file) {
+        try {
+          await this.fromFile()
+            .then(res => {
+              this.onResponse(res.data, spinner);
+            })
+            .catch(err => {
+              spinner.fail(`Malformed request: ${err.message}`);
+            });
+        } catch (err) {
+          spinner.fail(`Request failed: ${err.message}`);
+        }
+      } else {
+        if (!this.flags.id) {
+          spinner.fail('Missing required jsonrpc id: use flag -I --id');
+        } else {
+          try {
+            this.fromFlags()
+              .then(res => {
+                this.onResponse(res.data, spinner);
+              })
+              .catch(err => {
+                spinner.fail(`Malformed request: ${err.message}`);
+                if (this.flags.logger) {
+                  updateState(
+                    this.loggerFilename as string,
+                    this.flags.corrId !== undefined ? this.flags.corrId : '',
+                    State.FAILED,
+                    err.message,
+                  );
+                }
+              });
+          } catch (err) {
+            spinner.fail(`Request failed: ${err.message}`);
+            // updateState(
+            //   this.loggerFilename as string,
+            //   this.flags.corrId !== undefined ? this.flags.corrId : '',
+            //   State.FAILED,
+            //   err.message,
+            // );
+          }
+        }
       }
-    } else {
-      if (!this.flags.id) {
-        throw new CLIError(`Missing required flag: -I --id`);
-      }
-      await this.fromFlags()
-        .then(res => {
-          this.handleResponse(res.data);
-        })
-        .catch(err => {
-          throw err;
-        });
+    } catch (err) {
+      spinner.fail(`Fatal error: ${err.message}`);
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@toolscip/scdl-lib",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Smart Contract Description Language api library",
   "keywords": [
     "SCDL",
@@ -52,7 +52,8 @@
   },
   "dependencies": {
     "@lampajr/jsonrpc-lib": "^1.0.0",
-    "@toolscip/scip-lib": "^1.0.0"
+    "@toolscip/scip-lib": "^1.0.0",
+    "axios": "^0.19.2"
   },
   "devDependencies": {
     "prettier": "^1.19.1",

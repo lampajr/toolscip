@@ -4,6 +4,7 @@ import chalk = require('chalk');
 import { textSync } from 'figlet';
 import Config from './config';
 import shared from './shared';
+import { join } from 'path';
 
 export default abstract class extends Command {
   // base static flags
@@ -14,7 +15,8 @@ export default abstract class extends Command {
   // base attributes
   flags: any;
   args: any;
-  cliscConfig: Config | undefined;
+  cliscConfig?: Config;
+  loggerFilename?: string;
 
   // base methods
 
@@ -25,6 +27,12 @@ export default abstract class extends Command {
    */
   log(msg: any, level: string = 'log') {
     switch (level) {
+      case 'success':
+        console.log(chalk.green(msg));
+        break;
+      case 'fail':
+        console.log(chalk.red(msg));
+        break;
       case 'log':
         // console.log(chalk.green('> ') + msg);
         console.log(msg);
@@ -61,7 +69,8 @@ export default abstract class extends Command {
     this.flags = flags;
     this.args = args;
     if (this.constructor.name !== 'Init') {
-      this.cliscConfig = await Config.loadConfig(flags.path);
+      this.cliscConfig = await Config.load(flags.path);
+      this.loggerFilename = join(this.cliscConfig.dir, this.cliscConfig.logger);
     }
   }
 

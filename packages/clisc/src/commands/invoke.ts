@@ -17,9 +17,9 @@ import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { types, ScipRequest } from '@toolscip/scip-lib';
 import { Method } from '@toolscip/scdl-lib';
-import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';
+import { addEntry, State, Entry } from '../logger';
 
 export default class Invoke extends ScipCommand {
   static description = `invoke a target smart contract's function/method starting from a smart contract's descriptor.`;
@@ -38,11 +38,12 @@ export default class Invoke extends ScipCommand {
     doc: shared.doc,
     timeout: shared.timeout,
     signature: shared.signature,
+    logger: shared.logger,
   };
 
   static args = [...ScipCommand.args];
 
-  fromFlags(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+  async fromFlags() {
     if (this.flags.method === undefined) {
       throw new CLIError(`The name of the method to invoke is mandatory. Use flag '--method' or '-m' to set it`);
     }
@@ -57,22 +58,42 @@ export default class Invoke extends ScipCommand {
       throw new CLIError(
         `Method named '${this.flags.method}' not found in '${
           this.contract.descriptor.name
-        }' contract\nThis contract has the following available methods: [${Object.keys(this.contract.methods)}]`,
+        }'. Available methods [${Object.keys(this.contract.methods)}]`,
       );
     }
+
+    if (this.cliscConfig === undefined || this.loggerFilename === undefined) {
+      throw new CLIError('Unable to load config file');
+    }
+
+    const entry: Entry = {
+      request: 'Invocation',
+      state: State.SENT,
+      note: 'Invocation request formulated and sent',
+      results: [],
+    };
+
+    if (this.flags.logger) {
+      addEntry(this.loggerFilename, this.flags.corrId, entry);
+    }
+
     return method.invoke(
       this.flags.id,
       this.flags.method,
       this.flags.value !== undefined ? this.flags.value : [],
       this.flags.signature,
-      this.flags.callback,
-      this.flags.corrId,
       this.flags.doc,
+      this.flags.callback !== undefined
+        ? this.flags.callback
+        : this.cliscConfig !== undefined
+        ? this.cliscConfig.callbackUrl
+        : null,
+      this.flags.corrId,
       this.flags.timeout,
     );
   }
 
-  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+  async fromFile() {
     if (this.contract === undefined) {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
@@ -89,7 +110,7 @@ export default class Invoke extends ScipCommand {
       throw new CLIError('Invalid SCIP Invocation request');
     } else {
       // retrieve the function/event to query
-      const method: Method = this.contract.methods[(request.params as types.Invocation).functionId];
+      const method: Method = this.contract.methods[(request.params as types.Invocation).functionIdentifier];
 
       return method.request(request);
     }

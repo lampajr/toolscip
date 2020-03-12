@@ -67,6 +67,9 @@
 				<a href="#codescip-libcode" id="codescip-libcode" style="color: inherit; text-decoration: none;">
 					<h1><code>scip-lib</code></h1>
 				</a>
+				<p><a href="https://www.npmjs.com/package/@toolscip/scip-lib"><img src="https://img.shields.io/npm/v/@toolscip/scip-lib" alt="Version"></a>
+					<a href="https://img.shields.io/npm/dw/@toolscip/scip-lib"><img src="https://img.shields.io/npm/dw/@toolscip/scip-lib" alt="Downloads/week"></a>
+				<img src="https://img.shields.io/github/license/lampajr/toolscip" alt="License"></p>
 				<p>This is a simple <a href="">Smart Contract Invocation Protocol</a> compliant parser and generator library written in Typescript for <a href="https://nodejs.org/en/">Node.js</a>. It was built out as an extension of the <a href="https://github.com/lampajr/jsonrpc-lib">jsonrpc-lib</a> since SCIP is made out as an extension of <a href="https://www.jsonrpc.org/specification">JSON-RPC</a>.</p>
 				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
 					<h2>Table of Contents</h2>
@@ -91,7 +94,7 @@
 					<h2>Installation</h2>
 				</a>
 				<p>The package can be simply installed via <a href="https://www.npmjs.com/">npm</a>, a suggestion is to import the package locally as follow:</p>
-				<pre><code class="language-bash">npm install --save @lampajr/scip-lib</code></pre>
+				<pre><code class="language-bash">npm install --save @toolscip/scip-lib</code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
@@ -105,62 +108,62 @@
 				<p>One of the main functionality that this package provides is the <em>parse</em> function that allows a client to parse a string message, checks whether it a SCIP-compliant message and then if valid it generates the corresponding SCIP object, otherwise it throws an exception (i.e. <code>ErrorObject</code>) containing information about what is invalid in the string message.</p>
 				<p>Suppose to have received a message request as the following one:</p>
 				<pre><code class="language-json">{
-    jsonrpc: &#39;2.0&#39;,
-    id: &#39;abcdefg&#39;,
-    method: &#39;Invoke&#39;,
-    params: {
-      functionId: &#39;send&#39;,
-      inputs: [
-        {
-          type: {
-            type: &#39;number&#39;
-          },
-          name: &#39;amount&#39;,
-          value: 50
-        }
-      ],
-      outputs: []
-    }
+  <span class="hljs-attr">"jsonrpc"</span>: <span class="hljs-string">"2.0"</span>,
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"abcdefg"</span>,
+  <span class="hljs-attr">"method"</span>: <span class="hljs-string">"Invoke"</span>,
+  <span class="hljs-attr">"params"</span>: {
+    <span class="hljs-attr">"functionId"</span>: <span class="hljs-string">"send"</span>,
+    <span class="hljs-attr">"inputs"</span>: [
+      {
+        <span class="hljs-attr">"type"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span>
+        },
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"amount"</span>,
+        <span class="hljs-attr">"value"</span>: <span class="hljs-number">50</span>
+      }
+    ],
+    <span class="hljs-attr">"outputs"</span>: []
+  }
 }</code></pre>
 				<p>Now you just have to invoke the <em>parse</em> function providing the message as input, if the message is valid the function will return the object instance of a SCIP message (i.e. <code>ScipInvocation</code>, <code>ScipSubscription</code>, <code>ScipUnsubscription</code>, <code>ScipQuery</code>, <code>ScipCallback</code>, <code>ScipSuccess</code> and <code>ScipError</code>).</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">const</span> obj = scip.parse(msg);
-    <span class="hljs-comment">// `obj` will be an instance of a ScipInvocation class</span>
+  <span class="hljs-keyword">const</span> obj = scip.parse(msg);
+  <span class="hljs-comment">// `obj` will be an instance of a ScipInvocation class</span>
 } <span class="hljs-keyword">catch</span> (err) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message);    <span class="hljs-comment">// error description</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code);            <span class="hljs-comment">// scip error code</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error data: '</span> + err.data);            <span class="hljs-comment">// scip error additional data</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message); <span class="hljs-comment">// error description</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code); <span class="hljs-comment">// scip error code</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error data: '</span> + err.data); <span class="hljs-comment">// scip error additional data</span>
 }</code></pre>
 				<p><strong>Note</strong>: the input message must be in string format.</p>
 				<p>There are two different flavours of the <code>parse</code> function, the <code>parseRequest</code> and the <code>parseResponse</code>, which act exactly as the <em>parse</em> function, providing additional check over the specific SCIP message by throwing an error if the parsed data is not a <em>request</em> or a <em>response</em> respectively.</p>
 				<p>This package provides also other function that are mainly used to create new <em>SCIP</em> messages instances, all of them require an <code>id</code> (i.e. json-rpc id) and a <code>params</code> object that must be a valid SCIP <em>params</em> object in according to the specific invoked function (i.e. <code>Invocation</code>, <code>FunctionSubscription</code>, <code>EventSubscription</code>, <code>FunctionUnsubscription</code>, <code>EventUnsubscription</code>, <code>FunctionQuery</code>, <code>EventQuery</code>, <code>QueryResult</code> and <code>Callback</code>).</p>
 				<p>The <em>params</em> object can be directly provided as instance of one of the aforementioned classes or as generic JSON object.</p>
 				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> param = {
-    functionId: <span class="hljs-string">'send'</span>,
-    inputs: [
-        {
-            <span class="hljs-keyword">type</span>: {
-                <span class="hljs-keyword">type</span>: <span class="hljs-string">'number'</span>
-            },
-            name: <span class="hljs-string">'amount'</span>,
-            value: <span class="hljs-number">50</span>
-        }
-    ],
-    outputs: []
-}
+  functionId: <span class="hljs-string">'send'</span>,
+  inputs: [
+    {
+      <span class="hljs-keyword">type</span>: {
+        <span class="hljs-keyword">type</span>: <span class="hljs-string">'number'</span>,
+      },
+      name: <span class="hljs-string">'amount'</span>,
+      value: <span class="hljs-number">50</span>,
+    },
+  ],
+  outputs: [],
+};
 
 <span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">const</span> invObj = scip.invoke(<span class="hljs-string">'abcdefg'</span>, param);
-    <span class="hljs-comment">// 'invObj' will be an instance of a ScipInvocation</span>
+  <span class="hljs-keyword">const</span> invObj = scip.invoke(<span class="hljs-string">'abcdefg'</span>, param);
+  <span class="hljs-comment">// 'invObj' will be an instance of a ScipInvocation</span>
 } <span class="hljs-keyword">catch</span> (err) {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message);    <span class="hljs-comment">// error description</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code);            <span class="hljs-comment">// scip error code</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error data: '</span> + err.data);            <span class="hljs-comment">// scip error additional data</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error message: '</span> + err.message); <span class="hljs-comment">// error description</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error code: '</span> + err.code); <span class="hljs-comment">// scip error code</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error data: '</span> + err.data); <span class="hljs-comment">// scip error additional data</span>
 }</code></pre>
 				<a href="#scip-specification" id="scip-specification" style="color: inherit; text-decoration: none;">
 					<h2>SCIP Specification</h2>
 				</a>
-				<p>The <em>Smart Contract Invocation Protocol</em> is a protocol intended to provide a protocol specification in the context of blockchains integration that allows external consumer applications to invoke smart contract functions in a uniform manner regardless of the underlying blockchain technology. Moreover it provides the capability to monitor smart contracts at runtime. Its core consists of a set of <em>methods</em> that can be used by blockchain-external consumer application to interact with <em>smart contracts</em>. </p>
+				<p>The <em>Smart Contract Invocation Protocol</em> is a protocol intended to provide a protocol specification in the context of blockchains integration that allows external consumer applications to invoke smart contract functions in a uniform manner regardless of the underlying blockchain technology. Moreover it provides the capability to monitor smart contracts at runtime. Its core consists of a set of <em>methods</em> that can be used by blockchain-external consumer application to interact with <em>smart contracts</em>.</p>
 				<p>In particular the protocol defines four different methods which are used to perform the following operations:</p>
 				<ul>
 					<li>The <em>invocation</em> of a smart contract function</li>
@@ -190,7 +193,7 @@
 				<p>SCIP does not force to use a specific protocol for carrying all these messages, hence different bindings could be used. Here, we have decided to propose a JSON-RPC binding for SCIP, which is a stateless transport-agnostic remote procedure call protocol that uses JSON as its data format. A complete binding can be found at <a href="https://github.com/lampajr/scip/blob/master/README.md#json-rpc-binding">scip binding</a>.</p>
 				<p>In according to the binding proposed in the <a href="https://github.com/lampajr/scip/blob/master/README.md">specification</a> we have built this library out of a JSON-RPC parser library since every SCIP message is also a JSON-RPC 2.0 compliant message. Hence the SCIP can be seen as a restriction of the JSON-RPC protocol:</p>
 				<ul>
-					<li><em>jsonrpc</em>: 2.0  as for generic json-rpc message</li>
+					<li><em>jsonrpc</em>: 2.0 as for generic json-rpc message</li>
 					<li><em>id</em>: string or number as for any json-rpc message</li>
 					<li><em>method</em>: this can only be one of [<em>invoke, subscribe, unsubscribe</em> and <em>query</em>]</li>
 					<li><em>params</em>: the parameter object must have specific form in acccording to the method that has to be invoked.</li>
@@ -323,7 +326,7 @@
 						<tr>
 							<td><code>unsubscribeEvent</code></td>
 							<td><code>ScipUnsubscription</code></td>
-							<td>Generates a <code>ScipUnsubscription</code> message if the params is a valid  <code>EventUnsubscription</code> object.</td>
+							<td>Generates a <code>ScipUnsubscription</code> message if the params is a valid <code>EventUnsubscription</code> object.</td>
 						</tr>
 						<tr>
 							<td><code>unsubscribeFunction</code></td>
@@ -362,18 +365,19 @@ app.post(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<spa
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">const</span> request = scip.parseRequest(body);
     <span class="hljs-keyword">const</span> result = handleRequest(request);
-    <span class="hljs-keyword">const</span> response = scip.success(request.id, result);  <span class="hljs-comment">// SCIP success response</span>
+    <span class="hljs-keyword">const</span> response = scip.success(request.id, result); <span class="hljs-comment">// SCIP success response</span>
     res.json(response);
-  } <span class="hljs-keyword">catch</span>(err) {  <span class="hljs-comment">// notice that err is already a valid jsonrpc ErrorObject</span>
-    <span class="hljs-keyword">const</span> error = scip.error(req.body.id, err);  <span class="hljs-comment">// SCIP error response</span>
+  } <span class="hljs-keyword">catch</span> (err) {
+    <span class="hljs-comment">// notice that err is already a valid jsonrpc ErrorObject</span>
+    <span class="hljs-keyword">const</span> error = scip.error(req.body.id, err); <span class="hljs-comment">// SCIP error response</span>
     res.json(error);
   }
-})
+});
 
 <span class="hljs-comment">/* Start the server */</span>
 app.listen(PORT, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Server started at port <span class="hljs-subst">${PORT}</span>`</span>);
-})</code></pre>
+});</code></pre>
 				<p>The <code>handleRequest</code> can be written as follows:</p>
 				<pre><code class="language-typescript"><span class="hljs-comment">/**
  * Executes some task in according to the specific kind of the SCIP request, hence in 'jsonrpc' context, it performs the code directly associated with the called 'method'.
@@ -383,14 +387,10 @@ app.listen(PORT, <span class="hljs-function"><span class="hljs-params">()</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleRequest</span>(<span class="hljs-params">msg: ScipMessage</span>): <span class="hljs-title">any</span> </span>{
   <span class="hljs-keyword">if</span> (msg <span class="hljs-keyword">instanceof</span> types.ScipInvocation) {
     <span class="hljs-comment">// ...</span>
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipInvocation) {
-
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipSubscription) {
-
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipUnsubscription) {
-
-  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(msg <span class="hljs-keyword">instanceof</span> types.ScipQuery) {
-
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (msg <span class="hljs-keyword">instanceof</span> types.ScipInvocation) {
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (msg <span class="hljs-keyword">instanceof</span> types.ScipSubscription) {
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (msg <span class="hljs-keyword">instanceof</span> types.ScipUnsubscription) {
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (msg <span class="hljs-keyword">instanceof</span> types.ScipQuery) {
   } <span class="hljs-comment">// ...</span>
 }</code></pre>
 				<p>If you want to see another, completely different, example of usage please take a look at the <a href="https://github.com/lampajr/toolscip/tree/master/packages/clisc">clisc</a>, a Node.js command line interface, which was built for automating the <em>SCIP</em> request invocations.</p>

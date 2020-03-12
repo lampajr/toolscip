@@ -19,7 +19,7 @@ import * as fs from 'fs-extra';
 import BaseCommand from '../../base';
 
 export default class ScdlList extends BaseCommand {
-  static limit = 5; // if 'extended' is not set returns only 5 descriptors
+  static limit = 10; // if 'extended' is not set returns only 5 descriptors
 
   static description = `list saved SCDL smart contract's descriptors`;
   static aliases = ['scdl:list', 'scdl:ls', 'scdl:index', 'scdl:get'];

@@ -17,7 +17,6 @@ import { flags } from '@oclif/command';
 import { CLIError } from '@oclif/errors';
 import { types, ScipRequest } from '@toolscip/scip-lib';
 import { Method, Event } from '@toolscip/scdl-lib';
-import { AxiosResponse } from 'axios';
 import ScipCommand from '../scip';
 import shared from '../shared';
 
@@ -68,7 +67,7 @@ export default class Subscribe extends ScipCommand {
       throw new CLIError(
         `${
           this.flags.method ? "Method name '" + this.flags.method : "Event named'" + this.flags.event
-        }" not found in '${this.contract.descriptor.name}' contract\nThis contract has the following available ${
+        }" not found in '${this.contract.descriptor.name}' contract. Available ${
           this.flags.method
             ? 'methods: [' + Object.keys(this.contract.methods)
             : 'events: [' + Object.keys(this.contract.events)
@@ -81,13 +80,13 @@ export default class Subscribe extends ScipCommand {
       this.flags.method ? this.flags.method : (this.flags.event as string),
       this.flags.value !== undefined ? this.flags.value : [],
       this.flags.callback,
-      this.flags.corrId,
       this.flags.doc,
+      this.flags.corrId,
       this.flags.filter,
     );
   }
 
-  async fromFile(): Promise<AxiosResponse<types.ScipError | types.ScipSuccess>> {
+  async fromFile() {
     if (this.contract === undefined) {
       throw new CLIError(`Contract has not been initialized. Fatal error!`);
     }
@@ -106,8 +105,8 @@ export default class Subscribe extends ScipCommand {
       // retrieve the function/event to query
       const generic: Method | Event =
         request.params instanceof types.FunctionSubscription
-          ? this.contract.methods[request.params.functionId]
-          : this.contract.events[(request.params as types.EventSubscription).eventId];
+          ? this.contract.methods[request.params.functionIdentifier]
+          : this.contract.events[(request.params as types.EventSubscription).eventIdentifier];
 
       return generic.request(request);
     }

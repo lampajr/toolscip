@@ -97,8 +97,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_config_.config.html#callbackurl" class="tsd-kind-icon">callback<wbr>Url</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_config_.config.html#dir" class="tsd-kind-icon">dir</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_config_.config.html#limit" class="tsd-kind-icon">limit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_config_.config.html#logger" class="tsd-kind-icon">logger</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_config_.config.html#owner" class="tsd-kind-icon">owner</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_config_.config.html#registry" class="tsd-kind-icon">registry</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_config_.config.html#configfile" class="tsd-kind-icon">config<wbr>File</a></li>
@@ -112,7 +114,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_config_.config.html#configfolder-1" class="tsd-kind-icon">config<wbr>Folder</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_config_.config.html#descriptorsfolder-1" class="tsd-kind-icon">descriptors<wbr>Folder</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_config_.config.html#getdescriptor" class="tsd-kind-icon">get<wbr>Descriptor</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_config_.config.html#loadconfig" class="tsd-kind-icon">load<wbr>Config</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="_config_.config.html#load" class="tsd-kind-icon">load</a></li>
 							</ul>
 						</section>
 					</div>
@@ -124,13 +126,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Config<span class="tsd-signature-symbol">(</span>owner<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, limit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, registry<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_config_.config.html" class="tsd-signature-type">Config</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Config<span class="tsd-signature-symbol">(</span>owner<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, limit<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, logger<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, registry<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span>, callbackUrl<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_config_.config.html" class="tsd-signature-type">Config</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L67">src/config.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L71">src/config.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -145,7 +147,13 @@
 									<h5>limit: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
+									<h5>logger: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> registry: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callbackUrl: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_config_.config.html" class="tsd-signature-type">Config</a></h4>
@@ -156,12 +164,27 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="callbackurl" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> callback<wbr>Url</h3>
+					<div class="tsd-signature tsd-kind-icon">callback<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L71">src/config.ts:71</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Global callback URL</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="dir" class="tsd-anchor"></a>
 					<h3>dir</h3>
 					<div class="tsd-signature tsd-kind-icon">dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L63">src/config.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L63">src/config.ts:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -176,7 +199,7 @@
 					<div class="tsd-signature tsd-kind-icon">limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L65">src/config.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L65">src/config.ts:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,12 +209,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="logger" class="tsd-anchor"></a>
+					<h3>logger</h3>
+					<div class="tsd-signature tsd-kind-icon">logger<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L67">src/config.ts:67</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Logger filename</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="owner" class="tsd-anchor"></a>
 					<h3>owner</h3>
 					<div class="tsd-signature tsd-kind-icon">owner<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L61">src/config.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L61">src/config.ts:61</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -206,7 +244,7 @@
 					<div class="tsd-signature tsd-kind-icon">registry<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L67">src/config.ts:67</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L69">src/config.ts:69</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -221,7 +259,7 @@
 					<div class="tsd-signature tsd-kind-icon">config<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;clisc.json&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L26">src/config.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L26">src/config.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -231,7 +269,7 @@
 					<div class="tsd-signature tsd-kind-icon">config<wbr>Folder<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;.clisc&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L24">src/config.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L24">src/config.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -241,7 +279,7 @@
 					<div class="tsd-signature tsd-kind-icon">descriptors<wbr>Folder<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;descriptors&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L25">src/config.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L25">src/config.ts:25</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -258,7 +296,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L89">src/config.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L93">src/config.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -280,7 +318,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L82">src/config.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L86">src/config.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -303,7 +341,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L50">src/config.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L50">src/config.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -332,16 +370,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="loadconfig" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> load<wbr>Config</h3>
+					<a name="load" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> load</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">load<wbr>Config<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_config_.config.html" class="tsd-signature-type">Config</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">load<span class="tsd-signature-symbol">(</span>path<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_config_.config.html" class="tsd-signature-type">Config</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/b438276/packages/clisc/src/config.ts#L34">src/config.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/config.ts#L34">src/config.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -410,6 +448,9 @@
 						<a href="../modules/_index_.html">&quot;index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_logger_.html">&quot;logger&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_scip_.html">&quot;scip&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -428,10 +469,16 @@
 								<a href="_config_.config.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_config_.config.html#callbackurl" class="tsd-kind-icon">callback<wbr>Url</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_config_.config.html#dir" class="tsd-kind-icon">dir</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_config_.config.html#limit" class="tsd-kind-icon">limit</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_config_.config.html#logger" class="tsd-kind-icon">logger</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_config_.config.html#owner" class="tsd-kind-icon">owner</a>
@@ -458,7 +505,7 @@
 								<a href="_config_.config.html#getdescriptor" class="tsd-kind-icon">get<wbr>Descriptor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="_config_.config.html#loadconfig" class="tsd-kind-icon">load<wbr>Config</a>
+								<a href="_config_.config.html#load" class="tsd-kind-icon">load</a>
 							</li>
 						</ul>
 					</li>

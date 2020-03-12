@@ -31,11 +31,11 @@ export default class Config {
    * @returns a promise containing the Config object
    * @throws CLIError if the file was not found
    */
-  static async loadConfig(path?: string | undefined): Promise<Config> {
+  static async load(path?: string | undefined): Promise<Config> {
     const p: string = path === undefined ? join(process.cwd(), Config.configFile) : path;
     try {
       const value: any = await fs.readJSON(p);
-      return new Config(value.owner, value.dir, value.limit, value.registry);
+      return new Config(value.owner, value.dir, value.limit, value.logger, value.registry, value.callbackUrl);
     } catch (err) {
       throw new CLIError(`Unable to find the config file at '${p}'`);
     }
@@ -53,7 +53,7 @@ export default class Config {
       return await fs.readJSON(completPath);
     } catch (err) {
       // throw new CLIError(`Unable to find the specified contract at '${completPath}'`);
-      throw new CLIError(`Unable to load the descriptor - ${err.message}`);
+      throw new CLIError(`Unable to load the descriptor at ${completPath}`);
     }
   }
 
@@ -63,16 +63,20 @@ export default class Config {
   dir: string;
   /** Default number of returned descriptor when queried */
   limit: number;
+  /** Logger filename */
+  logger: string;
   /** Online registry URL [optional] */
   registry?: string;
+  /** Global callback URL */
+  callbackUrl?: string;
 
-  constructor(owner: string, dir: string, limit: number, registry?: string) {
+  constructor(owner: string, dir: string, limit: number, logger: string, registry?: string, callbackUrl?: string) {
     this.owner = owner;
     this.dir = dir;
     this.limit = limit;
-    if (registry) {
-      this.registry = registry;
-    }
+    this.logger = logger;
+    this.registry = registry;
+    this.callbackUrl = callbackUrl;
   }
 
   /**

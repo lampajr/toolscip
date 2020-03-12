@@ -1,5 +1,5 @@
 /**
- * * Copyright * 2019 Andrea Lamparelli
+ * *Copyright* 2019 Andrea Lamparelli
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -80,7 +80,7 @@ function parseParameters(
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseInvocation(obj: any): types.Invocation {
-  validation.validateIdentifier(obj, 'functionId');
+  validation.validateIdentifier(obj, 'functionIdentifier');
   validation.validateCallbackUrl(obj);
   validation.validateCorrId(obj);
   validation.validateDoc(obj);
@@ -89,7 +89,7 @@ function parseInvocation(obj: any): types.Invocation {
   const inputs: types.Parameter[] = parseParameters(obj, 'inputs', true, true, true);
   const outputs: types.Parameter[] = parseParameters(obj, 'outputs', true, true, true);
   return new types.Invocation(
-    obj.functionId,
+    obj.functionIdentifier,
     inputs,
     outputs,
     obj.signature,
@@ -107,13 +107,13 @@ function parseInvocation(obj: any): types.Invocation {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseEventSubscription(obj: any): types.EventSubscription {
-  validation.validateIdentifier(obj, 'eventId');
+  validation.validateIdentifier(obj, 'eventIdentifier');
   validation.validateCallbackUrl(obj);
   validation.validateCorrId(obj);
   validation.validateDoc(obj);
   validation.validateFilter(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.EventSubscription(obj.eventId, params, obj.callback, obj.corrId, obj.doc, obj.filter);
+  const params: types.Parameter[] = parseParameters(obj, 'parameters', true, true, false);
+  return new types.EventSubscription(obj.eventIdentifier, params, obj.callback, obj.corrId, obj.doc, obj.filter);
 }
 
 /**
@@ -123,13 +123,13 @@ function parseEventSubscription(obj: any): types.EventSubscription {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseFunctionSubscription(obj: any): types.FunctionSubscription {
-  validation.validateIdentifier(obj, 'functionId');
+  validation.validateIdentifier(obj, 'functionIdentifier');
   validation.validateCallbackUrl(obj);
   validation.validateCorrId(obj);
   validation.validateDoc(obj);
   validation.validateFilter(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.FunctionSubscription(obj.functionId, params, obj.callback, obj.corrId, obj.doc, obj.filter);
+  const params: types.Parameter[] = parseParameters(obj, 'parameters', true, true, false);
+  return new types.FunctionSubscription(obj.functionIdentifier, params, obj.callback, obj.corrId, obj.doc, obj.filter);
 }
 
 /**
@@ -139,10 +139,10 @@ function parseFunctionSubscription(obj: any): types.FunctionSubscription {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseEventUnsubscription(obj: any): types.EventUnsubscription {
-  validation.validateIdentifier(obj, 'eventId');
+  validation.validateIdentifier(obj, 'eventIdentifier');
   validation.validateCorrId(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.EventUnsubscription(obj.eventId, params, obj.corrId);
+  const params: types.Parameter[] = parseParameters(obj, 'parameters', true, true, false);
+  return new types.EventUnsubscription(obj.eventIdentifier, params, obj.corrId);
 }
 
 /**
@@ -152,10 +152,10 @@ function parseEventUnsubscription(obj: any): types.EventUnsubscription {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseFunctionUnsubscription(obj: any): types.FunctionUnsubscription {
-  validation.validateIdentifier(obj, 'functionId');
+  validation.validateIdentifier(obj, 'functionIdentifier');
   validation.validateCorrId(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.FunctionUnsubscription(obj.functionId, params, obj.corrId);
+  const params: types.Parameter[] = parseParameters(obj, 'parameters', true, true, false);
+  return new types.FunctionUnsubscription(obj.functionIdentifier, params, obj.corrId);
 }
 
 /**
@@ -165,12 +165,11 @@ function parseFunctionUnsubscription(obj: any): types.FunctionUnsubscription {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseEventQuery(obj: any): types.EventQuery {
-  validation.validateIdentifier(obj, 'eventId');
+  validation.validateIdentifier(obj, 'eventIdentifier');
   validation.validateFilter(obj);
-  validation.validateTime(obj, false, 'startTime');
-  validation.validateTime(obj, false, 'endTime');
-  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.EventQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
+  validation.validateTimeframe(obj, false);
+  const params: types.Parameter[] = parseParameters(obj, 'parameters', true, true, false);
+  return new types.EventQuery(obj.functionIdentifier, params, obj.filter, obj.timeframe);
 }
 
 /**
@@ -180,12 +179,11 @@ function parseEventQuery(obj: any): types.EventQuery {
  * @throws [[ScipErrorObject]] Parse Error
  */
 function parseFunctionQuery(obj: any): types.FunctionQuery {
-  validation.validateIdentifier(obj, 'functionId');
+  validation.validateIdentifier(obj, 'functionIdentifier');
   validation.validateFilter(obj);
-  validation.validateTime(obj, false, 'startTime');
-  validation.validateTime(obj, false, 'endTime');
-  const params: types.Parameter[] = parseParameters(obj, 'params', true, true, false);
-  return new types.FunctionQuery(obj.functionId, params, obj.filter, obj.startTime, obj.endTime);
+  validation.validateTimeframe(obj, false);
+  const params: types.Parameter[] = parseParameters(obj, 'parameters', true, true, false);
+  return new types.FunctionQuery(obj.functionIdentifier, params, obj.filter, obj.timeframe);
 }
 
 /**
@@ -197,7 +195,7 @@ function parseFunctionQuery(obj: any): types.FunctionQuery {
 function parseCallback(obj: any): types.Callback {
   validation.validateCorrId(obj);
   validation.validateTimestamp(obj);
-  const params: types.Parameter[] = parseParameters(obj, 'params', false, true, true);
+  const params: types.Parameter[] = parseParameters(obj, 'parameters', false, true, true);
   return new types.Callback(params, obj.corrId, obj.timestamp);
 }
 
@@ -209,8 +207,8 @@ function parseCallback(obj: any): types.Callback {
  */
 function parseOccurrence(occ: any): types.Occurrence {
   validation.validateTimestamp(occ);
-  const params: types.Parameter[] = parseParameters(occ, 'params', false, true, true);
-  return new types.Occurrence(params, occ.timestamp);
+  const params: types.Parameter[] = parseParameters(occ, 'parameters', false, true, true);
+  return new types.Occurrence(params, occ.isoTimestamp);
 }
 
 /**
@@ -301,34 +299,40 @@ export function parse(data: any): ScipMessage {
         break;
       case 'Subscribe':
         let subParam: types.EventSubscription | types.FunctionSubscription;
-        if (validation.hasOwnProperty.call(params, 'eventId')) {
+        if (validation.hasOwnProperty.call(params, 'eventIdentifier')) {
           subParam = parseEventSubscription(params);
-        } else if (validation.hasOwnProperty.call(params, 'functionId')) {
+        } else if (validation.hasOwnProperty.call(params, 'functionIdentifier')) {
           subParam = parseFunctionSubscription(params);
         } else {
-          throw types.ScipErrorObject.invalidRequest('Invalid identifier found, use "functionId" or "eventId');
+          throw types.ScipErrorObject.invalidRequest(
+            'Invalid identifier found, use "functionIdentifier" or "eventIdentifier',
+          );
         }
         res = new types.ScipSubscription(msg.id, subParam);
         break;
       case 'Unsubscribe':
         let unsubParam: types.EventUnsubscription | types.FunctionUnsubscription;
-        if (validation.hasOwnProperty.call(params, 'eventId')) {
+        if (validation.hasOwnProperty.call(params, 'eventIdentifier')) {
           unsubParam = parseEventUnsubscription(params);
-        } else if (validation.hasOwnProperty.call(params, 'functionId')) {
+        } else if (validation.hasOwnProperty.call(params, 'functionIdentifier')) {
           unsubParam = parseFunctionUnsubscription(params);
         } else {
-          throw types.ScipErrorObject.invalidRequest('Invalid identifier found, use "functionId" or "eventId');
+          throw types.ScipErrorObject.invalidRequest(
+            'Invalid identifier found, use "functionIdentifier" or "eventIdentifier',
+          );
         }
         res = new types.ScipUnsubscription(msg.id, unsubParam);
         break;
       case 'Query':
         let queryParam: types.EventQuery | types.FunctionQuery;
-        if (validation.hasOwnProperty.call(params, 'eventId')) {
+        if (validation.hasOwnProperty.call(params, 'eventIdentifier')) {
           queryParam = parseEventQuery(params);
-        } else if (validation.hasOwnProperty.call(params, 'functionId')) {
+        } else if (validation.hasOwnProperty.call(params, 'functionIdentifier')) {
           queryParam = parseFunctionQuery(params);
         } else {
-          throw types.ScipErrorObject.invalidRequest('Invalid identifier found, use "functionId" or "eventId');
+          throw types.ScipErrorObject.invalidRequest(
+            'Invalid identifier found, use "functionIdentifier" or "eventIdentifier',
+          );
         }
         res = new types.ScipQuery(msg.id, queryParam);
         break;

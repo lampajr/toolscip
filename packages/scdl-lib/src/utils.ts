@@ -87,8 +87,8 @@ export interface Subscribable {
     id: string,
     values: any[],
     callback: string,
+    doc: number,
     corrId?: string,
-    doc?: number,
     filter?: string,
   ): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
   unsubscribe(jsonrpcId: Id, id: string, corrId?: string): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
@@ -105,9 +105,9 @@ export interface Invocable {
     id: string,
     values: any[],
     signature: string,
+    doc: number,
     callback?: string,
     corrId?: string,
-    doc?: number,
     timeout?: number,
   ): Promise<AxiosResponse<types.ScipSuccess | types.ScipError>>;
 }
@@ -137,7 +137,7 @@ export function createParams(values: any[], prevParams: IParameter[], required: 
   const params: types.Parameter[] = [];
   for (let index = 0; index < values.length; index++) {
     const element: IParameter = prevParams[index];
-    params.push(new types.Parameter(element.name, element.type, values[index]));
+    params.push(new types.Parameter(element.name, JSON.stringify(element.type), values[index]));
   }
   return params;
 }
@@ -148,7 +148,7 @@ export function createParams(values: any[], prevParams: IParameter[], required: 
  * @returns the converted array
  */
 export function convertParams(prevParams: IParameter[]): types.Parameter[] {
-  return prevParams.map(elem => new types.Parameter(elem.name, elem.type));
+  return prevParams.map(elem => new types.Parameter(elem.name, JSON.stringify(elem.type)));
 }
 
 /**
