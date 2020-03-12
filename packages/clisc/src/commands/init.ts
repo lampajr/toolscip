@@ -24,12 +24,15 @@ import ora = require('ora');
 import BaseCommand from '../base';
 import Config from '../config';
 import ScdlList from './scdl/list';
+import { spawn } from 'child_process';
 
 export default class Init extends BaseCommand {
   static description = `initialize the 'clisc' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
   static examples = [
     `# Initialize the 'clisc' configuration files for the current project`,
     `$ clisc init`,
+    `# Initialize the 'clisc' configuration files for the current project skipping all questions`,
+    `$ clisc init --yes`,
     `# Initialize the 'clisc' configuration files for the current project with a simple express.js server for the asynchronous responses`,
     `$ clisc init --server`,
   ];
@@ -67,7 +70,7 @@ export default class Init extends BaseCommand {
           registry: 'https://scdlregistry.herokuapp.com/api/descriptors/content',
           setGlobalCallback: true,
           callbackUrl: 'http://172.16.238.19:3001',
-          serverTechnology: 'express',
+          serverTechnology: 'jayson',
           entry: 'index.js',
         };
       } else {
@@ -130,7 +133,7 @@ export default class Init extends BaseCommand {
           if (error) {
             spinner.fail(`Something went wrong while executing 'npm init': ${error.message}`);
           } else {
-            spinner.succeed('Npm project initialized');
+            spinner.succeed('Project initialized');
 
             if (answers.serverTechnology === 'express') {
               spinner = ora({
@@ -162,14 +165,13 @@ export default class Init extends BaseCommand {
               spinner = ora({
                 text: 'Installing dependencies..',
               }).start();
-              // TODO: add @toolscip/scip-lib
-              exec('npm install --save jayson', (error, _stdout, _stderr) => {
+              exec('npm install --save jayson @toolscip/scip-lib', (error, _stdout, _stderr) => {
                 if (error) {
                   spinner.fail(
                     `Something went wrong while installing dependencies (jayson and @toolscip/scip-lib): ${error.message}`,
                   );
                 } else {
-                  spinner.succeed('Jayson and @toolscip/scip-lib successfully installed');
+                  spinner.succeed('jayson and @toolscip/scip-lib successfully installed');
 
                   spinner = ora({
                     text: `Generating ${answers.entry}..`,
@@ -177,7 +179,11 @@ export default class Init extends BaseCommand {
 
                   fs.writeFile(answers.entry, jaysonFile)
                     .then(_ => {
-                      spinner.succeed(`${answers.entry} file successfully generated`);
+                      spinner.succeed(`${answers.entry} successfully generated`);
+                      spawn('node', [answers.entry], {
+                        stdio: 'ignore',
+                        detached: true,
+                      }).unref();
                     })
                     .catch(err => {
                       spinner.fail(`${answers.entry} initialization failed - ${err.message}`);
@@ -225,7 +231,6 @@ export default class Init extends BaseCommand {
 
   /**
    * Prompts the initialization questions
-   * TODO: check that folder is not empty
    * @param server tells whether retrieve information about server initialization
    */
   private async ask(server: boolean) {
@@ -302,5 +307,7 @@ const expressFile =
   {\n\t\tres.json(scip.error(req.body.id, err));\n\t}\n});\n\n// make the server listen to requests\napp.listen(PORT, () => {\n\tconsole.log(`Server running at \
   port ${PORT}`);\n});';
 
-// TODO: implement jayson client
-const jaysonFile = '';
+const jaysonFile =
+  '"use strict";\nconst jayson = require("jayson");\nconst port = process.env.PORT || 3001;\n// create a server\nconst server = jayson.server({ \
+\n\tReceiveResponse: function(args, callback) {\n\t\tconsole.log(JSON.stringify(args, null, 2));\n\t\tcallback(null, "Response received");\n\t  } \
+\n});\nconsole.log(`Client server listening on port: ${port}`);\nserver.http().listen(port);';

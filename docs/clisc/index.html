@@ -87,7 +87,7 @@
 $ clisc COMMAND
 running command...
 $ clisc (-v|--version|version)
-@toolscip/clisc/1.0.3 linux-x64 node-v10.19.0
+@toolscip/clisc/1.3.0 linux-x64 node-v10.19.0
 $ clisc --help [COMMAND]
 USAGE
   $ clisc COMMAND
@@ -136,9 +136,11 @@ OPTIONS
 EXAMPLES
   # Initialize the <span class="hljs-string">'clisc'</span> configuration files <span class="hljs-keyword">for</span> the current project
   $ clisc init
+  # Initialize the <span class="hljs-string">'clisc'</span> configuration files <span class="hljs-keyword">for</span> the current project skipping all questions
+  $ clisc init --yes
   # Initialize the <span class="hljs-string">'clisc'</span> configuration files <span class="hljs-keyword">for</span> the current project with a<span class="hljs-built_in"> simple </span>express.js<span class="hljs-built_in"> server </span><span class="hljs-keyword">for</span> the 
   asynchronous responses
-  $ clisc init --server</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/init.ts">dist/commands/init.ts</a></em></p>
+  $ clisc init --server</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/init.ts">dist/commands/init.ts</a></em></p>
 				<a href="#codeclisc-invoke-contractcode" id="codeclisc-invoke-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc invoke CONTRACT</code></h2>
 				</a>
@@ -174,7 +176,7 @@ ARGUMENTS
 
 EXAMPLES
   # Invoke a <span class="hljs-keyword">method</span> named <span class="hljs-string">'balanceOf'</span> <span class="hljs-keyword">of</span> a contract named <span class="hljs-string">'Token'</span>
-  $ clisc invoke Token -I abcdef <span class="hljs-comment">--method=balanceOf --value=0x23ab34bd..</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/invoke.ts">dist/commands/invoke.ts</a></em></p>
+  $ clisc invoke Token -I abcdef <span class="hljs-comment">--method=balanceOf --value=0x23ab34bd..</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/invoke.ts">dist/commands/invoke.ts</a></em></p>
 				<a href="#codeclisc-query-contractcode" id="codeclisc-query-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc query CONTRACT</code></h2>
 				</a>
@@ -208,7 +210,7 @@ EXAMPLES
   # Query past invocations of '</span>Token<span class="hljs-string">' contract'</span>s <span class="hljs-string">'balanceOf'</span> method
   $ clisc query Token -I abcdefg <span class="hljs-attribute">--method</span>=balanceOf <span class="hljs-attribute">--value</span>=0x23f3ab3
   # Query past occurrences of <span class="hljs-string">'Token'</span> contract<span class="hljs-string">'s '</span>Approval<span class="hljs-string">' event
-  $ clisc query Token -I abcdefg --event=Approval</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/query.ts">dist/commands/query.ts</a></em></p>
+  $ clisc query Token -I abcdefg --event=Approval</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/query.ts">dist/commands/query.ts</a></em></p>
 				<a href="#codeclisc-scdladd-contractcode" id="codeclisc-scdladd-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc scdl:add CONTRACT</code></h2>
 				</a>
@@ -233,7 +235,7 @@ EXAMPLES
   # <span class="hljs-builtin-name">add</span> a new descriptor <span class="hljs-keyword">from</span> a local file
   $ clisc scdl:<span class="hljs-builtin-name">add</span> MyToken.json --local
   # download a descriptor <span class="hljs-keyword">from</span> an online registry
-  $ clisc scdl:<span class="hljs-builtin-name">add</span> 5dfcdad2fd321d00179ede01 --remote</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/scdl/add.ts">dist/commands/scdl/add.ts</a></em></p>
+  $ clisc scdl:<span class="hljs-builtin-name">add</span> 5dfcdad2fd321d00179ede01 --remote</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/scdl/add.ts">dist/commands/scdl/add.ts</a></em></p>
 				<a href="#codeclisc-scdldelete-contractcode" id="codeclisc-scdldelete-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc scdl:delete CONTRACT</code></h2>
 				</a>
@@ -256,7 +258,7 @@ ALIASES
 
 EXAMPLES
   # <span class="hljs-built_in">delete</span> a descriptor file named 'ZilliqaToken.json'
-  $ clisc scdl:<span class="hljs-built_in">delete</span> ZilliqaToken.json</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/scdl/delete.ts">dist/commands/scdl/delete.ts</a></em></p>
+  $ clisc scdl:<span class="hljs-built_in">delete</span> ZilliqaToken.json</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/scdl/delete.ts">dist/commands/scdl/delete.ts</a></em></p>
 				<a href="#codeclisc-scdllist-keywordcode" id="codeclisc-scdllist-keywordcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc scdl:list [KEYWORD]</code></h2>
 				</a>
@@ -287,7 +289,7 @@ EXAMPLES
   # <span class="hljs-keyword">list</span> <span class="hljs-keyword">a</span> maximum of <span class="hljs-number">5</span> descriptors
   $ clisc scd<span class="hljs-variable">l:list</span> --<span class="hljs-built_in">max</span> <span class="hljs-number">5</span>
   # <span class="hljs-keyword">list</span> <span class="hljs-keyword">all</span> descriptors that <span class="hljs-keyword">match</span> the provided keyword
-  $ clisc scd<span class="hljs-variable">l:list</span> Token</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/scdl/list.ts">dist/commands/scdl/list.ts</a></em></p>
+  $ clisc scd<span class="hljs-variable">l:list</span> Token</code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/scdl/list.ts">dist/commands/scdl/list.ts</a></em></p>
 				<a href="#codeclisc-subscribe-contractcode" id="codeclisc-subscribe-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc subscribe CONTRACT</code></h2>
 				</a>
@@ -318,7 +320,7 @@ EXAMPLES
   # Subscribe <span class="hljs-keyword">to</span> <span class="hljs-string">'Token'</span> contract<span class="hljs-string">'s '</span>balanceOf<span class="hljs-string">' method
   $ clisc subscribe Token -I abcdefg --method=balanceOf --value=0x23f3ab3 --callback=http://mydomain.org
   # Subscribe to '</span>Token<span class="hljs-string">' contract'</span>s <span class="hljs-string">'Approval'</span> event
-  $ clisc subscribe Token -I abcdefg <span class="hljs-comment">--event=Approval --callback=http://mydomain.org</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/subscribe.ts">dist/commands/subscribe.ts</a></em></p>
+  $ clisc subscribe Token -I abcdefg <span class="hljs-comment">--event=Approval --callback=http://mydomain.org</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/subscribe.ts">dist/commands/subscribe.ts</a></em></p>
 				<a href="#codeclisc-unsubscribe-contractcode" id="codeclisc-unsubscribe-contractcode" style="color: inherit; text-decoration: none;">
 					<h2><code>clisc unsubscribe CONTRACT</code></h2>
 				</a>
@@ -346,7 +348,7 @@ EXAMPLES
   # Unsubscribe a previous <span class="hljs-keyword">subscription</span> <span class="hljs-keyword">to</span> a <span class="hljs-string">'Token'</span> contract<span class="hljs-string">'s '</span>balanceOf<span class="hljs-string">' method
   $ clisc unsubscribe Token -I abcdefg --method=balanceOf
   # Unsubscribe a previous subscription to a '</span>Token<span class="hljs-string">' contract'</span>s <span class="hljs-string">'Approval'</span> event
-  $ clisc unsubscribe Token -I abcdefg <span class="hljs-comment">--event=Approval</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/unsubscribe.ts">dist/commands/unsubscribe.ts</a></em></p>
+  $ clisc unsubscribe Token -I abcdefg <span class="hljs-comment">--event=Approval</span></code></pre><p><em>See code: <a href="https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/unsubscribe.ts">dist/commands/unsubscribe.ts</a></em></p>
 				<!-- commandsstop -->
 			</div>
 		</div>
