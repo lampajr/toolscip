@@ -21,7 +21,7 @@ $ npm install -g @toolscip/clisc
 $ clisc COMMAND
 running command...
 $ clisc (-v|--version|version)
-@toolscip/clisc/1.0.3 linux-x64 node-v10.19.0
+@toolscip/clisc/1.3.0 linux-x64 node-v10.19.0
 $ clisc --help [COMMAND]
 USAGE
   $ clisc COMMAND
@@ -76,12 +76,14 @@ OPTIONS
 EXAMPLES
   # Initialize the 'clisc' configuration files for the current project
   $ clisc init
+  # Initialize the 'clisc' configuration files for the current project skipping all questions
+  $ clisc init --yes
   # Initialize the 'clisc' configuration files for the current project with a simple express.js server for the 
   asynchronous responses
   $ clisc init --server
 ```
 
-_See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/init.ts)_
+_See code: [dist/commands/init.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/init.ts)_
 
 ## `clisc invoke CONTRACT`
 
@@ -122,7 +124,7 @@ EXAMPLES
   $ clisc invoke Token -I abcdef --method=balanceOf --value=0x23ab34bd..
 ```
 
-_See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/invoke.ts)_
+_See code: [dist/commands/invoke.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/invoke.ts)_
 
 ## `clisc query CONTRACT`
 
@@ -161,7 +163,7 @@ EXAMPLES
   $ clisc query Token -I abcdefg --event=Approval
 ```
 
-_See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/query.ts)_
+_See code: [dist/commands/query.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/query.ts)_
 
 ## `clisc scdl:add CONTRACT`
 
@@ -191,7 +193,7 @@ EXAMPLES
   $ clisc scdl:add 5dfcdad2fd321d00179ede01 --remote
 ```
 
-_See code: [dist/commands/scdl/add.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/scdl/add.ts)_
+_See code: [dist/commands/scdl/add.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/scdl/add.ts)_
 
 ## `clisc scdl:delete CONTRACT`
 
@@ -219,7 +221,7 @@ EXAMPLES
   $ clisc scdl:delete ZilliqaToken.json
 ```
 
-_See code: [dist/commands/scdl/delete.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/scdl/delete.ts)_
+_See code: [dist/commands/scdl/delete.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/scdl/delete.ts)_
 
 ## `clisc scdl:list [KEYWORD]`
 
@@ -255,7 +257,7 @@ EXAMPLES
   $ clisc scdl:list Token
 ```
 
-_See code: [dist/commands/scdl/list.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/scdl/list.ts)_
+_See code: [dist/commands/scdl/list.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/scdl/list.ts)_
 
 ## `clisc subscribe CONTRACT`
 
@@ -291,7 +293,7 @@ EXAMPLES
   $ clisc subscribe Token -I abcdefg --event=Approval --callback=http://mydomain.org
 ```
 
-_See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/subscribe.ts)_
+_See code: [dist/commands/subscribe.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/subscribe.ts)_
 
 ## `clisc unsubscribe CONTRACT`
 
@@ -324,5 +326,5 @@ EXAMPLES
   $ clisc unsubscribe Token -I abcdefg --event=Approval
 ```
 
-_See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.0.3/dist/commands/unsubscribe.ts)_
+_See code: [dist/commands/unsubscribe.ts](https://github.com/lampajr/toolscip/blob/v1.3.0/dist/commands/unsubscribe.ts)_
 <!-- commandsstop -->

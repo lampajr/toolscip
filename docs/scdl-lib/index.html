@@ -98,7 +98,7 @@
 <span class="hljs-keyword">import</span> { scdl } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span>;</code></pre>
 				<p>This package was mainly written to provide an automatic way to interact with smart contracts simply using their <em>SCDL-based</em> descriptors. In order to do so the package simply provide a single class object <code>Contract</code> that must be instantiated providing a descriptor as parameter and then once instantiated the resulting object is a new one that exposes new properties, which are exactly named as its functions and events. These properties are instances of specific classes (i.e. <code>Method</code> and <code>Event</code> respectively) which allow a client to perform all allowed <em>SCIP</em> requests (i.e. <em>invocation, subscription, unsubscription</em> and <em>query</em>) by simply invoking the corresponding function on the property object (i.e. <code>invoke</code>, <code>subscribe</code>, <code>unsubscribe</code>, and <code>query</code>). All these function, since perform http requests, returns <code>AxiosResponse</code> promises.</p>
 				<pre><code class="language-typescript"><span class="hljs-comment">// import the 'Contract' class</span>
-<span class="hljs-keyword">import</span> { Contract } <span class="hljs-keyword">from</span> <span class="hljs-string">'@lampajr/scdl-lib'</span>;
+<span class="hljs-keyword">import</span> { Contract } <span class="hljs-keyword">from</span> <span class="hljs-string">'@toolscip/scdl-lib'</span>;
 <span class="hljs-comment">// or using the package 'scdl.Contract'</span>
 
 <span class="hljs-keyword">const</span> descriptor = {

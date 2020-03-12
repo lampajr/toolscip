@@ -94,17 +94,17 @@
 					<div class="tsd-signature tsd-kind-icon">express<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"const express &#x3D; require(&quot;express&quot;);const bodyParser &#x3D; require(&quot;body-parser&quot;);const scip &#x3D; require(&quot;@toolscip/scip-lib&quot;);const PORT &#x3D; 8080;const   app &#x3D; express();app.use(bodyParser.urlencoded({ extended: true }));app.use(bodyParser.json());app.post(&quot;/&quot;, (req, res) &#x3D;&gt; {try {const   response &#x3D; scip.parseResponse(req.body);if (response.method &#x3D;&#x3D;&#x3D; &quot;ReceiveCallback&quot;) {// TODO: implement your logic here}} catch (err)   {res.json(scip.error(req.body.id, err));}});// make the server listen to requestsapp.listen(PORT, () &#x3D;&gt; {console.log(&#x60;Server running at   port ${PORT}&#x60;);});"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;const express &#x3D; require(&quot;express&quot;);const bodyParser &#x3D; require(&quot;body-parser&quot;);const scip &#x3D; require(&quot;@toolscip/scip-lib&quot;);const PORT &#x3D; 8080;const   app &#x3D; express();app.use(bodyParser.urlencoded({ extended: true }));app.use(bodyParser.json());app.post(&quot;/&quot;, (req, res) &#x3D;&gt; {try {const   response &#x3D; scip.parseResponse(req.body);if (response.method &#x3D;&#x3D;&#x3D; &quot;ReceiveCallback&quot;) {// TODO: implement your logic here}} catch (err)   {res.json(scip.error(req.body.id, err));}});// make the server listen to requestsapp.listen(PORT, () &#x3D;&gt; {console.log(&#x60;Server running at   port ${PORT}&#x60;);});&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/commands/init.ts#L298">src/commands/init.ts:298</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/87a6d6c/packages/clisc/src/commands/init.ts#L303">src/commands/init.ts:303</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="jaysonfile" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> jayson<wbr>File</h3>
-					<div class="tsd-signature tsd-kind-icon">jayson<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;&quot;</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;</span></div>
+					<div class="tsd-signature tsd-kind-icon">jayson<wbr>File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"&quot;use strict&quot;;const jayson &#x3D; require(&quot;jayson&quot;);const port &#x3D; process.env.PORT || 3001;// create a serverconst server &#x3D; jayson.server({ReceiveResponse: function(args, callback) {console.log(JSON.stringify(args, null, 2));callback(null, &quot;Response received&quot;);}});console.log(&#x60;Client server listening on port: ${port}&#x60;);server.http().listen(port);"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;&quot;use strict&quot;;const jayson &#x3D; require(&quot;jayson&quot;);const port &#x3D; process.env.PORT || 3001;// create a serverconst server &#x3D; jayson.server({ReceiveResponse: function(args, callback) {console.log(JSON.stringify(args, null, 2));callback(null, &quot;Response received&quot;);}});console.log(&#x60;Client server listening on port: ${port}&#x60;);server.http().listen(port);&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/2a461b2/packages/clisc/src/commands/init.ts#L306">src/commands/init.ts:306</a></li>
+							<li>Defined in <a href="https://github.com/lampajr/toolscip/blob/87a6d6c/packages/clisc/src/commands/init.ts#L310">src/commands/init.ts:310</a></li>
 						</ul>
 					</aside>
 				</section>
