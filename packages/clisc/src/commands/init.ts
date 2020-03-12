@@ -24,7 +24,7 @@ import ora = require('ora');
 import BaseCommand from '../base';
 import Config from '../config';
 import ScdlList from './scdl/list';
-import { spawn } from 'child_process';
+// import { spawn } from 'child_process';
 
 export default class Init extends BaseCommand {
   static description = `initialize the 'clisc' configuration files, this command MUST be executed in the directory where the user wants to store the project.`;
@@ -180,10 +180,10 @@ export default class Init extends BaseCommand {
                   fs.writeFile(answers.entry, jaysonFile)
                     .then(_ => {
                       spinner.succeed(`${answers.entry} successfully generated`);
-                      spawn('node', [answers.entry], {
-                        stdio: 'ignore',
-                        detached: true,
-                      }).unref();
+                      // spawn('node', [answers.entry], {
+                      //   stdio: 'ignore',
+                      //   detached: true,
+                      // }).unref();
                     })
                     .catch(err => {
                       spinner.fail(`${answers.entry} initialization failed - ${err.message}`);
