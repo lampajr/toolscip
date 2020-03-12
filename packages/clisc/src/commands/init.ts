@@ -42,6 +42,11 @@ export default class Init extends BaseCommand {
       description: 'initialize a simple server for receiving asynchronous responses',
       default: false,
     }),
+    yes: flags.boolean({
+      char: 'y',
+      description: 'skip questions, set all values with default ones.',
+      default: false,
+    }),
   };
 
   async run() {
@@ -52,7 +57,22 @@ export default class Init extends BaseCommand {
 
     // ask questions
     try {
-      const answers = await this.ask(this.flags.server);
+      let answers: any;
+      if (this.flags.yes) {
+        answers = {
+          owner: '',
+          limit: ScdlList.limit,
+          logger: 'logger.json',
+          useRegistry: true,
+          registry: 'https://scdlregistry.herokuapp.com/api/descriptors/content',
+          setGlobalCallback: true,
+          callbackUrl: 'http://172.16.238.19:3001',
+          serverTechnology: 'express',
+          entry: 'index.js',
+        };
+      } else {
+        answers = await this.ask(this.flags.server);
+      }
 
       const cliscConfig = new Config(
         answers.owner,
