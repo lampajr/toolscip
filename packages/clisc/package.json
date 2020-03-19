@@ -1,7 +1,7 @@
 {
   "name": "@toolscip/clisc",
   "description": "Command Line Interface for Smart Contracts interaction",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "author": "lampajr <lampa9559@gmail.com>",
   "bin": {
     "clisc": "./bin/run"
@@ -13,8 +13,8 @@
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.14.0",
     "@oclif/plugin-help": "^2.2.3",
-    "@toolscip/scdl-lib": "^1.3.1",
-    "@toolscip/scip-lib": "^1.3.1",
+    "@toolscip/scdl-lib": "^1.4.0",
+    "@toolscip/scip-lib": "^1.4.0",
     "axios": "^0.19.2",
     "chalk": "^3.0.0",
     "clear": "^0.1.0",
