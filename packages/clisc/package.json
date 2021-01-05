@@ -15,7 +15,7 @@
     "@oclif/plugin-help": "^2.2.3",
     "@toolscip/scdl-lib": "^1.4.0",
     "@toolscip/scip-lib": "^1.4.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chalk": "^3.0.0",
     "clear": "^0.1.0",
     "figlet": "^1.3.0",
