@@ -53,7 +53,7 @@
   "dependencies": {
     "@lampajr/jsonrpc-lib": "^1.0.0",
     "@toolscip/scip-lib": "^1.4.0",
-    "axios": "^0.19.2"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "prettier": "^1.19.1",
